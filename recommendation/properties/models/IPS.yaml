@@ -1,0 +1,5 @@
+{
+    update_epoch: 1,
+    sample_k: 10,
+    M: 0.1, ##avoid variance
+}

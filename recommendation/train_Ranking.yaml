@@ -1,0 +1,22 @@
+{
+   model: gru4rec,
+   data_type: 'sequential',
+
+   ####fair-rank model settings
+   fair-rank: True, ##if you want to run a fair-rank module on the base models, you should set the value as True
+   rank_model: 'IPS',
+
+   log_name: "gru4rec-IPS",
+
+   device: cpu,
+   epoch: 20,
+   batch_size: 32,
+   learning_rate: 0.001,
+
+   eval_step: 5,
+   eval_type: 'ranking',
+   watch_metric: 'mmf@20',
+
+   topk: [ 5,10,20 ], # if you choose the ranking settings, you can choose your top-k list
+   store_scores: True,
+}

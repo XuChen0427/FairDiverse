@@ -1,0 +1,6 @@
+{
+   model: "ConcaveRank",
+   log_name: "ConcaveRank-mf-top5",
+   topk: [5, 10],
+   ranking_store_path: "2024-11-8_base_mf", ##the ranking score stored path for the re-ranking, only re-ranking should change the value
+}

@@ -1,0 +1,5 @@
+{
+   learning_rate: 0.01,
+   lambda: 0.5,
+   gamma: 0.2
+}
