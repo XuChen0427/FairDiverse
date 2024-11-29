@@ -36,25 +36,20 @@ class GRU4Rec(AbstractBaseModel):
         self.apply(self._init_weights)
 
 
-    # def forward(self, user_ids, item_ids):
-    #     user_embeds = self.user_embedding(user_ids)
-    #     item_embeds = self.item_embedding(item_ids)
-    #     dot_product = (user_embeds * item_embeds).sum(1)
-    #     return self.sigmoid(dot_product)
-
 
     def compute_loss(self, interaction):
 
         #user = interaction['user_ids']
-        history_ids = interaction['history_ids']
+        #history_ids = interaction['history_ids']
         pos_items = interaction['item_ids']
-        user_emb = self.get_user_embedding(history_ids)
+        user_emb = self.get_user_embedding(interaction)
         test_item_emb = self.item_embedding.weight
         logits = torch.matmul(user_emb, test_item_emb.transpose(0, 1))
         loss = self.loss(logits, pos_items)
         return loss
 
-    def get_user_embedding(self, users):
+    def get_user_embedding(self, user_dict):
+        users = user_dict['history_ids']
         item_seq_emb = self.item_embedding(users)
         item_seq_emb_dropout = self.emb_dropout(item_seq_emb)
         gru_output, _ = self.gru_layers(item_seq_emb_dropout)
@@ -65,22 +60,11 @@ class GRU4Rec(AbstractBaseModel):
 
 
 
-    def forward(self, user_id, item_id):
+    def forward(self, user_dict, item_id):
         ###here user_id denotes the historical ids
-        user_embeds = self.get_user_embedding(user_id)
+        user_embeds = self.get_user_embedding(user_dict)
         item_embeds = self.item_embedding(item_id)
         dot_product = (user_embeds * item_embeds).sum(1)
         return self.sigmoid(dot_product)
 
 
-    def full_predict(self, user, items):
-        # here we assume only one user arrives
-
-        user = torch.unsqueeze(user, 0)
-        items = torch.unsqueeze(items, 0)
-
-        user_embeds = self.get_user_embedding(user)
-        user_embeds = torch.unsqueeze(user_embeds, 1)
-        item_embeds = self.item_embedding(items)  # [B, H, D]
-        scores = (user_embeds * item_embeds).sum(-1)
-        return self.sigmoid(scores.squeeze(0))

@@ -1,0 +1,8 @@
+ {
+     s_k: 10,
+     update_epoch: 1,
+     alpha: 0.2,
+     eta: 0.01,
+     lambd: 2,
+     exposure_sample_num: 700,
+ }

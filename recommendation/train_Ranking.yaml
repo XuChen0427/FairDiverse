@@ -1,19 +1,23 @@
 {
-   model: gru4rec,
-   data_type: 'sequential',
+   model: SASRec,
+   data_type: 'sequential', #[point, pair, sequential]
+
+#   model: gru4rec,
+#   data_type: 'sequential', #[point, pair, sequential]
 
    ####fair-rank model settings
    fair-rank: True, ##if you want to run a fair-rank module on the base models, you should set the value as True
-   rank_model: 'IPS',
-
-   log_name: "gru4rec-IPS",
+   rank_model: 'FairDual',
+   log_name: "mind-SASRec-FairDual",
+   mmf_eval_ratio: 0.5,
+   decimals: 4,
 
    device: cpu,
-   epoch: 20,
+   epoch: 50,
    batch_size: 32,
-   learning_rate: 0.001,
+   learning_rate: 0.01,
 
-   eval_step: 5,
+   eval_step: 1,
    eval_type: 'ranking',
    watch_metric: 'mmf@20',
 

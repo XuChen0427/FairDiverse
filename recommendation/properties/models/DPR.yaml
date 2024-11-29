@@ -1,0 +1,6 @@
+{
+   embedding_size: 32,
+   hidden_size: 64,
+   alpha: 0.02,
+   beta: 0.1,
+}

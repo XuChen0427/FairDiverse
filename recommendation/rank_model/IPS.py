@@ -13,8 +13,6 @@ Item-side fairness of large language model-based recommendation system, WWW Web4
 class IPS(Abstract_Reweigher):
     def __init__(self, config, group_weight):
         super().__init__(config)
-        self.fair_type = 're-weight'
-        self.IR_type = ["ranking"]
         self.variance_control = config['M']
         self.group_weight = group_weight
 

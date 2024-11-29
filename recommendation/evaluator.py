@@ -87,33 +87,36 @@ class Ranking_Evaluator(Abstract_Evaluator):
             for eval_data in tqdm(dataloader):
                 user_ids, history_behavior, items, pos_length = eval_data
                 batch_size, sample_size = items.shape #item
+                #print(items.shape)
+                #exit(0)
                 pos_length = pos_length.cpu().numpy()
 
                 for b in range(batch_size):
                     row.extend([index]*sample_size)
                     index = index + 1
-
-
-
                     real_item_ids = items[b].numpy().tolist()
                     col.extend(real_item_ids)
-
+                    #print(model.IR_type)
                     if 'retrieval' not in model.IR_type:
-                        if self.config['data_type'] == 'point' or self.config['data_type'] == 'pair':
-                            repeat_tensor = user_ids[b].repeat(sample_size)
-                        else:
-                            repeat_tensor = history_behavior[b].repeat(sample_size, 1)
+                        #if self.config['data_type'] == 'point' or self.config['data_type'] == 'pair':
+                        repeat_user_tensor = user_ids[b].repeat(sample_size).unsqueeze(0).to(self.config['device'])
+                        #else:
+                        repeat_history_tensor = history_behavior[b].repeat(sample_size, 1).unsqueeze(0).to(self.config['device'])
 
-                        user_ids, item_ids = repeat_tensor.to(self.config['device']), items[b].to(self.config['device'])
-                        score = model(user_ids, item_ids).cpu().numpy()
+                        user_dict = {"user_ids": repeat_user_tensor,
+                                     "history_ids": repeat_history_tensor}
+                        i = items[b].to(self.config['device'])
+                        score = model(user_dict, i.unsqueeze(0)).cpu().numpy()[0]
 
                     else:
-                        if self.config['data_type'] == 'point' or self.config['data_type'] == 'pair':
-                            user = user_ids[b]
-                        else:
-                            user = history_behavior[b]
-                        user_ids, item_ids = user.to(self.config['device']), items[b].to(self.config['device'])
-                        score = model.full_predict(user_ids, item_ids).cpu().numpy()
+                        # if self.config['data_type'] == 'point' or self.config['data_type'] == 'pair':
+                        #     user = user_ids[b]
+                        # else:
+                        #     user = history_behavior[b]
+                        user_dict = {"user_ids":user_ids[b].unsqueeze(0).to(self.config['device']),
+                                     "history_ids":history_behavior[b].unsqueeze(0).to(self.config['device'])}
+                        i = items[b].to(self.config['device'])
+                        score = model.full_predict(user_dict, i.unsqueeze(0)).cpu().numpy()[0]
 
                     data.extend(score.tolist())
                     #ranked_score = np.sort(score)[::-1]
@@ -140,7 +143,8 @@ class Ranking_Evaluator(Abstract_Evaluator):
 
 
         for k in self.config['topk']:
-            result_dict[f"mmf@{k}"] = MMF(exposure_dict[f"top@{k}"]) * index
+            #print(exposure_dict[f"top@{k}"])
+            result_dict[f"mmf@{k}"] = MMF(exposure_dict[f"top@{k}"], ratio=self.config['mmf_eval_ratio']) * index
             result_dict[f"gini@{k}"] = Gini(exposure_dict[f"top@{k}"]) * index
 
 

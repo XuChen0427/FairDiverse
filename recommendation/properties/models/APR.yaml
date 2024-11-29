@@ -1,0 +1,6 @@
+{
+    update_epoch: 1,
+    beta: 0.5,
+    eta: 0.1,
+    alpha: 0.1,
+}
