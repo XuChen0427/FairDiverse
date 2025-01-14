@@ -16,9 +16,9 @@ import xml.dom.minidom
 from xml.dom.minidom import parse
 from transformers import BertTokenizer
 from tqdm import tqdm
-from sklearn.preprocessing import StandardScaler
 from div_type import *
 from sklearn.model_selection import KFold
+from .utils.utils import load_embedding, read_rel_feat
 
 
 class DESADataset(Dataset):
@@ -127,21 +127,21 @@ def gen_data_file_test(test_qids, qd, test_data, doc_emb, query_emb, rel_feat, s
     torch.save(data_list, save_path)
 
 
-def divide_five_fold_train_test():
-    all_qids = np.load('./data/attn_data/all_qids.npy')
-    qd = pickle.load(open('./data/attn_data/div_query.data', 'rb'))
-    train_data = pickle.load(open('./data/attn_data/listpair_train.data', 'rb'))
-    doc_emb = load_embedding('./data/baseline_data/doc.emb')  # doc_emb[docid] = doc2vec
-    query_emb = load_embedding('./data/baseline_data/query.emb')
-    rel_feat = read_rel_feat('data/baseline_data/rel_feat.csv')
+def divide_five_fold_train_test(config):
+    all_qids = np.load(os.path.join(config['data_dir'], 'all_qids.npy'))
+    qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
+    train_data = pickle.load(open(os.path.join(config['data_dir'], config['model']+'listpair_train.data'), 'rb'))
+    doc_emb = load_embedding(os.path.join(config['data_dir'], config['embedding_dir'], config['embedding_type']+'_doc.emb'))
+    query_emb = load_embedding(os.path.join(config['data_dir'], config['embedding_dir'], config['embedding_type']+'_query.emb'))
+    rel_feat = read_rel_feat(os.path.join(config['data_dir'], 'rel_feat.csv'))
 
-    data_dir = './data/attn_data/fold/'
+    data_dir = os.path.join(config['data_dir'], config['model']+'fold/')
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
     fold = 0
     for train_ids, test_ids in KFold(5).split(all_qids):
         fold += 1
-        res_dir = data_dir + 'fold' + str(fold) + '/'
+        res_dir = os.path.join(data_dir, 'fold', str(fold))
         if not os.path.exists(res_dir):
             os.makedirs(res_dir)
         train_ids.sort()
@@ -149,14 +149,8 @@ def divide_five_fold_train_test():
         train_qids = [str(all_qids[i]) for i in train_ids]
         test_qids = [str(all_qids[i]) for i in test_ids]
         '''{qid:, query:, doc2vec:, sub2vec:, rel_feat:, sub_rel_feat:, list_pair:} '''
-        gen_data_file_train(train_qids, qd, train_data, doc_emb, query_emb, rel_feat, res_dir+'train_data.pkl')
-        gen_data_file_test(test_qids, qd, train_data, doc_emb, query_emb, rel_feat, res_dir+'test_data.pkl')
-        '''
-        with open(res_dir+'max_len_tr.tsv', 'w') as max_f:
-            max_f.write(str(max_tr[0])+'\t'+str(max_tr[1])+'\t'+str(max_tr[2])+'\t'+str(max_tr[3])+'\n')
-        with open(res_dir+'max_len_ts.tsv', 'w') as max_f:
-            max_f.write(str(max_ts[0])+'\t'+str(max_ts[1])+'\t'+str(max_ts[2])+'\t'+str(max_ts[3])+'\n')
-        '''
+        gen_data_file_train(train_qids, qd, train_data, doc_emb, query_emb, rel_feat, os.path.join(res_dir, 'train_data.pkl'))
+        gen_data_file_test(test_qids, qd, train_data, doc_emb, query_emb, rel_feat, os.path.join(res_dir, 'test_data.pkl'))
 
 
 def get_fold_loader(fold, train_data, BATCH_SIZE, EMB_TYPE):

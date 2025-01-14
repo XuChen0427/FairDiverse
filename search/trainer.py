@@ -89,7 +89,7 @@ class SRDTrainer(object):
         dir = os.path.join(self.train_config['task'], "processed_dataset", self.dataset)
         config = self.load_configs(dir)
 
-        if os.path.exists(os.path.join(self.train_config['task'], "processed_dataset", self.train_config['dataset'])) and config['reprocess'] == False:
+        if os.path.exists(os.path.join(self.train_config['task'], "processed_dataset", self.train_config['dataset'], self.train_config['model'])) and config['reprocess'] == False:
             print("Data has been processed, start to load the dataset...")
         else:
             print("start to process data...")
