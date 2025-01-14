@@ -12,6 +12,7 @@
    loss: "list_pairwise",
 
    embedding_type: "doc2vec",
+   embedding_length: 100,
 
    topk: [ 5,10,20 ],
    store_scores: True,

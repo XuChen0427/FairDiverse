@@ -89,49 +89,42 @@ class SRDTrainer(object):
         dir = os.path.join(self.train_config['task'], "processed_dataset", self.dataset)
         config = self.load_configs(dir)
 
-        if os.path.exists(os.path.join(self.train_config['task'], "processed_dataset", self.train_config['dataset'], self.train_config['model'])) and config['reprocess'] == False:
+        if os.path.exists(os.path.join(config['task'], "processed_dataset", config['dataset'], config['model'])) and config['reprocess'] == False:
             print("Data has been processed, start to load the dataset...")
         else:
             print("start to process data...")
-            if self.train_config['model'].lower() == 'desa':
+            if config['model'].lower() == 'desa':
                 from .utils.process_dataset import data_process
                 from .utils.div_type import div_dataset
                 from .datasets.desa import divide_five_fold_train_test
                 data_process(config)
                 D = div_dataset(config)
                 D.get_listpair_train_data()
-                divide_five_fold_train_test()
-
-        state = Process(config)
-        print(state)
-        #exit(0)
+                divide_five_fold_train_test(config)
+            elif config['model'].lower() == 'daletor':
+                pass
+            elif config['model'].lower() == 'graph4div':
+                pass
+            elif config['model'].lower() == 'llm':
+                pass
+            else:
+                raise NotImplementedError(f"Not supported model type: {config['model']}")
 
         print("start to load dataset......")
 
         self.device = config['device']
-
-        if config['model'] == 'mf':
-            self.Model = MF(config).to(self.device)
-        elif config['model'] == 'BPR':
-            self.Model = BPR(config).to(self.device)
-        elif config['model'] == 'BPR_Seq':
-            self.Model = BPR_Seq(config).to(self.device)
-        elif config['model'] == 'gru4rec':
-            self.Model = GRU4Rec(config).to(self.device)
-        elif config['model'] == 'SASRec':
-            self.Model = SASRec(config).to(self.device)
-
+        if config['model'].lower() == 'desa':
+            self.Model = desa.DESA(config).to(self.device)
+        elif config['model'].lower() == 'daletor':
+            self.Model = daletor.DALETOR(config).to(self.device)
+        elif config['model'].lower() == 'graph4div':
+            self.Model = graph4div.Graph4Div(config).to(self.device)
+        elif config['model'].lower() == 'llm':
+            pass
         else:
             raise NotImplementedError(f"Not supported model type: {config['model']}")
 
-        self.check_model_stage(config, self.Model)
-
-        self.group_weight = np.ones(config['group_num'])
-
-
-
-
-
+    
         train_data_df = pd.read_csv(os.path.join(dir, self.dataset + ".train"), sep='\t')
         val_data_df = pd.read_csv(os.path.join(dir, self.dataset + ".valid." + config['eval_type']), sep='\t')
         test_data_df = pd.read_csv(os.path.join(dir, self.dataset + ".test." + config['eval_type']), sep='\t')
