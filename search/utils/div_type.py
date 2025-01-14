@@ -1,18 +1,10 @@
 import os
-import math
-import copy
 import pickle
 import gzip
-import random
 import torch
-import torch as th
 import pandas as pd
 import numpy as np
-import multiprocessing
-import xml.dom.minidom
-from xml.dom.minidom import parse
 from tqdm import tqdm
-from sklearn.preprocessing import StandardScaler
 
 pd.set_option('display.max_rows', 2000)
 
@@ -193,9 +185,10 @@ class div_query:
 
 
 class div_dataset:
-    def __init__(self):
-        self.Best_File = './data/attn_data/div_query.data'
-        self.Train_File = './data/attn_data/listpair_train.data'
+    def __init__(self, config):
+        self.Best_File = os.path.join(config['data_dir'], 'div_query.data')
+        self.Train_File = os.path.join(config['data_dir'], config['model']+'listpair_train.data')
+        self.config = config
 
     ''' generate list-pair training samples '''
 

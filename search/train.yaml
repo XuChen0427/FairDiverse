@@ -1,0 +1,16 @@
+{
+   ####search result diversification model settings
+   model: "DESA",
+
+   log_name: "ClueWeb09-DESA",
+
+   device: "cpu",
+   epoch: 3,
+   batch_size: 16,
+   learning_rate: 8e-4,
+   dropout: 0,
+   loss: "list_pairwise",
+
+   topk: [ 5,10,20 ],
+   store_scores: True,
+}
