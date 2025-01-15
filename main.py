@@ -2,7 +2,6 @@ import numpy as np
 import argparse
 import yaml
 #from
-from search.trainer import SRDTrainer
 import os
 
 
@@ -41,6 +40,7 @@ if __name__ == "__main__":
             raise NotImplementedError("we only support stage in [retrieval, ranking, re-ranking]")
     elif args.task == "search":
         if args.stage == "re-ranking" and args.dataset == "clueweb09":
+            from search.trainer import SRDTrainer
             trainer = SRDTrainer(train_config)
             trainer.train()
     else:
