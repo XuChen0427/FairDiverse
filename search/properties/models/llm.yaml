@@ -1,0 +1,10 @@
+{
+   model_name: "gpt-4o",
+   device: "cpu",
+   max_new_tokens: 1024,
+   temperature: 0.0,
+   top_p: 0.0,   
+   prompts_dir: "prompts/llm_rerank.txt",
+   api_url: "",
+   api_key: "",
+}

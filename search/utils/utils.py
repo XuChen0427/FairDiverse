@@ -81,3 +81,32 @@ def pkl_save(data_dict, filename):
     with gzip.open(filename, 'wb') as f:
         pickle.dump(data_dict, f)
 
+
+def remove_duplicate(input_path, output_path):
+    '''
+    remove duplicate documents in the final ranking list
+    '''
+    unique_records = set()
+    output_lines = []
+
+    with open(input_path, "r") as file:
+        for line in file:
+            parts = line.strip().split()
+            topic_id = parts[0]
+            document_name = parts[2]
+            
+            key = (topic_id, document_name)
+            
+            if key not in unique_records:
+                unique_records.add(key)
+                output_lines.append(line)
+
+    with open(output_path, "w") as file:
+        for line in output_lines:
+            file.write(line)
+
+
+def restore_doc_ids(order_str, id_dict):
+    order = [int(x) for x in order_str.replace(" ", "").replace("[", "").replace("]", "").split(">")]
+    reversed_dict = {v: k for k, v in id_dict.items()}
+    return [reversed_dict[num] for num in order if num in reversed_dict]

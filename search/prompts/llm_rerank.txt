@@ -1,0 +1,6 @@
+You will receive a query along with associated documents. Your task is to re-rank documents, ensuring that documents in the final document list is relevant to the query and also covering as much different topics as possible. All the documents should be included and listed using identifiers, in descending order balancing relevance and diversity. 
+Output the final reranked document list in JSON format after the <Output> tag, strictly as follows.
+```json
+{"rerank_list": "[3] > [1] > [2]"}
+```
+Only respond with the ranking results, do not say any word or explain.

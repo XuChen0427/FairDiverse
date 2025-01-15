@@ -131,7 +131,11 @@ def get_global_fullset_metric(test_qids_list, config):
             test_dataset_dict = get_test_dataset(i+1, test_qids)
             model = DALETOR(0.0)
             eval_func = evaluate_test_qids_DALETOR
-        elif config['model'] == 'Graph4DIV':
+        elif config['model'].lower() == 'xquad':
+            pass
+        elif config['model'].lower() == 'pm2':
+            pass
+        elif config['model'].lower() == 'llm':
             pass
         
         model.load_state_dict(th.load(model_file))
@@ -149,7 +153,7 @@ def get_global_fullset_metric(test_qids_list, config):
                     fout.write(content)
     fout.close()
     csv_path = os.path.join(config['tmp_dir'], config['model'], 'result.csv')
-    command = './clueweb_eval/ndeval ./clueweb_eval/2009-2012.diversity.ndeval.qrels ' + output_file + ' >' + str(csv_path)
+    command = './eval/clueweb09/ndeval ./eval/clueweb09/2009-2012.diversity.ndeval.qrels ' + output_file + ' >' + str(csv_path)
     os.system(command)
     
     alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)

@@ -21,4 +21,7 @@
 
    embedding_type: "doc2vec",
    embedding_length: 100,
+
+   api_url: "",
+   api_key: "",
 }

@@ -90,7 +90,8 @@ class SRDTrainer(object):
             elif config['model'].lower() == 'pm2':
                 pass
             elif config['model'].lower() == 'llm':
-                pass
+                from .llm_model.llm_run import llm_run
+                llm_run(config)
             else:
                 raise NotImplementedError(f"Not supported model type: {config['model']}")
 
