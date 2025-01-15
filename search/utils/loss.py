@@ -1,24 +1,6 @@
-# -*- coding:utf-8 -*-
-import os
-import time
 import torch
-from torch import nn
-from torch.nn.utils import clip_grad_norm_
-import pickle
-import argparse
-import numpy as np
-import random
-import pandas as pd
-import sys
-from tqdm import tqdm
-from sklearn.model_selection import KFold
-from model import *
-import data_process as DP
-import evaluate as EV
-from div_type import *
 
 MAXDOC = 50
-REL_LEN = 18
 
 
 def list_pairwise_loss(score_1, score_2, delta):

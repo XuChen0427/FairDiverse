@@ -7,10 +7,10 @@ from tqdm import tqdm
 from sklearn.model_selection import KFold
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils import clip_grad_norm_
-from .utils.utils import load_embedding, read_rel_feat
-from .rerank_model.desa import DESA
-from .utils.loss import list_pairwise_loss
-from .evaluate import evaluate_test_qids_DESA
+from ..utils.utils import load_embedding, read_rel_feat
+from ..rerank_model.DESA import DESA
+from ..utils.loss import list_pairwise_loss
+from ..evaluator import evaluate_test_qids_DESA
 
 
 class DESADataset(Dataset):
@@ -122,12 +122,12 @@ def gen_data_file_test(test_qids, qd, test_data, doc_emb, query_emb, rel_feat, s
 def divide_five_fold_train_test(config):
     all_qids = np.load(os.path.join(config['data_dir'], 'all_qids.npy'))
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
-    train_data = pickle.load(open(os.path.join(config['data_dir'], config['model']+'listpair_train.data'), 'rb'))
+    train_data = pickle.load(open(os.path.join(config['data_dir'], config['model'], 'listpair_train.data'), 'rb'))
     doc_emb = load_embedding(os.path.join(config['data_dir'], config['embedding_dir'], config['embedding_type']+'_doc.emb'))
     query_emb = load_embedding(os.path.join(config['data_dir'], config['embedding_dir'], config['embedding_type']+'_query.emb'))
     rel_feat = read_rel_feat(os.path.join(config['data_dir'], 'rel_feat.csv'))
 
-    data_dir = os.path.join(config['data_dir'], config['model']+'_fold/')
+    data_dir = os.path.join(config['data_dir'], config['model'], 'fold/')
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
     fold = 0
@@ -181,7 +181,7 @@ def DESA_run(config):
     if not os.path.exists(os.path.join(config['model_save_dir'], config['model'])):
         os.makedirs(os.path.join(config['model_save_dir'], config['model']))
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
-    fold_p = os.path.join(config['data_dir'], config['model']+'_fold/')
+    fold_p = os.path.join(config['data_dir'], config['model'], 'fold/')
     final_metrics = []
     best_model_list = []
     fold_time = 0
@@ -212,22 +212,22 @@ def DESA_run(config):
             print('Start Training...')
             model.train()
             for step, train_data in enumerate(tqdm(desa_data_loader, desc='BATCH', ncols=80)):
-                tr_doc_emb, tr_sub_emb, tr_doc_mask, tr_sub_mask, tr_weight, tr_index_i, tr_index_j, \
-                tr_pos_qrel_feat, tr_neg_qrel_feat, \
-                tr_pos_subrel_feat, tr_neg_subrel_feat, tr_subrel_mask = train_data
+                doc_emb, sub_emb, doc_mask, sub_mask, weight, index_i, index_j, \
+                pos_qrel_feat, neg_qrel_feat, \
+                pos_subrel_feat, neg_subrel_feat, subrel_mask = train_data
                 if torch.cuda.is_available():
-                    doc_emb = tr_doc_emb.cuda()
-                    sub_emb = tr_sub_emb.cuda()
-                    doc_mask = tr_doc_mask.cuda()
-                    sub_mask = tr_sub_mask.cuda()
-                    weight = tr_weight.cuda()
-                    index_i = tr_index_i.cuda()
-                    index_j = tr_index_j.cuda()
-                    pos_qrel_feat = tr_neg_qrel_feat.cuda()
-                    neg_qrel_feat = tr_neg_qrel_feat.cuda()
-                    pos_subrel_feat = tr_pos_subrel_feat.cuda()
-                    neg_subrel_feat = tr_neg_subrel_feat.cuda()
-                    subrel_mask = tr_subrel_mask.cuda()
+                    doc_emb = doc_emb.cuda()
+                    sub_emb = sub_emb.cuda()
+                    doc_mask = doc_mask.cuda()
+                    sub_mask = sub_mask.cuda()
+                    weight = weight.cuda()
+                    index_i = index_i.cuda()
+                    index_j = index_j.cuda()
+                    pos_qrel_feat = pos_qrel_feat.cuda()
+                    neg_qrel_feat = neg_qrel_feat.cuda()
+                    pos_subrel_feat = pos_subrel_feat.cuda()
+                    neg_subrel_feat = neg_subrel_feat.cuda()
+                    subrel_mask = subrel_mask.cuda()
                 score_1, score_2 = model(doc_emb, sub_emb, doc_mask, sub_mask, pos_qrel_feat, pos_subrel_feat,
                                          index_i, index_j, neg_qrel_feat, neg_subrel_feat, subrel_mask)
                 acc, loss = list_pairwise_loss(score_1, score_2, weight)
@@ -235,7 +235,7 @@ def DESA_run(config):
                 loss.backward()
                 clip_grad_norm_(model.parameters(), max_norm=1)
                 opt.step()
-                if step % config['eval_steps'] == 0:
+                if (step + 1) % config['eval_steps'] == 0:
                     model.eval()
                     metrics = []
                     for qid in test_data:

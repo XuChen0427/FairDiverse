@@ -89,19 +89,15 @@ class DALETOR(nn.Module):
         init.xavier_normal_(self.nfc1.weight)
         init.xavier_normal_(self.nfc2.weight)
         init.xavier_normal_(self.nfc3.weight)
-        #self.dropout = nn.Dropout(dropout)
 
 
     def forward(self, x, rel_feat, train_flag = False):
         bs = x.shape[0]
         seq_len = x.shape[1]
         df = x.shape[2]
-        # print('bs = {}, seq_len = {}, df = {}'.format(bs, seq_len, df))
         query_x = x[:,0,:].unsqueeze(1)
         doc_x = x[:,1:,:]
-        # print('eq = {}, ed = {}'.format(query_x.shape, doc_x.shape))
         C = query_x * doc_x
-        # print('C.shape=',C.shape)
         a = self.DIN1(C)
         a = self.DIN2(a)
 
@@ -113,9 +109,6 @@ class DALETOR(nn.Module):
         s = F.relu(self.batch_norm3(self.fc3(s)))
         s = self.fc4(s)
         s = s.squeeze()
-        # print('s.shape = ', s.shape)
-        
-        #print(rel_feat.shape)
 
         rel_feat = rel_feat.reshape(rel_feat.shape[0] * rel_feat.shape[1], 18)
         sr = F.relu(self.nfc1(rel_feat))
@@ -123,12 +116,8 @@ class DALETOR(nn.Module):
         sr = self.nfc3(sr)
         sr = sr.squeeze()
         sr = sr.reshape(bs, MAXDOC)
-        # print('sr.shape = ', sr.shape)
 
         score = s + sr
-
-        # print('s.shape=',s.shape)
-        # print('score.shape=',score.shape)
         
         if train_flag:
             return score

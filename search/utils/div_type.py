@@ -1,26 +1,11 @@
 import os
 import pickle
-import gzip
 import torch
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
 
 pd.set_option('display.max_rows', 2000)
-
-
-def pkl_load(filename):
-    if not os.path.exists(filename):
-        print('filename={} not exists!')
-        return
-    with gzip.open(filename, 'rb') as f:
-        data_dict = pickle.load(f)
-    return data_dict
-
-
-def pkl_save(data_dict, filename):
-    with gzip.open(filename, 'wb') as f:
-        pickle.dump(data_dict, f)
 
 
 class subtopic:
@@ -187,7 +172,9 @@ class div_query:
 class div_dataset:
     def __init__(self, config):
         self.Best_File = os.path.join(config['data_dir'], 'div_query.data')
-        self.Train_File = os.path.join(config['data_dir'], config['model']+'listpair_train.data')
+        self.Train_File = os.path.join(config['data_dir'], config['model'], 'listpair_train.data')
+        if not os.path.exists(os.path.join(config['data_dir'], config['model'])):
+            os.makedirs(os.path.join(config['data_dir'], config['model']))
         self.config = config
 
     ''' generate list-pair training samples '''

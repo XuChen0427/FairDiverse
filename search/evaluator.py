@@ -3,107 +3,13 @@ import re
 import numpy as np
 import pandas as pd
 import torch as th
-import torch.nn as nn
-import torch.nn.functional as F
 import pickle
-import Graph4DIV
 import torch
-from data_process import *
-from .rerank_model.graph4div import Graph4Div
 from .rerank_model.DESA import DESA
 from .rerank_model.DALETOR import DALETOR
 
 MAXDOC = 50
 REL_LEN = 18
-
-
-def adjust_graph(A, rel_score_list, degree_tensor, selected_doc_id):
-    '''
-    adjust adjancent matrix A during the testing process, set the selected doc degree = 0
-    :param rel_score_list: initial relevance of the document
-    :param degree_tensor: degree tensor of each document
-    :return: adjacent matrix A, degree tensor
-    '''
-    ''' connect selected document to the query node '''
-    A[0, selected_doc_id+1, 0] = rel_score_list[selected_doc_id]
-    A[0, 0, selected_doc_id+1] = rel_score_list[selected_doc_id]
-    ''' remove edges between selected document and candidates '''
-    A[0, selected_doc_id+1, 1:] = torch.tensor([0.0]*50).float()
-    A[0, 1:, selected_doc_id+1] = torch.tensor([0.0]*50).float()
-    ''' set the degree of selected document '''
-    degree_tensor[0, selected_doc_id] = torch.tensor(0.0)
-    return A, degree_tensor
-
-        
-def evaluate_accuracy(y_pred, y_label):
-    num = len(y_pred)
-    all_acc = 0.0
-    count = 0
-    for i in range(num):
-        pred = (y_pred[i] > 0.5).astype(int)
-        label = y_label[i]
-        acc = 1 if pred == label else 0
-        all_acc += acc
-        count += 1
-    return all_acc / count
-
-
-def get_metric_nDCG_random_graph4div(model, test_tuple, div_q, qid):
-    '''
-    get the alpha-nDCG for the input query, the input document list are randomly shuffled. 
-    :param test_tuple: the features of the test query qid, test_turple = (feature, index, rel_feat, rel_score, A, degree)
-    :param div_q: the div_query object of the test query qid
-    :param qid: the id for the test query
-    :return: the alpha-nDCG for the test query
-    '''
-    metric = 0
-    end = Max_doc_num = len(div_q.best_docs_rank)
-    current_docs_rank = []
-    if not test_tuple:
-        return 0 
-    else:
-        feature = test_tuple[0]
-        index = test_tuple[1]
-        rel_feat_tensor = torch.tensor(test_tuple[2]).float()
-        rel_score_list = test_tuple[3]
-        A = test_tuple[4]
-        degree_tensor = test_tuple[5]
-
-        A.requires_grad = False
-        degree_tensor.requires_grad = False
-        rel_feat_tensor.requires_grad = False
-        lt = len(rel_score_list)
-        if lt < MAXDOC:
-            rel_score_list.extend([0.0]*(MAXDOC-lt))
-        rel_score = torch.tensor(rel_score_list).float()
-        
-        A = A.reshape(1, A.shape[0], A.shape[1])
-        feature = feature.reshape(1, feature.shape[0], feature.shape[1])
-        rel_feat_tensor = rel_feat_tensor.reshape(1, rel_feat_tensor.shape[0], rel_feat_tensor.shape[1])
-        degree_tensor = degree_tensor.reshape(1, degree_tensor.shape[0], degree_tensor.shape[1])
-        
-        if th.cuda.is_available():
-            A = A.cuda()
-            feature = feature.cuda()
-            rel_feat_tensor = rel_feat_tensor.cuda()
-            degree_tensor = degree_tensor.cuda()
-        
-        while len(current_docs_rank)<Max_doc_num:
-            outputs = model(A, feature, rel_feat_tensor, degree_tensor)
-            out = outputs.cpu().detach().numpy()
-            result = np.argsort(-out[:end])
-
-            for i in range(len(result)):
-                if result[i] < Max_doc_num and index[result[i]] not in current_docs_rank:
-                    current_docs_rank.append(index[result[i]])
-                    adjust_index = result[i]
-                    break
-            A, degree_tensor = adjust_graph(A, rel_score, degree_tensor, adjust_index)
-
-        if len(current_docs_rank)>0:
-            new_docs_rank = [div_q.doc_list[i] for i in current_docs_rank]
-            metric = div_q.get_test_alpha_nDCG(new_docs_rank)
-    return metric
 
 
 def evaluate_test_qids_DESA(model, test_tuple, div_q, mode='metric'):
@@ -155,59 +61,6 @@ def evaluate_test_qids_DESA(model, test_tuple, div_q, mode='metric'):
         return metric, new_docs_rank
 
 
-def get_global_fullset_metric(test_qids_list, config):
-    '''
-    get the final metrics for the five fold best models.
-    :param best_model_list: the best models for the five corresponding folds.
-    :param test_qids_list: the corresponding test qids for five folds.
-    '''
-    output_file = os.path.join(config['tmp_dir'], config['model'], 'run')
-    if not os.path.exists(os.path.join(config['tmp_dir'], config['model'])):
-        os.makedirs(os.path.join(config['tmp_dir'], config['model']))
-    fout = open(output_file, 'w')
-    all_models = config['best_model_list']
-    qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
-
-    ''' get the metrics for five folds '''
-    fold_time_pattern = re.compile(r'_FOLD_(\d+)_')
-    for i in range(len(all_models)):
-        model_file = all_models[i]
-        if config['model'] == 'DESA':
-            fold_p = os.path.join(config['data_dir'], config['model']+'_fold/')
-            fold_times = int(fold_time_pattern.search(all_models[i]).group(1))
-            test_qids = test_dataset_dict = torch.load(os.path.join(fold_p, 'fold'+str(fold_times), 'test_data.pkl'))
-            model = DESA(config['embedding_length'], 8, 2,config['embedding_length'], 8, 2, 8, config['dropout'])
-            eval_func = evaluate_test_qids_DESA
-        elif config['model'] == 'DALETOR':
-            test_qids = test_qids_list[i]
-            test_dataset_dict = get_test_dataset(i+1, test_qids)
-            model = DALETOR(0.0)
-            eval_func = evaluate_test_qids_DALETOR
-        elif config['model'] == 'Graph4DIV':
-            pass
-        
-        model.load_state_dict(th.load(model_file))
-
-        model.eval()
-        if th.cuda.is_available():
-            model = model.cuda()
-
-        ''' ndeval test '''
-        for qid in test_qids:
-            metric, docs_rank = eval_func(model, test_dataset_dict[str(qid)], qd[str(qid)], 'both')
-            if len(docs_rank)>0:
-                for index in range(len(docs_rank)):
-                    content = str(qid) + ' Q0 ' + str(docs_rank[index]) + ' ' + str(index+1) + ' -4.04239 indri\n'
-                    fout.write(content)
-    fout.close()
-    csv_path = os.path.join(config['tmp_dir'], config['model'], 'result.csv')
-    command = './clueweb_eval/ndeval ./clueweb_eval/2009-2012.diversity.ndeval.qrels ' + output_file + ' >' + str(csv_path)
-    os.system(command)
-    
-    alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)
-    print('alpha_nDCG@20_std = {}, NRBP_20 = {}, ERR_IA_20 = {}, S_rec_20 = {}'.format(alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20))
-
-
 def evaluate_test_qids_DALETOR(model, test_tuple, div_q, mode='metric'):
     metric = 0
     end = Max_doc_num = len(div_q.best_docs_rank)
@@ -248,6 +101,59 @@ def evaluate_test_qids_DALETOR(model, test_tuple, div_q, mode='metric'):
                 return metric
             elif mode == 'both':
                 return metric, new_docs_rank
+
+
+def get_global_fullset_metric(test_qids_list, config):
+    '''
+    get the final metrics for the five fold best models.
+    :param best_model_list: the best models for the five corresponding folds.
+    :param test_qids_list: the corresponding test qids for five folds.
+    '''
+    output_file = os.path.join(config['tmp_dir'], config['model'], 'run')
+    if not os.path.exists(os.path.join(config['tmp_dir'], config['model'])):
+        os.makedirs(os.path.join(config['tmp_dir'], config['model']))
+    fout = open(output_file, 'w')
+    all_models = config['best_model_list']
+    qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
+
+    ''' get the metrics for five folds '''
+    fold_time_pattern = re.compile(r'_FOLD_(\d+)_')
+    for i in range(len(all_models)):
+        model_file = all_models[i]
+        if config['model'] == 'DESA':
+            fold_p = os.path.join(config['data_dir'], config['model'], 'fold/')
+            fold_times = int(fold_time_pattern.search(all_models[i]).group(1))
+            test_qids = test_dataset_dict = torch.load(os.path.join(fold_p, 'fold'+str(fold_times), 'test_data.pkl'))
+            model = DESA(config['embedding_length'], 8, 2,config['embedding_length'], 8, 2, 8, config['dropout'])
+            eval_func = evaluate_test_qids_DESA
+        elif config['model'] == 'DALETOR':
+            test_qids = test_qids_list[i]
+            test_dataset_dict = get_test_dataset(i+1, test_qids)
+            model = DALETOR(0.0)
+            eval_func = evaluate_test_qids_DALETOR
+        elif config['model'] == 'Graph4DIV':
+            pass
+        
+        model.load_state_dict(th.load(model_file))
+
+        model.eval()
+        if th.cuda.is_available():
+            model = model.cuda()
+
+        ''' ndeval test '''
+        for qid in test_qids:
+            metric, docs_rank = eval_func(model, test_dataset_dict[str(qid)], qd[str(qid)], 'both')
+            if len(docs_rank)>0:
+                for index in range(len(docs_rank)):
+                    content = str(qid) + ' Q0 ' + str(docs_rank[index]) + ' ' + str(index+1) + ' -4.04239 indri\n'
+                    fout.write(content)
+    fout.close()
+    csv_path = os.path.join(config['tmp_dir'], config['model'], 'result.csv')
+    command = './clueweb_eval/ndeval ./clueweb_eval/2009-2012.diversity.ndeval.qrels ' + output_file + ' >' + str(csv_path)
+    os.system(command)
+    
+    alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)
+    print('alpha_nDCG@20_std = {}, NRBP_20 = {}, ERR_IA_20 = {}, S_rec_20 = {}'.format(alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20))
 
 
 def get_metrics_20(csv_file_path):

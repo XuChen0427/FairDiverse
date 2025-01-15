@@ -3,8 +3,8 @@ import copy
 import pickle
 import multiprocessing
 import xml.dom.minidom
-from div_type import *
 
+from .div_type import div_query
 from .utils import split_list
 
 MAXDOC = 50
@@ -149,6 +149,20 @@ def get_stand_best_metric(qd, config):
         target_q.set_std_metric(m)
 
 
+def generate_qd(config):
+    ''' generate diversity_query file from data_dir '''
+    data_dir = os.path.join(config['data_dir'], 'best_rank/')
+    files = os.listdir(data_dir)
+    files.sort(key = lambda x:int(x[:-5]))
+    query_dict = {}
+    for f in files:
+        file_path = os.path.join(data_dir, f)
+        temp_q = pickle.load(open(file_path, 'rb'))
+        query_dict[str(f[:-5])] = temp_q
+    pickle.dump(query_dict, open(os.path.join(config['data_dir'], 'div_query.data'), 'wb'), True)
+    return query_dict
+    
+
 def data_process(config):
     ''' get subtopics for each query '''
     qd = get_query_dict(config)
@@ -162,17 +176,3 @@ def data_process(config):
     calculate_best_rank(qd, config)
     ''' combine the best ranking into a single file '''
     generate_qd(config)
-
-
-def generate_qd(config):
-    ''' generate diversity_query file from data_dir '''
-    data_dir = os.path.join(config['data_dir'], 'best_rank/')
-    files = os.listdir(data_dir)
-    files.sort(key = lambda x:int(x[:-5]))
-    query_dict = {}
-    for f in files:
-        file_path = os.path.join(data_dir, f)
-        temp_q = pickle.load(open(file_path, 'rb'))
-        query_dict[str(f[:-5])] = temp_q
-    pickle.dump(query_dict, open(os.path.join(config['data_dir'], 'div_query.data'), 'wb'), True)
-    return query_dict

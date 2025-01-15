@@ -1,0 +1,9 @@
+{
+   model: "DESA",
+   device: "cpu",
+   epoch: 3,
+   batch_size: 16,
+   learning_rate: 0.0008,
+   dropout: 0,
+   loss: "list_pairwise",
+}
