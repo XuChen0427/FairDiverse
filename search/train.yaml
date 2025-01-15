@@ -1,0 +1,26 @@
+{
+   ####search result diversification model settings
+   model: "DESA",
+
+   log_name: "ClueWeb09-DESA",
+   model_save_dir: "model/",
+   tmp_dir: "tmp/",
+
+   mode: "train",
+   best_model_list: [],
+
+   device: "cpu",
+   epoch: 3,
+   batch_size: 16,
+   learning_rate: 8e-4,
+   dropout: 0,
+   loss: "list_pairwise",
+
+   eval_steps: 10,
+
+   embedding_type: "doc2vec",
+   embedding_length: 100,
+
+   topk: [ 5,10,20 ],
+   store_scores: True,
+}

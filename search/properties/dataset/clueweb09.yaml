@@ -1,0 +1,6 @@
+{
+    ground_truth: "ground_truth/",
+    query_suggestion: "query_suggestion.xml",
+    reprocess: False,
+    embedding_dir: "embedding/",
+}
