@@ -113,210 +113,24 @@ class SRDTrainer(object):
         print("start to load dataset......")
 
         self.device = config['device']
-        if config['model'].lower() == 'desa':
-            self.Model = desa.DESA(config).to(self.device)
-        elif config['model'].lower() == 'daletor':
-            self.Model = daletor.DALETOR(config).to(self.device)
-        elif config['model'].lower() == 'graph4div':
-            self.Model = graph4div.Graph4Div(config).to(self.device)
-        elif config['model'].lower() == 'llm':
-            pass
-        else:
-            raise NotImplementedError(f"Not supported model type: {config['model']}")
-
-    
-        train_data_df = pd.read_csv(os.path.join(dir, self.dataset + ".train"), sep='\t')
-        val_data_df = pd.read_csv(os.path.join(dir, self.dataset + ".valid." + config['eval_type']), sep='\t')
-        test_data_df = pd.read_csv(os.path.join(dir, self.dataset + ".test." + config['eval_type']), sep='\t')
-
-        print(test_data_df.head())
-        train_data_df["history_behaviors"] = train_data_df["history_behaviors"].apply(lambda x: np.array(ast.literal_eval(x)))
-        val_data_df["history_behaviors"] = val_data_df["history_behaviors"].apply(lambda x: np.array(ast.literal_eval(x)))
-        test_data_df["history_behaviors"] = test_data_df["history_behaviors"].apply(lambda x: np.array(ast.literal_eval(x)))
-
-        optimizer = optim.Adam(self.Model.parameters(), lr= config['learning_rate'])
-        data_type = config['data_type']
-
-
-
-        train, valid, test = self.Set_Dataset(data_type, config, train_data_df, val_data_df, test_data_df)
-
-        if config['fair-rank'] == True:
-            if config['data_type'] == 'point':
-                raise ValueError(
-                    "fair ranking model only supports the pair and sequential data_type, not the point type")
-
-            if config['rank_model'] == "IPS":
-                self.Fair_Ranker = IPS(config, self.group_weight)
-
-            elif config['rank_model'] == 'SDRO':
-                self.Fair_Ranker = SDRO(config, self.group_weight)
-
-            elif config['rank_model'] == 'Minmax_SGD':
-                self.Fair_Ranker = Minmax_SGD(config, self.group_weight)
-
-            elif config['rank_model'] == 'APR':
-                self.Fair_Ranker = APR(config, self.group_weight)
-
-            elif config['rank_model'] == 'FOCF':
-                self.Fair_Ranker = FOCF(config, self.group_weight)
-
-            elif config['rank_model'] == 'FairDual':
-                self.Fair_Ranker = FairDual(config, self.group_weight)
-
-            elif config['rank_model'] == 'Reg':
-                self.Fair_Ranker = Reg(config, self.group_weight)
-
-            elif config['rank_model'] == 'FairNeg':
-                self.Fair_Ranker = FairNeg(config, train.user2pos)
-
-            elif config['rank_model'] == 'DPR':
-                self.Fair_Ranker = DPR(config, self.group_weight)
-
+        if config['mode'] == 'test' and config['best_model_list'] != []:
+            print("start to test the model...")
+            from .evaluator import get_global_fullset_metric
+            get_global_fullset_metric(config)
+        elif config['mode'] == 'train':
+            if config['model'].lower() == 'desa':
+                from .datasets.desa import DESA_run
+                DESA_run(config)
+            elif config['model'].lower() == 'daletor':
+                pass
+            elif config['model'].lower() == 'graph4div':
+                pass
+            elif config['model'].lower() == 'llm':
+                pass
             else:
-                NotImplementedError(f"Not supported fair rank model type:{config['rank_model']}")
+                raise NotImplementedError(f"Not supported model type: {config['model']}")
 
-            self.check_model_stage(config, self.Fair_Ranker)
-            if self.Fair_Ranker.fair_type == "sample" and config['data_type'] != "pair":
-                raise ValueError(
-                    f"The choosed fair ranker [{config['rank_model']}] only support the base model type as pair")
-
-
-        train_loader = DataLoader(train, batch_size=config['batch_size'], shuffle=True)
-        valid_loader = DataLoader(valid, batch_size=config['eval_batch_size'], shuffle=False)
-        test_loader = DataLoader(test, batch_size=config['eval_batch_size'], shuffle=False)
-
-        if config['eval_type'] == 'CTR':
-            evaluator = CTR_Evaluator(config)
-        elif config['eval_type'] == 'ranking':
-            evaluator = Ranking_Evaluator(config)
-        else:
-            raise NotImplementedError("we only support eval type in [CTR, ranking] !")
-
-        today = datetime.today()
-        today_str = f"{today.year}-{today.month}-{today.day}"
-        log_dir = os.path.join("recommendation", "log", f"{today_str}_{config['log_name']}")
-        if not os.path.exists(log_dir):
-            os.makedirs(log_dir)
-
-        print("start to train...")
-
-        for epoch in trange(config['epoch']):
-
-
-            total_loss = 0
-            self.Model.train()
-            best_result = -1
-
-            if config['fair-rank'] == True:
-                if 'update_epoch' in config and epoch % config['update_epoch'] == 0:
-                    if config['rank_model'] == 'FairDual':
-                        self.Fair_Ranker.reset_parameters(len(train_data_df))
-                    else:
-                        self.Fair_Ranker.reset_parameters()
-
-            #for user_ids, item_ids, group_ids, label in train_loader:
-            for train_datas in train_loader:
-
-                if data_type == "point":
-                    interaction = {"user_ids": train_datas[0].to(self.device), "history_ids": train_datas[1].to(self.device),
-                                   "item_ids": train_datas[3].to(self.device),
-                                   "group_ids": train_datas[4].to(self.device), "label": train_datas[5].to(self.device)}
-                    #ids = {"user_ids": train_datas[0].to(self.device), "item_ids": train_datas[1].to(self.device)}
-                elif data_type == "pair":
-                    interaction = {"user_ids": train_datas[0].to(self.device), "history_ids": train_datas[1].to(self.device),
-                                   "item_ids": train_datas[2].to(self.device), "neg_item_ids": train_datas[3].to(self.device),
-                                   "group_ids": train_datas[4].to(self.device), "neg_group_ids": train_datas[5].to(self.device)
-                                   }
-                    #ids = {"user_ids": train_datas[0].to(self.device), "item_ids": train_datas[1].to(self.device)}
-                else: ###squential format
-                    interaction = {"user_ids": train_datas[0].to(self.device), "history_ids": train_datas[1].to(self.device),
-                                   "item_ids": train_datas[2].to(self.device), "group_ids": train_datas[3].to(self.device), }
-
-                feed_user_dict = {"user_ids": train_datas[0].to(self.device), "history_ids": train_datas[1].to(self.device)}
-                feed_item_ids = train_datas[2].to(self.device)
-
-                optimizer.zero_grad()
-                #loss = self.Model.compute_loss(interaction)
-
-                if config['fair-rank'] == True:
-
-                    if self.Fair_Ranker.fair_type == 're-weight':
-                        loss = self.Model.compute_loss(interaction)
-                        scores = self.Model(feed_user_dict, feed_item_ids)
-
-
-                        input_dict = {'items': train_datas[2].detach().numpy(), 'loss': loss.detach().cpu().numpy(),
-                                      'scores': scores.detach().cpu().numpy()}
-
-                        if config['rank_model'] == 'FairDual':
-                            ## FairDual needs sample some items
-                            exposure_sample_num = config['exposure_sample_num']
-                            item_sample_ids = random.sample(range(config['item_num']), exposure_sample_num)
-                            item_sample_ids = torch.tensor(item_sample_ids, dtype=torch.long).to(self.device)
-
-                            scores, indices = self.Model.full_ranking(feed_user_dict, item_sample_ids, k=config['s_k'])
-
-                            items = item_sample_ids[indices.detach().cpu().numpy()]
-                            input_dict['sample_items'] = items
-
-                        weight = self.Fair_Ranker.reweight(input_dict=input_dict)
-                        #print(weight)
-                        loss = torch.mean(torch.tensor(weight).to(self.device)*loss)
-
-                    elif self.Fair_Ranker.fair_type == "sample":
-                        neg_item_ids, adj = self.Fair_Ranker.sample(interaction, self.Model)
-                        interaction['neg_item_ids'] = neg_item_ids
-                        loss = self.Model.compute_loss(interaction)
-                        if config['rank_model'] == "FairNeg":
-                            group_loss = loss.detach().cpu().numpy()
-                            group_loss = np.matmul(group_loss, adj)/(np.sum(adj, axis=0, keepdims=False)+1)
-                            self.Fair_Ranker.accumulate_epoch_loss(group_loss)
-
-                        loss = torch.mean(loss)
-
-                    else:
-                        loss = self.Model.compute_loss(interaction)
-                        scores = self.Model(feed_user_dict, feed_item_ids)
-                        input_dict = {'items': train_datas[2], 'loss': loss, 'scores':scores}
-
-                        if config['rank_model'] == 'DPR':
-                            input_dict = {'item_ids': train_datas[2].to(self.device), 'scores': scores,
-                                          "neg_item_ids": train_datas[3].to(self.device),
-                                          "group_ids": train_datas[4].to(self.device),
-                                          "neg_group_ids": train_datas[5].to(self.device)
-                                          }
-                            fair_loss = self.Fair_Ranker.fairness_loss(input_dict, self.Model)
-                            loss = torch.mean(loss) + fair_loss
-                        else:
-                            fair_loss = self.Fair_Ranker.fairness_loss(input_dict)
-                            loss = torch.mean(loss) + config['fair_lambda'] * fair_loss
-
-
-                else:
-                    loss = self.Model.compute_loss(interaction)
-                    loss = torch.mean(loss)
-
-                loss.backward()
-                optimizer.step()
-                total_loss += loss.item()
-
-
-
-            if epoch % config['eval_step'] == 0:
-                eval_result = evaluator.eval(valid_loader, self.Model)
-                watch_eval_value = eval_result[config['watch_metric']]
-                if watch_eval_value >= best_result:
-                    best_result = watch_eval_value
-                    torch.save(self.Model.state_dict(), os.path.join(log_dir, "best_model.pth"))
-                print(f"eval result: {eval_result}, best result: {best_result}")
-                print()
-
-
-            print("epoch: %d loss: %.3f" %(epoch, total_loss/ len(train_loader)))
-
-
-
+        '''
         print(f"training complete! start to save the config and model...")
         print(f" config files are dump in {log_dir}")
         with open(os.path.join(log_dir, "config.yaml"), 'w') as f:
@@ -336,5 +150,6 @@ class SRDTrainer(object):
             json.dump(test_result, file)
         print(test_result)
         print(f"dump in {log_dir}")
+        '''
 
 

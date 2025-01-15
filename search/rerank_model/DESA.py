@@ -2,10 +2,6 @@ from collections import *
 import torch
 import torch.nn.init as init
 from torch import nn
-from torch.nn import functional as F
-from torch.autograd import Function
-from torch.autograd import Variable
-import numpy as np
 
 MAXDOC = 50
 

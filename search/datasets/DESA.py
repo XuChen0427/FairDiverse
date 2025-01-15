@@ -1,29 +1,16 @@
 import os
-import csv
-import math
-import copy
 import time
-import gzip
 import pickle
-import random
 import torch
-import torch as th
-import pandas as pd
 import numpy as np
-import multiprocessing
-from scipy import stats
-import xml.dom.minidom
-from xml.dom.minidom import parse
-from transformers import BertTokenizer
 from tqdm import tqdm
-from div_type import *
 from sklearn.model_selection import KFold
 from torch.utils.data import Dataset, DataLoader
-from torch.utils.data import TensorDataset
 from torch.nn.utils import clip_grad_norm_
 from .utils.utils import load_embedding, read_rel_feat
 from .rerank_model.desa import DESA
 from .utils.loss import list_pairwise_loss
+from .evaluate import evaluate_test_qids_DESA
 
 
 class DESADataset(Dataset):
@@ -191,6 +178,8 @@ def get_fold_loader(fold, train_data, BATCH_SIZE):
 
 def DESA_run(config):
     ''' load randomly shuffled queries '''
+    if not os.path.exists(os.path.join(config['model_save_dir'], config['model'])):
+        os.makedirs(os.path.join(config['model_save_dir'], config['model']))
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
     fold_p = os.path.join(config['data_dir'], config['model']+'_fold/')
     final_metrics = []
@@ -216,7 +205,6 @@ def DESA_run(config):
             n_params = sum([p.numel() for p in model.parameters() if p.requires_grad])
             print('* number of parameters: %d' % n_params)
 
-        all_steps = len(desa_data_loader)
         max_metric = 0
         patience = 0
         best_model = ""
@@ -247,22 +235,19 @@ def DESA_run(config):
                 loss.backward()
                 clip_grad_norm_(model.parameters(), max_norm=1)
                 opt.step()
-                if (step + 1) % (all_steps // 10) == 0:
+                if step % config['eval_steps'] == 0:
                     model.eval()
                     metrics = []
                     for qid in test_data:
-                        metric = EV.get_metric_nDCG_random(model, test_data[str(qid)], qd[str(qid)], str(qid))
+                        metric = evaluate_test_qids_DESA(model, test_data[str(qid)], qd[str(qid)])
                         metrics.append(metric)
                     avg_alpha_NDCG = np.mean(metrics)
                     if max_metric < avg_alpha_NDCG:
                         max_metric = avg_alpha_NDCG
                         tqdm.write('max avg_alpha_NDCG updated: {}'.format(max_metric))
-                        model_filename = 'model/TOTAL_EPOCH_' + str(EPOCH) + '_FOLD_' + str(
-                            fold_time) + '_EPOCH_' + str(epoch) + '_LR_' + str(LR) + '_BATCHSIZE_' + str(
-                            BATCH_SIZE) + '_DROPOUT_' + str(DROPOUT) + '_' + str(EMB_TYPE) + '_alpha_NDCG_' + str(
-                            max_metric) + '.pickle'
+                        model_filename = os.path.join(config['model_save_dir'], config['model'], 'TOTAL_EPOCH_' + str(config['epoch']) + '_FOLD_' + str(fold_time) + '_EPOCH_' + str(epoch) + '_LR_' + str(config['learning_rate']) + '_BATCHSIZE_' + str(
+                        config['batch_size']) + '_DROPOUT_' + str(config['dropout']) + '_' + str(config['embedding_type']) + '.pickle')
                         torch.save(model.state_dict(), model_filename)
-                        tqdm.write('save file at: {}'.format(model_filename))
                         best_model = model_filename
                         patience = 0
                     else:
@@ -278,22 +263,20 @@ def DESA_run(config):
             model.eval()
             metrics = []
             for qid in test_data:
-                metric = EV.get_metric_nDCG_random(model, test_data[str(qid)], qd[str(qid)], str(qid))
+                metric = evaluate_test_qids_DESA(model, test_data[str(qid)], qd[str(qid)])
                 metrics.append(metric)
             avg_alpha_NDCG = np.mean(metrics)
             if max_metric < avg_alpha_NDCG:
                 max_metric = avg_alpha_NDCG
                 tqdm.write('max avg_alpha_NDCG updated: {}'.format(max_metric))
-                model_filename = 'model/TOTAL_EPOCH_' + str(EPOCH) + '_FOLD_' + str(fold_time) + '_EPOCH_' + str(
-                    epoch) + '_LR_' + str(LR) + '_BATCHSIZE_' + str(BATCH_SIZE) + '_DROPOUT_' + str(
-                    DROPOUT) + '_' + str(EMB_TYPE) + '_alpha_NDCG_' + str(max_metric) + '.pickle'
+                model_filename = os.path.join(config['model_save_dir'], config['model'], 'TOTAL_EPOCH_' + str(config['epoch']) + '_FOLD_' + str(fold_time) + '_EPOCH_' + str(epoch) + '_LR_' + str(config['learning_rate']) + '_BATCHSIZE_' + str(
+                config['batch_size']) + '_DROPOUT_' + str(config['dropout']) + '_' + str(config['embedding_type']) + '.pickle')
                 torch.save(model.state_dict(), model_filename)
-                tqdm.write('save file at: {}'.format(model_filename))
                 best_model = model_filename
-            if epoch == (EPOCH - 1):
+            if epoch == (config['epoch'] - 1):
                 final_metrics.append(max_metric)
                 best_model_list.append(best_model)
 
-    print('alpha-nDCG = {}, final list = {}'.format(sum(final_metrics)/len(final_metrics), final_metrics))
+    print('alpha-nDCG = {}, best model = {}'.format(sum(final_metrics)/len(final_metrics), best_model_list))
 
 
