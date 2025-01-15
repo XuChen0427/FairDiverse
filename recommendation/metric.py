@@ -45,16 +45,7 @@ def MRR(ranking_list, k):
 
 ##################fairness metric#######################
 
-def mask_utility(utility, group_mask):
-
-    masked_utility = []
-    for i, m in enumerate(group_mask):
-        if m == 0:
-            masked_utility.append(utility[i])
-
-    return np.array(masked_utility)
-
-def MMF(utility_list, ratio=0.5, weights=None, group_mask = None):
+def reconstruct_utility(utility_list, weights, group_mask):
     if not weights:
         weights = np.ones_like(utility_list)
 
@@ -65,6 +56,20 @@ def MMF(utility_list, ratio=0.5, weights=None, group_mask = None):
     if group_mask:
         weighted_utility = mask_utility(weighted_utility, group_mask)
 
+
+    return np.array(weighted_utility)
+
+def mask_utility(utility, group_mask):
+
+    masked_utility = []
+    for i, m in enumerate(group_mask):
+        if m == 0:
+            masked_utility.append(utility[i])
+
+    return np.array(masked_utility)
+
+def MMF(utility_list, ratio=0.5, weights=None, group_mask = None):
+    weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
 
     MMF_length = int(ratio * len(utility_list))
     utility_sort = np.sort(weighted_utility)
@@ -76,15 +81,7 @@ def MMF(utility_list, ratio=0.5, weights=None, group_mask = None):
     return mmf
 
 def Gini(utility_list, weights=None, group_mask = None):
-    if not weights:
-        weights = np.ones_like(utility_list)
-
-    utility_list = np.array(utility_list)
-    weights = np.array(weights)
-    weighted_utility = utility_list * weights
-
-    if group_mask:
-        weighted_utility = mask_utility(weighted_utility, group_mask)
+    weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
 
     values = np.sort(weighted_utility)
     n = len(values)
@@ -96,15 +93,7 @@ def Gini(utility_list, weights=None, group_mask = None):
     return gini
 
 def Entropy(utility_list, weights=None, group_mask = None):
-    if not weights:
-        weights = np.ones_like(utility_list)
-
-    utility_list = np.array(utility_list)
-    weights = np.array(weights)
-    weighted_utility = utility_list * weights
-
-    if group_mask:
-        weighted_utility = mask_utility(weighted_utility, group_mask)
+    weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
 
     values = np.array(weighted_utility)
     values = values / np.sum(values)  # 归一化
@@ -113,3 +102,25 @@ def Entropy(utility_list, weights=None, group_mask = None):
     # avoid 0 case
     entropy_value = -np.sum(values * np.log2(values + 1e-9))
     return entropy_value
+
+def ElasticFair(utils,t):
+
+    if t != 0:
+        sign = np.sign(1-t)
+        utils_g = np.sum(np.power(utils,1-t))
+        utils_g = np.power(utils_g, 1/t)
+        return sign * utils_g
+    else:
+        entropy = - np.sum(utils * np.log(utils))
+        return np.exp(entropy)
+
+def EF(utility_list, M = 50, weights=None, group_mask = None):
+    utility_list = reconstruct_utility(utility_list, weights, group_mask)
+    utility_list = utility_list / np.sum(utility_list)
+
+    t = np.linspace(1 - M, 1 + M, 200)
+    fair = []
+    for i in t:
+        fair.append(ElasticFair(utility_list, i))
+    integral = np.trapz(fair, t)
+    return integral/(2*M*len(utility_list))

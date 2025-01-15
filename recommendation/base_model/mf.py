@@ -25,7 +25,8 @@ class MF(AbstractBaseModel):
 
 
     def forward(self, user_dict, item_ids):
-        user_embeds = self.user_embedding(user_dict)
+        user = user_dict['user_ids']
+        user_embeds = self.user_embedding(user)
         item_embeds = self.item_embedding(item_ids)
         dot_product = (user_embeds * item_embeds).sum(1)
         return self.sigmoid(dot_product)

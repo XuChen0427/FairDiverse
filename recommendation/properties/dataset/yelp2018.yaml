@@ -1,0 +1,18 @@
+{
+    user_id: user_id:token,
+    item_id: item_id:token,
+    group_id: categories:token_seq,
+    label_id: rating:float,
+    timestamp: timestamp:float,
+    label_threshold: 3.5, #threshold means the label exceed the value will be regarded as 1, otherwise, it will be accounted into 0
+    group_aggregation_threshold: 30,
+    item_val: 10,
+    user_val: 10,
+    group_val: 10,
+    sample_size: 1.0,
+    valid_ratio: 0.1,
+    test_ratio: 0.1,
+    reprocess: False, ##do you need to re-process the dataset according to your personalized requirements
+    sample_num: 200,
+    history_length: 5,
+}

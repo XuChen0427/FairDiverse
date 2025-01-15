@@ -1,0 +1,4 @@
+{
+   learning_rate: 0.1,
+   minimum_exposure: 30, # a minimum exposure requirements of different groups
+}

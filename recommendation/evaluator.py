@@ -2,7 +2,7 @@ import torch
 from tqdm import tqdm, trange
 import numpy as np
 from scipy.sparse import coo_matrix, csr_matrix
-from .metric import NDCG, HR, MRR, AUC_score, MMF, Gini
+from .metric import NDCG, HR, MRR, AUC_score, MMF, Gini, Entropy
 import os
 import json
 from .utils import Build_Adjecent_Matrix
@@ -73,6 +73,7 @@ class Ranking_Evaluator(Abstract_Evaluator):
         result_dict.update({f"hr@{k}":0 for k in self.config['topk']})
         result_dict.update({f"mmf@{k}": 0 for k in self.config['topk']})
         result_dict.update({f"gini@{k}": 0 for k in self.config['topk']})
+        result_dict.update({f"entropy@{k}": 0 for k in self.config['topk']})
         exposure_dict = {f"top@{k}":np.zeros(self.config['group_num']) for k in self.config['topk']}
         index = 0
 
@@ -109,13 +110,10 @@ class Ranking_Evaluator(Abstract_Evaluator):
                         score = model(user_dict, i.unsqueeze(0)).cpu().numpy()[0]
 
                     else:
-                        # if self.config['data_type'] == 'point' or self.config['data_type'] == 'pair':
-                        #     user = user_ids[b]
-                        # else:
-                        #     user = history_behavior[b]
                         user_dict = {"user_ids":user_ids[b].unsqueeze(0).to(self.config['device']),
                                      "history_ids":history_behavior[b].unsqueeze(0).to(self.config['device'])}
                         i = items[b].to(self.config['device'])
+
                         score = model.full_predict(user_dict, i.unsqueeze(0)).cpu().numpy()[0]
 
                     data.extend(score.tolist())
@@ -146,6 +144,7 @@ class Ranking_Evaluator(Abstract_Evaluator):
             #print(exposure_dict[f"top@{k}"])
             result_dict[f"mmf@{k}"] = MMF(exposure_dict[f"top@{k}"], ratio=self.config['mmf_eval_ratio']) * index
             result_dict[f"gini@{k}"] = Gini(exposure_dict[f"top@{k}"]) * index
+            result_dict[f"entropy@{k}"] = Entropy(exposure_dict[f"top@{k}"]) * index
 
 
         for key in result_dict.keys():

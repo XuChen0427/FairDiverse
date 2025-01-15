@@ -10,9 +10,9 @@ from tqdm import tqdm,trange
 
 def build_map(df,col_name):
     key = df[col_name].unique().tolist()
-    m = dict(zip(key, range(len(key))))
+    encode = dict(zip(key, range(len(key))))
     decode = dict(zip(range(len(key)),key))
-    df[col_name] = df[col_name].apply(lambda x: m[x])
+    df[col_name] = df[col_name].apply(lambda x: encode[x])
     return decode
 
 def build_item_map(df,col_name, history_name):
@@ -26,10 +26,10 @@ def build_item_map(df,col_name, history_name):
     key = list(set(item_set))
 
 
-    m = dict(zip(key, range(len(key))))
+    encode = dict(zip(key, range(len(key))))
     decode = dict(zip(range(len(key)),key))
-    df[col_name] = df[col_name].apply(lambda x: m[x])
-    df[history_name] = df[history_name].apply(lambda x: [m[i] for i in x])
+    df[col_name] = df[col_name].apply(lambda x: encode[x])
+    df[history_name] = df[history_name].apply(lambda x: [encode[i] for i in x])
     return decode, len(key)
 
 def Process(dataset, process_config=None):
@@ -60,17 +60,27 @@ def Process(dataset, process_config=None):
     frames = pd.read_csv(inter_file,delimiter='\t',dtype={process_config["item_id"]:str,process_config["user_id"]:str, process_config['timestamp']:float},
                          usecols=[process_config["user_id"],process_config["item_id"],process_config["label_id"], process_config['timestamp']])
     frames = frames.dropna()
-
+    #provider_frames = pd.read_csv(provider_file, delimiter='\t')
+    #print(provider_frames.columns)
+    #exit(0)
     provider_frames = pd.read_csv(provider_file,delimiter='\t',
-                                  usecols=[process_config["item_id"],process_config["group_id"]],
-                                  dtype={process_config["item_id"]:str,process_config["group_id"]:str})
+                                  usecols=[process_config["item_id"],process_config["group_id"], process_config["text_id"]],
+                                  dtype={process_config["item_id"]:str,process_config["group_id"]:str, process_config["text_id"]:str})
+
     provider_frames = provider_frames.dropna()
+
+
+    print(len(provider_frames))
 
     frames = copy.copy(frames.sample(frac=process_config['sample_size'], random_state=42, axis=0, replace=False).reset_index(drop=True))
 
 
     #print("start to pre-process data...")
-    uid_field,iid_field,label_field, time_field = [process_config["user_id"],process_config["item_id"],process_config["label_id"], process_config['timestamp']]
+    uid_field,iid_field,label_field, time_field, text_field = \
+        [process_config["user_id"],process_config["item_id"],process_config["label_id"], process_config['timestamp'], process_config["text_id"]]
+    id2text = dict(zip(provider_frames[iid_field], provider_frames[text_field]))
+
+
     provider_field = process_config["group_id"]
 
     frames.drop_duplicates(subset=[iid_field,uid_field],keep='first',inplace=True)
@@ -89,17 +99,25 @@ def Process(dataset, process_config=None):
     frames.rename(columns={label_field:"label:float"},inplace=True)
     label_field = "label:float"
     frames = frames.merge(provider_frames,on=iid_field,how='inner')
+    #print(len(frames))
+    #exit(0)
 
-    for i in range(20):
+    for i in range(3):
         itemLen = frames.groupby(iid_field).size()  # groupby itemID and get size of each item
         remain_items =  (itemLen[itemLen >= process_config['item_val']].index).values
         frames = frames[frames[iid_field].isin(remain_items)].reset_index(drop=True)
+        #print(len(frames))
+        #print(itemLen)
         userLen = frames.groupby(uid_field).size()
         remain_users =  (userLen[userLen >= process_config['user_val']].index).values
         frames = frames[frames[uid_field].isin(remain_users)].reset_index(drop=True)
+        #print(len(frames))
         pidLen = frames.groupby(provider_field)[iid_field].unique().apply(lambda x: len(x))
         remain_providers =  (pidLen[pidLen >= process_config['group_val']].index).values
         frames = frames[frames[provider_field].isin(remain_providers)].reset_index(drop=True)
+
+        #print(len(frames))
+        #exit(0)
 
     frames = frames.sort_values(by=[uid_field, time_field]).reset_index(drop=True)
 
@@ -120,6 +138,7 @@ def Process(dataset, process_config=None):
         return sub_df
 
     frames = frames.groupby(uid_field, group_keys=False).apply(get_previous_items)
+    #print(frames)
 
     #
     frames = frames[
@@ -137,8 +156,8 @@ def Process(dataset, process_config=None):
     max_item_size = -1
 
     #build_map(frames,iid_field)
-    _, item_num = build_item_map(frames, iid_field, history_field)
-    build_map(frames,uid_field)
+    iid_decode, item_num = build_item_map(frames, iid_field, history_field)
+    _ = build_map(frames,uid_field)
 
 
 
@@ -339,6 +358,11 @@ def Process(dataset, process_config=None):
     val_ranking.to_csv(os.path.join(dir,dataset+".valid.ranking"), index=False,sep='\t')
     test_ranking.to_csv(os.path.join(dir,dataset+".test.ranking"), index=False,sep='\t')
 
+    id2text_update = {}
+    for i in range(item_num):
+        ori_i = iid_decode[i]
+        text = id2text[ori_i]
+        id2text_update[i] = text
 
     with open(os.path.join(dir, "process_config.yaml"), "w") as file:
         yaml.dump(process_config, file)
@@ -346,6 +370,9 @@ def Process(dataset, process_config=None):
     #print(iid2pid)
     with open(os.path.join(dir, "iid2pid.json"), "w") as file:
         json.dump(iid2pid, file)
+
+    with open(os.path.join(dir, "iid2text.json"), "w") as file:
+        json.dump(id2text_update, file)
 
     #print(pid2iid)
     # with open(os.path.join(dir, "pid2iid.json"), "w") as file:

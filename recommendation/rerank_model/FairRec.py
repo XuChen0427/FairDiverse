@@ -105,12 +105,26 @@ class FairRec(Abstract_Reranker):
     def __init__(self, config, weights=None):
         super().__init__(config, weights)
 
-    def rerank(self, ranking_score, k):
+    def rerank(self, ranking_score, k, batch_size=64):
 
         user_size = len(ranking_score)
-        U=list(range(user_size)) # list of customers
-        P=list(range(self.config['item_num'])) # list of producers
-        rerank_list =FairRec_train(U,P,k, ranking_score ,alpha=self.config['para'], m=user_size, n=self.config['item_num'])
+        U = list(range(user_size))  # list of customers
+        P = list(range(self.config['item_num']))
+        rerank_list = FairRec_train(U, P, k, ranking_score, alpha=self.config['para'],
+                                               m=user_size, n=self.config['item_num'])
+
+        # P=list(range(self.config['item_num'])) # list of producers
+        # rerank_list = []
+        # for b in trange(int(np.ceil(user_size/batch_size))):
+        #     min_index = batch_size * b
+        #     max_index = min((b+1) * batch_size, user_size)
+        #     U = list(range(max_index-min_index))  # list of customers
+        #     batch_rerank_list = FairRec_train(U,P,k, ranking_score[min_index:max_index,:] ,alpha=self.config['para'],
+        #                                       m=max_index-min_index, n=self.config['item_num'])
+        #     for k in batch_rerank_list.keys():
+        #         rerank_list.append(batch_rerank_list[k])
+        #print(rerank_list)
+        #exit(0)
         return rerank_list
 
         #rho_reverse = 1/(self.rho*batch_size*self.TopK)

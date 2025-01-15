@@ -104,9 +104,8 @@ class RecTrainer(object):
 
     def train(self):
         dir = os.path.join("recommendation", "processed_dataset", self.dataset)
-        config = self.load_configs(dir)
-
         state = Process(self.dataset)
+        config = self.load_configs(dir)
         print(state)
         #exit(0)
 
@@ -231,8 +230,8 @@ class RecTrainer(object):
 
                 if data_type == "point":
                     interaction = {"user_ids": train_datas[0].to(self.device), "history_ids": train_datas[1].to(self.device),
-                                   "item_ids": train_datas[3].to(self.device),
-                                   "group_ids": train_datas[4].to(self.device), "label": train_datas[5].to(self.device)}
+                                   "item_ids": train_datas[2].to(self.device),
+                                   "group_ids": train_datas[3].to(self.device), "label": train_datas[4].to(self.device)}
                     #ids = {"user_ids": train_datas[0].to(self.device), "item_ids": train_datas[1].to(self.device)}
                 elif data_type == "pair":
                     interaction = {"user_ids": train_datas[0].to(self.device), "history_ids": train_datas[1].to(self.device),
@@ -284,9 +283,10 @@ class RecTrainer(object):
                             group_loss = np.matmul(group_loss, adj)/(np.sum(adj, axis=0, keepdims=False)+1)
                             self.Fair_Ranker.accumulate_epoch_loss(group_loss)
 
+
                         loss = torch.mean(loss)
 
-                    else:
+                    elif self.Fair_Ranker.fair_type == "regularizer":
                         loss = self.Model.compute_loss(interaction)
                         scores = self.Model(feed_user_dict, feed_item_ids)
                         input_dict = {'items': train_datas[2], 'loss': loss, 'scores':scores}
@@ -299,10 +299,14 @@ class RecTrainer(object):
                                           }
                             fair_loss = self.Fair_Ranker.fairness_loss(input_dict, self.Model)
                             loss = torch.mean(loss) + fair_loss
+
                         else:
                             fair_loss = self.Fair_Ranker.fairness_loss(input_dict)
                             loss = torch.mean(loss) + config['fair_lambda'] * fair_loss
 
+                    else: ##other type of fairness method, which modifies embeddings during the evaluation process
+                        loss = self.Model.compute_loss(interaction)
+                        loss = torch.mean(loss)
 
                 else:
                     loss = self.Model.compute_loss(interaction)

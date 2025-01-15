@@ -6,4 +6,5 @@ from .min_regularizer import min_regularizer
 from .PMMF import PMMF
 from .Welf import Welf
 from .TaxRank import TaxRank
-from .ConcaveRank import ConcaveRank
+from .ElasticRank import ElasticRank
+from .FairSync import FairSync

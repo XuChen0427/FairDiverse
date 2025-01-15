@@ -6,7 +6,7 @@ APR
 ################################################
 
 
-@INPROCEEDINGS{10191757,
+@INPROCEEDINGS{APR,
   author={Hu, Zhihao and Xu, Yiran and Tian, Xinmei},
   booktitle={2023 International Joint Conference on Neural Networks (IJCNN)}, 
   title={Adaptive Priority Reweighing for Generalizing Fairness Improvement}, 
