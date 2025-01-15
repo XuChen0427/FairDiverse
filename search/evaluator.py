@@ -131,12 +131,6 @@ def get_global_fullset_metric(test_qids_list, config):
             test_dataset_dict = get_test_dataset(i+1, test_qids)
             model = DALETOR(0.0)
             eval_func = evaluate_test_qids_DALETOR
-        elif config['model'].lower() == 'xquad':
-            pass
-        elif config['model'].lower() == 'pm2':
-            pass
-        elif config['model'].lower() == 'llm':
-            pass
         
         model.load_state_dict(th.load(model_file))
 
@@ -153,7 +147,7 @@ def get_global_fullset_metric(test_qids_list, config):
                     fout.write(content)
     fout.close()
     csv_path = os.path.join(config['tmp_dir'], config['model'], 'result.csv')
-    command = './eval/clueweb09/ndeval ./eval/clueweb09/2009-2012.diversity.ndeval.qrels ' + output_file + ' >' + str(csv_path)
+    command = './search/eval/clueweb09/ndeval ./search/eval/clueweb09/2009-2012.diversity.ndeval.qrels ' + output_file + ' >' + str(csv_path)
     os.system(command)
     
     alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)
@@ -176,47 +170,3 @@ def get_metrics_20(csv_file_path):
     
     
     return alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20
-
-
-def get_global_fullset_metric_DEL(logger, best_model_list, test_qids_list, dump_dir):
-    '''
-    get the final metrics for the five fold best models.
-    :param best_model_list: the best models for the five corresponding folds.
-    :param test_qids_list: the corresponding test qids for five folds.
-    :param dump_dir: the document ranking output dir.
-    '''
-    output_file = dump_dir + 'run'
-    fout = open(output_file, 'w')
-    all_models = best_model_list
-
-    
-    qd = pickle.load(open('../data/div_query.data', 'rb'))
-    std_metric = []
-
-    ''' get the metrics for five folds '''
-    for i in range(len(all_models)):
-        test_qids = test_qids_list[i]
-        test_dataset_dict = get_test_dataset(logger, i+1, test_qids)
-        model_file = all_models[i]
-        model = DALETOR(0.0)
-        model.load_state_dict(th.load(model_file))
-
-        model.eval()
-        if th.cuda.is_available():
-            model = model.cuda()
-
-        ''' ndeval test '''
-        for qid in test_qids:
-            metric, docs_rank = evaluate_test_qids(model, test_dataset_dict[str(qid)], qd[str(qid)], str(qid), 'both')
-            if len(docs_rank)>0:
-                for index in range(len(docs_rank)):
-                    content = str(qid) + ' Q0 ' + str(docs_rank[index]) + ' ' + str(index+1) + ' -4.04239 indri\n'
-                    fout.write(content)
-    fout.close()
-    csv_path = dump_dir+'result.csv'
-    command = '../eval/ndeval ../eval/2009-2012.diversity.ndeval.qrels ' + output_file + ' >' + str(csv_path)
-    os.system(command)
-    
-    alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)
-    logger.info('alpha_nDCG@20_std = {}, NRBP_20 = {}, ERR_IA_20 = {}, S_rec_20 = {}'.format(alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20))
-

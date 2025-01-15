@@ -5,6 +5,16 @@ from torch import nn
 
 MAXDOC = 50
 
+'''
+@inproceedings{qin2020diversifying,
+  title={Diversifying search results using self-attention network},
+  author={Qin, Xubo and Dou, Zhicheng and Wen, Ji-Rong},
+  booktitle={Proceedings of the 29th ACM International Conference on Information \& Knowledge Management},
+  pages={1265--1274},
+  year={2020}
+}
+'''
+
 
 class SelfAttnEnc(nn.Module):
     def __init__(self, d_model, nhead, nlayers, dropout):

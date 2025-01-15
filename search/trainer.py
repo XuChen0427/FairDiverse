@@ -64,9 +64,11 @@ class SRDTrainer(object):
                 from .utils.process_daletor import Process
                 Process(config)
             elif config['model'].lower() == 'xquad':
-                pass
+                from .utils.process_bm25 import generate_bm25_scores_for_query
+                generate_bm25_scores_for_query(config)
             elif config['model'].lower() == 'pm2':
-                pass
+                from .utils.process_bm25 import generate_bm25_scores_for_query
+                generate_bm25_scores_for_query(config)
             elif config['model'].lower() == 'llm':
                 pass
             else:
@@ -86,9 +88,13 @@ class SRDTrainer(object):
                 from .datasets.DALETOR import DALETOR_run
                 DALETOR_run(config)
             elif config['model'].lower() == 'xquad':
-                pass
+                from .rerank_model.xQuAD import xQuAD
+                xquad = xQuAD()
+                xquad.run(config)
             elif config['model'].lower() == 'pm2':
-                pass
+                from .rerank_model.PM2 import PM2
+                pm2 = PM2()
+                pm2.run(config)
             elif config['model'].lower() == 'llm':
                 from .llm_model.llm_run import llm_run
                 llm_run(config)

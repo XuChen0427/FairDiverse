@@ -10,6 +10,16 @@ from torch.nn import LayerNorm
 import numpy as np
 MAXDOC=50
 
+'''
+@inproceedings{yan2021diversification,
+  title={Diversification-aware learning to rank using distributed representation},
+  author={Yan, Le and Qin, Zhen and Pasumarthi, Rama Kumar and Wang, Xuanhui and Bendersky, Michael},
+  booktitle={Proceedings of the Web Conference 2021},
+  pages={127--136},
+  year={2021}
+}
+'''
+
 
 class MHSA(nn.Module):
     def __init__(self, H = 2, input_dim = 100, output_dim = 256):

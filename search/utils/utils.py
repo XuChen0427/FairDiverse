@@ -110,3 +110,5 @@ def restore_doc_ids(order_str, id_dict):
     order = [int(x) for x in order_str.replace(" ", "").replace("[", "").replace("]", "").split(">")]
     reversed_dict = {v: k for k, v in id_dict.items()}
     return [reversed_dict[num] for num in order if num in reversed_dict]
+
+

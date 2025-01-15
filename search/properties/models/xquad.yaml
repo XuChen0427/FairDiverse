@@ -1,0 +1,5 @@
+{
+   model: "xQuAD",
+   device: "cpu",
+   lambda: 0.5,
+}

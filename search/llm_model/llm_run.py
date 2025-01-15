@@ -32,9 +32,9 @@ def llm_run(config):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    output_txt = output_dir+'output_best.txt'
-    final_output_path = output_dir+'output_best_new.txt'
-    csv_path = output_dir+'result.csv'
+    output_txt = os.path.join(output_dir, 'output_best.txt')
+    final_output_path = os.path.join(output_dir, 'output_best_new.txt')
+    csv_path = os.path.join(output_dir, 'result.csv')
     
     qid_need_process = sorted(os.listdir(best_rank_dir), key=lambda x: int(x.split('.')[0]))
     doc_content_dict = {}
@@ -75,16 +75,16 @@ def llm_run(config):
             doc_ranking = doc_ranking + remain_doc[:20-len(doc_ranking)]
         print('=====> Document Ranking {}. '.format(doc_ranking))
 
-        judge_f = open(output_dir+file_name[:-5]+'.txt', 'w')
+        judge_f = open(os.path.join(output_dir, file_name[:-5]+'.txt'), 'w')
         for i in range(len(doc_ranking)):
             doc_ranking_score = len(doc_ranking) - i
             judge_f.write(str(qid) + ' Q0 ' + doc_ranking[i] + ' ' + str(i + 1) + ' ' + str(doc_ranking_score) + ' indri\n')
         judge_f.close()
 
-    command = 'cat '+output_dir+'* > '+output_txt
+    command = 'cat '+output_dir+'/* > '+output_txt
     os.system(command)
     remove_duplicate(output_txt, final_output_path)
-    command = './eval/clueweb09/ndeval ./eval/clueweb09/2009-2012.diversity.ndeval.qrels '+final_output_path+' >' + str(csv_path)
+    command = './search/eval/clueweb09/ndeval ./search/eval/clueweb09/2009-2012.diversity.ndeval.qrels '+final_output_path+' >' + str(csv_path)
     os.system(command)
 
     alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)

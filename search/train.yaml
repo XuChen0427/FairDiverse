@@ -1,6 +1,6 @@
 {
    ####search result diversification model settings
-   model: "llm",
+   model: "pm2",
 
    log_name: "ClueWeb09-DESA",
    model_save_dir: "model/",
