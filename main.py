@@ -1,12 +1,8 @@
 import numpy as np
 import argparse
-from recommendation.trainer import RecTrainer
-from recommendation.reranker import RecReRanker
 import yaml
 #from
 import os
-
-from search.trainer import SRDTrainer
 
 
 if __name__ == "__main__":
@@ -32,6 +28,8 @@ if __name__ == "__main__":
 
     print("your args:", args)
     if args.task == "recommendation":
+        from recommendation.trainer import RecTrainer
+        from recommendation.reranker import RecReRanker
         if args.stage == 'ranking' or args.stage == 'retrieval':
             trainer = RecTrainer(args.dataset, args.stage, train_config)
             trainer.train()
@@ -40,9 +38,11 @@ if __name__ == "__main__":
             reranker.rerank()
         else:
             raise NotImplementedError("we only support stage in [retrieval, ranking, re-ranking]")
-    elif args.task == "search" and args.stage == "re-ranking" and args.dataset == "clueweb09":
-        trainer = SRDTrainer(train_config)
-        trainer.train()
+    elif args.task == "search":
+        if args.stage == "re-ranking" and args.dataset == "clueweb09":
+            from search.trainer import SRDTrainer
+            trainer = SRDTrainer(train_config)
+            trainer.train()
     else:
         raise NotImplementedError
 

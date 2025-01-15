@@ -1,20 +1,10 @@
 import numpy as np
 import os
 
-import pandas as pd
 import yaml
 import random
 
-from .utils.process_dataset import Process
-from .rerank_model import desa, daletor, graph4div
-
 import time
-import torch.optim as optim
-
-from .sampler import PointWiseDataset, PairWiseDataset, RankingTestDataset, SequentialDataset
-from .evaluator import *
-
-from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm,trange
 from datetime import datetime
 import torch
@@ -53,36 +43,6 @@ class SRDTrainer(object):
         print(config)
 
         return config
-
-    def Set_Dataset(self, data_type, config, train_data_df, val_data_df, test_data_df):
-        if data_type == 'point':
-            train = PointWiseDataset(train_data_df, config)
-        elif data_type == 'pair':
-            train = PairWiseDataset(train_data_df, config)
-        elif data_type == 'sequential':
-            train = SequentialDataset(train_data_df, config)
-        else:
-            raise NotImplementedError("train_type only supports in [point, pair, sequential]")
-
-        if config['eval_type'] == 'CTR':
-            valid = PointWiseDataset(val_data_df, config)
-            test = PointWiseDataset(test_data_df, config)
-        elif config['eval_type'] == 'ranking':
-            valid = RankingTestDataset(val_data_df, config)
-            test = RankingTestDataset(test_data_df, config)
-        else:
-            raise NotImplementedError("We only support the eval type as [CTR, ranking]")
-
-        return train, valid, test
-
-    def check_model_stage(self,config, Model):
-        if config['data_type'] not in Model.type:
-            raise ValueError(f"The tested data type does not align with the model type: input is {config['data_type']}, "
-                             f"the model only support: {Model.type}")
-
-        if config['stage'] not in Model.IR_type:
-            raise ValueError(f"The tested stage does not align with the model stage: input is {config['stage']}, "
-                             f"the model only support: {Model.IR_type}")
 
 
     def train(self):
