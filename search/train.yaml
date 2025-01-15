@@ -5,6 +5,7 @@
    log_name: "ClueWeb09-DESA",
    model_save_dir: "model/",
    tmp_dir: "tmp/",
+   doc_content_dir: "clueweb09_doc_content_dir/",
 
    reprocess: False,
 

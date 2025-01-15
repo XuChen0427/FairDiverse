@@ -9,7 +9,8 @@ import json_repair
 from tqdm import tqdm
 
 from .api_llm import OpenAILMAgent
-from .utils import restore_doc_ids, remove_duplicate
+from ..utils.utils import restore_doc_ids, remove_duplicate
+from ..evaluator import get_metrics_20
 
 
 MAXDOC = 50
@@ -25,7 +26,7 @@ adhoc_rerank_prompt_input = """## Input Data
 
 def llm_run(config):
     best_rank_dir = os.path.join(config['data_dir'], 'best_rank/')
-    data_content_dir = os.path.join(config['data_dir'], 'doc_content/')
+    data_content_dir = os.path.join(config['data_dir'], config['data_content_dir'])
 
     output_dir = os.path.join(config['tmp_dir'], config['model'], config['model_name'])
     if not os.path.exists(output_dir):
@@ -85,5 +86,10 @@ def llm_run(config):
     remove_duplicate(output_txt, final_output_path)
     command = './eval/clueweb09/ndeval ./eval/clueweb09/2009-2012.diversity.ndeval.qrels '+final_output_path+' >' + str(csv_path)
     os.system(command)
+
+    alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)
+    print('alpha_nDCG@20_std = {}, NRBP_20 = {}, ERR_IA_20 = {}, S_rec_20 = {}'.format(alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20))
+
+    
 
 
