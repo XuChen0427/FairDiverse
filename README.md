@@ -22,7 +22,7 @@ python main.py --task search --stage re-ranking --dataset clueweb09 --train_conf
 ### Datasets
 For the recommendation dataset, we utilize the dataset format in [Recbole Datasets](https://recbole.io/dataset_list.html).
 
-For the search dataset, we utilize the [ClueWeb dataset](http://boston.lti.cs.cmu.edu/Services/clueweb09_batch/)
+For the search dataset, we utilize the [ClueWeb dataset](http://boston.lti.cs.cmu.edu/Services/clueweb09_batch/).
 
 
 
