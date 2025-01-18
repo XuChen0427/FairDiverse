@@ -173,5 +173,6 @@ def DALETOR_run(config):
             if epoch == (config['epoch']-1):
                 final_metrics.append(max_metric)
                 best_model_list.append(best_model)
-    
+    with open(os.path.join(config['model_save_dir'], config['model'], 'fold_qid.json'), 'w') as f:
+        json.dump(test_qids_list, f)
     print('alpha-nDCG = {}, best model = {}'.format(sum(final_metrics)/len(final_metrics), best_model_list))

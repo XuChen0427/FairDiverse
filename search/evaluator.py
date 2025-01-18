@@ -103,7 +103,7 @@ def evaluate_test_qids_DALETOR(model, test_tuple, div_q, mode='metric'):
                 return metric, new_docs_rank
 
 
-def get_global_fullset_metric(test_qids_list, config):
+def get_global_fullset_metric(config):
     '''
     get the final metrics for the five fold best models.
     :param best_model_list: the best models for the five corresponding folds.
@@ -115,19 +115,21 @@ def get_global_fullset_metric(test_qids_list, config):
     fout = open(output_file, 'w')
     all_models = config['best_model_list']
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
+    with open(os.path.join(config['model_save_dir'], config['model'], 'fold_qid.json'), 'r') as f:
+        test_qids_list = json.load(f)
 
     ''' get the metrics for five folds '''
     fold_time_pattern = re.compile(r'_FOLD_(\d+)_')
     for i in range(len(all_models)):
         model_file = all_models[i]
+        fold_times = int(fold_time_pattern.search(all_models[i]).group(1))
         if config['model'] == 'DESA':
             fold_p = os.path.join(config['data_dir'], config['model'], 'fold/')
-            fold_times = int(fold_time_pattern.search(all_models[i]).group(1))
             test_qids = test_dataset_dict = torch.load(os.path.join(fold_p, 'fold'+str(fold_times), 'test_data.pkl'))
             model = DESA(config['embedding_length'], 8, 2,config['embedding_length'], 8, 2, 8, config['dropout'])
             eval_func = evaluate_test_qids_DESA
         elif config['model'] == 'DALETOR':
-            test_qids = test_qids_list[i]
+            test_qids=test_qids_list[fold_times-1]
             test_dataset_dict = get_test_dataset(i+1, test_qids)
             model = DALETOR(0.0)
             eval_func = evaluate_test_qids_DALETOR
