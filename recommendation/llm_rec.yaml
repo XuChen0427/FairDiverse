@@ -12,7 +12,7 @@
     # llm config
     device: cuda,
     llm: Llama-3-8B-Instruct, #api,  #Qwen2-7B , #choices=[ 'api', 'qwen' ]),
-    llm_path: '/new_disk2/xiaopeng_ye/experiment/Agent4Fairness/Meta-Llama-3-8B-Instruct',
+    llm_path: ~,
     api_key: EMPTY,
     api_base: http://localhost:8000/v1,
 
@@ -22,7 +22,7 @@
 
     # grounding config
     grounding_model: Llama3-8B-Instruct,
-    grounding_model_path: /new_disk2/xiaopeng_ye/experiment/Agent4Fairness/Meta-Llama-3-8B-Instruct,
+    grounding_model_path: ~,
     grounding_batch_size: 32,
     use_8bit: True,
     saved_embs_filename: ./title_embedding.pt,
@@ -31,6 +31,6 @@
 
 
     # evaluate_config
-    metric_list: ['NDCG', 'HR', 'MRR', 'AUC'],
+    metric_list: ['NDCG', 'HR', 'MRR', 'AUC', 'MinMaxRatio', 'MMF', 'Entropy'],
     TopK: 10,
 }
