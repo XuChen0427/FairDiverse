@@ -76,9 +76,12 @@ def MMF(utility_list, ratio=0.5, weights=None, group_mask = None):
 
     mmf = np.sum(utility_sort[:MMF_length])/np.sum(weighted_utility)
 
-
-
     return mmf
+
+def MinMaxRatio(utility_list, ratio=0.5, weights=None, group_mask = None):
+    weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
+    return np.min(weighted_utility) / np.max(weighted_utility)
+
 
 def Gini(utility_list, weights=None, group_mask = None):
     weighted_utility = reconstruct_utility(utility_list, weights, group_mask)

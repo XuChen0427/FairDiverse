@@ -1,0 +1,36 @@
+{
+    # inter
+    userid_field: user_id,
+    history_behavior_field: history_behaviors,
+    item_candidate_field: items,
+    pos_length_field: pos_length,
+    item_feature_list: ['id','name','publisher'],
+
+    item_domain: game,  #
+
+
+    # llm config
+    device: cuda,
+    llm: Llama-3-8B-Instruct, #api,  #Qwen2-7B , #choices=[ 'api', 'qwen' ]),
+    llm_path: '/new_disk2/xiaopeng_ye/experiment/Agent4Fairness/Meta-Llama-3-8B-Instruct',
+    api_key: EMPTY,
+    api_base: http://localhost:8000/v1,
+
+    max_tokens: 256,
+    temperature: 0.8,
+
+
+    # grounding config
+    grounding_model: Llama3-8B-Instruct,
+    grounding_model_path: /new_disk2/xiaopeng_ye/experiment/Agent4Fairness/Meta-Llama-3-8B-Instruct,
+    grounding_batch_size: 32,
+    use_8bit: True,
+    saved_embs_filename: ./title_embedding.pt,
+    grounding_device: cuda,
+    grounding_device_map: auto,
+
+
+    # evaluate_config
+    metric_list: ['NDCG', 'HR', 'MRR', 'AUC'],
+    TopK: 10,
+}
