@@ -23,7 +23,7 @@
    mmf_eval_ratio: 0.5,
    decimals: 4,
 
-   device: cuda:0,
+   device: cuda,
    epoch: 20,
    batch_size: 32,
    learning_rate: 0.001,

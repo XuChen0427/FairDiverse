@@ -1,6 +1,6 @@
 {
   llm_path_dict: {
-      'Llama3-8B': "/new_disk2/xiaopeng_ye/experiment/Agent4Fairness/Meta-Llama-3-8B-Instruct",
+      'Llama3-8B': "",
       'Qwen2-7B': "",
       'Mistral-7B': "",
       'bert': "",

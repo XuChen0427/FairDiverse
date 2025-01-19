@@ -58,7 +58,7 @@ class LLM_caller(object):
         # model_inputs = tokenizer.build_inputs_for_generation(text, allowed_special="all", return_tensors="pt",padding=True).to('cuda')
         generated_ids = self.model.generate(
             model_inputs.input_ids,
-            max_new_tokens=512,
+            max_new_tokens=self.max_tokens,
             pad_token_id= self.tokenizer.eos_token_id
         )
 
