@@ -1,0 +1,7 @@
+{
+  llm_name: Qwen/Qwen2.5-1.5B-Instruct,
+  api_key: http://localhost:8000/v1,
+  api_base: EMPTY,
+  max_tokens: 256,
+  temperature: 0.8
+}

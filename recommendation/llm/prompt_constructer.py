@@ -4,18 +4,13 @@ from tqdm import tqdm
 
 
 class Prompt_Constructer(object):
-    def __init__(self, item_feature_list=['id','name','publisher'], item_domain='game',
-                 history_behavior_field='history_behaviors',
-                 item_candidate_field='items',
-                 pos_length_field='pos_length'):
-        self.item_feature_list = item_feature_list
-        self.item_domain = item_domain
-        self.history_behavior_field = history_behavior_field
-        self.item_candidate_field = item_candidate_field
-        self.pos_length_field = pos_length_field
-        # history_behavior_field: history_behaviors,
-        # item_candidate_field: items,
-        # pos_length_field: pos_length,
+    def __init__(self, config):
+        self.item_feature_list = ['id','title','publisher']
+        self.item_domain = config['item_domain']
+        self.fair_prompt = config['fair_prompt']
+        self.history_behavior_field = 'history_behaviors'
+        self.item_candidate_field = 'items'
+        self.pos_length_field = 'pos_length'
 
     def construct_inter_dict(self, input_file, iid2title, iid2cate):
         data_dict = {}
@@ -43,10 +38,10 @@ class Prompt_Constructer(object):
 
         # print(cates_name)
         data_dict = self.construct_inter_dict(input_file, iid2title, iid2pid)
-        prompt_dataset_json = self.data_to_json(data_dict, iid2pid)
+        prompt_dataset_json = self.data_to_json(data_dict)
         return prompt_dataset_json
 
-    def data_to_json(self, data_dict, iid2pid):
+    def data_to_json(self, data_dict):
         json_list = []
         for user, feats in tqdm(data_dict.items()):
             history = f"The user has viewed the following {self.item_domain}s before, with features as: "
@@ -57,8 +52,10 @@ class Prompt_Constructer(object):
                 history += '\n'
             # target_item = feats['positive_items']
             # target_movie_str = "" + str(target_item) + ""
+            instruction = self.fair_prompt if self.fair_prompt else f"You are a {self.item_domain} recommender."
+            instruction += f" Given a list of {self.item_domain} the user has clicked before, please recommend a item that the user may like."
             json_list.append({
-                "instruction": f"You are a {self.item_domain} recommender. Given a list of {self.item_domain} the user has clicked before, please recommend a item that the user may like.",
+                "instruction": instruction,
                 "input": f"{history}",
                 # "output": target_movie_str,
                 'item_candidates': feats['item_candidates'],

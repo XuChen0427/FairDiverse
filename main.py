@@ -1,7 +1,6 @@
 import numpy as np
 import argparse
 import yaml
-#from
 import os
 
 
@@ -11,7 +10,7 @@ if __name__ == "__main__":
 
     # add parameters
     parser.add_argument("--task", type=str, choices=["recommendation", "search"], default='recommendation', help='IR tasks')
-    parser.add_argument("--stage", type=str, choices=["retrieval", "ranking", "re-ranking", "llm"], default="ranking", help="your evaluation stage")
+    parser.add_argument("--stage", type=str, choices=["retrieval", "ranking", "re-ranking"], default="ranking", help="your evaluation stage")
     parser.add_argument("--dataset", type=str, choices=["yelp2018", "Amazon_All_Beauty", "Amazon_Digital_Music", "steam", "AliEC", "clueweb09"], default="steam", help="your dataset")
     parser.add_argument("--train_config_file", type=str, default="train_Ranking.yaml", help="your train yaml file")
     #parser.add_argument("--reprocess", type=str, choices=["yes", "no"], default="no", help="your dataset")
@@ -30,16 +29,17 @@ if __name__ == "__main__":
     if args.task == "recommendation":
         # from recommendation.trainer import RecTrainer
         # from recommendation.reranker import RecReRanker
-        from recommendation.llm4rec import LLMRecommender
+        from recommendation.llm_rec import LLMRecommender
         if args.stage == 'ranking' or args.stage == 'retrieval':
-            trainer = RecTrainer(args.dataset, args.stage, train_config)
-            trainer.train()
+            if train_config['use_llm']:
+                LLMRecommender = LLMRecommender(args.dataset, args.stage, train_config)
+                LLMRecommender.recommend()
+            else:
+                trainer = RecTrainer(args.dataset, args.stage, train_config)
+                trainer.train()
         elif args.stage == 're-ranking':
             reranker = RecReRanker(args.dataset, args.stage, train_config)
             reranker.rerank()
-        elif args.stage == 'llm':
-            LLMRecommender = LLMRecommender(args.dataset, args.stage, train_config)
-            LLMRecommender.recommend()
         else:
             raise NotImplementedError("we only support stage in [retrieval, ranking, re-ranking]")
     elif args.task == "search":

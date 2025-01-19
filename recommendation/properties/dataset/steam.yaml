@@ -6,5 +6,6 @@
     timestamp: timestamp:float,
     text_id: title:token,
     label_threshold: 10, #threshold means the label exceed the value will be regarded as 1, otherwise, it will be accounted into 0
-    group_aggregation_threshold: 10
+    group_aggregation_threshold: 10,
+    item_domain: game
 }

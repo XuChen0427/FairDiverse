@@ -3,17 +3,19 @@ from tqdm import tqdm
 
 
 class LLM_caller(object):
-    def __init__(self, llm, llm_path, device='cuda', api_key=None, api_base='EMPTY', max_tokens=256, temperature=0.8):
-        self.llm = llm
-        self.llm_path = llm_path
-        self.device = device
-        if self.llm == 'api':
-            self.init_llm_api(api_key, api_base, max_tokens, temperature)
+    def __init__(self, config):
+        self.llm_type = config['llm_type']
+        self.device = config['device']
+        if self.llm_type == 'api':
+            self.init_llm_api(config['llm_name'], config['api_key'], config['api_base'],
+                              config['max_tokens'], config['temperature'])
         else:
-            self.init_llm_model()
+            self.init_llm_local(config['llm_name'], config['llm_path_dict'],
+                                config['max_tokens'], config['use_8bit'], config['device_map'])
 
 
-    def init_llm_api(self, api_key, api_base, max_tokens, temperature):
+    def init_llm_api(self, llm_name, api_key, api_base='EMPTY', max_tokens=256, temperature=0.8):
+        self.llm_name = llm_name
         self.api_key = api_key
         self.api_base = api_base
         self.max_tokens = max_tokens
@@ -21,18 +23,22 @@ class LLM_caller(object):
         self.llm_func = self.GetResultFromGPT
 
 
-    def init_llm_model(self):
+    def init_llm_local(self, llm_name, llm_path_dict, max_tokens=512, use_8bit=False, device_map='auto'):
+        assert llm_name in llm_path_dict.keys(), f"LLM {llm_name} Path Not Found"
+        self.llm_name = llm_name
+        self.llm_path = llm_path_dict[llm_name]
+        self.max_tokens = max_tokens
         self.model = AutoModelForCausalLM.from_pretrained(
             self.llm_path,
+            load_in_8bit=use_8bit,
             torch_dtype="auto",
-            device_map="auto",
+            device_map=device_map,
             trust_remote_code=True
         )
         self.tokenizer = AutoTokenizer.from_pretrained(self.llm_path, trust_remote_code=True)
         self.llm_func = self.GetResultFromHuggingFace
 
     def GetResultFromHuggingFace(self, prompt_dict):
-
         messages = [
             {"role": "system",
              "content": prompt_dict['input']},
@@ -75,7 +81,7 @@ class LLM_caller(object):
         )
 
         chat_response = client.chat.completions.create(
-            model=self.llm_path,
+            model=self.llm_name,
             messages=[
                 {"role": "system", "content": prompt_dict['input']},
                 {"role": "user", "content": prompt_dict['instruction']},
@@ -85,16 +91,15 @@ class LLM_caller(object):
 
         )
         response = chat_response.choices[0].message.content
-        print(response)
+        # print(response)
         return response
 
     def get_response(self, data):
         json_list = []
-        print(f'--------Model {self.llm}-------')
+        print(f'-------- Get Model {self.llm_name} Response-------')
 
         for prompt_dict in tqdm(data):
             response = self.llm_func(prompt_dict)
-
             # print(f'response:{response}')
             prompt_dict['predict'] = response
             json_list.append(prompt_dict)

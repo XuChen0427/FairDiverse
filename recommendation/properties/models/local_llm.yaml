@@ -1,0 +1,12 @@
+{
+  llm_path_dict: {
+      'Llama3-8B': "/new_disk2/xiaopeng_ye/experiment/Agent4Fairness/Meta-Llama-3-8B-Instruct",
+      'Qwen2-7B': "",
+      'Mistral-7B': "",
+      'bert': "",
+      'gpt2': "",
+  } ,
+  max_tokens: 512,
+  use_8bit: False,
+  device_map: auto,
+}
