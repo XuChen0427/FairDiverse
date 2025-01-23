@@ -52,8 +52,8 @@ class Prompt_Constructer(object):
                 history += '\n'
             # target_item = feats['positive_items']
             # target_movie_str = "" + str(target_item) + ""
-            instruction = self.fair_prompt if self.fair_prompt else f"You are a {self.item_domain} recommender."
-            instruction += f" Given a list of {self.item_domain} the user has clicked before, please recommend a item that the user may like."
+            instruction = f"You are a {self.item_domain} recommender. Given a list of {self.item_domain} the user has clicked before, please recommend a item that the user may like."
+            instruction += self.fair_prompt if self.fair_prompt else f""
             json_list.append({
                 "instruction": instruction,
                 "input": f"{history}",
