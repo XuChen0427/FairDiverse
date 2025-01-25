@@ -78,7 +78,7 @@ def get_cos_similar_torch(v1, v2, device='cuda'):
         v1 = torch.tensor(v1).cuda()
         v2 = torch.tensor(v2).cuda()
         cos_sim = F.cosine_similarity(v1, v2)
-        return cos_sim.cpu().numpy()
+        return cos_sim.to(torch.float).cpu().numpy()
     else:
         v1 = torch.tensor(v1).cpu().float()
         v2 = torch.tensor(v2).cpu().float()

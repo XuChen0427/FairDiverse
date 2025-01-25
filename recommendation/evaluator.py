@@ -206,7 +206,6 @@ class LLM_Evaluator(Abstract_Evaluator):
             ndcgs.append(ndcg)
             hrs.append(hr)
             mrrs.append(mrr)
-            aucs.append(auc)
         # 计算accuracy指标
         score[f'NDCG@{topk}'] = np.round(np.mean(ndcgs), 4)
         score[f'HR@{topk}'] = np.round(np.mean(hrs), 4)
