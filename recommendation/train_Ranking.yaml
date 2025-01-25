@@ -12,10 +12,10 @@
 
    # LLM recommendation setting
    use_llm: True,
-   llm_type: local,     # choose from ['api', 'local']
-   llm_name: Llama3-8B,     # choose from ['Llama3-8B', 'Qwen2-7B']
-   grounding_model: Llama3-8B,   #  choose from ['Llama3-8B-Instruct', 'bert', 'gpt2']
-   saved_embs_filename: "embs.pt",  # choose from [None, 'path']
+   llm_type: vllm,     # choose from ['api', 'local', 'vllm']
+   llm_name: Mistral-7B,     # choose from ['Llama3-8B', 'Qwen2-7B']
+   grounding_model: Qwen2-7B,   #  choose from ['Llama3-8B', 'Qwen2-7B' 'bert', 'gpt2']
+   saved_embs_filename: "qwen_embs.pt",  # choose from [None, 'path']
    fair_prompt: "You are a item-fair recommender. Please try to ensure that each category of items receives fair recommendations.",
 
 

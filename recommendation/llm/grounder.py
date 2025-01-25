@@ -22,7 +22,7 @@ class Grounder(object):
         self.device = config['device']
 
     def load_model_tokenizer(self):
-        if self.grounding_model in ['Llama3-8B', 'bert', 'gpt2']:
+        if self.grounding_model in self.llm_path_dict.keys():
             self.tokenizer = AutoTokenizer.from_pretrained(self.grounding_model_path)
             self.tokenizer.padding_side = "left"
             self.model = AutoModelForCausalLM.from_pretrained(

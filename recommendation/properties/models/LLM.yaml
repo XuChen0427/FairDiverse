@@ -1,0 +1,28 @@
+{
+  # for share setting
+  max_tokens: 256,
+  temperature: 0.8,
+
+  # for api llm
+  api_key: http://localhost:8000/v1,
+  api_base: EMPTY,
+
+
+
+  # for local llm and vllm and grounding
+  llm_path_dict: {
+      'Llama3-8B': "",
+      'Qwen2-7B': "",
+      'Mistral-7B': "",
+      'ChatGLM-9B': "",
+      'bert': "",
+      'gpt2': "",
+  } ,
+
+  # for local llm, and grounding
+  use_8bit: True,
+  device_map: auto,
+
+  # for vllm
+  use_batch: True
+}

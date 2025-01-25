@@ -34,7 +34,7 @@ class LLMRecommender(object):
         with open(os.path.join("recommendation", "properties", "models.yaml"), 'r') as f:
             model_config = yaml.safe_load(f)
 
-        with open(os.path.join("recommendation", "properties", "models", f"{self.llm_type}_llm.yaml"),
+        with open(os.path.join("recommendation", "properties", "models", f"LLM.yaml"),
                   'r') as f:
             model_config.update(yaml.safe_load(f))
 
@@ -61,6 +61,7 @@ class LLMRecommender(object):
         LLM = LLM_caller(config)
 
         results_list = LLM.get_response(prompt_dataset)
+        LLM.clear()
         grounder = Grounder(config)
 
         grounding_result = grounder.grounding(results_list, id2title=iid2text)
