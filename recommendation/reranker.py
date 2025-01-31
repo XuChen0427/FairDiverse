@@ -2,7 +2,7 @@ import numpy as np
 import os
 import yaml
 from scipy.sparse import save_npz, load_npz
-from .rerank_model import CPFair, FairRec, FairRecPlus, k_neighbor, min_regularizer, PMMF, Welf, TaxRank, ElasticRank, FairSync
+from .rerank_model import CPFair, FairRec, FairRecPlus, k_neighbor, min_regularizer, PMMF, Welf, TaxRank, FairSync
 from .metric import dcg, MMF, Gini, Entropy, EF
 from datetime import datetime
 import json

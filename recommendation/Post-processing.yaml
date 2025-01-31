@@ -1,0 +1,16 @@
+{
+   ###############the ranking score stored path for the post-processing##################
+   ##########If you do not have it, please run the in-processing stage, firstly############
+   ranking_store_path: "2025-1-31_steam-base_mf",
+   #######################################################################################
+
+   ##################Post-processing model and log path############################
+   model: "FairSync",
+   log_name: "FairSync-steam-mf",
+
+   #########################Evaluation parameters#########################################
+   topk: [5, 10, 20],
+   fairness_metrics: ['EF', "MMF", "GINI", "Entropy"],
+   fairness_type: "Utility", # ["Exposure", "Utility"], where Exposure only computes the exposure of item group while utility computes the ranking score of item groups
+   #####################################################################################
+}

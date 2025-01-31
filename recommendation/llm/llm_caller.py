@@ -145,7 +145,7 @@ class LLM_caller(object):
                 {"role": "user", "content": prompt_dict['instruction']},
             ],
             max_tokens=self.max_tokens,
-            temperature=self.temperature,  # 温度
+            temperature=self.temperature,
 
         )
         response = chat_response.choices[0].message.content

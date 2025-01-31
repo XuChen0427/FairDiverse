@@ -97,14 +97,15 @@ class RecTrainer(object):
             raise ValueError(f"The tested data type does not align with the model type: input is {config['data_type']}, "
                              f"the model only support: {Model.type}")
 
-        if config['stage'] not in Model.IR_type:
-            raise ValueError(f"The tested stage does not align with the model stage: input is {config['stage']}, "
-                             f"the model only support: {Model.IR_type}")
+        # if config['stage'] not in Model.IR_type:
+        #     raise ValueError(f"The tested stage does not align with the model stage: input is {config['stage']}, "
+        #                      f"the model only support: {Model.IR_type}")
 
 
     def train(self):
         dir = os.path.join("recommendation", "processed_dataset", self.dataset)
-        state = Process(self.dataset)
+
+        state = Process(self.dataset, self.train_config)
         config = self.load_configs(dir)
         print(state)
         #exit(0)

@@ -206,7 +206,8 @@ class LLM_Evaluator(Abstract_Evaluator):
             ndcgs.append(ndcg)
             hrs.append(hr)
             mrrs.append(mrr)
-        # 计算accuracy指标
+
+        # compute metrics
         score[f'NDCG@{topk}'] = np.round(np.mean(ndcgs), 4)
         score[f'HR@{topk}'] = np.round(np.mean(hrs), 4)
         score[f'MRR@{topk}'] = np.round(np.mean(mrrs), 4)
@@ -233,12 +234,12 @@ class LLM_Evaluator(Abstract_Evaluator):
         return score
 
     def llm_eval(self, grounding_result, iid2pid):
-        predict_lists, label_lists, score_lists = self.get_data(grounding_result)  # 返回二维列表，所有用户的predict 和scores
+        predict_lists, label_lists, score_lists = self.get_data(grounding_result)
         eval_result = {}
         for topk in self.topk_list:
-            acc_score = self.cal_acc_score(label_lists, score_lists, topk)  # sens_feat 代表每一个prompt的敏感属性list
+            acc_score = self.cal_acc_score(label_lists, score_lists, topk)
             fair_score = self.cal_fair_score(iid2pid, predict_lists, topk)
             acc_score.update(fair_score)
             eval_result.update({f'Top{topk}': acc_score})
         print(f'Evaluate_result:{eval_result}')
-        return acc_score
+        return eval_result

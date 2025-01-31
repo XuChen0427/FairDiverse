@@ -32,18 +32,21 @@ def build_item_map(df,col_name, history_name):
     df[history_name] = df[history_name].apply(lambda x: [encode[i] for i in x])
     return decode, len(key)
 
-def Process(dataset, process_config=None):
+def Process(dataset, config=None):
 
 
-    if not process_config:
-        with open(os.path.join("recommendation","properties", "dataset.yaml"), "r") as file:
-            process_config = yaml.safe_load(file)
+
+    with open(os.path.join("recommendation","properties", "dataset.yaml"), "r") as file:
+        process_config = yaml.safe_load(file)
 
 
     with open(os.path.join("recommendation","properties", "dataset", "{}.yaml".format(dataset)), "r") as file:
         dataset_config = yaml.safe_load(file)
 
     process_config.update(dataset_config)
+
+    if config:
+        process_config.update(config)
 
     print("process config:")
     print(process_config)
