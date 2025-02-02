@@ -27,11 +27,11 @@ vllm>=0.6.6
 
 With the source code,  you can start three steps: 
 
-1. Download the datasets and check the default parameters of the four stages of pipelines.
+1. Download the datasets and check the default parameters of the four stages of pipelines (we provide a toy dataset steam already).
 
 2. Set your custom configuration file to execute the pipeline (we already provide a template file).
 
-3. Run the shell command, with the task, stage, dataset, and your custom configuration file specifying.
+3. Run the shell command, with the task, stage, dataset, and your custom configuration file specifying (you can directly run the command).
 
 #### Recommendation tasks:
 For in-processing methods, please run
