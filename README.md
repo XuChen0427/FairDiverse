@@ -23,7 +23,15 @@ vllm>=0.6.6
 
 
 ## Quick-start
-With the source code, you can use the provided script and toy dataset steam for initial usage of our library.
+![FairDiverse pipelines](img/usage.png)
+
+With the source code,  you can start three steps: 
+
+1. Download the datasets and check the default parameters of the four stages of pipelines.
+
+2. Set your custom configuration file to execute the pipeline (we already provide a template file).
+
+3. Run the shell command, with the task, stage, dataset, and your custom configuration file specifying.
 
 #### Recommendation tasks:
 For in-processing methods, please run
