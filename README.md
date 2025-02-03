@@ -84,8 +84,31 @@ For the search dataset, we utilize the [ClueWeb dataset](http://boston.lti.cs.cm
 
 #### In-processing models
 
+| Types    | Models                                                | Descriptions                                                                                                                   |
+|----------|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Re-weight | [APR](https://ieeexplore.ieee.org/document/10191757) | an adaptive reweighing method that dynamically prioritizes samples near the decision boundary to mitigate distribution shifts. |
+| Re-weight | [FairDual](https://github.com/XuChen0427/FairDual)    | applies dual-mirror gradient descent to dynamically compute the weight for each sample to support the worst-off groups.        |
+| Re-weight | [IPS](https://dl.acm.org/doi/10.1145/3589334.3648158)               | employs the reciprocal of the sum popularity of items within the group as the weight assigned to that group.                   |
+| Re-weight | [Minmax-SGD](https://arxiv.org/abs/1808.09781)        | applies optimizing techniques to dynamically sample groups.                                                                    |
+| Re-weight     | [SDRO](https://arxiv.org/abs/2407.21783)              | Improves DRO with the distributional shift to optimize group MMF.                                                              |
+| Re-sample     | [FairNeg](https://proceedings.mlr.press/v162/abernethy22a.html)           | adjusts the group-level negative sampling distribution in the training process.                                                |
+| Regularizer     | [FOCF](https://dl.acm.org/doi/10.5555/3294996.3295052)           | applies a fair-aware regularization loss of different groups.                                                                  |
+| Regularizer     | [Reg](https://pdfs.semanticscholar.org/8706/509307269103496904d595f611f7c189ffab.pdf)           | imposes a penalty on the squared difference between the average scores of two groups across all positive user-item pairs.      |
+| Prompt-based     | [FairPrompts](https://aclanthology.org/2024.findings-emnlp.467.pdf)           | Manually designe fair-aware prompts                                                                                            |
 
+#### Post-processing models
 
+| Types    | Models                                                                                | Descriptions                                                                                                                     |
+|----------|---------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Heuristic | [CP-Fair](https://arxiv.org/abs/2204.08085)                              | applies a greedy solution to optimize the knapsack problem of fair ranking.                                                      |
+| Heuristic | [min-regularizer](https://dl.acm.org/doi/fullHtml/10.1145/3543507.3583296)                             | adds an additional fairness score to the ranking scores, capturing the gap between the current utility and the worst-off utility. |
+| Heuristic | [RAIF](https://arxiv.org/abs/2501.06362)                                | a model-agnostic repeat-bias-aware item fairness optimization algorithm based on mixed-integer linear programming.               |
+| Learning-based | [P-MMF](https://dl.acm.org/doi/fullHtml/10.1145/3543507.3583296)                                             | applies a dual-mirror gradient descent method to optimize the accuracy-fairness trade-off problem. |
+| Learning-based     | [FairRec](https://dl.acm.org/doi/10.1145/3366423.3380196)                                           | proposes leveraging Nash equilibrium to guarantee Max-Min Share of item exposure.    |
+| Learning-based     | [FairRec+](https://arxiv.org/abs/2201.01180)                      | proposes leveraging Nash equilibrium to guarantee Max-Min Share of item exposure.  |
+| Learning-based     | [FairSync](https://arxiv.org/abs/2402.10628)                                | proposes to guarantee the minimum group utility under distributed retrieval stages.          |
+| Learning-based     | [Tax-Rank](https://dl.acm.org/doi/10.1145/3626772.3657766) | applies the optimal transportation (OT) algorithm to trade-off fairness-accuracy.    |
+| Learning-based     | [Welf](https://arxiv.org/abs/2110.15781)                   | use the Frank-Wolfe algorithm to maximize the Welfare functions of worst-off items.      |
 
 
 ## License
