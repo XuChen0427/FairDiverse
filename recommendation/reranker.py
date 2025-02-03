@@ -3,7 +3,7 @@ import os
 import yaml
 from scipy.sparse import save_npz, load_npz
 from .rerank_model import CPFair, FairRec, FairRecPlus, k_neighbor, min_regularizer, PMMF, Welf, TaxRank, FairSync, RAIF
-from .metric import dcg, MMF, Gini, Entropy, EF
+from .metric import dcg, MMF, Gini, Entropy, MinMaxRatio
 from datetime import datetime
 import json
 
@@ -78,8 +78,6 @@ class RecReRanker(object):
             Reranker = TaxRank(config)
         elif config['model'] == 'FairSync':
             Reranker = FairSync(config)
-        elif config['model'] == 'ElasticRank':
-            Reranker = ElasticRank(config)
         elif config['model'] == 'RAIF':
             Reranker = RAIF(config)
         else:
@@ -117,8 +115,8 @@ class RecReRanker(object):
             rerank_result[f"ndcg@{k}"] /= len(rerank_list)
             rerank_result[f"u_loss@{k}"] /= len(rerank_list)
             for fairness_metric in self.train_config['fairness_metrics']:
-                if fairness_metric == 'EF':
-                    rerank_result[f"EF@{k}"] = EF(exposure_list)
+                if fairness_metric == 'MinMaxRatio':
+                    rerank_result[f"MinMaxRatio@{k}"] = MinMaxRatio(exposure_list)
                 elif fairness_metric == 'MMF':
                     rerank_result[f"MMF@{k}"] = MMF(exposure_list)
                 elif fairness_metric == 'Entropy':
