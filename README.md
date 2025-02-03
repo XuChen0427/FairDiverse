@@ -24,7 +24,6 @@ Require Linux system
 ```
 vllm>=0.6.6
 ```
-
 #### For post-processing method RAIF
 Require Gurobi license 
 ```
