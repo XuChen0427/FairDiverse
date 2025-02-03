@@ -19,8 +19,12 @@ Require Linux system
 ```
 vllm>=0.6.6
 ```
-
-
+#### For post-processing method RAIF
+Require Gurobi license 
+```
+mip>=1.15.0
+gurobipy>=12.0.1
+```
 
 ## Quick-start
 ![FairDiverse pipelines](img/usage.png)
