@@ -23,8 +23,8 @@ class BPR(AbstractBaseModel):
         self.apply(self._init_weights)
 
 
-    def forward(self, user_ids, item_ids):
-        user_embeds = self.user_embedding(user_ids)
+    def forward(self, user_dict, item_ids):
+        user_embeds = self.get_user_embedding(user_dict)
         item_embeds = self.item_embedding(item_ids)
         dot_product = (user_embeds * item_embeds).sum(1)
         return self.sigmoid(dot_product)

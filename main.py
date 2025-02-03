@@ -11,9 +11,9 @@ if __name__ == "__main__":
     # add parameters
     parser.add_argument("--task", type=str, choices=["recommendation", "search"], default='recommendation', help='IR tasks')
     parser.add_argument("--stage", type=str, choices=["pre-processing", "in-processing", "post-processing"],
-                        default="post-processing", help="your evaluation stage")
+                        default="in-processing", help="your evaluation stage")
     parser.add_argument("--dataset", type=str, choices=["steam", "clueweb09"], default="steam", help="your dataset")
-    parser.add_argument("--train_config_file", type=str, default="train.yaml", help="your train yaml file")
+    parser.add_argument("--train_config_file", type=str, default="In-processing.yaml", help="your train yaml file")
     #parser.add_argument("--reprocess", type=str, choices=["yes", "no"], default="no", help="your dataset")
     #parser.add_argument("topk", type=float, default=10, help="ranking size")
     args = parser.parse_args()

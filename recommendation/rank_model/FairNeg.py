@@ -59,7 +59,7 @@ class FairNeg(Abstract_Sampler):
 
     def sample(self, interaction, Model):
         user_ids = interaction['user_ids'].cpu().numpy().tolist()
-        item_ids = interaction['user_ids'].cpu().numpy()
+        item_ids = interaction['item_ids'].cpu().numpy()
         neg_items = []
 
         pos_items = []

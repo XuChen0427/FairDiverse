@@ -75,6 +75,7 @@ class Ranking_Evaluator(Abstract_Evaluator):
         result_dict.update({f"mmf@{k}": 0 for k in self.config['topk']})
         result_dict.update({f"gini@{k}": 0 for k in self.config['topk']})
         result_dict.update({f"entropy@{k}": 0 for k in self.config['topk']})
+        result_dict.update({f"maxminratio@{k}": 0 for k in self.config['topk']})
         exposure_dict = {f"top@{k}":np.zeros(self.config['group_num']) for k in self.config['topk']}
         index = 0
 
@@ -146,6 +147,7 @@ class Ranking_Evaluator(Abstract_Evaluator):
             result_dict[f"mmf@{k}"] = MMF(exposure_dict[f"top@{k}"], ratio=self.config['mmf_eval_ratio']) * index
             result_dict[f"gini@{k}"] = Gini(exposure_dict[f"top@{k}"]) * index
             result_dict[f"entropy@{k}"] = Entropy(exposure_dict[f"top@{k}"]) * index
+            result_dict[f"maxminratio@{k}"] = MinMaxRatio(exposure_dict[f"top@{k}"]) * index
 
 
         for key in result_dict.keys():

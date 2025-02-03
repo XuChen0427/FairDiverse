@@ -5,12 +5,12 @@
    #######################################################################################
 
    ##################Post-processing model and log path############################
-   model: "FairSync",
-   log_name: "FairSync-steam-mf",
+   model: "Welf",
+   log_name: "test",
 
    #########################Evaluation parameters#########################################
    topk: [5, 10, 20],
-   fairness_metrics: ['EF', "MMF", "GINI", "Entropy"],
+   fairness_metrics: ['MinMaxRatio', "MMF", "GINI", "Entropy"],
    fairness_type: "Utility", # ["Exposure", "Utility"], where Exposure only computes the exposure of item group while utility computes the ranking score of item groups
    #####################################################################################
 }
