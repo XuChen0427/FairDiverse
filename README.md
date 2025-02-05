@@ -111,5 +111,18 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Learning-based     | [Welf](https://arxiv.org/abs/2110.15781)                   | use the Frank-Wolfe algorithm to maximize the Welfare functions of worst-off items.      |
 
 
+## Develop your own fairness- and diversity- aware models based on our toolkit
+
+You just needs few steps and some lines of codes to develop and evaluate your own models based on our toolkit!
+
+### Recommendation
+![Steps for develop recommender models](img/rec_develop_steps.png)
+
+1. set your custom model parameters
+2. based on your model type, inherit the corresponding abstract class and write the code for your model.
+3. set up your model for the training pipelines
+
+Then you can run the shell command to evaluate your own models.
+
 ## License
 FairDiverse uses [MIT License](./LICENSE). All data and code in this project can only be used for academic purposes.

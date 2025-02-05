@@ -18,6 +18,3 @@ class Abstract_Reranker(object):
 
     def rerank(self, ranking_score, k):
         pass
-
-    def full_predict(self, user, items):
-        pass
