@@ -10,7 +10,7 @@
 
    ####fair-rank model settings
    fair-rank: True, ##if you want to run a fair-rank module on the base models, you should set the value as True
-   rank_model: 'Reg',
+   rank_model: 'FairNeg',
    #################
 
    # LLM recommendation setting
@@ -28,8 +28,8 @@
 
    ###########################training parameters################################
    device: cpu,
-   epoch: 10,
-   batch_size: 32,
+   epoch: 20,
+   batch_size: 64,
    learning_rate: 0.001,
    ###########################################################################
 
@@ -37,7 +37,7 @@
    ###################################evaluation parameters######################################
    mmf_eval_ratio: 0.5,
    decimals: 4,
-   eval_step: 2,
+   eval_step: 5,
    eval_type: 'ranking',
    watch_metric: 'mmf@20',
    topk: [ 5,10,20 ], # if you choose the ranking settings, you can choose your top-k list

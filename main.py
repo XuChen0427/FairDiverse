@@ -28,17 +28,17 @@ if __name__ == "__main__":
 
     print("your args:", args)
     if args.task == "recommendation":
-        from recommendation.trainer import RecTrainer
-        from recommendation.reranker import RecReRanker
-        from recommendation.llm_rec import LLMRecommender
         if args.stage == 'in-processing':
             if train_config['use_llm']:
+                from recommendation.llm_rec import LLMRecommender
                 LLMRecommender = LLMRecommender(args.dataset, args.stage, train_config)
                 LLMRecommender.recommend()
             else:
+                from recommendation.trainer import RecTrainer
                 trainer = RecTrainer(args.dataset, args.stage, train_config)
                 trainer.train()
         elif args.stage == 'post-processing':
+            from recommendation.reranker import RecReRanker
             reranker = RecReRanker(args.dataset, args.stage, train_config)
             reranker.rerank()
         else:
