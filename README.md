@@ -64,7 +64,7 @@ python main.py --task search --stage post-processing --dataset clueweb09 --train
 ## Datasets
 For the recommendation dataset, we utilize the dataset format in [Recbole Datasets](https://recbole.io/dataset_list.html).
 
-For the search dataset, we utilize the [ClueWeb dataset](http://boston.lti.cs.cmu.edu/Services/clueweb09_batch/).
+For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.org/clueweb09.php/).
 
 ## Implemented Models
 
