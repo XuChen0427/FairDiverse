@@ -54,6 +54,27 @@ def get_results(num_users, size, topk, solution, topk_items):
     return rerank
 
 def load_ranking_matrices(relevance, topk): 
+    """
+    Generates ranking matrices by selecting the top-k relevant items for each user.
+
+    Parameters:
+    ----------
+    relevance: numpy.ndarray, shape (num_users, num_items)
+        A 2D array where each row corresponds to a user and contains item relevance scores.
+    topk: int
+        The number of top-ranked items to select per user.
+
+    Returns:
+    -------
+    topk_items: numpy.ndarray, shape (num_users, topk)
+        A 2D array where each row contains the indices of the top-k items for the corresponding user.
+    topk_scores: numpy.ndarray, shape (num_users, topk)
+        A 2D array where each row contains the relevance scores of the selected top-k items.
+    num_users: int
+        The total number of users.
+
+    """
+  
     num_users, num_items = relevance.shape
     
     topk_items = np.zeros((num_users, topk), dtype=int)
@@ -70,8 +91,29 @@ def load_ranking_matrices(relevance, topk):
     return topk_items, topk_scores, num_users
 
 
-#save item group info
 def read_item_index(total_users, topk, no_item_groups, item_group_map, topk_items):
+    """
+    Creates a binary indicator matrix that maps items to their respective item groups.
+
+    Parameters:
+    ----------
+    total_users: int
+        The total number of users.
+    topk: int
+        The number of candidate items per user.
+    no_item_groups: int
+        The total number of item groups.
+    item_group_map: dict
+        A dictionary mapping item indices to their corresponding group IDs.
+    topk_items: list of list of int, shape (total_users, topk)
+        A list where each entry contains candidate item IDs corresponding to a user.
+
+    Returns:
+    -------
+    Ihelp: numpy.ndarray, shape (total_users, topk, no_item_groups)
+        A binary 3D array where `Ihelp[uid][lid][k] = 1` if the `lid`-th item for user `uid`
+        belongs to item group `k`, otherwise `0`.
+    """
     Ihelp = np.zeros((total_users, topk, no_item_groups))
     for uid in range(total_users):
         for lid in range(topk):
@@ -83,6 +125,35 @@ def read_item_index(total_users, topk, no_item_groups, item_group_map, topk_item
 
 
 def fairness_optimisation(total_users, alpha, size, topk, group_num, Ihelp, topk_scores, mean):
+    """
+    Solves a fairness-aware ranking optimization problem using Gurobi.
+
+    Parameters:
+    ----------
+    total_users: int
+        The total number of users.
+    alpha: float
+        The fairness regularization parameter. A higher alpha increases fairness consideration.
+    size: int
+        The number of items to be selected per user.
+    topk: int
+        The number of candidate items per user.
+    group_num: int
+        The number of item groups.
+    Ihelp: numpy.ndarray, shape (total_users, topk, group_num)
+        A binary indicator matrix.
+    topk_scores: numpy.ndarray, shape (total_users, topk)
+        A 2D relevance score matrix.
+    mean: float
+        The mean exposure across item groups.
+
+    Returns:
+    -------
+    solution: numpy.ndarray, shape (num_users, topk)
+        A matrix indicating the final selected items.
+  
+    """
+  
 
     print(f"Running RAIF, {format(alpha, 'f')}")
     # V1: No. of users
@@ -117,10 +188,10 @@ def fairness_optimisation(total_users, alpha, size, topk, group_num, Ihelp, topk
     model.optimize()
     if model.status == GRB.OPTIMAL:
         solution = model.getAttr('x', W)
-        fairness = model.getAttr('x', item_group)
+        #fairness = model.getAttr('x', item_group)
 
 
-    return solution, fairness
+    return solution
 
 
 
@@ -137,7 +208,7 @@ class RAIF(Abstract_Reranker):
         topk_items, topk_scores, num_users = load_ranking_matrices(ranking_score, topk)
         mean = (num_users * k) / self.group_num
         Ihelp = read_item_index(total_users=num_users, topk=topk, no_item_groups=self.group_num, item_group_map=self.iid2pid, topk_items=topk_items) 
-        solution, fairness = fairness_optimisation(num_users, alpha, k, topk, self.group_num, Ihelp, topk_scores, mean)
+        solution = fairness_optimisation(num_users, alpha, k, topk, self.group_num, Ihelp, topk_scores, mean)
         rerank_list = get_results(num_users, k, topk, solution, topk_items)
         
         return rerank_list
