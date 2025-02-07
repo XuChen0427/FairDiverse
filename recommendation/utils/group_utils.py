@@ -53,11 +53,9 @@ def Build_Adjecent_Matrix(config):
     return M, iid2pid
 
 def load_json(file_path):
-    """加载指定路径的 JSON 文件并返回数据"""
+    """load json"""
     try:
-        # 打开 JSON 文件
         with open(file_path, 'r', encoding='utf-8') as file:
-            # 读取并解析 JSON 数据
             data = json.load(file)
         return data
     except FileNotFoundError:

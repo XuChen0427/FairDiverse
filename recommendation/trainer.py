@@ -34,11 +34,6 @@ class RecTrainer(object):
         self.train_config = train_config
 
 
-        #self.topk = topk
-
-    # def process_dataset(self):
-    #     if not os.path.exists(os.path.join("processed_dataset", str(self.dataset))):
-    #         Process(self.dataset)
     def load_configs(self, dir):
         print("start to load config...")
         with open(os.path.join(dir, "process_config.yaml"), 'r') as f:
@@ -96,11 +91,6 @@ class RecTrainer(object):
         if config['data_type'] not in Model.type:
             raise ValueError(f"The tested data type does not align with the model type: input is {config['data_type']}, "
                              f"the model only support: {Model.type}")
-
-        # if config['stage'] not in Model.IR_type:
-        #     raise ValueError(f"The tested stage does not align with the model stage: input is {config['stage']}, "
-        #                      f"the model only support: {Model.IR_type}")
-
 
     def train(self):
         dir = os.path.join("recommendation", "processed_dataset", self.dataset)
