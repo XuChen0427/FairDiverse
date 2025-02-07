@@ -2,8 +2,8 @@
    item_val: 5,
    user_val: 5,
    group_val: 5,
-   group_aggregation_threshold: 10, ##less than such threshold group will be aggregated into one group
-   sample_size: 1.0, ###sample radio of the whole dataset
+   group_aggregation_threshold: 10, ##If the number of items owned by a group is less than this value, those groups will be merged into a single group called the 'infrequent group.'
+   sample_size: 1.0, ###Sample radio of the whole dataset to form a new subset dataset for training.
    valid_ratio: 0.1,
    test_ratio: 0.1,
    reprocess: False, ##do you need to re-process the dataset according to your personalized requirements

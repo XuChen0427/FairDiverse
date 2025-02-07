@@ -3,12 +3,9 @@
    eval_type: 'ranking', #we support types: [CTR, ranking]
    eval_batch_size: 128,
    watch_metric: 'ndcg@5', ## for CTR: choose among [auc] (only in base model),
-   # for ranking choose among:
-   # accuracy: [ndcg@k, mrr@k, hr@k]
-   # fairness: [mmf@k, gini@k, entropy@k]
    topk: [5,10,20], # if you choose the ranking settings, you can choose your top-k list
    store_scores: True,
    decimals: 4,
    mmf_eval_ratio: 0.2,
-   ranking_store_path: "2024-11-7_base_mf", ##the ranking score stored path for the re-ranking, only re-ranking should change the value
+   #ranking_store_path: "2024-11-7_base_mf", ##the ranking score stored path for the re-ranking, only re-ranking should change the value
 }

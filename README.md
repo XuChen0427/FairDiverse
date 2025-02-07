@@ -38,7 +38,21 @@ urllib3==1.26.16
 vllm>=0.6.0
 ```
 To install vllm, please refer to [vllm official document](https://docs.vllm.ai/en/stable/).
-To download llms to local, please refer to [huggingface](https://huggingface.co/models).
+
+Then, you need to download your llms ([huggingface](https://huggingface.co/models)) to any path 
+and write the path into ~/recommendation/properties/LLMs.yaml:
+
+```
+llm_path_dict: 
+{
+      'Llama3-8B': "",
+      'Qwen2-7B': "",
+      'Mistral-7B': "",
+      'ChatGLM-9B': "",
+      'bert': "",
+      'gpt2': "",
+}
+```
 
 #### For post-processing method RAIF
 Require Gurobi license 

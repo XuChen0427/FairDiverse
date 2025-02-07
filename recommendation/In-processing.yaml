@@ -4,7 +4,7 @@
    data_type: 'pair', #[point, pair, sequential]
    #############################################################
 
-   ##do you need to re-process the dataset according to your personalized requirements######
+   ##Should the preprocessing be redone based on the new parameters instead of using the cached files in ~/recommendation/process_dataset######
    reprocess: False,
    ###############################################
 
@@ -33,7 +33,7 @@
    ###########################################################################
 
 
-   ###################################evaluation parameters######################################
+   ###################################evaluation parameters: overwrite from ~/properties/evaluation.yaml######################################
    mmf_eval_ratio: 0.5,
    decimals: 4,
    eval_step: 5,
