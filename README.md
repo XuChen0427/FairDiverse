@@ -1,6 +1,6 @@
 ## FairDiverse
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) | [![API documents](https://img.shields.io/badge/API-Document-green)](https://xuchen0427.github.io/FairDiverse/)
 
 __FairDiverse__ is a toolkit for reproducing and developing fairness- and diversity-aware Information Retrieval (IR) tasks.
 
@@ -10,6 +10,10 @@ __FairDiverse__ is a toolkit for reproducing and developing fairness- and divers
 We welcome the contributors to join our toolkit implementation! Any information, please contact:
 
 [Chen Xu](https://xuchen0427.github.io/): [Email Me](xc_chen@ruc.edu.cn)
+
+[Zhirui Deng](https://scholar.google.com/citations?user=8ZnYg8wAAAAJ&hl=en): [Email Me](zrdeng@ruc.edu.cn)
+
+[Clara Rus](https://scholar.google.com/citations?user=kytW95AAAAAJ&hl=en): [Email Me](c.a.rus@uva.nl)
 
 
 ## General Requirements

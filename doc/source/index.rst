@@ -1,5 +1,5 @@
 .. FairDiverse documentation master file.
-.. title:: FairDiverse v1.1.0
+.. title:: FairDiverse v0.1.1
 
 =========================================================
 
@@ -26,6 +26,8 @@ We design a unified pipelines.
 
 
 For the usage, we use following steps:
+
+
 .. image:: C:/lab/P-fairness_project/img/usage.png
     :width: 600
     :align: center
@@ -53,7 +55,7 @@ Here is the list of our lead developers in each development phase. They are the 
 ======================   ===============   =============================================
 Time                     Version 	        Lead Developers
 ======================   ===============   =============================================
-Nov. 2024 ~ Feb. 2025    v0.1.1            `Chen Xu <https://github.com/XuChen0427>`_, `Zhirui Deng <https://github.com/DengZhirui>`_, `Clara <https://github.com/ClaraRus>`_
+Nov. 2024 ~ Feb. 2025    v0.1.1            `Chen Xu <https://github.com/XuChen0427>`_, `Zhirui Deng <https://github.com/DengZhirui>`_, `Clara Rus <https://github.com/ClaraRus>`_
 ======================   ===============   =============================================
 
 License
