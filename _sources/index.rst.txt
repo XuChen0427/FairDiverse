@@ -26,6 +26,8 @@ We design a unified pipelines.
 
 
 For the usage, we use following steps:
+
+
 .. image:: C:/lab/P-fairness_project/img/usage.png
     :width: 600
     :align: center
