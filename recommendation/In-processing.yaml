@@ -10,8 +10,10 @@
 
    ####fair-rank model settings
    fair-rank: True, ##if you want to run a fair-rank module on the base models, you should set the value as True
-   rank_model: 'FairNeg',
+   rank_model: 'APR',
    #################
+
+
    # LLM recommendation setting
    use_llm: False,
    llm_type: vllm,     # choose from ['api', 'local', 'vllm']
@@ -41,5 +43,6 @@
    watch_metric: 'mmf@20',
    topk: [ 5,10,20 ], # if you choose the ranking settings, you can choose your top-k list
    store_scores: True, #If set true, the all relevance scores will be stored in the ~/log/your_name/ for post-processing
+   fairness_type: "Exposure", # ["Exposure", "Utility"], where Exposure only computes the exposure of item group while utility computes the ranking score of item groups
    ###########################################################################
 }

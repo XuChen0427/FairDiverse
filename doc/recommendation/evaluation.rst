@@ -24,6 +24,7 @@ Evaluation metric set ups
 - ``store_scores (bool)`` : Decide whether to save ranking scores for the post-processing (re-ranking) step.
 - ``decimals (int)`` : Number of decimal places retained of evaluation metrics.
 - ``mmf_eval_ratio (float)`` : The parameters of the MMF metric define the how many ratio of the worst-off group's utility compared to the utilities of all groups.
+- ``fairness_type (str)`` : The fairness computational methods, choosed among ["Exposure", "Utility"]. Exposure means computes fairness on the item exposure, Uility means computes fairness on the ranking scores.
 
 
 

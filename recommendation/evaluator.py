@@ -132,12 +132,13 @@ class Ranking_Evaluator(Abstract_Evaluator):
                         ######count the exposures for the computing fairness degree#############
                         ids = ranked_args[:k]
                         rank_items = np.array(real_item_ids)[ids]
-                        #print(rank_items)
-                        #print(ids)
-                        #exit(0)
-                        for iid in rank_items:
+                        for i, iid in enumerate(rank_items):
                             group_id = self.iid2pid[iid]
-                            exposure_dict[f"top@{k}"][group_id] += 1
+                            if self.config['fairness_type'] == "Exposure":
+                                exposure_dict[f"top@{k}"][group_id] += 1
+                            else:
+                                exposure_dict[f"top@{k}"][group_id] += np.round(score[ids[i]], self.config['decimals'])
+                            #exposure_dict[f"top@{k}"][group_id] += 1
 
 
 
