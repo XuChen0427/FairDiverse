@@ -18,8 +18,28 @@ Note that we remove repeat bias term, change the item fairness objective to make
 
 
 def get_results(num_users, size, topk, solution, topk_items):
-    #covert W to result 
+    """
+    Converts the solution matrix into selected item lists for multiple users.
 
+    Parameters:
+    ----------
+    num_users: int
+        The number of users.
+    size: int
+        The expected number of items per user in the final rerank list.
+    topk: int
+        The number of candidate items per user.
+    solution: numpy.ndarray, shape (num_users, topk)
+        A matrix indicating the final selected items.
+    topk_items: list of list of int, shape (num_users, topk)
+        A list where each entry contains candidate item IDs corresponding to a user.
+
+    Returns:
+    -------
+    rerank: list of list of int, shape (num_users, size)
+        A list where each entry contains exactly `size` selected items for a user.
+    """
+  
     rerank = []
     for i in range(num_users):
 
