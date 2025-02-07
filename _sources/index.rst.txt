@@ -25,6 +25,13 @@ We design a unified pipelines.
     :align: center
 
 
+For the usage, we use following steps:
+.. image:: C:/lab/P-fairness_project/img/usage.png
+    :width: 600
+    :align: center
+
+The utilized parameters in each config files can be found in following docs:
+
 .. toctree::
    :maxdepth: 1
    :caption: Recommendation Settings
