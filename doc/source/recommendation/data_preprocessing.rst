@@ -1,5 +1,7 @@
-Parameter settings for config files for data pre-processing (Default values are in ~/recommendation/properties/dataset.yaml)
-=========================
+Parameter settings data pre-processing
+========================================
+
+(Default values are in ~/recommendation/properties/dataset.yaml)
 
 The benchmark provides several arguments for describing:
 

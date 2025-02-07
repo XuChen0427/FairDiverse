@@ -1,5 +1,7 @@
-Parameter settings for your new dataset (create a new yaml file in ~/recommendation/properties/dataset/your_new_dataset.yaml)
-=========================
+Parameter settings for your new dataset
+=========================================
+
+(create a new yaml file in ~/recommendation/properties/dataset/your_new_dataset.yaml)
 
 The benchmark provides several arguments for describing:
 
@@ -21,7 +23,7 @@ Column set ups
 
 
 LLMs-based set ups
-''''''''''''''''''
+''''''''''''''''''''''''
 - ``text_id (str)`` : The column name used to identify textual information of item (e.g. new title).
 - ``item_domain (str)`` : The item domain name used to generate prompts.
 

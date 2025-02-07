@@ -1,0 +1,148 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parameter settings for your new dataset &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parameter settings for in-processing models" href="In-processing.html" />
+    <link rel="prev" title="Parameter settings for evaluations" href="evaluation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Settings</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parameter settings for your new dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#required-parameters">Required parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#column-set-ups">Column set ups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#llms-based-set-ups">LLMs-based set ups</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Parameter settings for your new dataset</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/recommendation/new_dataset.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="parameter-settings-for-your-new-dataset">
+<h1>Parameter settings for your new dataset<a class="headerlink" href="#parameter-settings-for-your-new-dataset" title="Link to this heading">¶</a></h1>
+<p>(create a new yaml file in ~/recommendation/properties/dataset/your_new_dataset.yaml)</p>
+<p>The benchmark provides several arguments for describing:</p>
+<ul class="simple">
+<li><p>Basic setting of the parameters</p></li>
+</ul>
+<p>See below for the details:</p>
+<section id="required-parameters">
+<h2>Required parameters<a class="headerlink" href="#required-parameters" title="Link to this heading">¶</a></h2>
+<section id="column-set-ups">
+<h3>Column set ups<a class="headerlink" href="#column-set-ups" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user_id</span> <span class="pre">(str)</span></code> : The column name used to identify the user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_id</span> <span class="pre">(str)</span></code> : The column name used to identify the item.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group_id</span> <span class="pre">(str)</span></code> : The column name used to identify the group.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label_id</span> <span class="pre">(str)</span></code> : The column name used to identify the label.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">(str)</span></code> : The column name used to identify the timestamp.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label_threshold</span> <span class="pre">(int)</span></code> : Threshold means the label exceed the value will be regarded as 1, otherwise, it will be accounted into 0.</p></li>
+</ul>
+</section>
+<section id="llms-based-set-ups">
+<h3>LLMs-based set ups<a class="headerlink" href="#llms-based-set-ups" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">text_id</span> <span class="pre">(str)</span></code> : The column name used to identify textual information of item (e.g. new title).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_domain</span> <span class="pre">(str)</span></code> : The item domain name used to generate prompts.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="evaluation.html" class="btn btn-neutral float-left" title="Parameter settings for evaluations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="In-processing.html" class="btn btn-neutral float-right" title="Parameter settings for in-processing models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

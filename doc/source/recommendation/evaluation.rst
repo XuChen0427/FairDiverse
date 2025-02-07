@@ -1,5 +1,8 @@
-Parameter settings for config files for evaluations (Default values are in ~/recommendation/properties/evaluation.yaml)
-=========================
+Parameter settings for evaluations
+====================================
+
+(Default values are in ~/recommendation/properties/evaluation.yaml)
+
 
 The benchmark provides several arguments for describing:
 
@@ -8,17 +11,17 @@ The benchmark provides several arguments for describing:
 See below for the details:
 
 Evaluation required parameters
-----------------------
+---------------------------------
 
 Evaluation process set ups
-''''''''''''''''''
+''''''''''''''''''''''''''''
 - ``eval_step (int)`` : How many epochs apart should the model be evaluated on the validation set.
 - ``eval_type (str)`` : Evaluation types can be chosen from ['ranking', 'CTR'], with ranking being the most commonly used. Most models do not support CTR tasks.
 - ``eval_batch_size (int)`` : The batch size used to conduct evaluation.
 
 
 Evaluation metric set ups
-''''''''''''''''''
+''''''''''''''''''''''''''
 - ``watch_metric (str)`` : During training, the model should be saved for testing when the watch_metric on the validation set reaches its highest value.
 - ``topk (list)`` : The evaluation ranking list size list, such as [5,10, 20]
 - ``store_scores (bool)`` : Decide whether to save ranking scores for the post-processing (re-ranking) step.

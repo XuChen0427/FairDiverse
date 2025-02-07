@@ -1,5 +1,7 @@
-Parameter settings for config files for running in-processing models (Default values are in ~/recommendation/In-processing.yaml)
-=========================
+Parameter settings for in-processing models
+==================================================================================================================================
+
+(Default values are in ~/recommendation/In-processing.yaml)
 
 The benchmark provides several arguments for describing:
 
@@ -8,15 +10,15 @@ The benchmark provides several arguments for describing:
 See below for the details:
 
 In-processing required parameters
-----------------------
+--------------------------------------------
 
 Base model set ups
-''''''''''''''''''
+''''''''''''''''''''''''
 - ``model (str)`` : The base model name.
 - ``data_type (str)`` : The base model training style, choosen from ['point', 'pair', 'sequential']. Note not all model support all types.
 
-Fairness- and diversity- aware in-processing model set ups
-''''''''''''''''''
+In-processing model set ups
+'''''''''''''''''''''''''''''
 - ``fair-rank (bool)`` : Bool variable for determining whether add fairness- and diversity-aware modules into base models.
 - ``rank_model (str)`` : The fairness- and diversity-aware model name.
 

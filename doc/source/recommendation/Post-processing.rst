@@ -1,5 +1,7 @@
-Parameter settings for config files for running post-processing models (Default values are in ~/recommendation/Post-processing.yaml)
-=========================
+Parameter settings for post-processing models
+=====================================================================================================================================
+
+(Default values are in ~/recommendation/Post-processing.yaml)
 
 The benchmark provides several arguments for describing:
 
@@ -8,7 +10,7 @@ The benchmark provides several arguments for describing:
 See below for the details:
 
 Post-processing required parameters
-----------------------
+--------------------------------------------
 
 Model set ups
 ''''''''''''''''''
