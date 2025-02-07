@@ -166,6 +166,19 @@ class LLM_Evaluator(Abstract_Evaluator):
         self.topk_list = config['topk']
 
     def get_data(self, data):
+        """
+        This method processes the input data to extract prediction lists, label lists, and score lists for each user.
+
+        Parameters:
+        - 'predict_list': A list of predicted items.
+        - 'positive_items': A list of items that are considered positive (e.g., liked or preferred by the user).
+        - 'scores': A list of scores corresponding to the predicted items, indicating the confidence of the prediction.
+
+        Returns:
+        - `predict_lists`: A list of predict lists for all users.
+        - `label_lists`: For each user, a list of binary labels indicating whether each predicted item is positive (1) or not (0).
+        - `score_lists`: A list of score lists corresponding to the predicted items for all users.
+        """
         # ground_truths = [i['positive_items'] for i in data]
         # sens_feat = [i['sensitiveAttribute'] for i in data]
         label_lists = []
@@ -185,6 +198,32 @@ class LLM_Evaluator(Abstract_Evaluator):
         return predict_lists, label_lists, score_lists
 
     def get_cates_value(self, iid2pid, predict, topk):
+        """
+        Get the category values based on predicted indices and their corresponding categories.
+
+        This method processes the predicted indices along with their mapping to category IDs
+        and returns a list of counts for each category, representing the frequency of occurrence
+        in the top-k predictions.
+
+        Parameters
+        - iid2pid : dict
+            A dictionary mapping item indices (int) to their respective category IDs (int).
+            If an item index is not found in the dictionary, it defaults to -1.
+
+        - predict : List[List[int]]
+            A 2D list where each sublist contains the predicted indices (top-k predictions)
+            for corresponding input data points.
+
+        - topk : int
+            The number of top predictions considered for each data point. This determines
+            how many elements from the beginning of each sublist in `predict` are processed.
+
+        Returns
+        - List[int]
+            A list of integers where each value corresponds to the count of occurrences for
+            a specific category across all top-k predictions. The order of these counts matches
+            the sorted order of category IDs as returned by `get_categories(iid2pid)`.
+        """
         cates_name = self.get_categories(iid2pid)
         predict = [i[:topk] for i in predict]
         from collections import defaultdict
@@ -197,6 +236,26 @@ class LLM_Evaluator(Abstract_Evaluator):
         return values
 
     def cal_acc_score(self, label_lists, score_lists, topk):
+        """
+        Calculate accuracy scores for recommendation system evaluation.
+
+        This method computes the average NDCG (Normalized Discounted Cumulative Gain), HR (Hit Ratio), and MRR (Mean Reciprocal Rank)
+        at a specified `topk` cutoff for a list of ground-truth labels and corresponding prediction scores.
+
+        Parameters
+        - label_lists : List[List[int]]
+            A list of lists containing ground-truth labels. Each sublist represents the relevant items for a user or query.
+        - score_lists : List[List[float]]
+            A list of lists containing predicted scores. Each sublist corresponds to the relevance scores for items
+            matching the order in `label_lists`.
+        - topk : int
+            The number of top predictions to consider when calculating the metrics.
+
+        Returns
+        - Dict[str, float]
+            A dictionary containing the average NDCG, HR, and MRR scores at the given `topk`, with keys formatted as 'NDCG@{topk}',
+            'HR@{topk}', and 'MRR@{topk}' respectively. Scores are rounded to 4 decimal places.
+        """
         score = {}
         ndcgs = []
         hrs = []
@@ -219,7 +278,24 @@ class LLM_Evaluator(Abstract_Evaluator):
         return list(set(iid2pid.values()))
 
     def cal_fair_score(self, iid2pid, predict, topk):
-        # provider fairness的评估指标 exposure
+        """
+        Calculate fairness scores for a recommendation system's evaluation.
+
+        This method computes various fairness metrics at a specified top-k cutoff to evaluate
+        the diversity and inclusiveness of the predicted items. It utilizes different fairness
+        measures like MMF (Max-Min Fairness), Gini coefficient, Min-Max Ratio, and Entropy to
+        quantify the balance across different categories or groups within the predictions.
+
+        Parameters:
+        - iid2pid (Dict[int, int]): A mapping where keys are item IDs and values are their respective group/category IDs.
+        - predict (List[Tuple[int, float]]): A list of tuples, each containing an item ID and its predicted score/score.
+        - topk (int): The top-k count used to consider the highest scored items for fairness evaluation.
+
+        Returns:
+        A dictionary with keys as the metric names prefixed with the top-k cutoff (e.g., 'MMF@5') and values as the
+        corresponding calculated scores, rounded to 4 decimal places.
+        """
+        #
         score = {}
         cates_value = self.get_cates_value(iid2pid, predict, topk)
         # print(cates_value)
@@ -236,12 +312,26 @@ class LLM_Evaluator(Abstract_Evaluator):
         return score
 
     def llm_eval(self, grounding_result, iid2pid):
+        """
+        Evaluate the performance of a language model based on grounding results and item-pid mappings.
+
+        This method assesses the accuracy and fairness of the model's predictions at different top-K thresholds.
+        It computes both accuracy scores and fairness scores,汇总 these into a comprehensive evaluation result.
+
+        Parameters:
+        - grounding_result (Dict[str, Any]): The output from the model grounding process, containing necessary information for evaluation.
+        - iid2pid (Dict[str, str]): A mapping from item IDs to product IDs, used in calculating fairness metrics.
+
+        Returns:
+        - eval_result (Dict[str, float]): A dictionary summarizing the evaluation outcomes, including accuracy and fairness scores for each specified top-K value.
+        """
         predict_lists, label_lists, score_lists = self.get_data(grounding_result)
         eval_result = {}
         for topk in self.topk_list:
             acc_score = self.cal_acc_score(label_lists, score_lists, topk)
             fair_score = self.cal_fair_score(iid2pid, predict_lists, topk)
-            acc_score.update(fair_score)
-            eval_result.update({f'Top{topk}': acc_score})
+            eval_result.update(acc_score)
+            eval_result.update(fair_score)
+            # eval_result.update({f'Top{topk}': acc_score})
         print(f'Evaluate_result:{eval_result}')
         return eval_result

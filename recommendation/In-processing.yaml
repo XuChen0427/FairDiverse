@@ -12,7 +12,6 @@
    fair-rank: True, ##if you want to run a fair-rank module on the base models, you should set the value as True
    rank_model: 'FairNeg',
    #################
-
    # LLM recommendation setting
    use_llm: False,
    llm_type: vllm,     # choose from ['api', 'local', 'vllm']
