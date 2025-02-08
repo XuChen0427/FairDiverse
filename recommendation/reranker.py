@@ -10,17 +10,28 @@ import json
 
 class RecReRanker(object):
     def __init__(self, dataset, stage, train_config):
+        """Initialize In-processing and base models.
+
+        :param dataset: utilized dataset.
+        :param stage: In-processing or Post-processing stage.
+        :param train_config: Your custom config files.
+        """
         self.dataset = dataset
         self.stage = stage
         self.train_config = train_config
 
 
-        #self.topk = topk
-
-    # def process_dataset(self):
-    #     if not os.path.exists(os.path.join("processed_dataset", str(self.dataset))):
-    #         Process(self.dataset)
     def load_configs(self, dir):
+        """
+           Loads and merges configuration files for the model, dataset, and evaluation.
+
+           This function loads multiple YAML configuration files, including the process configuration,
+           dataset-specific settings, model configurations, and evaluation parameters. All configurations
+           are merged, with the highest priority given to the class's own `config` attribute.
+
+           :param dir: The directory where the main process configuration file is located.
+           :return: A dictionary containing the merged configuration from all files.
+        """
         print("start to load config...")
         with open(os.path.join(dir, "process_config.yaml"), 'r') as f:
             config = yaml.safe_load(f)
@@ -47,6 +58,10 @@ class RecReRanker(object):
         return config
 
     def rerank(self):
+        """
+            Training post-processing main workflow.
+        """
+
         dir = os.path.join("recommendation", "processed_dataset", self.dataset)
         config = self.load_configs(dir)
 

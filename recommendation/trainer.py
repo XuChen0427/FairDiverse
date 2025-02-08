@@ -29,12 +29,31 @@ import ast
 
 class RecTrainer(object):
     def __init__(self, dataset, stage, train_config):
+        """Initialize In-processing and base models.
+
+        :param dataset: utilized dataset.
+        :param stage: In-processing or Post-processing stage.
+        :param train_config: Your custom config files.
+        """
+
         self.dataset = dataset
         self.stage = stage
         self.train_config = train_config
 
 
     def load_configs(self, dir):
+        """
+            Loads and merges configuration files for the model, dataset, and evaluation.
+
+            This function loads multiple YAML configuration files, including the process configuration,
+            dataset-specific settings, model configurations, and evaluation parameters. All configurations
+            are merged, with the highest priority given to the class's own `config` attribute.
+
+            :param dir: The directory where the main process configuration file is located.
+            :return: A dictionary containing the merged configuration from all files.
+        """
+
+
         print("start to load config...")
         with open(os.path.join(dir, "process_config.yaml"), 'r') as f:
             config = yaml.safe_load(f)
@@ -67,6 +86,20 @@ class RecTrainer(object):
         return config
 
     def Set_Dataset(self, data_type, config, train_data_df, val_data_df, test_data_df):
+        """
+            Initializes and returns the training, validation, and test datasets based on the specified data type and evaluation type.
+
+            This function creates appropriate dataset objects for training, validation, and testing based on the provided data type
+            (point, pair, or sequential) and the evaluation type (CTR or ranking). It supports different dataset types for training
+            and evaluation, and raises an error if an unsupported type is provided.
+
+            :param data_type: The type of dataset to be used for training. Must be one of ['point', 'pair', 'sequential'].
+            :param config: A configuration dictionary that contains parameters for dataset creation and evaluation type.
+            :param train_data_df: The DataFrame containing the training data.
+            :param val_data_df: The DataFrame containing the validation data.
+            :param test_data_df: The DataFrame containing the test data.
+            :return: A tuple containing the training, validation, and test datasets.
+        """
         if data_type == 'point':
             train = PointWiseDataset(train_data_df, config)
         elif data_type == 'pair':
@@ -88,11 +121,24 @@ class RecTrainer(object):
         return train, valid, test
 
     def check_model_stage(self,config, Model):
+        """
+            Checks if the provided data type in the configuration aligns with the supported model type.
+
+            This function verifies that the data type specified in the `config` dictionary is compatible with the model's
+            supported types. If the data type is not supported by the model, a `ValueError` is raised with an informative message.
+
+            :param config: A configuration dictionary that includes the data type used for testing.
+            :param Model: The model class or object which has a `type` attribute specifying the supported data types.
+        """
         if config['data_type'] not in Model.type:
             raise ValueError(f"The tested data type does not align with the model type: input is {config['data_type']}, "
                              f"the model only support: {Model.type}")
 
     def train(self):
+        """
+            Training in-processing and base model main workflow.
+        """
+
         dir = os.path.join("recommendation", "processed_dataset", self.dataset)
 
         state = Process(self.dataset, self.train_config)

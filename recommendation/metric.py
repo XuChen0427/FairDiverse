@@ -4,6 +4,25 @@ import numpy as np
 ##############ranking metrics #############################
 
 def AUC_score(y_scores, y_true):
+    r"""AUC_ (also known as Area Under Curve) is used to evaluate the two-class model, referring to
+        the area under the ROC curve.
+
+        .. _AUC: https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve
+
+        Note:
+            This metric does not calculate group-based AUC which considers the AUC scores
+            averaged across users. It is also not limited to k. Instead, it calculates the
+            scores on the entire prediction results regardless the users. We call the interface
+            in `scikit-learn`, and code calculates the metric using the variation of following formula.
+
+        .. math::
+            \mathrm {AUC} = \frac {{{M} \times {(N+1)} - \frac{M \times (M+1)}{2}} -
+            \sum\limits_{i=1}^{M} rank_{i}} {{M} \times {(N - M)}}
+
+        :math:`M` denotes the number of positive items.
+        :math:`N` denotes the total number of user-item interactions.
+        :math:`rank_i` denotes the descending rank of the i-th positive item.
+    """
     auc_score = roc_auc_score(y_true, y_scores)
     return auc_score
 
@@ -18,44 +37,18 @@ def dcg(scores, k):
 
 
 def NDCG(ranking_list, label_list, k):
+    r"""NDCG_ (also known as normalized discounted cumulative gain) is a measure of ranking quality,
+    where positions are discounted logarithmically. It accounts for the position of the hit by assigning
+    higher scores to hits at top ranks.
+
+    .. _NDCG: https://en.wikipedia.org/wiki/Discounted_cumulative_gain#Normalized_DCG
+
+    .. math::
+        \mathrm {NDCG@K} = \frac{1}{|U|}\sum_{u \in U} (\frac{1}{\sum_{i=1}^{\min (|R(u)|, K)}
+        \frac{1}{\log _{2}(i+1)}} \sum_{i=1}^{K} \delta(i \in R(u)) \frac{1}{\log _{2}(i+1)})
+
+    :math:`\delta(·)` is an indicator function.
     """
-    Calculate the Normalized Discounted Cumulative Gain (NDCG) for a ranked list.
-
-    This function computes the NDCG, which is a measure of ranking quality that compares
-    the actual ranking of items with an ideal ranking. It is particularly useful for
-    evaluating information retrieval systems and recommendation algorithms.
-
-    Parameters
-    ----------
-    ranking_list : array-like
-        A list representing the ranked order of items as predicted by a system.
-        The indices correspond to the items' positions in the sorted label list,
-        and the values are assumed to be the relevance scores or labels of these items.
-
-    label_list : array-like
-        An array of true relevance labels for the items, ordered by their implicit position.
-        This list represents the ideal ranking or true relevance of the items.
-
-    k : int
-        The cutoff point in the ranked list at which the NDCG is computed. Only the top-k
-        elements of `ranking_list` are considered in the calculation.
-
-    Returns
-    -------
-    float
-        The computed NDCG score, which ranges from 0 to 1. A score of 1 indicates a perfect
-        ranking where the predicted order matches the ideal relevance order.
-
-    Notes
-    -----
-    The Discounted Cumulative Gain (DCG) is first computed for both the predicted
-    `ranking_list` and the `label_list`, then the NDCG is calculated as the ratio of the
-    two DCG values.
-
-    The `dcg` function used within this method should ideally be defined elsewhere and
-    computes the DCG given a list of labels and a cutoff `k`.
-    """
-    #ndcg = 0
     sorted_label = np.sort(label_list)[::-1]
     label_dcg = dcg(sorted_label, k)
     ranking_dcg = dcg(ranking_list, k)
@@ -64,13 +57,34 @@ def NDCG(ranking_list, label_list, k):
     return ndcg
 
 def HR(ranking_list, label_list, k):
+    r"""HR_ (also known as truncated Hit-Ratio) is a way of calculating how many 'hits'
+        you have in an n-sized list of ranked items. If there is at least one item that falls in the ground-truth set,
+        we call it a hit.
+
+        .. _HR: https://medium.com/@rishabhbhatia315/recommendation-system-evaluation-metrics-3f6739288870
+
+        .. math::
+            \mathrm {HR@K} = \frac{1}{|U|}\sum_{u \in U} \delta(\hat{R}(u) \cap R(u) \neq \emptyset),
+
+        :math:`\delta(·)` is an indicator function. :math:`\delta(b)` = 1 if :math:`b` is true and 0 otherwise.
+        :math:`\emptyset` denotes the empty set.
+    """
     sorted_label = np.sort(label_list)[::-1]
     hr = np.sum(ranking_list[:k])/np.sum(sorted_label[:k])
     return hr
 
 
 def MRR(ranking_list, k):
+    r"""The MRR_ (also known as Mean Reciprocal Rank) computes the reciprocal rank
+        of the first relevant item found by an algorithm.
 
+        .. _MRR: https://en.wikipedia.org/wiki/Mean_reciprocal_rank
+
+        .. math::
+           \mathrm {MRR@K} = \frac{1}{|U|}\sum_{u \in U} \frac{1}{\operatorname{rank}_{u}^{*}}
+
+        :math:`{rank}_{u}^{*}` is the rank position of the first relevant item found by an algorithm for a user :math:`u`.
+    """
     mrr = 0
     for index, i in enumerate(ranking_list[:k]):
         if i > 0:
@@ -82,6 +96,14 @@ def MRR(ranking_list, k):
 ##################fairness metric#######################
 
 def reconstruct_utility(utility_list, weights, group_mask):
+    """
+        Reconstruct utility by re-weighting them and masking the utility of certain unused groups.
+        :param utility_list: array for item/user utilities
+        :param weights: array for item/user utilities weights
+        :param group_mask: bool array for whether computed the group utilityes
+        :return: re-constructed utility array
+    """
+
     if not weights:
         weights = np.ones_like(utility_list)
 
@@ -102,21 +124,13 @@ def mask_utility(utility, group_mask):
     This function filters out the utility values where the corresponding
     group mask element is zero, effectively removing them from the output.
 
-    Parameters
-    ----------
-    utility : list or numpy.ndarray
-        A list or array of utility values to be masked.
 
-    group_mask : list or numpy.ndarray
-        A list or array of integers serving as a mask. Each element in
-        the utility list is included in the result if the corresponding
-        mask element is non-zero.
-
-    Returns
-    -------
-    numpy.ndarray
-        An array of utility values after applying the mask.
+    :param utility: array for item/user utilities
+    :param group_mask: bool array for whether computed the group utilityes
+    :return: masked utility array
     """
+
+
     masked_utility = []
     for i, m in enumerate(group_mask):
         if m == 0:
@@ -129,21 +143,23 @@ def MMF(utility_list, ratio=0.5, weights=None, group_mask = None):
     Calculate the Max-min Fairness (MMF) index based on a given utility list.
 
     Parameters
-    - utility_list : array-like
+    :param utility: array-like
         A list or array representing the utilities of resources or users.
-    - ratio : float, optional
+    :param ratio: float, optional
         The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.
-    - weights : array-like, optional
+    :param ratio: float, optional
+        The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.
+    :param ratio: float, optional
+        The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.
+    :param weights : array-like, optional
         An optional list or array of weights corresponding to each utility in `utility_list`.
         If provided, utilities are multiplied by their respective weights before sorting.
         Defaults to None, implying equal weighting.
-    - group_mask : array-like, optional
+    :param group_mask : array-like, optional
         An optional list or array used to selectively apply weights. If provided, it must have the same length as
         `utility_list` and `weights`. Defaults to None, indicating no group-based weighting.
 
-    Returns
-    - float
-        The computed MMF index, representing the fairness of the allocation.
+    :return: The computed MMF index, representing the fairness of the allocation.
     """
     weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
 
@@ -157,17 +173,14 @@ def MMF(utility_list, ratio=0.5, weights=None, group_mask = None):
 def MinMaxRatio(utility_list, weights=None, group_mask = None):
     """
     This function computes the minimum-to-maximum ratio of a list of utilities, optionally weighted and grouped.
-    Parameters:
-    - utility_list (list of float): A list containing numerical utility values.
-    - ratio** (float, optional): The default ratio to return if the utility list is empty or invalid. Defaults to 0.5.
-    - weights (list of float, optional): A list of weights corresponding to the utilities in utility_list. If provided,
+
+    :param utility_list (list of float): A list containing numerical utility values.
+    :param weights (list of float, optional): A list of weights corresponding to the utilities in utility_list. If provided,
       each utility is multiplied by its respective weight. If None, all utilities are considered with equal weight.
-    - group_mask (list of int or bool, optional): A mask indicating groups within the utility_list. If provided, it must
+    :param group_mask (list of int or bool, optional): A mask indicating groups within the utility_list. If provided, it must
       be of the same length as utility_list. Groups are defined by consecutive True or 1 values. If None, no grouping is applied.
 
-    Returns:
-    - float: The computed minimum-to-maximum ratio of the (weighted) utilities. If the utility_list is empty or all utilities
-    are zero after weighting and grouping, the function returns the value specified by the `ratio` parameter.
+    :return: float: The computed minimum-to-maximum ratio of the (weighted) utilities.
     """
     weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
     return np.min(weighted_utility) / np.max(weighted_utility)
@@ -178,17 +191,14 @@ def Gini(utility_list, weights=None, group_mask = None):
     This function computes the Gini coefficient, a measure of statistical dispersion intended to represent income inequality within a nation or social group.
     The Gini coefficient is calculated based on the cumulative distribution of values in `utility_list`, which can optionally be weighted and masked.
 
-    Parameters
-    - utility_list: array_like
+    :param utility_list: array_like
         A 1D array representing individual utilities. The utilities are used to compute the Gini coefficient.
-    - weights: array_like, optional
+    :param weights: array_like, optional
         A 1D array of weights corresponding to `utility_list`. If provided, each utility value is multiplied by its respective weight before calculating the Gini coefficient. Defaults to None, implying equal weighting.
-    - group_mask: array_like, optional
+    :param group_mask: array_like, optional
         A 1D boolean array used to selectively include elements from `utility_list`. If provided, only the elements where the mask is True are considered in the calculation. Defaults to None, meaning all elements are included.
 
-    Returns
-    - float
-        The computed Gini coefficient, ranging from 0 (perfect equality) to 1 (maximal inequality).
+    :return: float: The computed Gini coefficient, ranging from 0 (perfect equality) to 1 (maximal inequality).
     """
     weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
 
@@ -207,19 +217,16 @@ def Entropy(utility_list, weights=None, group_mask = None):
     weighted by `weights` and filtered by `group_mask`. Entropy measures the
     disorder or uncertainty in the distribution.
 
-    Parameters
-    - utility_list : list or array-like
+    :param utility_list: list or array-like
         A list or array representing utility values for each item.
-    - weights : list or array-like, optional
+    :param weights: list or array-like, optional
         A list or array of weights corresponding to each utility value. If not provided,
         all utilities are considered equally weighted. Defaults to None.
-    - group_mask : list or array-like, optional
+    :param group_mask : list or array-like, optional
         A boolean mask indicating which utilities to include in the calculation.
         If not provided, all utilities are included. Defaults to None.
 
-    Returns
-    - float
-        The calculated entropy of the (potentially weighted and masked) distribution.
+    :return: float: The calculated entropy of the (potentially weighted and masked) distribution.
 
     Notes
     - Entropy is calculated as H = -sum(p * log2(p)), where p is the probability of each event.
@@ -229,31 +236,12 @@ def Entropy(utility_list, weights=None, group_mask = None):
     weighted_utility = reconstruct_utility(utility_list, weights, group_mask)
 
     values = np.array(weighted_utility)
-    values = values / np.sum(values)  # 归一化
+    values = values / np.sum(values)
 
     # H = - sum(p * log2(p))
     # avoid 0 case
     entropy_value = -np.sum(values * np.log2(values + 1e-9))
     return entropy_value
 
-def ElasticFair(utils,t):
 
-    if t != 0:
-        sign = np.sign(1-t)
-        utils_g = np.sum(np.power(utils,1-t))
-        utils_g = np.power(utils_g, 1/t)
-        return sign * utils_g
-    else:
-        entropy = - np.sum(utils * np.log(utils))
-        return np.exp(entropy)
 
-def EF(utility_list, M = 50, weights=None, group_mask = None):
-    utility_list = reconstruct_utility(utility_list, weights, group_mask)
-    utility_list = utility_list / np.sum(utility_list)
-
-    t = np.linspace(1 - M, 1 + M, 200)
-    fair = []
-    for i in t:
-        fair.append(ElasticFair(utility_list, i))
-    integral = np.trapz(fair, t)
-    return integral/(2*M*len(utility_list))

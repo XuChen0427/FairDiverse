@@ -15,16 +15,22 @@ class Abstract_Reweigher(object):
         self.IR_type = ["ranking", "retrieval"]
         self.fair_type = "re-weight"
         self.type = ["point", "pair", "sequential"]
-        #self.reset_parameters()
 
-    # def reset_parameters(self):
-    #     self.update_len = self.config['update_epoch'] * self.train_len
-    #     self.C_t = self.config['topk'] * self.update_len * self.group_weight
     def reset_parameters(self, **kwargs):
         self.exposure_count = np.zeros(self.config['group_num'])
 
 
-    def reweight(self, items):
+    def reweight(self, **kwargs):
+        """
+            Recalculates the batch weights based on the loss and the group adjacency matrix.
+
+            This function computes new weights for each group in the batch based on the loss associated with each item and
+            the group adjacency matrix. The batch weights are recalculated by considering the loss for each group and adjusting
+            them based on predefined parameters in the configuration (e.g., `beta`, `alpha`, `eta`).
+
+            :param Any:
+            :return: A normalized vector of batch weights for each group in the batch.
+        """
         pass
 
 
@@ -37,6 +43,15 @@ class Abstract_Regularizer(object):
         self.M, self.iid2pid = Build_Adjecent_Matrix(config)
 
     def fairness_loss(self, **kwargs):
+        """
+           Computes the fairness loss as the variance of the input scores.
+
+           This function calculates the fairness loss by computing the variance of the provided scores. The loss aims to capture
+           the variation in the scores, which can be used as a measure of fairness in the model's predictions.
+
+           :param: any.
+           :return: The fairness loss.
+           """
         pass
 
 class Abstract_Sampler(object):
@@ -56,4 +71,19 @@ class Abstract_Sampler(object):
         self.sample_probality = self.sample_probality/np.sum(self.sample_probality)
 
     def sample(self, **kwargs):
+        """
+        Samples negative items for each user in the interaction, based on group fairness and model predictions.
+
+        This function selects negative items for users in the interaction based on two factors:
+        group fairness (weighted by `group_fair`) and the model's predicted scores (scaled by a temperature parameter).
+        The negative item selection combines these factors and returns the selected items.
+
+        :param interaction: A dictionary containing interaction data. It should include:
+                            - 'user_ids': A tensor of user IDs.
+                            - 'item_ids': A tensor of item IDs.
+        :param Model: The model object that provides the method `full_scores` to get predicted scores for negative items.
+        :return: A tensor of sampled negative item IDs for each user, and the positive item embeddings.
+        """
+
+
         pass

@@ -2,6 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from tqdm import tqdm
 
 
+
 class LLM_caller(object):
     def __init__(self, config):
         self.config = config
@@ -44,7 +45,7 @@ class LLM_caller(object):
 
         This method sets up a local instance of a causal language model using Hugging Face's transformers library. It loads the model and tokenizer from the provided path, with options for controlling memory usage and device allocation.
 
-        Parameters:
+
         :param llm_name: `str`
             The name of the language model to initialize. Must correspond to a key in the `llm_path_dict`.
         :param llm_path_dict: `Dict[str, str]`
@@ -56,22 +57,7 @@ class LLM_caller(object):
         :param device_map: `str`, optional
             Specifies how to allocate the model across devices. 'auto' automatically balances the model on available devices. Custom mappings can also be defined. Defaults to 'auto'.
 
-        Raises:
-            AssertionError: If the specified `llm_name` is not found in `llm_path_dict`.
 
-        Attributes Set:
-            :self.llm_name: `str`
-                Name of the initialized LLM.
-            :self.llm_path: `str`
-                Local path to the initialized LLM.
-            :self.max_tokens: `int`
-                Maximum token generation limit.
-            :self.model: `transformers.AutoModelForCausalLM`
-                The loaded causal language model.
-            :self.tokenizer: `transformers.AutoTokenizer`
-                The tokenizer paired with the loaded model.
-            :self.llm_func: `Callable`
-                A reference to the method for generating results using the initialized LLM.
         """
         print(f'use local llm for generating...')
         assert llm_name in llm_path_dict.keys(), f"LLM {llm_name} Path Not Found"
@@ -96,24 +82,12 @@ class LLM_caller(object):
         sampling parameters like temperature and maximum tokens, selects the tokenizer corresponding to the language model,
         and determines whether to use batch processing based on the provided configuration.
 
-        Parameters:
         :param llm_name: (str) The name of the language model to be initialized.
         :param llm_path_dict: (dict) A dictionary mapping language model names to their respective local paths.
         :param temperature: (float, optional) The sampling temperature for generated text. Defaults to 0.8.
         :param max_tokens: (int, optional) The maximum number of tokens to generate. Defaults to 256.
 
-        Attributes Set:
-        :self.use_batch: (bool) Indicates if batch processing should be used, based on the configuration.
-        :self.llm_path: (str) The path to the language model files.
-        :self.tokenizer: (PreTrainedTokenizer) The tokenizer associated with the selected language model.
-        :self.llm_name: (str) The name of the initialized language model.
-        :self.vllm: (LLM) An instance of vLLM's LLM class configured with the model details.
-        :self.sampling_params: (SamplingParams) Sampling parameters for text generation.
-        :self.llm_func: (function) Determines the function for getting results, either batch or non-batch, based on :self.use_batch:.
 
-        Raises:
-        :FileNotFoundError: If the specified language model path does not exist.
-        :ValueError: If the tokenizer fails to initialize due to incorrect configuration or missing remote code trust.
         """
         print(f'use vllm for generating...')
         from vllm import LLM, SamplingParams
@@ -129,12 +103,10 @@ class LLM_caller(object):
         """
         This method processes a batch of data to generate text using the VLLM engine, with customization based on the LLM name.
 
-        Parameters
-        - data : List[Dict[str, str]]
+        :param data : List[Dict[str, str]]
             A list of dictionaries, each containing 'input' and 'instruction' keys for generating text.
 
-        Returns
-        - List[str]
+        :return: List[str]
             A list of generated texts corresponding to the input data.
         """
         if 'Mistral' in self.llm_name:
@@ -159,13 +131,11 @@ class LLM_caller(object):
         """
         Obtains a generated text result from the VLLM model given a dictionary containing input and instruction data.
 
-        Parameters:
-        - prompt_dict (dict): A dictionary carrying two keys:
+        :param: prompt_dict (dict): A dictionary carrying two keys:
             - 'input' (str): The context or initial information for the conversation.
             - 'instruction' (str): The specific directive or query for the model to act upon.
 
-        Returns:
-        - str: The generated text output from the VLLM model corresponding to the provided inputs.
+        :return: str: The generated text output from the VLLM model corresponding to the provided inputs.
 
         Note:
         - Ensure `self.tokenizer` and `self.vllm` are properly initialized and configured before calling this method.
@@ -193,13 +163,11 @@ class LLM_caller(object):
         It applies a chat template to format the messages, tokenizes them, and prepares the input for the model.
         The model's generate function is then used to produce new text, which is decoded and returned as the final response.
 
-        Parameters:
-        - **prompt_dict** (dict): A dictionary containing two keys:
-          - 'input' (str): The initial context or scenario for the conversation.
-          - 'instruction' (str): The user's instruction or query within the given context.
+        :param **prompt_dict** (dict): A dictionary containing two keys:
+        :param 'input' (str): The initial context or scenario for the conversation.
+        :param 'instruction' (str): The user's instruction or query within the given context.
 
-        Returns:
-        - **response** (str): The generated text output by the language model in response to the prompt.
+        :return: **response** (str): The generated text output by the language model in response to the prompt.
         """
         messages = [
             {"role": "system", "content": prompt_dict['input']},
@@ -239,13 +207,11 @@ class LLM_caller(object):
 
         This method constructs a chat completion request with a system message and a user message extracted from the `prompt_dict`. It then sends the request to the API endpoint defined by `openai_api_base`, utilizing the API key `openai_api_key`. The response content from the API is returned as a string.
 
-        Parameters:
-            prompt_dict (dict): A dictionary containing two keys:
-                - 'input': A string representing the system's input or context for the conversation.
-                - 'instruction': A string representing the user's message or instruction for generating a response.
+        :param prompt_dict (dict): A dictionary containing two keys:
+        :param 'input': A string representing the system's input or context for the conversation.
+        :param 'instruction': A string representing the user's message or instruction for generating a response.
 
-        Returns:
-            str: The generated text content from the API's response.
+        :return: str: The generated text content from the API's response.
 
         Note:
             - Ensure that `self.api_key` and `self.api_base` are set appropriately before calling this method.
@@ -283,22 +249,14 @@ class LLM_caller(object):
         each of which has a maximum length defined by the `batch_size` parameter. It yields
         these batches one at a time, allowing for efficient processing of large lists in chunks.
 
-        Parameters
-        ----------
-        input_list : list
+        :param input_list : list
             The list to be divided into batches.
-        batch_size : int
+        :param batch_size : int
             The maximum size of each batch. Must be a positive integer.
 
-        Yields
-        ------
-        list
+        :return: list
             Sublists (batches) of the input list, each with up to `batch_size` elements.
 
-        Raises
-        ------
-        ValueError
-            If `batch_size` is not a positive integer.
         """
         for i in range(0, len(input_list), batch_size):
             yield input_list[i:i + batch_size]
@@ -317,12 +275,10 @@ class LLM_caller(object):
         and merged back with the original input data structure. For other models or
         when batch processing is not used, each input item is processed individually.
 
-        Parameters:
-            data (List[Dict]): A list of dictionaries, where each dictionary contains
+        :param data (List[Dict]): A list of dictionaries, where each dictionary contains
                                the necessary input for the language model's `llm_func`.
 
-        Returns:
-            List[Dict]: A list of dictionaries, where each dictionary from the input `data`
+        :return: List[Dict]: A list of dictionaries, where each dictionary from the input `data`
                         is extended with a new key `'predict'` holding the respective response
                         from the language model.
 

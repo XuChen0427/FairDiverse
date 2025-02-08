@@ -13,12 +13,28 @@ class LLMRecommender(object):
 
     """
     def __init__(self, dataset, stage, train_config):
+        """Initialize In-processing and base models.
+
+            :param dataset: utilized dataset.
+            :param stage: In-processing or Post-processing stage.
+            :param train_config: Your custom config files.
+        """
         self.dataset = dataset
         self.stage = stage
         self.llm_type = train_config['llm_type']
         self.config = train_config
 
     def load_configs(self, dir):
+        """
+            Loads and merges configuration files for the model, dataset, and evaluation.
+
+            This function loads multiple YAML configuration files, including the process configuration,
+            dataset-specific settings, model configurations, and evaluation parameters. All configurations
+            are merged, with the highest priority given to the class's own `config` attribute.
+
+            :param dir: The directory where the main process configuration file is located.
+            :return: A dictionary containing the merged configuration from all files.
+        """
         print("start to load config...")
         with open(os.path.join(dir, "process_config.yaml"), 'r') as f:
             config = yaml.safe_load(f)
@@ -26,9 +42,6 @@ class LLMRecommender(object):
         with open(os.path.join("recommendation", "properties", "dataset", f"{self.dataset}.yaml"),
                   'r') as f:
             config.update(yaml.safe_load(f))
-
-
-        # print(train_data_df.head())
 
         print("start to load model...")
         with open(os.path.join("recommendation", "properties", "models.yaml"), 'r') as f:
@@ -50,6 +63,10 @@ class LLMRecommender(object):
         return config
 
     def recommend(self):
+        """
+            Training LLMs-based in-processing and base model main workflow.
+        """
+
         dataset_dir = os.path.join("recommendation", "processed_dataset", self.dataset)
         dataset_file_name = self.dataset + '.test.ranking'
         input_file = pd.read_csv(os.path.join(dataset_dir, dataset_file_name), delimiter='\t')

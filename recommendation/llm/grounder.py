@@ -32,15 +32,11 @@ class Grounder(object):
         Additional model configurations are set, including token ID assignments for pad, bos, eos tokens, and enabling
         output of hidden states. If the specified grounding model is not recognized, an exception is raised.
 
-        Parameters:
-        - self.grounding_model (str): The name or identifier of the grounding model to be loaded.
-        - self.llm_path_dict (dict): A dictionary mapping model names to their respective local paths.
-        - self.grounding_model_path (str): The path where the model is located, derived from `self.llm_path_dict`.
-        - self.ground_in_8bit (bool): A flag indicating whether to load the model in 8-bit precision for memory efficiency.
-        - self.device_map (str or dict): Specifies how to map model’s tensors to devices; can be a string or a dictionary.
-
-        Raises:
-        - Exception: If the `grounding_model` is not a key in `self.llm_path_dict`, indicating an unsupported model.
+        :param self.grounding_model (str): The name or identifier of the grounding model to be loaded.
+        :param self.llm_path_dict (dict): A dictionary mapping model names to their respective local paths.
+        :param self.grounding_model_path (str): The path where the model is located, derived from `self.llm_path_dict`.
+        :param self.ground_in_8bit (bool): A flag indicating whether to load the model in 8-bit precision for memory efficiency.
+        :param self.device_map (str or dict): Specifies how to map model’s tensors to devices; can be a string or a dictionary.
 
         Note:
         - Ensure that the `self.llm_path_dict` contains the correct paths for each model before calling this method.
@@ -67,14 +63,12 @@ class Grounder(object):
         """
         Get the embedding of the input text using the model at a specified hidden layer index.
 
-        Parameters
-        - text : str
+       :param text : str
             The input text to be embedded.
-        - index : int
+       :param index : int
             The index of the hidden layer from which to extract the embeddings.
 
-        Returns
-        - embedding : torch.Tensor
+        :return : torch.Tensor
             The averaged embedding vector for the input text.
         """
         tokens = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=128).to(self.device)
@@ -94,16 +88,12 @@ class Grounder(object):
         and if so, loads the embeddings from it. If not, it generates the embeddings in batches using the
         `get_embedding` method. The generated or loaded embeddings are then returned as a PyTorch tensor.
 
-        Parameters
-        ----------
-        titles : List[str]
+        :param titles : List[str]
             A list of strings representing the titles for which embeddings are to be obtained.
-        index : int
+        :param index : int
             An index indicating a specific configuration or identifier used in the embedding process.
 
-        Returns
-        -------
-        torch.Tensor
+        :return: torch.Tensor
             A tensor containing the embeddings for the provided titles. Each row corresponds to the embedding of a title.
 
         Notes
@@ -137,23 +127,19 @@ class Grounder(object):
         the similarity with the object embedding. The output is a list of top-k similar titles' indices for each set of candidate
         titles provided, along with the corresponding similarity scores.
 
-        Parameters
-        ----------
-        titles : List[str]
+        :param titles : List[str]
             A list of titles whose embeddings are to be computed and compared.
 
-        o_emb : torch.Tensor
+        :param o_emb : torch.Tensor
             The embedding vector of the object against which the title embeddings will be compared.
 
-        index : Any
+        :param index : Any
             The index or data structure used by `get_embedding` to fetch or compute embeddings.
 
-        candidates : List[List[int]]
+        :param candidates : List[List[int]]
             A list of lists, where each sublist contains indices representing candidate titles for a user.
 
-        Returns
-        -------
-        Tuple[List[List[int]], List[List[float]]]
+        :return: Tuple[List[List[int]], List[List[float]]]
             A tuple containing two elements:
             - The first element is a list of lists, where each sublist contains the indices of top-k most similar titles
               for each set of candidates.
@@ -188,13 +174,11 @@ class Grounder(object):
         """
         Processes the response data to extract item candidates and their predicted scores. It utilizes the provided embeddings and index to map and score the candidates, returning a list of ranked items along with their respective scores.
 
-        Parameters:
-        - response_result (List[Dict[str, Any]]): A list of dictionaries containing user-specific 'item_candidates' and 'predict' values.
-        - o_emb (np.ndarray): The embedding matrix used for scoring the item candidates.
-        - index (Any): The index object that aids in mapping and retrieving candidate information efficiently.
+        :param response_result (List[Dict[str, Any]]): A list of dictionaries containing user-specific 'item_candidates' and 'predict' values.
+        :param o_emb (np.ndarray): The embedding matrix used for scoring the item candidates.
+        :param index (Any): The index object that aids in mapping and retrieving candidate information efficiently.
 
-        Returns:
-        - Tuple[List[str], List[float]]: A tuple containing two lists:
+        :return: Tuple[List[str], List[float]]: A tuple containing two lists:
             - The first list contains the top-ranked item identifiers based on the prediction scores.
             - The second list holds the corresponding prediction scores for each item in the ranked list.
         """
@@ -212,12 +196,10 @@ class Grounder(object):
         embeddings for a provided list of titles and then ranks items within each response
         result based on their similarity to these embeddings.
 
-        Parameters:
-        - response_results (List[Dict]): A list of dictionaries, each representing a response result.
-        - id2title (Dict[int, str]): A dictionary mapping IDs to their corresponding title names.
+        :param response_results (List[Dict]): A list of dictionaries, each representing a response result.
+        :param id2title (Dict[int, str]): A dictionary mapping IDs to their corresponding title names.
 
-        Returns:
-        - List[Dict]: The updated list of response results, where each result now includes
+        :return: List[Dict]: The updated list of response results, where each result now includes
           a 'predict_list' key holding the predicted item IDs and a 'scores' key with their
           respective similarity scores.
         """

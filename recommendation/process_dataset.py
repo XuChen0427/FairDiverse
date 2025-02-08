@@ -9,6 +9,14 @@ import json
 from tqdm import tqdm,trange
 
 def build_map(df,col_name):
+    """
+        Encodes a categorical column in a DataFrame by mapping unique values to integers
+        and returns a decoding dictionary.
+
+        :param df: The input DataFrame.
+        :param col_name: The name of the column to be encoded.
+        :return: dict: A dictionary mapping encoded integers back to original values.
+    """
     key = df[col_name].unique().tolist()
     encode = dict(zip(key, range(len(key))))
     decode = dict(zip(range(len(key)),key))
@@ -16,16 +24,23 @@ def build_map(df,col_name):
     return decode
 
 def build_item_map(df,col_name, history_name):
+    """
+        Encodes a categorical column in a DataFrame by mapping unique values with historical records to integers
+        and returns a decoding dictionary.
+
+        :param df: The input DataFrame.
+        :param col_name: The name of the column to be encoded.
+        :return: dict: A dictionary mapping encoded integers back to original values.
+    """
+
+
     item_set = []
     for i in range(len(df)):
         item_set.append(df[col_name][i])
         for h_i in df[history_name][i]:
             item_set.append(h_i)
 
-    #key = df[col_name].unique().tolist()
     key = list(set(item_set))
-
-
     encode = dict(zip(key, range(len(key))))
     decode = dict(zip(range(len(key)),key))
     df[col_name] = df[col_name].apply(lambda x: encode[x])
@@ -33,7 +48,14 @@ def build_item_map(df,col_name, history_name):
     return decode, len(key)
 
 def Process(dataset, config=None):
+    """
+        Pre-process dataset, split training-validate-test set into ~/processed_data path
 
+        :param dataset: str: The utilized dataset.
+            Note that please download it into ~/dataset path
+
+        :param config: The custom config files.
+    """
 
 
     with open(os.path.join("recommendation","properties", "dataset.yaml"), "r") as file:
@@ -163,18 +185,6 @@ def Process(dataset, config=None):
     _ = build_map(frames,uid_field)
 
 
-
-    # def remap_history(sub_df):
-    #     for _, row in sub_df.iterrows():
-    #         #
-    #         for i in row[history_field]:
-    #             row[history_field][i] = item_encode[]
-    #
-    #         # 返回前k个item_id的列表
-    #     sub_df['history_behaviors'] = previous_items
-    #     return sub_df
-
-
     pid2iid = {}
     iid2pid = {}
     for i, (iid, pid) in enumerate(zip(frames[iid_field].values, frames[provider_field].values)):
@@ -240,9 +250,6 @@ def Process(dataset, config=None):
     train_users = frames[uid_field].unique()
     print("checking.....")
 
-    # if np.sum(train_items>=len(train_items)) > 0:
-    #     print("ERROR in item id:",np.sum(train_items>=len(train_items)))
-    #     exit(0)
 
     if np.sum(train_users>=len(train_users)) > 0:
         print("ERROR in user id:",np.sum(train_users>=len(train_users)))
@@ -314,7 +321,6 @@ def Process(dataset, config=None):
 
             user, item, label = sort_df[uid_field].values[i], sort_df[iid_field].values[i], sort_df[label_field].values[i]
             history = sort_df[history_field].values[i]
-            #time = sort_df[time_field].values[i]
             ##find the behavior sequences in the training dataset
             if label == 1:
                 if user not in construct_dict.keys():
@@ -377,12 +383,6 @@ def Process(dataset, config=None):
     with open(os.path.join(dir, "iid2text.json"), "w") as file:
         json.dump(id2text_update, file)
 
-    #print(pid2iid)
-    # with open(os.path.join(dir, "pid2iid.json"), "w") as file:
-    #     json.dump(pid2iid, file)
-
-    #print("process complete!")
-    #exit(0)
 
     return f"process complete! The file and config are stored in {dir}"
 

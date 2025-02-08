@@ -23,7 +23,6 @@ class CPFair(Abstract_Reranker):
 
 
     def rerank(self, ranking_score, k):
-        ## its parameters
         user_size = len(ranking_score)
         B_l = np.zeros(self.group_num)
         lambd = self.config['lambda']
