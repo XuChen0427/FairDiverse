@@ -36,13 +36,47 @@ The utilized parameters in each config files can be found in following docs:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Recommendation Settings
+   :caption: Parameter Settings
 
-   recommendation/data_preprocessing
-   recommendation/evaluation
-   recommendation/new_dataset
-   recommendation/In-processing
-   recommendation/Post-processing
+.. toctree::
+   :maxdepth: 2
+   :caption: Recommendation
+
+   parameters/recommendation/data_preprocessing
+   parameters/recommendation/evaluation
+   parameters/recommendation/new_dataset
+   parameters/recommendation/In-processing
+   parameters/recommendation/Post-processing
+
+
+For the develop your own recommendation model, you can use following steps:
+
+
+.. image:: C:/lab/P-fairness_project/img/rec_develop_steps.png
+    :width: 600
+    :align: center
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Recommendation develop APIs
+
+   APIs/recommendation/recommendation.reranker
+   APIs/recommendation/recommendation.trainer
+   APIs/recommendation/recommendation.rank_model.Abstract_Ranker
+   APIs/recommendation/recommendation.rerank_model.Abstract_Reranker
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Recommendation other APIs
+
+   APIs/recommendation/recommendation.evaluator
+   APIs/recommendation/recommendation.llm_rec
+   APIs/recommendation/recommendation.metric
+   APIs/recommendation/recommendation.process_data
+   APIs/recommendation/recommendation.sampler
+   APIs/recommendation/recommendation.utils.group_utils
+
+
 
 
 
