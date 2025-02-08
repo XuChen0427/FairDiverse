@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>recommendation.trainer &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Settings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">recommendation.trainer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for recommendation.trainer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1">#from</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">.process_dataset</span> <span class="kn">import</span> <span class="n">Process</span>
+<span class="kn">from</span> <span class="nn">.base_model</span> <span class="kn">import</span> <span class="n">MF</span><span class="p">,</span> <span class="n">GRU4Rec</span><span class="p">,</span> <span class="n">SASRec</span><span class="p">,</span> <span class="n">BPR</span><span class="p">,</span> <span class="n">BPR_Seq</span>
+<span class="kn">from</span> <span class="nn">.rank_model</span> <span class="kn">import</span> <span class="n">IPS</span><span class="p">,</span> <span class="n">SDRO</span><span class="p">,</span> <span class="n">Minmax_SGD</span><span class="p">,</span> <span class="n">APR</span><span class="p">,</span> <span class="n">FOCF</span><span class="p">,</span> <span class="n">FairDual</span><span class="p">,</span> <span class="n">Reg</span><span class="p">,</span> <span class="n">FairNeg</span><span class="p">,</span> <span class="n">DPR</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+
+<span class="kn">from</span> <span class="nn">.sampler</span> <span class="kn">import</span> <span class="n">PointWiseDataset</span><span class="p">,</span> <span class="n">PairWiseDataset</span><span class="p">,</span> <span class="n">RankingTestDataset</span><span class="p">,</span> <span class="n">SequentialDataset</span>
+<span class="kn">from</span> <span class="nn">.evaluator</span> <span class="kn">import</span> <span class="n">CTR_Evaluator</span><span class="p">,</span> <span class="n">Ranking_Evaluator</span>
+
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span><span class="p">,</span><span class="n">trange</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">save_npz</span><span class="p">,</span> <span class="n">load_npz</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">ast</span>
+
+
+
+<div class="viewcode-block" id="RecTrainer">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer">[docs]</a>
+<span class="k">class</span> <span class="nc">RecTrainer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="n">train_config</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize In-processing and base models.</span>
+
+<span class="sd">        :param dataset: utilized dataset.</span>
+<span class="sd">        :param stage: In-processing or Post-processing stage.</span>
+<span class="sd">        :param train_config: Your custom config files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage</span> <span class="o">=</span> <span class="n">stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span> <span class="o">=</span> <span class="n">train_config</span>
+
+
+<div class="viewcode-block" id="RecTrainer.load_configs">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.load_configs">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Loads and merges configuration files for the model, dataset, and evaluation.</span>
+
+<span class="sd">            This function loads multiple YAML configuration files, including the process configuration,</span>
+<span class="sd">            dataset-specific settings, model configurations, and evaluation parameters. All configurations</span>
+<span class="sd">            are merged, with the highest priority given to the class&#39;s own `config` attribute.</span>
+
+<span class="sd">            :param dir: The directory where the main process configuration file is located.</span>
+<span class="sd">            :return: A dictionary containing the merged configuration from all files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start to load config...&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="s2">&quot;process_config.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+
+        <span class="c1"># print(train_data_df.head())</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start to load model...&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="s2">&quot;models.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">model_config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">),</span>
+                  <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">model_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;fair-rank&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">),</span>
+                      <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">model_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">model_config</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="s2">&quot;evaluation.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">)</span>  <span class="c1">###train_config has highest rights</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;your loading config is:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">config</span></div>
+
+
+<div class="viewcode-block" id="RecTrainer.Set_Dataset">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.Set_Dataset">[docs]</a>
+    <span class="k">def</span> <span class="nf">Set_Dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_type</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">train_data_df</span><span class="p">,</span> <span class="n">val_data_df</span><span class="p">,</span> <span class="n">test_data_df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Initializes and returns the training, validation, and test datasets based on the specified data type and evaluation type.</span>
+
+<span class="sd">            This function creates appropriate dataset objects for training, validation, and testing based on the provided data type</span>
+<span class="sd">            (point, pair, or sequential) and the evaluation type (CTR or ranking). It supports different dataset types for training</span>
+<span class="sd">            and evaluation, and raises an error if an unsupported type is provided.</span>
+
+<span class="sd">            :param data_type: The type of dataset to be used for training. Must be one of [&#39;point&#39;, &#39;pair&#39;, &#39;sequential&#39;].</span>
+<span class="sd">            :param config: A configuration dictionary that contains parameters for dataset creation and evaluation type.</span>
+<span class="sd">            :param train_data_df: The DataFrame containing the training data.</span>
+<span class="sd">            :param val_data_df: The DataFrame containing the validation data.</span>
+<span class="sd">            :param test_data_df: The DataFrame containing the test data.</span>
+<span class="sd">            :return: A tuple containing the training, validation, and test datasets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;point&#39;</span><span class="p">:</span>
+            <span class="n">train</span> <span class="o">=</span> <span class="n">PointWiseDataset</span><span class="p">(</span><span class="n">train_data_df</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;pair&#39;</span><span class="p">:</span>
+            <span class="n">train</span> <span class="o">=</span> <span class="n">PairWiseDataset</span><span class="p">(</span><span class="n">train_data_df</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;sequential&#39;</span><span class="p">:</span>
+            <span class="n">train</span> <span class="o">=</span> <span class="n">SequentialDataset</span><span class="p">(</span><span class="n">train_data_df</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;train_type only supports in [point, pair, sequential]&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CTR&#39;</span><span class="p">:</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="n">PointWiseDataset</span><span class="p">(</span><span class="n">val_data_df</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="n">PointWiseDataset</span><span class="p">(</span><span class="n">test_data_df</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ranking&#39;</span><span class="p">:</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="n">RankingTestDataset</span><span class="p">(</span><span class="n">val_data_df</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="n">RankingTestDataset</span><span class="p">(</span><span class="n">test_data_df</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;We only support the eval type as [CTR, ranking]&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">train</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">test</span></div>
+
+
+<div class="viewcode-block" id="RecTrainer.check_model_stage">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.check_model_stage">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_model_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">config</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Checks if the provided data type in the configuration aligns with the supported model type.</span>
+
+<span class="sd">            This function verifies that the data type specified in the `config` dictionary is compatible with the model&#39;s</span>
+<span class="sd">            supported types. If the data type is not supported by the model, a `ValueError` is raised with an informative message.</span>
+
+<span class="sd">            :param config: A configuration dictionary that includes the data type used for testing.</span>
+<span class="sd">            :param Model: The model class or object which has a `type` attribute specifying the supported data types.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Model</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The tested data type does not align with the model type: input is </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
+                             <span class="sa">f</span><span class="s2">&quot;the model only support: </span><span class="si">{</span><span class="n">Model</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RecTrainer.train">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.train">[docs]</a>
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Training in-processing and base model main workflow.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;processed_dataset&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="n">state</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_configs</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="c1">#exit(0)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start to load dataset......&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mf&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Model</span> <span class="o">=</span> <span class="n">MF</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;BPR&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Model</span> <span class="o">=</span> <span class="n">BPR</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;BPR_Seq&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Model</span> <span class="o">=</span> <span class="n">BPR_Seq</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;gru4rec&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Model</span> <span class="o">=</span> <span class="n">GRU4Rec</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SASRec&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Model</span> <span class="o">=</span> <span class="n">SASRec</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not supported model type: </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_model_stage</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;group_num&#39;</span><span class="p">])</span>
+
+
+
+
+
+        <span class="n">train_data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">+</span> <span class="s2">&quot;.train&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">val_data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">+</span> <span class="s2">&quot;.valid.&quot;</span> <span class="o">+</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_type&#39;</span><span class="p">]),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">test_data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">+</span> <span class="s2">&quot;.test.&quot;</span> <span class="o">+</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_type&#39;</span><span class="p">]),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">test_data_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+        <span class="n">train_data_df</span><span class="p">[</span><span class="s2">&quot;history_behaviors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_data_df</span><span class="p">[</span><span class="s2">&quot;history_behaviors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="n">val_data_df</span><span class="p">[</span><span class="s2">&quot;history_behaviors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">val_data_df</span><span class="p">[</span><span class="s2">&quot;history_behaviors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="n">test_data_df</span><span class="p">[</span><span class="s2">&quot;history_behaviors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_data_df</span><span class="p">[</span><span class="s2">&quot;history_behaviors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">])</span>
+        <span class="n">data_type</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span>
+
+
+
+        <span class="n">train</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Set_Dataset</span><span class="p">(</span><span class="n">data_type</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">train_data_df</span><span class="p">,</span> <span class="n">val_data_df</span><span class="p">,</span> <span class="n">test_data_df</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;fair-rank&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;point&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;fair ranking model only supports the pair and sequential data_type, not the point type&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;IPS&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">IPS</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SDRO&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">SDRO</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Minmax_SGD&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">Minmax_SGD</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;APR&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">APR</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FOCF&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">FOCF</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FairDual&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">FairDual</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Reg&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">Reg</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FairNeg&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">FairNeg</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">train</span><span class="o">.</span><span class="n">user2pos</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DPR&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span> <span class="o">=</span> <span class="n">DPR</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_weight</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not supported fair rank model type:</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">check_model_stage</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">fair_type</span> <span class="o">==</span> <span class="s2">&quot;sample&quot;</span> <span class="ow">and</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;pair&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The choosed fair ranker [</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] only support the base model type as pair&quot;</span><span class="p">)</span>
+
+
+        <span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;batch_size&#39;</span><span class="p">],</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">valid_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_batch_size&#39;</span><span class="p">],</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_batch_size&#39;</span><span class="p">],</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CTR&#39;</span><span class="p">:</span>
+            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">CTR_Evaluator</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ranking&#39;</span><span class="p">:</span>
+            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">Ranking_Evaluator</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;we only support eval type in [CTR, ranking] !&quot;</span><span class="p">)</span>
+
+        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="n">today_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">today</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">today</span><span class="o">.</span><span class="n">month</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">today</span><span class="o">.</span><span class="n">day</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">log_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">today_str</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;log_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">log_dir</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start to train...&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">trange</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">]):</span>
+
+
+            <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">best_result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;fair-rank&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;update_epoch&#39;</span> <span class="ow">in</span> <span class="n">config</span> <span class="ow">and</span> <span class="n">epoch</span> <span class="o">%</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;update_epoch&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FairDual&#39;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">reset_parameters</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data_df</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">reset_parameters</span><span class="p">()</span>
+
+            <span class="c1">#for user_ids, item_ids, group_ids, label in train_loader:</span>
+            <span class="k">for</span> <span class="n">train_datas</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;point&quot;</span><span class="p">:</span>
+                    <span class="n">interaction</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;history_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                                   <span class="s2">&quot;item_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                                   <span class="s2">&quot;group_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)}</span>
+                    <span class="c1">#ids = {&quot;user_ids&quot;: train_datas[0].to(self.device), &quot;item_ids&quot;: train_datas[1].to(self.device)}</span>
+                <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;pair&quot;</span><span class="p">:</span>
+                    <span class="n">interaction</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;history_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                                   <span class="s2">&quot;item_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;neg_item_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                                   <span class="s2">&quot;group_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;neg_group_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                                   <span class="p">}</span>
+                    <span class="c1">#ids = {&quot;user_ids&quot;: train_datas[0].to(self.device), &quot;item_ids&quot;: train_datas[1].to(self.device)}</span>
+                <span class="k">else</span><span class="p">:</span> <span class="c1">###squential format</span>
+                    <span class="n">interaction</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;history_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                                   <span class="s2">&quot;item_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;group_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="p">}</span>
+
+                <span class="n">feed_user_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s2">&quot;history_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)}</span>
+                <span class="n">feed_item_ids</span> <span class="o">=</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+                <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+                <span class="c1">#loss = self.Model.compute_loss(interaction)</span>
+
+                <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;fair-rank&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">fair_type</span> <span class="o">==</span> <span class="s1">&#39;re-weight&#39;</span><span class="p">:</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">interaction</span><span class="p">)</span>
+                        <span class="n">scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">feed_user_dict</span><span class="p">,</span> <span class="n">feed_item_ids</span><span class="p">)</span>
+
+
+                        <span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;items&#39;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+                                      <span class="s1">&#39;scores&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()}</span>
+
+                        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FairDual&#39;</span><span class="p">:</span>
+                            <span class="c1">## FairDual needs sample some items</span>
+                            <span class="n">exposure_sample_num</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;exposure_sample_num&#39;</span><span class="p">]</span>
+                            <span class="n">item_sample_ids</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;item_num&#39;</span><span class="p">]),</span> <span class="n">exposure_sample_num</span><span class="p">)</span>
+                            <span class="n">item_sample_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">item_sample_ids</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+                            <span class="n">scores</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">full_ranking</span><span class="p">(</span><span class="n">feed_user_dict</span><span class="p">,</span> <span class="n">item_sample_ids</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;s_k&#39;</span><span class="p">])</span>
+
+                            <span class="n">items</span> <span class="o">=</span> <span class="n">item_sample_ids</span><span class="p">[</span><span class="n">indices</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()]</span>
+                            <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;sample_items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">items</span>
+
+                        <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">reweight</span><span class="p">(</span><span class="n">input_dict</span><span class="o">=</span><span class="n">input_dict</span><span class="p">)</span>
+                        <span class="c1">#print(weight)</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">*</span><span class="n">loss</span><span class="p">)</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">fair_type</span> <span class="o">==</span> <span class="s2">&quot;sample&quot;</span><span class="p">:</span>
+                        <span class="n">neg_item_ids</span><span class="p">,</span> <span class="n">adj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">interaction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+                        <span class="n">interaction</span><span class="p">[</span><span class="s1">&#39;neg_item_ids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">neg_item_ids</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">interaction</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;FairNeg&quot;</span><span class="p">:</span>
+                            <span class="n">group_loss</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+                            <span class="n">group_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">group_loss</span><span class="p">,</span> <span class="n">adj</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adj</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">accumulate_epoch_loss</span><span class="p">(</span><span class="n">group_loss</span><span class="p">)</span>
+
+
+                        <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">fair_type</span> <span class="o">==</span> <span class="s2">&quot;regularizer&quot;</span><span class="p">:</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">interaction</span><span class="p">)</span>
+                        <span class="n">scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">feed_user_dict</span><span class="p">,</span> <span class="n">feed_item_ids</span><span class="p">)</span>
+                        <span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;items&#39;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;scores&#39;</span><span class="p">:</span><span class="n">scores</span><span class="p">}</span>
+
+                        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;rank_model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DPR&#39;</span><span class="p">:</span>
+                            <span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;item_ids&#39;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="s1">&#39;scores&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="p">,</span>
+                                          <span class="s2">&quot;neg_item_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                                          <span class="s2">&quot;group_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                                          <span class="s2">&quot;neg_group_ids&quot;</span><span class="p">:</span> <span class="n">train_datas</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                                          <span class="p">}</span>
+                            <span class="n">fair_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">fairness_loss</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+                            <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="n">fair_loss</span>
+
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">fair_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fair_Ranker</span><span class="o">.</span><span class="n">fairness_loss</span><span class="p">(</span><span class="n">input_dict</span><span class="p">)</span>
+                            <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;fair_lambda&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">fair_loss</span>
+
+                    <span class="k">else</span><span class="p">:</span> <span class="c1">##other type of fairness method, which modifies embeddings during the evaluation process</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">interaction</span><span class="p">)</span>
+                        <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">interaction</span><span class="p">)</span>
+                    <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+                <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+                <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+                <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+
+
+            <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_step&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">eval_result</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">valid_loader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+                <span class="n">watch_eval_value</span> <span class="o">=</span> <span class="n">eval_result</span><span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;watch_metric&#39;</span><span class="p">]]</span>
+                <span class="k">if</span> <span class="n">watch_eval_value</span> <span class="o">&gt;=</span> <span class="n">best_result</span><span class="p">:</span>
+                    <span class="n">best_result</span> <span class="o">=</span> <span class="n">watch_eval_value</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s2">&quot;best_model.pth&quot;</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;eval result: </span><span class="si">{</span><span class="n">eval_result</span><span class="si">}</span><span class="s2">, best result: </span><span class="si">{</span><span class="n">best_result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">()</span>
+
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;epoch: </span><span class="si">%d</span><span class="s2"> loss: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">total_loss</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)))</span>
+
+
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;training complete! start to save the config and model...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; config files are dump in </span><span class="si">{</span><span class="n">log_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s2">&quot;config.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start to testing...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s2">&quot;best_model.pth&quot;</span><span class="p">)))</span>  <span class="c1"># load state_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>  <span class="c1"># change to eval model</span>
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;store_scores&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">test_result</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">test_loader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">test_result</span><span class="p">,</span> <span class="n">coo_matrix</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">test_loader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span> <span class="n">store_scores</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">save_npz</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s1">&#39;ranking_scores.npz&#39;</span><span class="p">),</span> <span class="n">coo_matrix</span><span class="p">)</span> <span class="c1">##prepared for re-ranking stage</span>
+
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s1">&#39;test_result.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">test_result</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">test_result</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dump in </span><span class="si">{</span><span class="n">log_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

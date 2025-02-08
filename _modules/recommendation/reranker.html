@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>recommendation.reranker &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Settings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">recommendation.reranker</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for recommendation.reranker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">save_npz</span><span class="p">,</span> <span class="n">load_npz</span>
+<span class="kn">from</span> <span class="nn">.rerank_model</span> <span class="kn">import</span> <span class="n">CPFair</span><span class="p">,</span> <span class="n">FairRec</span><span class="p">,</span> <span class="n">FairRecPlus</span><span class="p">,</span> <span class="n">k_neighbor</span><span class="p">,</span> <span class="n">min_regularizer</span><span class="p">,</span> <span class="n">PMMF</span><span class="p">,</span> <span class="n">Welf</span><span class="p">,</span> <span class="n">TaxRank</span><span class="p">,</span> <span class="n">FairSync</span><span class="p">,</span> <span class="n">RAIF</span>
+<span class="kn">from</span> <span class="nn">.metric</span> <span class="kn">import</span> <span class="n">dcg</span><span class="p">,</span> <span class="n">MMF</span><span class="p">,</span> <span class="n">Gini</span><span class="p">,</span> <span class="n">Entropy</span><span class="p">,</span> <span class="n">MinMaxRatio</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="RecReRanker">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.reranker.html#recommendation.reranker.RecReRanker">[docs]</a>
+<span class="k">class</span> <span class="nc">RecReRanker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="n">train_config</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize In-processing and base models.</span>
+
+<span class="sd">        :param dataset: utilized dataset.</span>
+<span class="sd">        :param stage: In-processing or Post-processing stage.</span>
+<span class="sd">        :param train_config: Your custom config files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage</span> <span class="o">=</span> <span class="n">stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span> <span class="o">=</span> <span class="n">train_config</span>
+
+
+<div class="viewcode-block" id="RecReRanker.load_configs">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.reranker.html#recommendation.reranker.RecReRanker.load_configs">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Loads and merges configuration files for the model, dataset, and evaluation.</span>
+
+<span class="sd">           This function loads multiple YAML configuration files, including the process configuration,</span>
+<span class="sd">           dataset-specific settings, model configurations, and evaluation parameters. All configurations</span>
+<span class="sd">           are merged, with the highest priority given to the class&#39;s own `config` attribute.</span>
+
+<span class="sd">           :param dir: The directory where the main process configuration file is located.</span>
+<span class="sd">           :return: A dictionary containing the merged configuration from all files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start to load config...&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="s2">&quot;process_config.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="c1"># print(train_data_df.head())</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start to load model...&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="s2">&quot;models.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">model_config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">)</span>
+        <span class="c1"># if not os.path.exists(model_path):</span>
+        <span class="c1">#     raise NotImplementedError(&quot;we do not support such model type!&quot;)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">model_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">model_config</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="s2">&quot;evaluation.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">)</span>  <span class="c1">###train_config has highest rights</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;your loading config is:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">config</span></div>
+
+
+<div class="viewcode-block" id="RecReRanker.rerank">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.reranker.html#recommendation.reranker.RecReRanker.rerank">[docs]</a>
+    <span class="k">def</span> <span class="nf">rerank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Training post-processing main workflow.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;processed_dataset&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_configs</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+
+        <span class="n">ranking_score_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;ranking_store_path&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ranking_score_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;do not exist the path </span><span class="si">{</span><span class="n">ranking_score_path</span><span class="si">}</span><span class="s2">, please check the path or run the ranking phase to generate scores for re-ranking !&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;loading ranking scores....&quot;</span><span class="p">)</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ranking_score_path</span><span class="p">,</span> <span class="s2">&quot;ranking_scores.npz&quot;</span><span class="p">)</span>
+        <span class="n">ranking_scores</span> <span class="o">=</span> <span class="n">load_npz</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="c1">#[user_num, item_num]</span>
+        <span class="c1">###we need to remove the group do not appear after the ranking phase, for evaluate full group, please evaluate in retrieval stage</span>
+
+
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;CPFair&quot;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">CPFair</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;FairRec&quot;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">FairRec</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;FairRecPlus&quot;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">FairRecPlus</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;k_neighbor&#39;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">k_neighbor</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;min_regularizer&#39;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">min_regularizer</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;PMMF&#39;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">PMMF</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Welf&#39;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">Welf</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;TaxRank&#39;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">TaxRank</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FairSync&#39;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">FairSync</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;RAIF&#39;</span><span class="p">:</span>
+            <span class="n">Reranker</span> <span class="o">=</span> <span class="n">RAIF</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;We do not support the model type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1">#item_scores = np.sum(ranking_scores, axis=0, keepdims=False)</span>
+
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ndcg&quot;</span><span class="p">,</span> <span class="s2">&quot;u_loss&quot;</span><span class="p">]</span>
+        <span class="n">rerank_result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">exposure_result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]:</span>
+            <span class="n">rerank_result</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span><span class="mi">0</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">})</span>
+
+            <span class="n">rerank_list</span> <span class="o">=</span> <span class="n">Reranker</span><span class="o">.</span><span class="n">rerank</span><span class="p">(</span><span class="n">ranking_scores</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="n">exposure_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;group_num&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rerank_list</span><span class="p">)):</span>
+                <span class="n">sorted_result_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">ranking_scores</span><span class="p">[</span><span class="n">u</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">true_dcg</span> <span class="o">=</span> <span class="n">dcg</span><span class="p">(</span><span class="n">sorted_result_score</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                <span class="n">rerank_items</span> <span class="o">=</span> <span class="n">rerank_list</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rerank_items</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Reranker</span><span class="o">.</span><span class="n">iid2pid</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">gid</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">gid</span> <span class="o">=</span> <span class="n">Reranker</span><span class="o">.</span><span class="n">iid2pid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;fairness_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Exposure&quot;</span><span class="p">:</span>
+                        <span class="n">exposure_list</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">exposure_list</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ranking_scores</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;decimals&#39;</span><span class="p">])</span>
+                <span class="n">reranked_score</span> <span class="o">=</span> <span class="n">ranking_scores</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">rerank_items</span><span class="p">]</span>
+                <span class="n">pre_dcg</span> <span class="o">=</span> <span class="n">dcg</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reranked_score</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
+                <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ndcg@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pre_dcg</span><span class="o">/</span><span class="n">true_dcg</span>
+                <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;u_loss@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sorted_result_score</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">reranked_score</span><span class="p">[:</span><span class="n">k</span><span class="p">]))</span><span class="o">/</span><span class="n">k</span>
+
+            <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ndcg@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rerank_list</span><span class="p">)</span>
+            <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;u_loss@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rerank_list</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">fairness_metric</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_config</span><span class="p">[</span><span class="s1">&#39;fairness_metrics&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">fairness_metric</span> <span class="o">==</span> <span class="s1">&#39;MinMaxRatio&#39;</span><span class="p">:</span>
+                    <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;MinMaxRatio@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MinMaxRatio</span><span class="p">(</span><span class="n">exposure_list</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">fairness_metric</span> <span class="o">==</span> <span class="s1">&#39;MMF&#39;</span><span class="p">:</span>
+                    <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;MMF@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MMF</span><span class="p">(</span><span class="n">exposure_list</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">fairness_metric</span> <span class="o">==</span> <span class="s1">&#39;Entropy&#39;</span><span class="p">:</span>
+                    <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Entropy@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Entropy</span><span class="p">(</span><span class="n">exposure_list</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">fairness_metric</span> <span class="o">==</span> <span class="s1">&#39;GINI&#39;</span><span class="p">:</span>
+                    <span class="n">rerank_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;GINI@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Gini</span><span class="p">(</span><span class="n">exposure_list</span><span class="p">)</span>
+
+            <span class="c1">#rerank_result[f&quot;mmf@{k}&quot;] = MMF(exposure_list)</span>
+            <span class="c1">#rerank_result[f&quot;gini@{k}&quot;] = Gini(exposure_list)</span>
+            <span class="c1">#print(exposure_list)</span>
+            <span class="n">exposure_result</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">exposure_list</span><span class="p">))</span>
+
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">rerank_result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">rerank_result</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rerank_result</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;decimals&#39;</span><span class="p">])</span>
+
+
+        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="n">today_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">today</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">today</span><span class="o">.</span><span class="n">month</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">today</span><span class="o">.</span><span class="n">day</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">log_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;recommendation&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">today_str</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;log_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">log_dir</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s1">&#39;test_result.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">rerank_result</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s1">&#39;exposure_result.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">exposure_result</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+            <span class="c1">#file.write(str(exposure_list))</span>
+        <span class="c1">#print(&quot;exposure list:&quot;)</span>
+        <span class="c1">#print(exposure_list)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">rerank_result</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="s2">&quot;config.yaml&quot;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;result and config dump in </span><span class="si">{</span><span class="n">log_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

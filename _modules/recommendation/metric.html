@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>recommendation.metric &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Settings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">recommendation.metric</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for recommendation.metric</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">##############ranking metrics #############################</span>
+
+<div class="viewcode-block" id="AUC_score">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.AUC_score">[docs]</a>
+<span class="k">def</span> <span class="nf">AUC_score</span><span class="p">(</span><span class="n">y_scores</span><span class="p">,</span> <span class="n">y_true</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;AUC_ (also known as Area Under Curve) is used to evaluate the two-class model, referring to</span>
+<span class="sd">        the area under the ROC curve.</span>
+
+<span class="sd">        .. _AUC: https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This metric does not calculate group-based AUC which considers the AUC scores</span>
+<span class="sd">            averaged across users. It is also not limited to k. Instead, it calculates the</span>
+<span class="sd">            scores on the entire prediction results regardless the users. We call the interface</span>
+<span class="sd">            in `scikit-learn`, and code calculates the metric using the variation of following formula.</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \mathrm {AUC} = \frac {{{M} \times {(N+1)} - \frac{M \times (M+1)}{2}} -</span>
+<span class="sd">            \sum\limits_{i=1}^{M} rank_{i}} {{M} \times {(N - M)}}</span>
+
+<span class="sd">        :math:`M` denotes the number of positive items.</span>
+<span class="sd">        :math:`N` denotes the total number of user-item interactions.</span>
+<span class="sd">        :math:`rank_i` denotes the descending rank of the i-th positive item.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">auc_score</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_scores</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">auc_score</span></div>
+
+
+<div class="viewcode-block" id="dcg">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg">[docs]</a>
+<span class="k">def</span> <span class="nf">dcg</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the Discounted Cumulative Gain (DCG) at rank k.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)[:</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">scores</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">scores</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">scores</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="mf">0.0</span></div>
+
+
+
+<div class="viewcode-block" id="NDCG">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.NDCG">[docs]</a>
+<span class="k">def</span> <span class="nf">NDCG</span><span class="p">(</span><span class="n">ranking_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;NDCG_ (also known as normalized discounted cumulative gain) is a measure of ranking quality,</span>
+<span class="sd">    where positions are discounted logarithmically. It accounts for the position of the hit by assigning</span>
+<span class="sd">    higher scores to hits at top ranks.</span>
+
+<span class="sd">    .. _NDCG: https://en.wikipedia.org/wiki/Discounted_cumulative_gain#Normalized_DCG</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \mathrm {NDCG@K} = \frac{1}{|U|}\sum_{u \in U} (\frac{1}{\sum_{i=1}^{\min (|R(u)|, K)}</span>
+<span class="sd">        \frac{1}{\log _{2}(i+1)}} \sum_{i=1}^{K} \delta(i \in R(u)) \frac{1}{\log _{2}(i+1)})</span>
+
+<span class="sd">    :math:`\delta(·)` is an indicator function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sorted_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">label_list</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">label_dcg</span> <span class="o">=</span> <span class="n">dcg</span><span class="p">(</span><span class="n">sorted_label</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">ranking_dcg</span> <span class="o">=</span> <span class="n">dcg</span><span class="p">(</span><span class="n">ranking_list</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">ndcg</span> <span class="o">=</span> <span class="n">ranking_dcg</span><span class="o">/</span><span class="n">label_dcg</span>
+
+    <span class="k">return</span> <span class="n">ndcg</span></div>
+
+
+<div class="viewcode-block" id="HR">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.HR">[docs]</a>
+<span class="k">def</span> <span class="nf">HR</span><span class="p">(</span><span class="n">ranking_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;HR_ (also known as truncated Hit-Ratio) is a way of calculating how many &#39;hits&#39;</span>
+<span class="sd">        you have in an n-sized list of ranked items. If there is at least one item that falls in the ground-truth set,</span>
+<span class="sd">        we call it a hit.</span>
+
+<span class="sd">        .. _HR: https://medium.com/@rishabhbhatia315/recommendation-system-evaluation-metrics-3f6739288870</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \mathrm {HR@K} = \frac{1}{|U|}\sum_{u \in U} \delta(\hat{R}(u) \cap R(u) \neq \emptyset),</span>
+
+<span class="sd">        :math:`\delta(·)` is an indicator function. :math:`\delta(b)` = 1 if :math:`b` is true and 0 otherwise.</span>
+<span class="sd">        :math:`\emptyset` denotes the empty set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sorted_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">label_list</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">hr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ranking_list</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sorted_label</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">hr</span></div>
+
+
+
+<div class="viewcode-block" id="MRR">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MRR">[docs]</a>
+<span class="k">def</span> <span class="nf">MRR</span><span class="p">(</span><span class="n">ranking_list</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;The MRR_ (also known as Mean Reciprocal Rank) computes the reciprocal rank</span>
+<span class="sd">        of the first relevant item found by an algorithm.</span>
+
+<span class="sd">        .. _MRR: https://en.wikipedia.org/wiki/Mean_reciprocal_rank</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">           \mathrm {MRR@K} = \frac{1}{|U|}\sum_{u \in U} \frac{1}{\operatorname{rank}_{u}^{*}}</span>
+
+<span class="sd">        :math:`{rank}_{u}^{*}` is the rank position of the first relevant item found by an algorithm for a user :math:`u`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mrr</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ranking_list</span><span class="p">[:</span><span class="n">k</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">mrr</span> <span class="o">=</span> <span class="n">i</span><span class="o">/</span><span class="p">(</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">mrr</span></div>
+
+
+
+<span class="c1">##################fairness metric#######################</span>
+
+<div class="viewcode-block" id="reconstruct_utility">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.reconstruct_utility">[docs]</a>
+<span class="k">def</span> <span class="nf">reconstruct_utility</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">group_mask</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reconstruct utility by re-weighting them and masking the utility of certain unused groups.</span>
+<span class="sd">        :param utility_list: array for item/user utilities</span>
+<span class="sd">        :param weights: array for item/user utilities weights</span>
+<span class="sd">        :param group_mask: bool array for whether computed the group utilityes</span>
+<span class="sd">        :return: re-constructed utility array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">weights</span><span class="p">:</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">utility_list</span><span class="p">)</span>
+
+    <span class="n">utility_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">utility_list</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="n">weighted_utility</span> <span class="o">=</span> <span class="n">utility_list</span> <span class="o">*</span> <span class="n">weights</span>
+
+    <span class="k">if</span> <span class="n">group_mask</span><span class="p">:</span>
+        <span class="n">weighted_utility</span> <span class="o">=</span> <span class="n">mask_utility</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">,</span> <span class="n">group_mask</span><span class="p">)</span>
+
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="mask_utility">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility">[docs]</a>
+<span class="k">def</span> <span class="nf">mask_utility</span><span class="p">(</span><span class="n">utility</span><span class="p">,</span> <span class="n">group_mask</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mask the utility values based on the provided group mask.</span>
+
+<span class="sd">    This function filters out the utility values where the corresponding</span>
+<span class="sd">    group mask element is zero, effectively removing them from the output.</span>
+
+
+<span class="sd">    :param utility: array for item/user utilities</span>
+<span class="sd">    :param group_mask: bool array for whether computed the group utilityes</span>
+<span class="sd">    :return: masked utility array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">masked_utility</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">group_mask</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">masked_utility</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utility</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">masked_utility</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MMF">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF">[docs]</a>
+<span class="k">def</span> <span class="nf">MMF</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_mask</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the Max-min Fairness (MMF) index based on a given utility list.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    :param utility: array-like</span>
+<span class="sd">        A list or array representing the utilities of resources or users.</span>
+<span class="sd">    :param ratio: float, optional</span>
+<span class="sd">        The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.</span>
+<span class="sd">    :param ratio: float, optional</span>
+<span class="sd">        The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.</span>
+<span class="sd">    :param ratio: float, optional</span>
+<span class="sd">        The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.</span>
+<span class="sd">    :param weights : array-like, optional</span>
+<span class="sd">        An optional list or array of weights corresponding to each utility in `utility_list`.</span>
+<span class="sd">        If provided, utilities are multiplied by their respective weights before sorting.</span>
+<span class="sd">        Defaults to None, implying equal weighting.</span>
+<span class="sd">    :param group_mask : array-like, optional</span>
+<span class="sd">        An optional list or array used to selectively apply weights. If provided, it must have the same length as</span>
+<span class="sd">        `utility_list` and `weights`. Defaults to None, indicating no group-based weighting.</span>
+
+<span class="sd">    :return: The computed MMF index, representing the fairness of the allocation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weighted_utility</span> <span class="o">=</span> <span class="n">reconstruct_utility</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">group_mask</span><span class="p">)</span>
+
+    <span class="n">MMF_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ratio</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">utility_list</span><span class="p">))</span>
+    <span class="n">utility_sort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">)</span>
+
+    <span class="n">mmf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">utility_sort</span><span class="p">[:</span><span class="n">MMF_length</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mmf</span></div>
+
+
+<div class="viewcode-block" id="MinMaxRatio">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio">[docs]</a>
+<span class="k">def</span> <span class="nf">MinMaxRatio</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_mask</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function computes the minimum-to-maximum ratio of a list of utilities, optionally weighted and grouped.</span>
+
+<span class="sd">    :param utility_list (list of float): A list containing numerical utility values.</span>
+<span class="sd">    :param weights (list of float, optional): A list of weights corresponding to the utilities in utility_list. If provided,</span>
+<span class="sd">      each utility is multiplied by its respective weight. If None, all utilities are considered with equal weight.</span>
+<span class="sd">    :param group_mask (list of int or bool, optional): A mask indicating groups within the utility_list. If provided, it must</span>
+<span class="sd">      be of the same length as utility_list. Groups are defined by consecutive True or 1 values. If None, no grouping is applied.</span>
+
+<span class="sd">    :return: float: The computed minimum-to-maximum ratio of the (weighted) utilities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weighted_utility</span> <span class="o">=</span> <span class="n">reconstruct_utility</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">group_mask</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Gini">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Gini">[docs]</a>
+<span class="k">def</span> <span class="nf">Gini</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_mask</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function computes the Gini coefficient, a measure of statistical dispersion intended to represent income inequality within a nation or social group.</span>
+<span class="sd">    The Gini coefficient is calculated based on the cumulative distribution of values in `utility_list`, which can optionally be weighted and masked.</span>
+
+<span class="sd">    :param utility_list: array_like</span>
+<span class="sd">        A 1D array representing individual utilities. The utilities are used to compute the Gini coefficient.</span>
+<span class="sd">    :param weights: array_like, optional</span>
+<span class="sd">        A 1D array of weights corresponding to `utility_list`. If provided, each utility value is multiplied by its respective weight before calculating the Gini coefficient. Defaults to None, implying equal weighting.</span>
+<span class="sd">    :param group_mask: array_like, optional</span>
+<span class="sd">        A 1D boolean array used to selectively include elements from `utility_list`. If provided, only the elements where the mask is True are considered in the calculation. Defaults to None, meaning all elements are included.</span>
+
+<span class="sd">    :return: float: The computed Gini coefficient, ranging from 0 (perfect equality) to 1 (maximal inequality).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weighted_utility</span> <span class="o">=</span> <span class="n">reconstruct_utility</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">group_mask</span><span class="p">)</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="c1"># gini compute</span>
+    <span class="n">cumulative_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">gini</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cumulative_sum</span><span class="p">)</span> <span class="o">/</span> <span class="n">cumulative_sum</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">/</span> <span class="n">n</span>
+
+    <span class="k">return</span> <span class="n">gini</span></div>
+
+
+<div class="viewcode-block" id="Entropy">
+<a class="viewcode-back" href="../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Entropy">[docs]</a>
+<span class="k">def</span> <span class="nf">Entropy</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_mask</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the entropy of a distribution given by `utility_list`, optionally</span>
+<span class="sd">    weighted by `weights` and filtered by `group_mask`. Entropy measures the</span>
+<span class="sd">    disorder or uncertainty in the distribution.</span>
+
+<span class="sd">    :param utility_list: list or array-like</span>
+<span class="sd">        A list or array representing utility values for each item.</span>
+<span class="sd">    :param weights: list or array-like, optional</span>
+<span class="sd">        A list or array of weights corresponding to each utility value. If not provided,</span>
+<span class="sd">        all utilities are considered equally weighted. Defaults to None.</span>
+<span class="sd">    :param group_mask : list or array-like, optional</span>
+<span class="sd">        A boolean mask indicating which utilities to include in the calculation.</span>
+<span class="sd">        If not provided, all utilities are included. Defaults to None.</span>
+
+<span class="sd">    :return: float: The calculated entropy of the (potentially weighted and masked) distribution.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    - Entropy is calculated as H = -sum(p * log2(p)), where p is the probability of each event.</span>
+<span class="sd">    - Probabilities are normalized to ensure their sum equals 1.</span>
+<span class="sd">    - To avoid taking the log of zero, a small constant (1e-9) is added to each probability before calculating the entropy.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weighted_utility</span> <span class="o">=</span> <span class="n">reconstruct_utility</span><span class="p">(</span><span class="n">utility_list</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">group_mask</span><span class="p">)</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weighted_utility</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">values</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="c1"># H = - sum(p * log2(p))</span>
+    <span class="c1"># avoid 0 case</span>
+    <span class="n">entropy_value</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">values</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">values</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">entropy_value</span></div>
+
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

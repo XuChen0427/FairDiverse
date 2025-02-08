@@ -40,13 +40,52 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Recommendation Settings</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Recommendation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendation/evaluation.html">Parameter settings for evaluations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.reranker.html"><code class="docutils literal notranslate"><span class="pre">RecReRanker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.trainer.html"><code class="docutils literal notranslate"><span class="pre">RecTrainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.llm_rec.html"><code class="docutils literal notranslate"><span class="pre">LLMRecommender</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html"><code class="docutils literal notranslate"><span class="pre">AUC_score()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.Entropy"><code class="docutils literal notranslate"><span class="pre">Entropy()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.Gini"><code class="docutils literal notranslate"><span class="pre">Gini()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.HR"><code class="docutils literal notranslate"><span class="pre">HR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF"><code class="docutils literal notranslate"><span class="pre">MMF()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MRR"><code class="docutils literal notranslate"><span class="pre">MRR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio"><code class="docutils literal notranslate"><span class="pre">MinMaxRatio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.NDCG"><code class="docutils literal notranslate"><span class="pre">NDCG()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg"><code class="docutils literal notranslate"><span class="pre">dcg()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility"><code class="docutils literal notranslate"><span class="pre">mask_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.metric.html#recommendation.metric.reconstruct_utility"><code class="docutils literal notranslate"><span class="pre">reconstruct_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.sampler.html"><code class="docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PairWiseDataset"><code class="docutils literal notranslate"><span class="pre">PairWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PointWiseDataset"><code class="docutils literal notranslate"><span class="pre">PointWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.RankingTestDataset"><code class="docutils literal notranslate"><span class="pre">RankingTestDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.SequentialDataset"><code class="docutils literal notranslate"><span class="pre">SequentialDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html"><code class="docutils literal notranslate"><span class="pre">Build_Adjecent_Matrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Init_Group_AdjcentMatrix"><code class="docutils literal notranslate"><span class="pre">Init_Group_AdjcentMatrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int"><code class="docutils literal notranslate"><span class="pre">convert_keys_values_to_int()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch"><code class="docutils literal notranslate"><span class="pre">get_cos_similar_torch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text"><code class="docutils literal notranslate"><span class="pre">get_iid2text()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
 </ul>
 
         </div>
@@ -76,8 +115,342 @@
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  
 </div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Abstract_Evaluator">Abstract_Evaluator (class in recommendation.evaluator)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer">Abstract_Regularizer (class in recommendation.rank_model.Abstract_Ranker)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html#recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker">Abstract_Reranker (class in recommendation.rerank_model.Abstract_Reranker)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher">Abstract_Reweigher (class in recommendation.rank_model.Abstract_Ranker)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler">Abstract_Sampler (class in recommendation.rank_model.Abstract_Ranker)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.AbstractDataset">AbstractDataset (class in recommendation.sampler)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.AUC_score">AUC_score() (in module recommendation.metric)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Build_Adjecent_Matrix">Build_Adjecent_Matrix() (in module recommendation.utils.group_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator.cal_acc_score">cal_acc_score() (recommendation.evaluator.LLM_Evaluator method)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator.cal_fair_score">cal_fair_score() (recommendation.evaluator.LLM_Evaluator method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.check_model_stage">check_model_stage() (recommendation.trainer.RecTrainer method)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int">convert_keys_values_to_int() (in module recommendation.utils.group_utils)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator">CTR_Evaluator (class in recommendation.evaluator)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg">dcg() (in module recommendation.metric)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.Entropy">Entropy() (in module recommendation.metric)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Abstract_Evaluator.eval">eval() (recommendation.evaluator.Abstract_Evaluator method)</a>
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator.eval">(recommendation.evaluator.CTR_Evaluator method)</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator.eval">(recommendation.evaluator.Ranking_Evaluator method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer.fairness_loss">fairness_loss() (recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator.get_categories">get_categories() (recommendation.evaluator.LLM_Evaluator method)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator.get_cates_value">get_cates_value() (recommendation.evaluator.LLM_Evaluator method)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch">get_cos_similar_torch() (in module recommendation.utils.group_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator.get_data">get_data() (recommendation.evaluator.LLM_Evaluator method)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text">get_iid2text() (in module recommendation.utils.group_utils)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.Gini">Gini() (in module recommendation.metric)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.HR">HR() (in module recommendation.metric)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Init_Group_AdjcentMatrix">Init_Group_AdjcentMatrix() (in module recommendation.utils.group_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator.llm_eval">llm_eval() (recommendation.evaluator.LLM_Evaluator method)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator">LLM_Evaluator (class in recommendation.evaluator)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.llm_rec.html#recommendation.llm_rec.LLMRecommender">LLMRecommender (class in recommendation.llm_rec)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.llm_rec.html#recommendation.llm_rec.LLMRecommender.load_configs">load_configs() (recommendation.llm_rec.LLMRecommender method)</a>
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.reranker.html#recommendation.reranker.RecReRanker.load_configs">(recommendation.reranker.RecReRanker method)</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.load_configs">(recommendation.trainer.RecTrainer method)</a>
+</li>
+      </ul></li>
+      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json">load_json() (in module recommendation.utils.group_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility">mask_utility() (in module recommendation.metric)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio">MinMaxRatio() (in module recommendation.metric)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF">MMF() (in module recommendation.metric)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.evaluator.html#module-recommendation.evaluator">recommendation.evaluator</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.llm_rec.html#module-recommendation.llm_rec">recommendation.llm_rec</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.metric.html#module-recommendation.metric">recommendation.metric</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#module-recommendation.rank_model.Abstract_Ranker">recommendation.rank_model.Abstract_Ranker</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html#module-recommendation.rerank_model.Abstract_Reranker">recommendation.rerank_model.Abstract_Reranker</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.reranker.html#module-recommendation.reranker">recommendation.reranker</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.sampler.html#module-recommendation.sampler">recommendation.sampler</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.trainer.html#module-recommendation.trainer">recommendation.trainer</a>
+</li>
+        <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#module-recommendation.utils.group_utils">recommendation.utils.group_utils</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MRR">MRR() (in module recommendation.metric)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.NDCG">NDCG() (in module recommendation.metric)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PairWiseDataset">PairWiseDataset (class in recommendation.sampler)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PointWiseDataset">PointWiseDataset (class in recommendation.sampler)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator">Ranking_Evaluator (class in recommendation.evaluator)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.RankingTestDataset">RankingTestDataset (class in recommendation.sampler)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.llm_rec.html#recommendation.llm_rec.LLMRecommender.recommend">recommend() (recommendation.llm_rec.LLMRecommender method)</a>
+</li>
+      <li>
+    recommendation.evaluator
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.evaluator.html#module-recommendation.evaluator">module</a>
+</li>
+      </ul></li>
+      <li>
+    recommendation.llm_rec
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.llm_rec.html#module-recommendation.llm_rec">module</a>
+</li>
+      </ul></li>
+      <li>
+    recommendation.metric
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.metric.html#module-recommendation.metric">module</a>
+</li>
+      </ul></li>
+      <li>
+    recommendation.rank_model.Abstract_Ranker
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#module-recommendation.rank_model.Abstract_Ranker">module</a>
+</li>
+      </ul></li>
+      <li>
+    recommendation.rerank_model.Abstract_Reranker
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html#module-recommendation.rerank_model.Abstract_Reranker">module</a>
+</li>
+      </ul></li>
+      <li>
+    recommendation.reranker
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.reranker.html#module-recommendation.reranker">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    recommendation.sampler
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.sampler.html#module-recommendation.sampler">module</a>
+</li>
+      </ul></li>
+      <li>
+    recommendation.trainer
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.trainer.html#module-recommendation.trainer">module</a>
+</li>
+      </ul></li>
+      <li>
+    recommendation.utils.group_utils
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#module-recommendation.utils.group_utils">module</a>
+</li>
+      </ul></li>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.reconstruct_utility">reconstruct_utility() (in module recommendation.metric)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.reranker.html#recommendation.reranker.RecReRanker">RecReRanker (class in recommendation.reranker)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer">RecTrainer (class in recommendation.trainer)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html#recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker.rerank">rerank() (recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker method)</a>
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.reranker.html#recommendation.reranker.RecReRanker.rerank">(recommendation.reranker.RecReRanker method)</a>
+</li>
+      </ul></li>
+      <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reset_parameters">reset_parameters() (recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher method)</a>
+
+      <ul>
+        <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.reset_parameters">(recommendation.rank_model.Abstract_Ranker.Abstract_Sampler method)</a>
+</li>
+      </ul></li>
+      <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reweight">reweight() (recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.sample">sample() (recommendation.rank_model.Abstract_Ranker.Abstract_Sampler method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.SequentialDataset">SequentialDataset (class in recommendation.sampler)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.Set_Dataset">Set_Dataset() (recommendation.trainer.RecTrainer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.train">train() (recommendation.trainer.RecTrainer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 
 
            </div>
