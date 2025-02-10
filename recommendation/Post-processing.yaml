@@ -1,7 +1,7 @@
 {
    ###############the ranking score stored path for the post-processing##################
    ##########If you do not have it, please run the in-processing stage, firstly############
-   ranking_store_path: "2025-1-31_steam-base_mf",
+   ranking_store_path: "steam-base_mf",
    #######################################################################################
 
    ##################Post-processing model and log path############################

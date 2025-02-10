@@ -7,5 +7,6 @@
    store_scores: True,
    decimals: 4,
    mmf_eval_ratio: 0.2,
+   fairness_type: "Utility",
    #ranking_store_path: "2024-11-7_base_mf", ##the ranking score stored path for the re-ranking, only re-ranking should change the value
 }

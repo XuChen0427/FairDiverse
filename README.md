@@ -83,9 +83,29 @@ For in-processing methods, please run
 python main.py --task recommendation --stage in-processing --dataset steam --train_config_file In-processing.yaml
 ```
 
+Or you can create a new test.py to test:
+```
+from recommendation.trainer import RecTrainer
+
+config = {model: 'BPR', data_type: 'pair', fair-rank: True, rank_model: 'APR', use_llm: False, log_name: "test"}
+
+trainer = RecTrainer(dataset="steam", train_config=config)
+trainer.train()
+```
+
 For post-processing methods, please run
 ```
 python main.py --task recommendation --stage post-processing --dataset steam --train_config_file Post-processing.yaml
+```
+
+
+```
+from recommendation.reranker import RecReRanker
+
+config = {ranking_store_path: 'steam-base_mf', model: 'CPFair', fair-rank: True, log_name: 'test', fairness_metrics: ["MMF", "GINI"]}
+
+reranker = RecReRanker(dataset="steam", train_config=config)
+reranker.rerank()
 ```
 
 #### Search tasks:
@@ -157,6 +177,35 @@ You just needs few steps and some lines of codes to develop and evaluate your ow
 3. set up your model for the training pipelines
 
 Then you can run the shell command to evaluate your own models.
+
+#### Examples.
+Here, we provide an example code demonstrating how to design a custom in-processing model. The implementation for other base models and post-processing models follows a similar approach.
+```
+#/recommendation/rank_model/YourModel.py
+class YourModel(Abstract_Regularizer):
+    def __init__(self, config, group_weight):
+        super().__init__(config)
+
+    def fairness_loss(self, input_dict):
+        losses = input_dict['scores']
+        return torch.var(losses)
+
+#/recommendation/rank_model/__init__.py
+from .YourModel import YourModel
+
+#/recommendation/trainer.py
+if config["model"] == "YourModel":
+  self.Model = YourModel(config)
+
+#test.py
+from recommendation.trainer import RecTrainer
+
+config = {model: 'BPR', data_type: 'pair', fair-rank: True, rank_model: 'YourModel', use_llm: False, log_name: "test"}
+
+trainer = RecTrainer(dataset="steam", train_config=config)
+trainer.train()
+```
+
 
 ## License
 FairDiverse uses [MIT License](./LICENSE). All data and code in this project can only be used for academic purposes.
