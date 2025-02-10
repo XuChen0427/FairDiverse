@@ -12,15 +12,14 @@ class LLMRecommender(object):
     """
 
     """
-    def __init__(self, dataset, stage, train_config):
+    def __init__(self, dataset, train_config):
         """Initialize In-processing and base models.
 
             :param dataset: utilized dataset.
-            :param stage: In-processing or Post-processing stage.
             :param train_config: Your custom config files.
         """
         self.dataset = dataset
-        self.stage = stage
+        #self.stage = stage
         self.llm_type = train_config['llm_type']
         self.config = train_config
 

@@ -84,7 +84,7 @@ The Team
 ------------------
 FairDiverse is developed and maintained by `RUC, UvA`.
 
-Here is the list of our lead developers in each development phase. They are the souls of RecBole and have made outstanding contributions.
+Here is the list of our lead developers in each development phase.
 
 ======================   ===============   =============================================
 Time                     Version 	        Lead Developers
