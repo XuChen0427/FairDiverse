@@ -28,14 +28,13 @@ import ast
 
 
 class RecTrainer(object):
-    def __init__(self, dataset, train_config):
+    def __init__(self, train_config):
         """Initialize In-processing and base models.
 
-        :param dataset: utilized dataset.
         :param train_config: Your custom config files.
         """
 
-        self.dataset = dataset
+        self.dataset = train_config['dataset']
         #self.stage = stage
         self.train_config = train_config
 

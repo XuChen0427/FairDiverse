@@ -9,15 +9,14 @@ import json
 
 
 class RecReRanker(object):
-    def __init__(self, dataset, train_config):
+    def __init__(self, train_config):
         """Initialize In-processing and base models.
 
-        :param dataset: utilized dataset.
         :param train_config: Your custom config files.
         """
 
 
-        self.dataset = dataset
+        self.dataset = train_config['dataset']
         #self.stage = stage
         self.train_config = train_config
 
@@ -66,7 +65,7 @@ class RecReRanker(object):
         dir = os.path.join("recommendation", "processed_dataset", self.dataset)
         config = self.load_configs(dir)
 
-        ranking_score_path = os.path.join("recommendation", "log", self.train_config['ranking_store_path'])
+        ranking_score_path = os.path.join("recommendation", "log", config['ranking_store_path'])
         if not os.path.exists(ranking_score_path):
             raise ValueError(f"do not exist the path {ranking_score_path}, please check the path or run the ranking phase to generate scores for re-ranking !")
         print("loading ranking scores....")
@@ -119,7 +118,7 @@ class RecReRanker(object):
                         gid = 0
                     else:
                         gid = Reranker.iid2pid[i]
-                    if self.train_config['fairness_type'] == "Exposure":
+                    if config['fairness_type'] == "Exposure":
                         exposure_list[gid] += 1
                     else:
                         exposure_list[gid] += np.round(ranking_scores[u][i], config['decimals'])

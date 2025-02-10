@@ -87,9 +87,9 @@ Or you can create a new test.py to test:
 ```
 from recommendation.trainer import RecTrainer
 
-config = {model: 'BPR', data_type: 'pair', fair-rank: True, rank_model: 'APR', use_llm: False, log_name: "test"}
+config = {'model': 'BPR', 'data_type': 'pair', 'fair-rank': True, 'rank_model': 'APR', 'use_llm': False, 'log_name': "test", 'dataset': 'steam'}
 
-trainer = RecTrainer(dataset="steam", train_config=config)
+trainer = RecTrainer(train_config=config)
 trainer.train()
 ```
 
@@ -102,9 +102,10 @@ python main.py --task recommendation --stage post-processing --dataset steam --t
 ```
 from recommendation.reranker import RecReRanker
 
-config = {ranking_store_path: 'steam-base_mf', model: 'CPFair', fair-rank: True, log_name: 'test', fairness_metrics: ["MMF", "GINI"]}
+config = {'ranking_store_path': 'steam-base-mf', 'model': 'CPFair', 'fair-rank': True, 'log_name': 'test',
+          'fairness_metrics': ["MMF", "GINI"], 'dataset': 'steam'}
 
-reranker = RecReRanker(dataset="steam", train_config=config)
+reranker = RecReRanker(train_config=config)
 reranker.rerank()
 ```
 
@@ -200,9 +201,9 @@ if config["model"] == "YourModel":
 #test.py
 from recommendation.trainer import RecTrainer
 
-config = {model: 'BPR', data_type: 'pair', fair-rank: True, rank_model: 'YourModel', use_llm: False, log_name: "test"}
+config = {'model': 'BPR', 'data_type': 'pair', 'fair-rank': True, 'rank_model': 'YourModel', 'use_llm': False, 'log_name': "test", 'dataset': 'steam'}
 
-trainer = RecTrainer(dataset="steam", train_config=config)
+trainer = RecTrainer(train_config=config)
 trainer.train()
 ```
 
