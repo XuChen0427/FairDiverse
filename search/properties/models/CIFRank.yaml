@@ -1,0 +1,9 @@
+{
+
+  "pre_processing_config": {
+    "name": "CIFRank", # name of pre-processing method to be used
+    "group": "GR", # column name of the data (dataframe) representing the sensitive data
+    "control": "FB", # control group for the causal estimation as a value of the "group" column
+    "qid_process": False # True if you want to create a model for each qid individually, and False otherwise
+  }
+}

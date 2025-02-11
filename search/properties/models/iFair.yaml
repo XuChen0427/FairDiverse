@@ -1,0 +1,17 @@
+{
+  "pre_processing_config": {
+    "name": "iFair", # name of pre-processing method to be used
+    "qid_process": False, # True if you want to create a model for each qid individually, and False otherwise
+
+
+    "seed": 42,
+    "nb_restarts": 3,
+    "max_iter": 1000,
+    "maxfun": 1000,
+
+    "k": 10, # number of prototypes
+    "A_x": 0.001, # hyperparameter for the reconstruction loss
+    "A_z": 1, # hyperparameter for the individual fairness loss
+  }
+
+}

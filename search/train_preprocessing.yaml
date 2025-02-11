@@ -1,0 +1,31 @@
+{
+    "train_ranker_config": {
+        "preprocessing_model": "LFR", # name of pre-processing model
+        "name": "Ranklib", # name of ranker class
+        "ranker_path": "./search/ranker_model/modules/ranklib", # path to the ranklib library
+
+        "rel_max": 500, # max relevance to be assigned to items
+
+        "ranker": "RankNet", # name of ranking model
+        "ranker_id": 1, # id of ranking model as per the Ranklib library
+        "metric": "NDCG", # evaluation metric
+        "top_k": 10, # evaluation at top-k
+
+        "lr": 0.0001, # learning rate for training
+        "epochs": 10, # epochs for training
+
+        "train_data": [ "original", "fair" ], # "original" - train on original data, "fair" - train on transformed representation
+        "test_data": [ "original", "fair" ], # "original" - test on original data, "fair" - test on transformed representation
+
+        "evaluate":
+          {
+              "metrics": [ "diversity", "exposure", "individual", "igf" ], # list of fairness evaluation metrics
+              "rankings": [ "Y", "Y_fair", "Y__Y", "Y_fair__Y_fair" ],
+                # list of rankings to perform the evaluation on "score_col" - orginal data ,
+                # "<score_col>__<score_col>" - train and tested on original data,
+                # "<score_col>_fair" - transformed data
+                # "<score_col>_fair__<score_col>_fair" - train and tested on transformed data
+              "k_list": [ "100", "200", "300", "500" ] # top-k to perform the evaluation on
+          }
+    }
+}

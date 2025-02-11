@@ -3,6 +3,7 @@ import argparse
 import yaml
 import os
 
+from search.trainer_preprocessing_ranker import RankerTrainer
 
 if __name__ == "__main__":
 # Initialize ArgumentParser
@@ -12,7 +13,7 @@ if __name__ == "__main__":
     parser.add_argument("--task", type=str, choices=["recommendation", "search"], default='recommendation', help='IR tasks')
     parser.add_argument("--stage", type=str, choices=["pre-processing", "in-processing", "post-processing"],
                         default="in-processing", help="your evaluation stage")
-    parser.add_argument("--dataset", type=str, choices=["steam", "clueweb09"], default="steam", help="your dataset")
+    parser.add_argument("--dataset", type=str, choices=["steam", "clueweb09", "compas"], default="steam", help="your dataset")
     parser.add_argument("--train_config_file", type=str, default="In-processing.yaml", help="your train yaml file")
     #parser.add_argument("--reprocess", type=str, choices=["yes", "no"], default="no", help="your dataset")
     #parser.add_argument("topk", type=float, default=10, help="ranking size")
@@ -49,6 +50,9 @@ if __name__ == "__main__":
                 raise ValueError("For post-processing methods in search, we only support the clueweb09 dataset")
             from search.trainer import SRDTrainer
             trainer = SRDTrainer(train_config)
+            trainer.train()
+        elif args.stage == "pre-processing":
+            trainer = RankerTrainer(train_config)
             trainer.train()
     else:
         raise NotImplementedError

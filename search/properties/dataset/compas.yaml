@@ -1,0 +1,14 @@
+{
+  "data_reader_class": {
+  "name": "COMPAS", # name of dataset
+  "path": "search/processed_dataset/compas", # path to dataset
+  "query_col": "QID", # query column name; if not present it will be added
+  "id_col": "UID", # id column name;
+  "score_col": "Y", # score column name
+  "feature_cols": [ "X" ], # list of column names for the features
+  "sensitive_cols": [ "GR" ], # list of sensitive columns to be considered
+  "k_fold": 5, # k-fold stratified splits
+  "ratio_split": 0.3, # ratio of test set
+  "pos_th": 0 # threshold for considering negative samples during training
+  }
+}

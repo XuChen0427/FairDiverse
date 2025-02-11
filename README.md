@@ -65,6 +65,12 @@ mip>=1.15.0
 gurobipy>=12.0.1
 ```
 
+#### For pre-processing method CIFRank
+Install [R](https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html) and the following python packages:
+```
+rpy2==3.5.17
+```
+
 ## Quick-start
 ![FairDiverse pipelines](img/usage.png)
 
@@ -110,6 +116,20 @@ reranker.rerank()
 ```
 
 #### Search tasks:
+For the pre-processing methods, you can begin with:
+```
+python main.py --task search --stage pre-processing --dataset compas --train_config_file train_preprocessing.yaml
+```
+You can set "preprocessing_model" to one of the supported methods [LFR, iFair, gFair, CIFRank].
+```
+from search.trainer_preprocessing_ranker import RankerTrainer
+
+config = { "train_ranker_config": {"preprocessing_model": "iFair", "name": "Ranklib", ...}}
+
+reranker = RankerTrainer(train_config=config)
+reranker.train()
+```
+
 
 For the post-processing methods, you can begin with:
 ```
@@ -119,7 +139,7 @@ python main.py --task search --stage post-processing --dataset clueweb09 --train
 ## Datasets
 For the recommendation dataset, we utilize the dataset format in [Recbole Datasets](https://recbole.io/dataset_list.html).
 
-For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.org/clueweb09.php/).
+For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.org/clueweb09.php/), and the [COMPAS dataset](https://github.com/DataResponsibly/CIFRank/blob/master/data/COMPAS.csv).
 
 ## Implemented Models
 
@@ -165,6 +185,16 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Learning-based     | [Tax-Rank](https://dl.acm.org/doi/10.1145/3626772.3657766) | applies the optimal transportation (OT) algorithm to trade-off fairness-accuracy.    |
 | Learning-based     | [Welf](https://arxiv.org/abs/2110.15781)                   | use the Frank-Wolfe algorithm to maximize the Welfare functions of worst-off items.      |
 
+### Search tasks
+#### Pre-processing models
+
+| Types                 | Models                                               | Descriptions                                                                                                                                          |
+|-----------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Causal                | [CIFRank](https://arxiv.org/abs/2006.08688) | estimates the causal effect of the sensitive attributes on the data and makes use of them to correct for the bias encoded.                            |
+| Probabilisitc Mapping | [LFR](https://proceedings.mlr.press/v28/zemel13)        | optimizes for group fairness by making sure that the probability of a group to be mapped to a cluster is equal to the probability of the other group. |
+| Probabilisitc Mapping | [iFair](https://ieeexplore.ieee.org/abstract/document/8731591) | optimizes for individual fairness by making sure that the distance between similar individuals is maintained in the new space                         |
+| Probabilisitc Mapping | [gFair]()            | optimizes for group fairness by making sure that the distance between similar individuals from a group are close, in the new space, to similar individuals from the other group. Moreover, it constraints the optimization to maintain the relative distance between individuals belonging to the same group.                                                                                      |
+|
 
 ## Develop your own fairness- and diversity- aware models based on our toolkit
 
@@ -205,6 +235,30 @@ config = {'model': 'BPR', 'data_type': 'pair', 'fair-rank': True, 'rank_model': 
 
 trainer = RecTrainer(train_config=config)
 trainer.train()
+```
+
+Here, we provide an example code demonstrating how to design a custom pre-processing model. 
+```
+#/search/preprocessing_model/YourModel.py
+class YourModel(PreprocessingFairnessIntervention):
+    def __init__(self, configs, dataset):
+        super().__init__(config, dataset)
+
+    def fit(self, X_train, run):
+        self.opt_params = # updated params of your model
+    def transform(self, X_train, run file_name=None):
+        X_train_fair = # use self.opt_params to apply the transformation on the data
+        return X_train_fair
+        
+#search/preprocessing_model/constants.py
+fairness_method_mapping['YourModel'] = YourModel
+
+#test.py
+from search.trainer_preprocessing_ranker import RankerTrainer
+
+config = { "train_ranker_config": {"preprocessing_model": "YourModel", "name": "Ranklib", ...}}
+reranker = RankerTrainer(train_config=config)
+reranker.train()
 ```
 
 

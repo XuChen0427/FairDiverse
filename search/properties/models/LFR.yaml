@@ -1,0 +1,34 @@
+{
+  "pre_processing_config": {
+    "name": "LFR", # name of pre-processing method to be used
+    "qid_process": False, # True if you want to create a model for each qid individually, and False otherwise
+
+    "seed": 42,
+    "maxfun": 5000,
+    "maxiter": 1000,
+
+    "k": 10, # number of prototypes
+    "A_x": 0.001, # hyperparameter for the reconstruction loss
+    "A_z": 1, # hyperparameter for the group fairness loss
+    "A_y": 0.001, # hyperparameter for the utility loss
+
+    "biggest_gap": False,
+    # True if during the optimisation you want the loss to be updated based on the
+    # biggested difference between groups, and False if you want the loss to
+    # be updated with the pairwise sum between group differences
+
+
+    "unprivileged_groups": { "GR": [ "MW", "FW", "MB", "FB" ] },
+    "privileged_groups": { "GR": [ "MW", "FW", "MB", "FB" ] },
+    # list of attributes and groups to be compared during the optimisation
+    # "attr": [groups], where attr is the column name of the
+    # sensitive attribute in the data and groups are the values you want to consider during the optimisation
+    # for example this can be as well { "G": [ "M", "F"] } or if you want to compare all groups with the privileged group
+    # "unprivileged_groups": { "GR": [ "MW", "FW", "MB", "FB" ] },
+    # "privileged_groups": { "GR": [ "MW" ] },
+
+    "group_weights": { "MW": 1, "FW": 1, "MB": 1, "FB": 1 },
+    # weights to be applied in the loss function to give more importance to some groups
+  }
+
+}
