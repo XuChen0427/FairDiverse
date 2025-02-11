@@ -194,7 +194,6 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Probabilisitc Mapping | [LFR](https://proceedings.mlr.press/v28/zemel13)        | optimizes for group fairness by making sure that the probability of a group to be mapped to a cluster is equal to the probability of the other group. |
 | Probabilisitc Mapping | [iFair](https://ieeexplore.ieee.org/abstract/document/8731591) | optimizes for individual fairness by making sure that the distance between similar individuals is maintained in the new space                         |
 | Probabilisitc Mapping | [gFair]()            | optimizes for group fairness by making sure that the distance between similar individuals from a group are close, in the new space, to similar individuals from the other group. Moreover, it constraints the optimization to maintain the relative distance between individuals belonging to the same group.                                                                                      |
-|
 
 ## Develop your own fairness- and diversity- aware models based on our toolkit
 
