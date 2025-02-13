@@ -124,7 +124,7 @@ You can set "preprocessing_model" to one of the supported methods [LFR, iFair, g
 ```
 from search.trainer_preprocessing_ranker import RankerTrainer
 
-config = { "train_ranker_config": {"preprocessing_model": "iFair", "name": "Ranklib", ...}}
+config = { "train_ranker_config": {"preprocessing_model": "iFair", "name": "Ranklib", "ranker": "RankNet", "lr": 0.0001, "epochs": 10}}
 
 reranker = RankerTrainer(train_config=config)
 reranker.train()
@@ -241,21 +241,24 @@ Here, we provide an example code demonstrating how to design a custom pre-proces
 #/search/preprocessing_model/YourModel.py
 class YourModel(PreprocessingFairnessIntervention):
     def __init__(self, configs, dataset):
-        super().__init__(config, dataset)
+        super().__init__(configs, dataset)
 
     def fit(self, X_train, run):
         self.opt_params = # updated params of your model
     def transform(self, X_train, run file_name=None):
         X_train_fair = # use self.opt_params to apply the transformation on the data
         return X_train_fair
-        
-#search/preprocessing_model/constants.py
+
+#/search/properties/models/YourModel.yaml.
+# Define your config file for "YourModel".
+
+#/search/preprocessing_model/constants.py
 fairness_method_mapping['YourModel'] = YourModel
 
 #test.py
 from search.trainer_preprocessing_ranker import RankerTrainer
 
-config = { "train_ranker_config": {"preprocessing_model": "YourModel", "name": "Ranklib", ...}}
+config = { "train_ranker_config": {"preprocessing_model": "YourModel", "name": "Ranklib", "ranker": "RankNet", "lr": 0.0001, "epochs": 10}}
 reranker = RankerTrainer(train_config=config)
 reranker.train()
 ```
