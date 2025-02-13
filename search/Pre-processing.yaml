@@ -1,7 +1,8 @@
 {
     "train_ranker_config": {
         #################### Pre-processing model #############################
-        "preprocessing_model": "LFR",
+        "preprocessing_model": "LFR", # name of the pre-processing model, which automatially loads the configs of
+                               #the pre-processing model from under search/properties/models/<model_name>.yaml
         ###############################################################################
 
 
