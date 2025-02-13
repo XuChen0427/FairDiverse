@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>search.ranker_model.ranklib_ranker &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.reranker.html"><code class="docutils literal notranslate"><span class="pre">RecReRanker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.trainer.html"><code class="docutils literal notranslate"><span class="pre">RecTrainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.llm_rec.html"><code class="docutils literal notranslate"><span class="pre">LLMRecommender</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html"><code class="docutils literal notranslate"><span class="pre">AUC_score()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Entropy"><code class="docutils literal notranslate"><span class="pre">Entropy()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Gini"><code class="docutils literal notranslate"><span class="pre">Gini()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.HR"><code class="docutils literal notranslate"><span class="pre">HR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF"><code class="docutils literal notranslate"><span class="pre">MMF()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MRR"><code class="docutils literal notranslate"><span class="pre">MRR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio"><code class="docutils literal notranslate"><span class="pre">MinMaxRatio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.NDCG"><code class="docutils literal notranslate"><span class="pre">NDCG()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg"><code class="docutils literal notranslate"><span class="pre">dcg()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility"><code class="docutils literal notranslate"><span class="pre">mask_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.reconstruct_utility"><code class="docutils literal notranslate"><span class="pre">reconstruct_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html"><code class="docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PairWiseDataset"><code class="docutils literal notranslate"><span class="pre">PairWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PointWiseDataset"><code class="docutils literal notranslate"><span class="pre">PointWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.RankingTestDataset"><code class="docutils literal notranslate"><span class="pre">RankingTestDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.SequentialDataset"><code class="docutils literal notranslate"><span class="pre">SequentialDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html"><code class="docutils literal notranslate"><span class="pre">Build_Adjecent_Matrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Init_Group_AdjcentMatrix"><code class="docutils literal notranslate"><span class="pre">Init_Group_AdjcentMatrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int"><code class="docutils literal notranslate"><span class="pre">convert_keys_values_to_int()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch"><code class="docutils literal notranslate"><span class="pre">get_cos_similar_torch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text"><code class="docutils literal notranslate"><span class="pre">get_iid2text()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">search.ranker_model.ranklib_ranker</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for search.ranker_model.ranklib_ranker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">search.ranker_model.ranker</span> <span class="kn">import</span> <span class="n">Ranker</span>
+<span class="kn">from</span> <span class="nn">..utils.process_tabular_data</span> <span class="kn">import</span> <span class="n">norm_features</span><span class="p">,</span> <span class="n">check_nan</span><span class="p">,</span> <span class="n">writeToTXT</span>
+
+
+<div class="viewcode-block" id="RankLib">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib">[docs]</a>
+<span class="k">class</span> <span class="nc">RankLib</span><span class="p">(</span><span class="n">Ranker</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper class to run the available ranking models in the Ranklib library.</span>
+<span class="sd">    For more information about available models and params check the official documentation: https://sourceforge.net/p/lemur/wiki/RankLib%20How%20to%20use/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configs</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the RankLib model with configuration settings and dataset.</span>
+
+<span class="sd">        :param configs : dict</span>
+<span class="sd">            The configuration dictionary that contains hyperparameters and paths needed for training.</span>
+<span class="sd">        :param dataset : object</span>
+<span class="sd">            The dataset object containing the necessary columns like feature columns and target variable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">configs</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RankLib.train">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.train">[docs]</a>
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">run</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trains ranking models using RankLib.</span>
+
+<span class="sd">        This method generates RankLib-compatible training data and then runs the RankLib training script.</span>
+
+<span class="sd">        :param data_train : pandas.DataFrame</span>
+<span class="sd">            The training dataset to be used for training the ranking model.</span>
+<span class="sd">        :param data_test : pandas.DataFrame</span>
+<span class="sd">            The testing dataset to be used for evaluating the ranking model.</span>
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the current training run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_ranklib_data</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">experiment</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_experiments</span><span class="p">(</span><span class="n">run</span><span class="p">):</span>
+            <span class="n">model_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="o">/</span> <span class="n">experiment</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;ranker&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">model_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_run_ranklib_training</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RankLib.predict">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.predict">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates predictions using the trained RankLib model.</span>
+
+<span class="sd">        This method reads the predictions from the trained model and saves them as a CSV file.</span>
+
+<span class="sd">        :param data : pandas.DataFrame</span>
+<span class="sd">            The dataset on which predictions need to be made.</span>
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the current run.</span>
+<span class="sd">        :param file_name : str</span>
+<span class="sd">            The file name to save the predictions as a CSV.</span>
+
+<span class="sd">        :return : pandas.DataFrame</span>
+<span class="sd">            A DataFrame containing the predictions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_predictions</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+        <span class="n">pred_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">),</span> <span class="s2">&quot;predictions&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">pred_dir_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">predictions</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pred_dir_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s1">_pred.csv&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">predictions</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_get_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches all experiment directories that contain &#39;__&#39; in the name.</span>
+
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the run.</span>
+
+<span class="sd">        :return : list</span>
+<span class="sd">            A list of experiment directory names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">))</span> <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_run_ranklib_training</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">run</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the RankLib training script.</span>
+
+<span class="sd">        This method calls an external script to train the ranking model with the provided configurations.</span>
+
+<span class="sd">        :param experiment : str</span>
+<span class="sd">            The name of the current experiment.</span>
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the current run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">project_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">project_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranker_path</span> <span class="o">/</span> <span class="s2">&quot;run-LTR-model.sh&quot;</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">project_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranker_path</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;metric&#39;</span><span class="p">]),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;top_k&#39;</span><span class="p">]),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;rel_max&#39;</span><span class="p">]),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;ranker&#39;</span><span class="p">]),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;ranker_id&#39;</span><span class="p">]),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="o">/</span> <span class="n">experiment</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;epochs&#39;</span><span class="p">]),</span>
+                <span class="s2">&quot;none&quot;</span>
+            <span class="p">])</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Command output: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RankLib.generate_ranklib_data">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.generate_ranklib_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_ranklib_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">,</span> <span class="n">run</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates data formatted for RankLib training and testing.</span>
+
+<span class="sd">        This method prepares the training and testing data for RankLib by generating the required feature matrix</span>
+<span class="sd">        and label information in a format that RankLib can process.</span>
+
+<span class="sd">        :param data_train : pandas.DataFrame</span>
+<span class="sd">            The training dataset.</span>
+<span class="sd">        :param data_test : pandas.DataFrame</span>
+<span class="sd">            The testing dataset.</span>
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the current run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">experiments</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;train_data&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;test_data&#39;</span><span class="p">]))</span>
+
+        <span class="k">for</span> <span class="n">train_name</span><span class="p">,</span> <span class="n">test_name</span> <span class="ow">in</span> <span class="n">experiments</span><span class="p">:</span>
+            <span class="n">data_train_copy</span> <span class="o">=</span> <span class="n">data_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">data_test_copy</span> <span class="o">=</span> <span class="n">data_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="n">out_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">train_name</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out_dir</span><span class="p">):</span>
+                <span class="n">out_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="n">cols_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_feature_columns</span><span class="p">(</span><span class="n">train_name</span><span class="p">)</span>
+                <span class="n">cols_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_feature_columns</span><span class="p">(</span><span class="n">test_name</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_data</span><span class="p">(</span><span class="n">data_train_copy</span><span class="p">,</span> <span class="n">cols_train</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_data</span><span class="p">(</span><span class="n">data_test_copy</span><span class="p">,</span> <span class="n">cols_test</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">)</span>
+
+                <span class="n">data_train_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_data</span><span class="p">(</span><span class="n">data_train_copy</span><span class="p">,</span> <span class="n">cols_train</span><span class="p">)</span>
+                <span class="n">data_test_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_data</span><span class="p">(</span><span class="n">data_test_copy</span><span class="p">,</span> <span class="n">cols_test</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_ranklib_data</span><span class="p">(</span><span class="n">cols_train</span><span class="p">,</span> <span class="n">data_train_copy</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_ranklib_data</span><span class="p">(</span><span class="n">cols_test</span><span class="p">,</span> <span class="n">data_test_copy</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_get_feature_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns feature columns with fairness suffix if applicable.</span>
+
+<span class="sd">        :param mode : str</span>
+<span class="sd">            The mode can be &quot;fair&quot; or another value. If &quot;fair&quot;, fairness-related features will be included.</span>
+
+<span class="sd">        :return : list</span>
+<span class="sd">            A list of feature column names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_fair&quot;</span> <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;fair&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">col</span> <span class="o">+</span> <span class="n">suffix</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">feature_cols</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">score_col</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_validate_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">split</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks for NaN values in the dataset.</span>
+
+<span class="sd">        This method ensures that there are no missing values in the data before further processing.</span>
+
+<span class="sd">        :param data : pandas.DataFrame</span>
+<span class="sd">            The dataset to be validated.</span>
+<span class="sd">        :param cols : list</span>
+<span class="sd">            A list of column names to check for NaN values.</span>
+<span class="sd">        :param split : str</span>
+<span class="sd">            The split type, either &quot;train&quot; or &quot;test&quot;.</span>
+
+<span class="sd">        :raises ValueError : if NaN values are detected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">check_nan</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NaN values detected in </span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2"> data!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns judgement scores and normalizes features.</span>
+
+<span class="sd">        This method applies judgement scoring based on relevance and normalizes the features for RankLib.</span>
+
+<span class="sd">        :param data : pandas.DataFrame</span>
+<span class="sd">            The dataset to be processed.</span>
+<span class="sd">        :param cols : list</span>
+<span class="sd">            The list of feature column names.</span>
+
+<span class="sd">        :return : pandas.DataFrame</span>
+<span class="sd">            The processed dataset with normalized features.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">query_col</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">assign_judgement</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">pos_th</span><span class="p">,</span> <span class="n">cols</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">norm_features</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RankLib.create_ranklib_data">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.create_ranklib_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_ranklib_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">split</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Formats and writes data for RankLib.</span>
+
+<span class="sd">        This method prepares the data by formatting it according to RankLib&#39;s required format and writes it</span>
+<span class="sd">        to a text file.</span>
+
+<span class="sd">        :param cols : list</span>
+<span class="sd">            The list of feature columns.</span>
+<span class="sd">        :param data : pandas.DataFrame</span>
+<span class="sd">            The data to be written to a text file.</span>
+<span class="sd">        :param out_dir : Path</span>
+<span class="sd">            The output directory where the file will be saved.</span>
+<span class="sd">        :param split : str</span>
+<span class="sd">            The type of data, either &quot;train&quot; or &quot;test&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_ranklib_data</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">output_f</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2">_ranklib.txt&quot;</span>
+        <span class="n">writeToTXT</span><span class="p">(</span><span class="n">output_f</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_format_ranklib_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Formats features for RankLib.</span>
+
+<span class="sd">        This method ensures that the features are formatted in a way RankLib can consume, and shuffles</span>
+<span class="sd">        the data within query groups.</span>
+
+<span class="sd">        :param cols : list</span>
+<span class="sd">            The list of feature columns.</span>
+<span class="sd">        :param data : pandas.DataFrame</span>
+<span class="sd">            The dataset to be formatted.</span>
+
+<span class="sd">        :return : pandas.DataFrame</span>
+<span class="sd">            The formatted dataset ready for RankLib.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;QID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;QID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;qid:</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;UID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;UID&quot;</span><span class="p">,</span> <span class="s2">&quot;judgement&quot;</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;#docid=</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">;rel=</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">;</span><span class="si">{</span><span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Shuffle within query groups</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">g</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;QID&quot;</span><span class="p">)])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;judgement&quot;</span><span class="p">,</span> <span class="s2">&quot;QID&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;UID&quot;</span><span class="p">]]</span>
+
+<div class="viewcode-block" id="RankLib.assign_judgement">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.assign_judgement">[docs]</a>
+    <span class="k">def</span> <span class="nf">assign_judgement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns judgement scores based on relevance ranking.</span>
+
+<span class="sd">        This method assigns a judgement score to each document based on its relevance to a query.</span>
+
+<span class="sd">        :param x : pandas.DataFrame</span>
+<span class="sd">            The subset of data belonging to a single query.</span>
+<span class="sd">        :param th : float</span>
+<span class="sd">            The threshold for classifying relevance.</span>
+<span class="sd">        :param cols : list</span>
+<span class="sd">            The list of feature columns.</span>
+
+<span class="sd">        :return : pandas.DataFrame</span>
+<span class="sd">            The data with the assigned judgement scores.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mask_pos</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">score_col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">)</span>
+        <span class="n">pos_x</span><span class="p">,</span> <span class="n">neg_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">mask_pos</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">~</span><span class="n">mask_pos</span><span class="p">]</span>
+
+        <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">)</span>
+        <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_judgements</span><span class="p">(</span><span class="n">pos_x</span><span class="p">)</span>
+
+        <span class="n">neg_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">neg_x</span><span class="p">])</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_scale_judgements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos_x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scales and rounds judgement values.</span>
+
+<span class="sd">        This method scales the judgement values to a defined range and ensures all values are within the valid range.</span>
+
+<span class="sd">        :param pos_x : pandas.DataFrame</span>
+<span class="sd">            The data with the initial judgement scores.</span>
+
+<span class="sd">        :return : pandas.Series</span>
+<span class="sd">            The scaled judgement scores.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_rank</span><span class="p">,</span> <span class="n">max_rank</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_rank</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_rank</span> <span class="o">-</span> <span class="n">min_rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;rel_max&#39;</span><span class="p">]</span>
+        <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Ensure values are within valid range</span>
+        <span class="k">if</span> <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;rel_max&#39;</span><span class="p">]:</span>
+            <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;rel_max&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">lower</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pos_x</span><span class="p">[</span><span class="s1">&#39;judgement&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="RankLib.read_predictions">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.read_predictions">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves LTR predictions for the dataset.</span>
+
+<span class="sd">        This method loads the predictions from the trained RankLib model.</span>
+
+<span class="sd">        :param data : pandas.DataFrame</span>
+<span class="sd">            The dataset for which predictions need to be made.</span>
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the run.</span>
+
+<span class="sd">        :return : pandas.DataFrame</span>
+<span class="sd">            The dataset with predictions added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pred_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">get_LTR_predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pred_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s1">&#39;ranker&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">score_col</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">query_col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">predictions</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="get_LTR_predict">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.get_LTR_predict">[docs]</a>
+<span class="k">def</span> <span class="nf">get_LTR_predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">ranker</span><span class="p">,</span> <span class="n">score_col</span><span class="p">,</span> <span class="n">query_col</span><span class="p">,</span> <span class="n">id_col</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetches RankLib prediction scores.</span>
+
+<span class="sd">    This method loads prediction scores from the model and merges them with the provided dataset.</span>
+
+<span class="sd">    :param data : pandas.DataFrame</span>
+<span class="sd">        The dataset that needs the predictions.</span>
+<span class="sd">    :param out_dir : Path</span>
+<span class="sd">        The directory where the RankLib predictions are stored.</span>
+<span class="sd">    :param ranker : str</span>
+<span class="sd">        The name of the ranking model used.</span>
+<span class="sd">    :param score_col : str</span>
+<span class="sd">        The column name of the score in the dataset.</span>
+<span class="sd">    :param query_col : str</span>
+<span class="sd">        The column representing queries.</span>
+<span class="sd">    :param id_col : str</span>
+<span class="sd">        The unique identifier for each data point.</span>
+
+<span class="sd">    :return : pandas.DataFrame</span>
+<span class="sd">        The dataset with added prediction scores.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">experiments</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">experiment</span> <span class="ow">in</span> <span class="n">experiments</span><span class="p">:</span>
+        <span class="n">train_set</span><span class="p">,</span> <span class="n">test_set</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span>
+
+        <span class="n">train_set</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">train_set</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">train_set</span> <span class="o">==</span> <span class="s2">&quot;fair&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">test_set</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">test_set</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">test_set</span> <span class="o">==</span> <span class="s2">&quot;fair&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">pred_col</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">score_col</span><span class="si">}{</span><span class="n">train_set</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">score_col</span><span class="si">}{</span><span class="n">test_set</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">score_pred</span> <span class="o">=</span> <span class="n">get_prediction_scores</span><span class="p">(</span><span class="n">out_dir</span> <span class="o">/</span> <span class="n">experiment</span> <span class="o">/</span> <span class="n">ranker</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">id_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">score_pred</span><span class="p">)]</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">pred_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">id_col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">score_pred</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<div class="viewcode-block" id="get_prediction_scores">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.get_prediction_scores">[docs]</a>
+<span class="k">def</span> <span class="nf">get_prediction_scores</span><span class="p">(</span><span class="n">pred_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieves prediction scores from the latest RankLib experiment.</span>
+
+<span class="sd">    This method reads the predictions generated from the latest experiment and returns them.</span>
+
+<span class="sd">    :param pred_path : Path</span>
+<span class="sd">        The directory containing the prediction files.</span>
+
+<span class="sd">    :return : dict</span>
+<span class="sd">        A dictionary mapping document IDs to predicted scores.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">sub_experiments</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">pred_path</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;experiments_&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sub_experiments</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No predictions found in </span><span class="si">{</span><span class="n">pred_path</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+
+    <span class="n">latest_exp</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sub_experiments</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pred_path</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
+    <span class="n">pred_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">pred_path</span><span class="p">)</span> <span class="o">/</span> <span class="n">latest_exp</span> <span class="o">/</span> <span class="s2">&quot;predictions&quot;</span> <span class="o">/</span> <span class="s2">&quot;prediction.txt&quot;</span>
+
+    <span class="k">if</span> <span class="n">pred_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;**** Reading predictions from </span><span class="si">{</span><span class="n">pred_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">pred_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">li</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;docid=&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span> <span class="nb">int</span><span class="p">(</span><span class="n">li</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">li</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">}</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prediction file not found in </span><span class="si">{</span><span class="n">pred_path</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

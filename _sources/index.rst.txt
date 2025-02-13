@@ -34,19 +34,29 @@ For the usage, we use following steps:
 
 The utilized parameters in each config files can be found in following docs:
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Parameter Settings
+Parameter Descriptions
+-------------------------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Recommendation
+   :caption: Recommendation Parameters
 
    parameters/recommendation/data_preprocessing
    parameters/recommendation/evaluation
    parameters/recommendation/new_dataset
    parameters/recommendation/In-processing
    parameters/recommendation/Post-processing
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Search Parameters
+
+   parameters/search/new_dataset
+   parameters/search/Pre-processing
+
+Custom Your Models (APIs)
+----------------------------
+
 
 
 For the develop your own recommendation model, you can use following steps:
@@ -77,6 +87,25 @@ For the develop your own recommendation model, you can use following steps:
    APIs/recommendation/recommendation.utils.group_utils
 
 
+.. toctree::
+   :maxdepth: 3
+   :caption: Search develop APIs
+
+   APIs/search/search.trainer_preprocessing_ranker
+   APIs/search/search.preprocessing_model.fair_model
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Search other APIs
+
+   APIs/search/search.fairness_evaluator
+   APIs/search/search.preprocessing_model.utils
+   APIs/search/search.ranker_model.ranker
+   APIs/search/search.ranklib_ranker
+
+
+
 
 
 
@@ -84,7 +113,7 @@ The Team
 ------------------
 FairDiverse is developed and maintained by `RUC, UvA`.
 
-Here is the list of our lead developers in each development phase. They are the souls of RecBole and have made outstanding contributions.
+Here is the list of our lead developers in each development phase.
 
 ======================   ===============   =============================================
 Time                     Version 	        Lead Developers

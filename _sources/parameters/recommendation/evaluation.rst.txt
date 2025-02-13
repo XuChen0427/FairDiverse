@@ -30,6 +30,12 @@ Evaluation metric set ups
 - ``fairness_type (str)`` : The fairness computational methods, choosed among ["Exposure", "Utility"]. Exposure means computes fairness on the item exposure, Uility means computes fairness on the ranking scores.
 
 
+Training set ups
+''''''''''''''''''
+- ``device (str)`` : used device (cpu or gpu) to run the codes.
+- ``epoch (int)`` : training epochs.
+- ``batch_size (int)`` : training batch size.
+- ``learning_rate (float)`` : learning rate of optimizing the models.
 
 
 

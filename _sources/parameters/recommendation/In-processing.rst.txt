@@ -38,12 +38,6 @@ Log set ups
 - ``log_name (str)`` : The running log name, which will create a new dictionary ~recommendation\log\log_name\ and store the test results and all parameters into it.
 
 
-Training set ups
-''''''''''''''''''
-- ``device (str)`` : used device (cpu or gpu) to run the codes.
-- ``epoch (int)`` : training epochs.
-- ``batch_size (int)`` : training batch size.
-- ``learning_rate (float)`` : learning rate of optimizing the models.
 
 
 For evaluation settings, please reference to parameters in evaluation.rst

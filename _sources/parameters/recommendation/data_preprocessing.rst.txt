@@ -23,13 +23,13 @@ Filtering set ups
 - ``user_val (int)`` : Retain users in the dataset if their total interactions with all items exceed user_val.
 - ``group_val (int)`` : Retain item groups in the dataset if their total interactions with all users exceed group_val.
 - ``group_aggregation_threshold (int)`` : If the number of items owned by a group is less than this value, those groups will be merged into a single group called the 'infrequent group.'
-- ``sample_size (float)`` : Sample radio of the whole dataset to form a new subset dataset for training.
+- ``sample_size (float)`` : Sample ratio of the whole dataset to form a new subset dataset for training.
 
 
 Connect set ups
 ''''''''''''''''''
-- ``valid_ratio (float)`` : The radio for validate set.
-- ``test_ratio (float)`` : The radio for test set.
+- ``valid_ratio (float)`` : The ratio for validate set.
+- ``test_ratio (float)`` : The ratio for test set.
 - ``sample_num (int)`` : Negative sample numbers for ranking-based evaluation.
 - ``history_length (int)`` : The truncated length of a user's interaction history with items.
 

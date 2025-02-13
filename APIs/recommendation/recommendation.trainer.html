@@ -19,7 +19,9 @@
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="recommendation.rank_model.Abstract_Ranker.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="recommendation.reranker.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +43,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Recommendation Settings</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
@@ -49,12 +51,68 @@
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Recommendation APIs</span></p>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="recommendation.reranker.html"><code class="docutils literal notranslate"><span class="pre">RecReRanker</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">RecTrainer</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#recommendation.trainer.RecTrainer.Set_Dataset"><code class="docutils literal notranslate"><span class="pre">RecTrainer.Set_Dataset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recommendation.trainer.RecTrainer.check_model_stage"><code class="docutils literal notranslate"><span class="pre">RecTrainer.check_model_stage()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recommendation.trainer.RecTrainer.load_configs"><code class="docutils literal notranslate"><span class="pre">RecTrainer.load_configs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recommendation.trainer.RecTrainer.train"><code class="docutils literal notranslate"><span class="pre">RecTrainer.train()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.rank_model.Abstract_Ranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.rerank_model.Abstract_Reranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.llm_rec.html"><code class="docutils literal notranslate"><span class="pre">LLMRecommender</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html"><code class="docutils literal notranslate"><span class="pre">AUC_score()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.Entropy"><code class="docutils literal notranslate"><span class="pre">Entropy()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.Gini"><code class="docutils literal notranslate"><span class="pre">Gini()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.HR"><code class="docutils literal notranslate"><span class="pre">HR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.MMF"><code class="docutils literal notranslate"><span class="pre">MMF()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.MRR"><code class="docutils literal notranslate"><span class="pre">MRR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.MinMaxRatio"><code class="docutils literal notranslate"><span class="pre">MinMaxRatio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.NDCG"><code class="docutils literal notranslate"><span class="pre">NDCG()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.dcg"><code class="docutils literal notranslate"><span class="pre">dcg()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.mask_utility"><code class="docutils literal notranslate"><span class="pre">mask_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html#recommendation.metric.reconstruct_utility"><code class="docutils literal notranslate"><span class="pre">reconstruct_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.sampler.html"><code class="docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.sampler.html#recommendation.sampler.PairWiseDataset"><code class="docutils literal notranslate"><span class="pre">PairWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.sampler.html#recommendation.sampler.PointWiseDataset"><code class="docutils literal notranslate"><span class="pre">PointWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.sampler.html#recommendation.sampler.RankingTestDataset"><code class="docutils literal notranslate"><span class="pre">RankingTestDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.sampler.html#recommendation.sampler.SequentialDataset"><code class="docutils literal notranslate"><span class="pre">SequentialDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html"><code class="docutils literal notranslate"><span class="pre">Build_Adjecent_Matrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html#recommendation.utils.group_utils.Init_Group_AdjcentMatrix"><code class="docutils literal notranslate"><span class="pre">Init_Group_AdjcentMatrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int"><code class="docutils literal notranslate"><span class="pre">convert_keys_values_to_int()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch"><code class="docutils literal notranslate"><span class="pre">get_cos_similar_torch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text"><code class="docutils literal notranslate"><span class="pre">get_iid2text()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search/search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
 </ul>
 
         </div>
@@ -83,7 +141,7 @@
              
   <dl class="py class" id="module-recommendation.trainer">
 <dt class="sig sig-object py" id="recommendation.trainer.RecTrainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">recommendation.trainer.</span></span><span class="sig-name descname"><span class="pre">RecTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/trainer.html#RecTrainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.trainer.RecTrainer" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">recommendation.trainer.</span></span><span class="sig-name descname"><span class="pre">RecTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/trainer.html#RecTrainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.trainer.RecTrainer" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="recommendation.trainer.RecTrainer.Set_Dataset">
@@ -153,7 +211,10 @@ are merged, with the highest priority given to the class’s own <cite>config</c
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="recommendation.reranker.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="recommendation.rank_model.Abstract_Ranker.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

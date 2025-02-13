@@ -43,13 +43,18 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Recommendation</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
 <ul>
@@ -89,6 +94,19 @@
 <li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch"><code class="docutils literal notranslate"><span class="pre">get_cos_similar_torch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text"><code class="docutils literal notranslate"><span class="pre">get_iid2text()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
 </ul>
 
         </div>
@@ -135,10 +153,11 @@ It aims to help the researchers to reproduce and develop IR models.</p>
 <a class="reference internal image-reference" href="_images/usage.png"><img alt="_images/usage.png" class="align-center" src="_images/usage.png" style="width: 600px;" />
 </a>
 <p>The utilized parameters in each config files can be found in following docs:</p>
+</section>
+<section id="parameter-descriptions">
+<h1>Parameter Descriptions<a class="headerlink" href="#parameter-descriptions" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Recommendation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="parameters/recommendation/data_preprocessing.html#required-parameters">Required parameters</a></li>
@@ -162,6 +181,26 @@ It aims to help the researchers to reproduce and develop IR models.</p>
 </li>
 </ul>
 </div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="parameters/search/new_dataset.html">Parameter settings for dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parameters/search/new_dataset.html#dataset">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters/search/new_dataset.html#column-definition">Column definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters/search/new_dataset.html#train-test-split">Train-Test split</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parameters/search/Pre-processing.html#pre-processing-required-parameters">Pre-processing required parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters/search/Pre-processing.html#ranklib-parameters">Ranklib parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters/search/Pre-processing.html#evaluation-parameters">Evaluation parameters</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="custom-your-models-apis">
+<h1>Custom Your Models (APIs)<a class="headerlink" href="#custom-your-models-apis" title="Link to this heading">¶</a></h1>
 <p>For the develop your own recommendation model, you can use following steps:</p>
 <a class="reference internal image-reference" href="_images/rec_develop_steps.png"><img alt="_images/rec_develop_steps.png" class="align-center" src="_images/rec_develop_steps.png" style="width: 600px;" />
 </a>
@@ -253,11 +292,39 @@ It aims to help the researchers to reproduce and develop IR models.</p>
 <li class="toctree-l1"><a class="reference internal" href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
 </ul>
 </div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="APIs/search/search.preprocessing_model.fair_model.html#search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention.fit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIs/search/search.preprocessing_model.fair_model.html#search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit_transform"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention.fit_transform()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIs/search/search.preprocessing_model.fair_model.html#search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.transform"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention.transform()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate"><code class="docutils literal notranslate"><span class="pre">Ranker.evaluate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate_run"><code class="docutils literal notranslate"><span class="pre">Ranker.evaluate_run()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.predict"><code class="docutils literal notranslate"><span class="pre">Ranker.predict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.train"><code class="docutils literal notranslate"><span class="pre">Ranker.train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 <section id="the-team">
 <h1>The Team<a class="headerlink" href="#the-team" title="Link to this heading">¶</a></h1>
 <p>FairDiverse is developed and maintained by <cite>RUC, UvA</cite>.</p>
-<p>Here is the list of our lead developers in each development phase. They are the souls of RecBole and have made outstanding contributions.</p>
+<p>Here is the list of our lead developers in each development phase.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Time</p></th>

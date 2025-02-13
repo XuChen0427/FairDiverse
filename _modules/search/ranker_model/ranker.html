@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>search.ranker_model.ranker &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.reranker.html"><code class="docutils literal notranslate"><span class="pre">RecReRanker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.trainer.html"><code class="docutils literal notranslate"><span class="pre">RecTrainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.llm_rec.html"><code class="docutils literal notranslate"><span class="pre">LLMRecommender</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html"><code class="docutils literal notranslate"><span class="pre">AUC_score()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Entropy"><code class="docutils literal notranslate"><span class="pre">Entropy()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Gini"><code class="docutils literal notranslate"><span class="pre">Gini()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.HR"><code class="docutils literal notranslate"><span class="pre">HR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF"><code class="docutils literal notranslate"><span class="pre">MMF()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MRR"><code class="docutils literal notranslate"><span class="pre">MRR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio"><code class="docutils literal notranslate"><span class="pre">MinMaxRatio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.NDCG"><code class="docutils literal notranslate"><span class="pre">NDCG()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg"><code class="docutils literal notranslate"><span class="pre">dcg()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility"><code class="docutils literal notranslate"><span class="pre">mask_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.reconstruct_utility"><code class="docutils literal notranslate"><span class="pre">reconstruct_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html"><code class="docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PairWiseDataset"><code class="docutils literal notranslate"><span class="pre">PairWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PointWiseDataset"><code class="docutils literal notranslate"><span class="pre">PointWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.RankingTestDataset"><code class="docutils literal notranslate"><span class="pre">RankingTestDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.SequentialDataset"><code class="docutils literal notranslate"><span class="pre">SequentialDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html"><code class="docutils literal notranslate"><span class="pre">Build_Adjecent_Matrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Init_Group_AdjcentMatrix"><code class="docutils literal notranslate"><span class="pre">Init_Group_AdjcentMatrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int"><code class="docutils literal notranslate"><span class="pre">convert_keys_values_to_int()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch"><code class="docutils literal notranslate"><span class="pre">get_cos_similar_torch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text"><code class="docutils literal notranslate"><span class="pre">get_iid2text()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">search.ranker_model.ranker</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for search.ranker_model.ranker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">..fairness_evaluator</span> <span class="kn">import</span> <span class="n">evaluate</span><span class="p">,</span> <span class="n">evaluate_runs</span>
+
+
+<div class="viewcode-block" id="Ranker">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker">[docs]</a>
+<span class="k">class</span> <span class="nc">Ranker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ranker class for training and evaluating ranking models.</span>
+
+<span class="sd">    This abstract class provides methods for training ranking models and evaluating their fairness</span>
+<span class="sd">    using the provided dataset and configuration settings.</span>
+
+<span class="sd">    :param configs : dict</span>
+<span class="sd">        Configuration dictionary containing paths and settings for the model and evaluation.</span>
+<span class="sd">    :param dataset : object</span>
+<span class="sd">        The dataset object containing data and metadata for training and evaluation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configs</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Ranker class with the given configurations and dataset.</span>
+
+<span class="sd">        :param configs : dict</span>
+<span class="sd">            Configuration dictionary containing paths and settings for the model and evaluation.</span>
+<span class="sd">        :param dataset : object</span>
+<span class="sd">            The dataset object containing data and metadata for training and evaluation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configs</span> <span class="o">=</span> <span class="n">configs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;preprocessing_model&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;ranker&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ranker_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;ranker_path&quot;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Ranker.train">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.train">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the ranking model.</span>
+
+<span class="sd">        This method is abstract and needs to be implemented in the subclasses to train a ranking model</span>
+<span class="sd">        based on the provided training and testing data. The trained model is saved at a specific location.</span>
+
+<span class="sd">        :param data_train : pandas.DataFrame</span>
+<span class="sd">            The data to be used for training the ranking model.</span>
+<span class="sd">        :param data_test : pandas.DataFrame</span>
+<span class="sd">            The data to be used for testing the ranking model.</span>
+
+<span class="sd">        :return : None</span>
+<span class="sd">            This method does not return anything. It saves the trained model to a file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Ranker.predict">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.predict">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict ranking scores for the given data.</span>
+
+<span class="sd">        This method is abstract and should be implemented in subclasses to predict ranking scores</span>
+<span class="sd">        based on the trained model. It appends the predicted scores to the provided data.</span>
+
+<span class="sd">        :param data : pandas.DataFrame</span>
+<span class="sd">            The data to be used for prediction.</span>
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the specific run.</span>
+<span class="sd">        :param file_name : str</span>
+<span class="sd">            The name of the file where predictions will be saved.</span>
+
+<span class="sd">        :return : pandas.DataFrame</span>
+<span class="sd">            The data with an added column containing predicted ranking scores.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Ranker.evaluate_run">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate_run">[docs]</a>
+    <span class="k">def</span> <span class="nf">evaluate_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate the results of a specific run and compute fairness metrics.</span>
+
+<span class="sd">        This method evaluates the predictions using fairness metrics for each sensitive attribute</span>
+<span class="sd">        in the dataset and saves the evaluation results.</span>
+
+<span class="sd">        :param pred : pandas.DataFrame</span>
+<span class="sd">            The predictions to be evaluated.</span>
+<span class="sd">        :param run : str</span>
+<span class="sd">            The identifier for the specific run.</span>
+<span class="sd">        :param file_name : str</span>
+<span class="sd">            The name of the file containing predictions to evaluate.</span>
+
+<span class="sd">        :return : None</span>
+<span class="sd">            This method does not return anything. It saves the evaluation results to the file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">eval_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;preprocessing_model&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;evaluate&quot;</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="o">/</span> <span class="n">file_name</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">eval_path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s_attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">sensitive_cols</span><span class="p">:</span>
+            <span class="n">evaluate</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">query_col</span><span class="p">,</span> <span class="n">s_attr</span><span class="p">,</span> <span class="n">eval_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;evaluate&quot;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Ranker.evaluate">
+<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate">[docs]</a>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate multiple runs of the ranking model using fairness metrics.</span>
+
+<span class="sd">        This method evaluates the model for all runs using the specified fairness metrics from the configuration.</span>
+
+<span class="sd">        :param file_name : str</span>
+<span class="sd">            The name of the file to evaluate.</span>
+
+<span class="sd">        :return : None</span>
+<span class="sd">            This method does not return anything. It performs the evaluation and saves the results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">runs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">k_fold</span>
+        <span class="n">eval_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;preprocessing_model&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;evaluate&quot;</span>
+
+        <span class="n">eval_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">eval_path</span> <span class="o">/</span> <span class="s2">&quot;0&quot;</span> <span class="o">/</span> <span class="n">file_name</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;evaluate&quot;</span><span class="p">][</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                      <span class="k">if</span> <span class="s2">&quot;QID&quot;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">]</span>
+        <span class="n">qids</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_files</span><span class="p">))</span>
+        <span class="n">evaluate_runs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;evaluate&quot;</span><span class="p">],</span> <span class="n">qids</span><span class="p">,</span> <span class="n">eval_path</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

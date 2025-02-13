@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parameter settings data pre-processing &mdash; FairDiverse 0.1.1 documentation</title>
+  <title>Parameter settings for pre-processing models &mdash; FairDiverse 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Parameter settings for evaluations" href="evaluation.html" />
-    <link rel="prev" title="Introduction" href="../../index.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="../../APIs/recommendation/recommendation.reranker.html" />
+    <link rel="prev" title="Parameter settings for dataset" href="new_dataset.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,25 +44,22 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Parameter settings data pre-processing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#required-parameters">Required parameters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cache-set-ups">Cache set ups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#filtering-set-ups">Filtering set ups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#connect-set-ups">Connect set ups</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="evaluation.html">Parameter settings for evaluations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="new_dataset.html">Parameter settings for your new dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="In-processing.html">Parameter settings for in-processing models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Post-processing.html">Parameter settings for post-processing models</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../search/new_dataset.html">Parameter settings for dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parameter settings for pre-processing models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pre-processing-required-parameters">Pre-processing required parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ranklib-parameters">Ranklib parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-parameters">Evaluation parameters</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
 <ul>
@@ -131,9 +128,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Parameter settings data pre-processing</li>
+      <li class="breadcrumb-item active">Parameter settings for pre-processing models</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/parameters/recommendation/data_preprocessing.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/parameters/search/Pre-processing.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -141,41 +138,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="parameter-settings-data-pre-processing">
-<h1>Parameter settings data pre-processing<a class="headerlink" href="#parameter-settings-data-pre-processing" title="Link to this heading">¶</a></h1>
-<p>(Default values are in ~/recommendation/properties/dataset.yaml)</p>
+  <section id="parameter-settings-for-pre-processing-models">
+<h1>Parameter settings for pre-processing models<a class="headerlink" href="#parameter-settings-for-pre-processing-models" title="Link to this heading">¶</a></h1>
+<p>(Default values are in ~/search/Pre-processing.yaml)</p>
 <p>The benchmark provides several arguments for describing:</p>
 <ul class="simple">
 <li><p>Basic setting of the parameters</p></li>
 </ul>
 <p>See below for the details:</p>
-<section id="required-parameters">
-<h2>Required parameters<a class="headerlink" href="#required-parameters" title="Link to this heading">¶</a></h2>
-<section id="cache-set-ups">
-<h3>Cache set ups<a class="headerlink" href="#cache-set-ups" title="Link to this heading">¶</a></h3>
+<section id="pre-processing-required-parameters">
+<h2>Pre-processing required parameters<a class="headerlink" href="#pre-processing-required-parameters" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">reprocess</span> <span class="pre">(bool)</span></code> : Should the preprocessing be redone based on the new parameters instead of using the cached files in ~/recommendation/process_dataset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocessing_model</span> <span class="pre">(str)</span></code> : The name of the pre-processing model, which automatically loads the configs from search/properties/models/&lt;model_name&gt;.yaml.</p></li>
 </ul>
 </section>
-<section id="filtering-set-ups">
-<h3>Filtering set ups<a class="headerlink" href="#filtering-set-ups" title="Link to this heading">¶</a></h3>
+<section id="ranklib-parameters">
+<h2>Ranklib parameters<a class="headerlink" href="#ranklib-parameters" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">item_val</span> <span class="pre">(int)</span></code> : Retain items in the dataset if their total interactions with all users exceed item_val.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">user_val</span> <span class="pre">(int)</span></code> : Retain users in the dataset if their total interactions with all items exceed user_val.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">group_val</span> <span class="pre">(int)</span></code> : Retain item groups in the dataset if their total interactions with all users exceed group_val.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">group_aggregation_threshold</span> <span class="pre">(int)</span></code> : If the number of items owned by a group is less than this value, those groups will be merged into a single group called the ‘infrequent group.’</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sample_size</span> <span class="pre">(float)</span></code> : Sample ratio of the whole dataset to form a new subset dataset for training.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">(str</span></code>) : The name of the ranker class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ranker_path</span> <span class="pre">(str)</span></code> : The path to the Ranklib library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rel_max</span> <span class="pre">(int)</span></code> : The maximum relevance to be assigned to items.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ranker</span> <span class="pre">(str)</span></code> : The name of the ranking model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ranker_id</span> <span class="pre">(int)</span></code> : The ID of the ranking model as per the Ranklib library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metric</span> <span class="pre">(str)</span></code> : The evaluation metric.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top_k</span> <span class="pre">(int)</span></code> : The evaluation at top-k.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lr</span> <span class="pre">(float)</span></code> : The learning rate for training.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">epochs</span> <span class="pre">(int)</span></code> : The number of epochs for training.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train_data</span> <span class="pre">(list)</span></code> : The data types for training [“original”, “fair”].</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_data</span> <span class="pre">(list)</span></code> : The data types for testing [“original”, “fair”].</p></li>
 </ul>
 </section>
-<section id="connect-set-ups">
-<h3>Connect set ups<a class="headerlink" href="#connect-set-ups" title="Link to this heading">¶</a></h3>
+<section id="evaluation-parameters">
+<h2>Evaluation parameters<a class="headerlink" href="#evaluation-parameters" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">valid_ratio</span> <span class="pre">(float)</span></code> : The ratio for validate set.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">test_ratio</span> <span class="pre">(float)</span></code> : The ratio for test set.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sample_num</span> <span class="pre">(int)</span></code> : Negative sample numbers for ranking-based evaluation.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">history_length</span> <span class="pre">(int)</span></code> : The truncated length of a user’s interaction history with items.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metrics</span> <span class="pre">(list)</span></code> : The list of fairness evaluation metrics having the following values [“diversity”, “select_rate”, “exposure”, “individual”, “igf”].</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rankings</span> <span class="pre">(list)</span></code> : The list of rankings to perform the evaluation on, having the following values: “score_col” - original data, “&lt;score_col&gt;__&lt;score_col&gt;” - trained and tested on original data, “&lt;score_col&gt;_fair” - transformed data, “&lt;score_col&gt;fair_&lt;score_col&gt;_fair” - trained and tested on transformed data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k_list</span> <span class="pre">(list)</span></code> : The top-k values for evaluation.</p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -183,8 +182,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../../index.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="evaluation.html" class="btn btn-neutral float-right" title="Parameter settings for evaluations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="new_dataset.html" class="btn btn-neutral float-left" title="Parameter settings for dataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../APIs/recommendation/recommendation.reranker.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
