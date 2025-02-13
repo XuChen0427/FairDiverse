@@ -252,7 +252,8 @@ class YourModel(PreprocessingFairnessIntervention):
 #/search/properties/models/YourModel.yaml.
 # Define your config file for "YourModel".
 
-#/search/preprocessing_model/constants.py
+#/search/preprocessing_model/__init__.py
+from .YourModel import YourModel
 fairness_method_mapping['YourModel'] = YourModel
 
 #test.py
