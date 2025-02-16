@@ -1,4 +1,4 @@
-.. automodule:: search.fairness_evaluator
+.. automodule:: search.utils.utils
    :members:
    :undoc-members:
    :show-inheritance:

@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="&lt;no title&gt;" href="search.preprocessing_model.utils.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="search.preprocessing_model.fair_model.html" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="search.postprocessing_model.base.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,7 +54,9 @@
 <p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
 <ul>
@@ -107,6 +109,28 @@
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.loss.html"><code class="docutils literal notranslate"><span class="pre">list_pairwise_loss()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.loss.html#search.utils.loss.ndcg_loss"><code class="docutils literal notranslate"><span class="pre">ndcg_loss()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html"><code class="docutils literal notranslate"><span class="pre">calculate_best_rank()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.data_process"><code class="docutils literal notranslate"><span class="pre">data_process()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.data_process_worker"><code class="docutils literal notranslate"><span class="pre">data_process_worker()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.generate_qd"><code class="docutils literal notranslate"><span class="pre">generate_qd()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.get_doc_judge"><code class="docutils literal notranslate"><span class="pre">get_doc_judge()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.get_docs_dict"><code class="docutils literal notranslate"><span class="pre">get_docs_dict()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.get_query_dict"><code class="docutils literal notranslate"><span class="pre">get_query_dict()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.get_query_suggestion"><code class="docutils literal notranslate"><span class="pre">get_query_suggestion()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html#search.utils.process_dataset.get_stand_best_metric"><code class="docutils literal notranslate"><span class="pre">get_stand_best_metric()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html"><code class="docutils literal notranslate"><span class="pre">get_rel_feat()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.load_embedding"><code class="docutils literal notranslate"><span class="pre">load_embedding()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.pkl_load"><code class="docutils literal notranslate"><span class="pre">pkl_load()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.pkl_save"><code class="docutils literal notranslate"><span class="pre">pkl_save()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.read_rel_feat"><code class="docutils literal notranslate"><span class="pre">read_rel_feat()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.remove_duplicate"><code class="docutils literal notranslate"><span class="pre">remove_duplicate()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.restore_doc_ids"><code class="docutils literal notranslate"><span class="pre">restore_doc_ids()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.split_list"><code class="docutils literal notranslate"><span class="pre">split_list()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html"><code class="docutils literal notranslate"><span class="pre">div_dataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html#search.utils.div_type.div_query"><code class="docutils literal notranslate"><span class="pre">div_query</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html#search.utils.div_type.subtopic"><code class="docutils literal notranslate"><span class="pre">subtopic</span></code></a></li>
 </ul>
 
         </div>
@@ -138,7 +162,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="search.preprocessing_model.fair_model.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="search.postprocessing_model.base.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="search.preprocessing_model.utils.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

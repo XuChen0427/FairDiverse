@@ -19,9 +19,7 @@
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="search.preprocessing_model.fair_model.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="../recommendation/recommendation.utils.group_utils.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -149,7 +147,7 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/APIs/search/search.trainer_preprocessing_ranker.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/APIs/search/search.utils.process_bm25.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -157,14 +155,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <dl class="py function" id="module-search.utils.process_bm25">
+<dt class="sig sig-object py" id="search.utils.process_bm25.calculate_bm25">
+<span class="sig-prename descclassname"><span class="pre">search.utils.process_bm25.</span></span><span class="sig-name descname"><span class="pre">calculate_bm25</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/search/utils/process_bm25.html#calculate_bm25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#search.utils.process_bm25.calculate_bm25" title="Link to this definition">¶</a></dt>
+<dd><p>Calculates BM25 relevance scores between a query and a list of documents.
+This function implements the BM25 ranking algorithm, which combines term frequency,
+inverse document frequency, and document length normalization to score document
+relevance to a query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> – A string containing the search query</p></li>
+<li><p><strong>documents</strong> – A list of strings, where each string is a document’s text</p></li>
+<li><p><strong>k1</strong> – Float parameter controlling term frequency scaling (default: 1.5)</p></li>
+<li><p><strong>b</strong> – Float parameter controlling document length normalization (default: 0.75)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of float values representing BM25 scores for each document</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="search.utils.process_bm25.generate_bm25_scores_for_query">
+<span class="sig-prename descclassname"><span class="pre">search.utils.process_bm25.</span></span><span class="sig-name descname"><span class="pre">generate_bm25_scores_for_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/search/utils/process_bm25.html#generate_bm25_scores_for_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#search.utils.process_bm25.generate_bm25_scores_for_query" title="Link to this definition">¶</a></dt>
+<dd><p>Generates BM25 relevance scores for queries and their suggested variations against documents.
+This function processes each query and its suggested alternatives, calculating BM25 scores
+against a collection of documents. The scores are computed for both the original query and
+its suggestions, then saved to a pickle file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – A dictionary containing configuration parameters including data directories
+and model settings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../recommendation/recommendation.utils.group_utils.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="search.preprocessing_model.fair_model.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

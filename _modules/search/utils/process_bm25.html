@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>search.ranker_model.ranker &mdash; FairDiverse 0.1.1 documentation</title>
+  <title>search.utils.process_bm25 &mdash; FairDiverse 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -145,7 +145,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">search.ranker_model.ranker</li>
+      <li class="breadcrumb-item active">search.utils.process_bm25</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -154,133 +154,101 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for search.ranker_model.ranker</h1><div class="highlight"><pre>
+  <h1>Source code for search.utils.process_bm25</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">..fairness_evaluator</span> <span class="kn">import</span> <span class="n">evaluate</span><span class="p">,</span> <span class="n">evaluate_runs</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">pkl_save</span>
+
+<span class="n">MAXDOC</span> <span class="o">=</span> <span class="mi">50</span>
 
 
-<div class="viewcode-block" id="Ranker">
-<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker">[docs]</a>
-<span class="k">class</span> <span class="nc">Ranker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="generate_bm25_scores_for_query">
+<a class="viewcode-back" href="../../../APIs/search/search.utils.process_bm25.html#search.utils.process_bm25.generate_bm25_scores_for_query">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_bm25_scores_for_query</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Ranker class for training and evaluating ranking models.</span>
+<span class="sd">    Generates BM25 relevance scores for queries and their suggested variations against documents.</span>
+<span class="sd">    This function processes each query and its suggested alternatives, calculating BM25 scores </span>
+<span class="sd">    against a collection of documents. The scores are computed for both the original query and </span>
+<span class="sd">    its suggestions, then saved to a pickle file.</span>
 
-<span class="sd">    This abstract class provides methods for training ranking models and evaluating their fairness</span>
-<span class="sd">    using the provided dataset and configuration settings.</span>
-
-<span class="sd">    :param configs : dict</span>
-<span class="sd">        Configuration dictionary containing paths and settings for the model and evaluation.</span>
-<span class="sd">    :param dataset : object</span>
-<span class="sd">        The dataset object containing data and metadata for training and evaluation.</span>
+<span class="sd">    :param config: A dictionary containing configuration parameters including data directories</span>
+<span class="sd">                  and model settings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qd</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="s1">&#39;div_query.data&#39;</span><span class="p">),</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+    
+    <span class="n">data_content_dir</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_content_dir&#39;</span><span class="p">]</span>
+    <span class="n">doc_content_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_content_dir</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_content_dir</span><span class="p">,</span> <span class="n">fname</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fr</span><span class="p">:</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
+            <span class="n">doc_content_dict</span><span class="p">[</span><span class="n">fname</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data_dict</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configs</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the Ranker class with the given configurations and dataset.</span>
-
-<span class="sd">        :param configs : dict</span>
-<span class="sd">            Configuration dictionary containing paths and settings for the model and evaluation.</span>
-<span class="sd">        :param dataset : object</span>
-<span class="sd">            The dataset object containing data and metadata for training and evaluation.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">configs</span> <span class="o">=</span> <span class="n">configs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;preprocessing_model&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;ranker&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ranker_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;ranker_path&quot;</span><span class="p">])</span>
-
-<div class="viewcode-block" id="Ranker.train">
-<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.train">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Train the ranking model.</span>
-
-<span class="sd">        This method is abstract and needs to be implemented in the subclasses to train a ranking model</span>
-<span class="sd">        based on the provided training and testing data. The trained model is saved at a specific location.</span>
-
-<span class="sd">        :param data_train : pandas.DataFrame</span>
-<span class="sd">            The data to be used for training the ranking model.</span>
-<span class="sd">        :param data_test : pandas.DataFrame</span>
-<span class="sd">            The data to be used for testing the ranking model.</span>
-
-<span class="sd">        :return : None</span>
-<span class="sd">            This method does not return anything. It saves the trained model to a file.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+    <span class="n">bm25_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">qd</span><span class="p">):</span>
+        <span class="n">bm25_dict</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{}]</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">qd</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span><span class="o">.</span><span class="n">query</span>
+        <span class="n">doc_list</span> <span class="o">=</span> <span class="n">qd</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span><span class="o">.</span><span class="n">doc_list</span><span class="p">[:</span><span class="n">MAXDOC</span><span class="p">]</span>
+        <span class="n">query_suggestion</span> <span class="o">=</span> <span class="n">qd</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span><span class="o">.</span><span class="n">query_suggestion</span>
+        <span class="n">doc_content_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc_content_dict</span><span class="p">[</span><span class="n">doc_id</span><span class="p">][</span><span class="s1">&#39;body_text&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc_id</span> <span class="ow">in</span> <span class="n">doc_list</span><span class="p">]</span>
+        <span class="n">bm25_scores</span> <span class="o">=</span> <span class="n">calculate_bm25</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">doc_content_list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">doc_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">doc_list</span><span class="p">):</span>
+            <span class="n">bm25_dict</span><span class="p">[</span><span class="n">qid</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">doc_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">bm25_scores</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">sub_query_bm25</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sub_query</span> <span class="ow">in</span> <span class="n">query_suggestion</span><span class="p">:</span>
+            <span class="n">bm25_scores</span> <span class="o">=</span> <span class="n">calculate_bm25</span><span class="p">(</span><span class="n">sub_query</span><span class="p">,</span> <span class="n">doc_content_list</span><span class="p">)</span>
+            <span class="n">sub_query_bm25</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bm25_scores</span><span class="p">)</span>
+        <span class="n">bm25_dict</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sub_query_bm25</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">])):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]))</span>
+    <span class="n">pkl_save</span><span class="p">(</span><span class="n">bm25_dict</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="s1">&#39;bm25_scores.pkl&#39;</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="Ranker.predict">
-<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.predict">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Predict ranking scores for the given data.</span>
 
-<span class="sd">        This method is abstract and should be implemented in subclasses to predict ranking scores</span>
-<span class="sd">        based on the trained model. It appends the predicted scores to the provided data.</span>
+<div class="viewcode-block" id="calculate_bm25">
+<a class="viewcode-back" href="../../../APIs/search/search.utils.process_bm25.html#search.utils.process_bm25.calculate_bm25">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_bm25</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">documents</span><span class="p">,</span> <span class="n">k1</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.75</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates BM25 relevance scores between a query and a list of documents.</span>
+<span class="sd">    This function implements the BM25 ranking algorithm, which combines term frequency,</span>
+<span class="sd">    inverse document frequency, and document length normalization to score document</span>
+<span class="sd">    relevance to a query.</span>
 
-<span class="sd">        :param data : pandas.DataFrame</span>
-<span class="sd">            The data to be used for prediction.</span>
-<span class="sd">        :param run : str</span>
-<span class="sd">            The identifier for the specific run.</span>
-<span class="sd">        :param file_name : str</span>
-<span class="sd">            The name of the file where predictions will be saved.</span>
+<span class="sd">    :param query: A string containing the search query</span>
+<span class="sd">    :param documents: A list of strings, where each string is a document&#39;s text</span>
+<span class="sd">    :param k1: Float parameter controlling term frequency scaling (default: 1.5)</span>
+<span class="sd">    :param b: Float parameter controlling document length normalization (default: 0.75)</span>
+<span class="sd">    :return: A list of float values representing BM25 scores for each document</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+    <span class="n">avgdl</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
 
-<span class="sd">        :return : pandas.DataFrame</span>
-<span class="sd">            The data with an added column containing predicted ranking scores.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+    <span class="n">bm25_scores</span> <span class="o">=</span> <span class="p">[]</span>
 
+    <span class="k">def</span> <span class="nf">idf</span><span class="p">(</span><span class="n">term</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documents</span> <span class="k">if</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">N</span> <span class="o">-</span> <span class="n">df</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Ranker.evaluate_run">
-<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate_run">[docs]</a>
-    <span class="k">def</span> <span class="nf">evaluate_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Evaluate the results of a specific run and compute fairness metrics.</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">doc_terms</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">doc_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
 
-<span class="sd">        This method evaluates the predictions using fairness metrics for each sensitive attribute</span>
-<span class="sd">        in the dataset and saves the evaluation results.</span>
+        <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">doc_terms</span><span class="p">:</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="n">doc_terms</span><span class="p">[</span><span class="n">term</span><span class="p">]</span>
+                <span class="n">term_idf</span> <span class="o">=</span> <span class="n">idf</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">+=</span> <span class="n">term_idf</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="n">k1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">f</span> <span class="o">+</span> <span class="n">k1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">b</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">doc_length</span> <span class="o">/</span> <span class="n">avgdl</span><span class="p">)))</span>
 
-<span class="sd">        :param pred : pandas.DataFrame</span>
-<span class="sd">            The predictions to be evaluated.</span>
-<span class="sd">        :param run : str</span>
-<span class="sd">            The identifier for the specific run.</span>
-<span class="sd">        :param file_name : str</span>
-<span class="sd">            The name of the file containing predictions to evaluate.</span>
-
-<span class="sd">        :return : None</span>
-<span class="sd">            This method does not return anything. It saves the evaluation results to the file.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">eval_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;preprocessing_model&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;evaluate&quot;</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="o">/</span> <span class="n">file_name</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">eval_path</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">s_attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">sensitive_cols</span><span class="p">:</span>
-            <span class="n">evaluate</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">query_col</span><span class="p">,</span> <span class="n">s_attr</span><span class="p">,</span> <span class="n">eval_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;evaluate&quot;</span><span class="p">])</span></div>
-
-
-<div class="viewcode-block" id="Ranker.evaluate">
-<a class="viewcode-back" href="../../../APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate">[docs]</a>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Evaluate multiple runs of the ranking model using fairness metrics.</span>
-
-<span class="sd">        This method evaluates the model for all runs using the specified fairness metrics from the configuration.</span>
-
-<span class="sd">        :param file_name : str</span>
-<span class="sd">            The name of the file to evaluate.</span>
-
-<span class="sd">        :return : None</span>
-<span class="sd">            This method does not return anything. It performs the evaluation and saves the results.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">runs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">k_fold</span>
-        <span class="n">eval_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;preprocessing_model&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;evaluate&quot;</span>
-
-        <span class="n">eval_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">eval_path</span> <span class="o">/</span> <span class="s2">&quot;0&quot;</span> <span class="o">/</span> <span class="n">file_name</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;evaluate&quot;</span><span class="p">][</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-                      <span class="k">if</span> <span class="s2">&quot;QID&quot;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">]</span>
-        <span class="n">qids</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_files</span><span class="p">))</span>
-        <span class="n">evaluate_runs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;evaluate&quot;</span><span class="p">],</span> <span class="n">qids</span><span class="p">,</span> <span class="n">eval_path</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span></div>
-</div>
+        <span class="n">bm25_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">bm25_scores</span></div>
 
 </pre></div>
 
