@@ -82,7 +82,7 @@ class SRDTrainer(object):
         self.device = config['device']
         if config['mode'] == 'test' and config['best_model_list'] != []:
             print("start to test the model...")
-            from .evaluator import get_global_fullset_metric
+            from .post_evaluator import get_global_fullset_metric
             get_global_fullset_metric(config)
         elif config['mode'] == 'train':
             """

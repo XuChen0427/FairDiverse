@@ -15,6 +15,19 @@ MAX_DIV_DIM = 8
 REL_LEN=18
 
 def build_each_train_dataset(qid_list, qd, train_dict, rel_feat_dict, res_dir, query_emb, doc_emb):
+    """
+    Generates and saves the training dataset for each query in qid_list. 
+    
+    :param qid_list: A list of query IDs to process.
+    :param qd: A dictionary containing the query data (query, document list, subtopic info).
+    :param train_dict: A dictionary of pre-generated training samples.
+    :param rel_feat_dict: A dictionary of relevance features for query-document pairs.
+    :param res_dir: The directory where the processed data will be saved.
+    :param query_emb: A dictionary of query embeddings.
+    :param doc_emb: A dictionary of document embeddings.
+    :return: Saves the processed data for each query in a .pkl.gz file. 
+    """
+
     for qid in tqdm(qid_list, desc="GenTrainData", ncols = 90):
         sample_dict={}
         sample_path = res_dir + str(qid) + '.pkl.gz'
@@ -83,6 +96,13 @@ def build_each_train_dataset(qid_list, qd, train_dict, rel_feat_dict, res_dir, q
 
 
 def build_train_dataset(config, worker_num=20):
+    """
+    Builds the training dataset by distributing the workload across multiple workers. 
+    
+    :param config: A dictionary containing configuration settings.
+    :param worker_num: The number of workers to use for parallel processing.
+    :return: Generates the training dataset and saves it in the result directory.
+    """
     res_dir=os.path.join(config['data_dir'], config['model'], 'train/')
     if not os.path.exists(res_dir):
         os.makedirs(res_dir)
@@ -104,6 +124,12 @@ def build_train_dataset(config, worker_num=20):
 
 
 def build_test_dataset(config):
+    """
+    Builds the test dataset for evaluation. 
+    
+    :param config: A dictionary containing configuration settings.
+    :return: Generates the test dataset and saves it in the result directory.
+    """
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
     doc_emb = load_embedding(os.path.join(config['data_dir'], config['embedding_dir'], config['embedding_type']+'_doc.emb'))
     query_emb = load_embedding(os.path.join(config['data_dir'], config['embedding_dir'], config['embedding_type']+'_query.emb'))
@@ -152,6 +178,14 @@ def build_test_dataset(config):
 
 
 def gen_list_training_sample(config, top_n = 50, sample_num = 200):
+    """
+    Generates list training samples by selecting top-ranked documents for each query. 
+
+    :param config: A dictionary containing configuration settings.
+    :param top_n: The number of top-ranked documents to consider for each sample.
+    :param sample_num: The number of samples to generate for each query.
+    :return: Saves the generated training samples in a file for later use.
+    """
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'),'rb'))
     doc_emb = load_embedding(os.path.join(config['data_dir'], config['embedding_dir'], config['embedding_type']+'_doc.emb'))
     rel_feat_dict = get_rel_feat(os.path.join(config['data_dir'], 'rel_feat.csv'))
@@ -179,6 +213,11 @@ def gen_list_training_sample(config, top_n = 50, sample_num = 200):
 
 
 def Process(config):
+    """ Main function for DALETOR data processing.
+    
+    :param config: A dictionary containing configuration settings.
+    :return: Generates and saves the training and test datasets, as well as list training samples.
+    """
     gen_list_training_sample(config)
     build_train_dataset(config)
     build_test_dataset(config)

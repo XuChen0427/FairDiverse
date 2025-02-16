@@ -23,6 +23,13 @@ MAXDOC=50
 
 
 class MHSA(nn.Module):
+    """
+    Multi-Head Self-Attention (MHSA) module.
+
+    :param H: The number of attention heads. Default is 2.
+    :param input_dim: The input feature dimension. Default is 100.
+    :param output_dim: The output feature dimension. Default is 256.
+    """
     def __init__(self, H = 2, input_dim = 100, output_dim = 256):
         super(MHSA, self).__init__()
         self.head_num = H
@@ -45,11 +52,25 @@ class MHSA(nn.Module):
         init.xavier_normal_(self.W_out.weight)
     
     def attention(self, Q, K, V):
+        """
+        Computes scaled dot-product attention.
+
+        :param Q: Query matrix.
+        :param K: Key matrix.
+        :param V: Value matrix.
+        :return: Attention-weighted output.
+        """
         scores = torch.bmm(Q, K.transpose(-2,-1)) / self.d_k
         attn = F.softmax(scores, dim = -1)
         return torch.bmm(attn, V)
     
     def forward(self, D):
+        """
+        Forward pass for the MHSA module.
+
+        :param D: Input tensor of shape (batch_size, sequence_length, input_dim).
+        :return: Output tensor after multi-head self-attention and normalization.
+        """
         X_list=[]
         for hid in range(self.head_num):
             Q = self.W_Q[hid](D)
@@ -67,6 +88,11 @@ class MHSA(nn.Module):
 
 
 class DALETOR(BasePostProcessModel):
+    """
+    DALETOR model implementation
+
+    :param dropout: Dropout rate for regularization. Default is 0.1.
+    """
     def __init__(self, dropout = 0.1):
         super().__init__(dropout)
 
@@ -103,6 +129,14 @@ class DALETOR(BasePostProcessModel):
 
 
     def fit(self, x, rel_feat, train_flag = False):
+        """
+        Training stage
+
+        :param x: Input tensor of shape (batch_size, sequence_length, feature_dim).
+        :param rel_feat: Relevance feature tensor of shape (batch_size, num_docs, 18).
+        :param train_flag: Boolean flag indicating whether the model is in training mode.
+        :return: Ranking scores for documents.
+        """
         bs = x.shape[0]
         seq_len = x.shape[1]
         df = x.shape[2]

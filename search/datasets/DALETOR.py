@@ -15,11 +15,16 @@ from torch.utils.data import Dataset, DataLoader
 
 from ..postprocessing_model.DALETOR import DALETOR
 from ..utils.loss import ndcg_loss
-from ..evaluator import evaluate_test_qids_DALETOR
+from ..post_evaluator import evaluate_test_qids_DALETOR
 
 
 class TrainDataset(Dataset):
     def __init__(self, train_list):
+        """
+        A PyTorch Dataset class for handling training data, ensuring they are properly prepared for model training.
+
+        :param train_list: List of training samples containing input tensors and features
+        """
         self.data = train_list
 
     def __len__(self):
@@ -36,6 +41,14 @@ class TrainDataset(Dataset):
 
 
 def get_train_loader(fold, train_ids, config):
+    """
+    DataLoader for training data loading and processing.
+
+    :param fold: Current fold number in cross-validation
+    :param train_ids: List of training query IDs to load
+    :param config: Dictionary containing configuration parameters
+    :return: DataLoader object containing the processed training data
+    """
     data_list = []
     data_dir=os.path.join(config['data_dir'], config['model'], 'train/')
     doc_tensor_dict={}
@@ -59,6 +72,14 @@ def get_train_loader(fold, train_ids, config):
 
 
 def get_test_dataset(fold, test_qids, config):
+    """
+    Loads and processes test data for model evaluation.
+
+    :param fold: Current fold number in cross-validation
+    :param test_qids: List of test query IDs to load
+    :param config: Dictionary containing configuration parameters
+    :return: Dictionary containing processed test data organized by query ID
+    """
     data_dir = os.path.join(config['data_dir'], config['model'], 'test/')
     test_dataset = {}
     for qid in tqdm(test_qids, desc="load test data",ncols=80):
@@ -73,6 +94,14 @@ def get_test_dataset(fold, test_qids, config):
 
 
 def DALETOR_run(config):
+    """
+    Executes the complete training and evaluation pipeline for the DALETOR model.
+    This function performs 5-fold cross-validation training, including model initialization,
+    training loop execution, periodic evaluation, learning rate adjustment, and model checkpointing.
+    It tracks the best performing model for each fold and saves relevant metrics and model states.
+
+    :param config: Dictionary containing model configuration parameters
+    """
     if not os.path.exists(os.path.join(config['model_save_dir'], config['model'])):
         os.makedirs(os.path.join(config['model_save_dir'], config['model']))
     all_qids=np.load(os.path.join(config['data_dir'], 'all_qids.npy'))

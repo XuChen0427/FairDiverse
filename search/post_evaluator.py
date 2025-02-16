@@ -14,13 +14,14 @@ REL_LEN = 18
 
 
 def evaluate_test_qids_DESA(model, test_tuple, div_q, mode='metric'):
-    '''
-    get the alpha-nDCG for the input query, the input document list are randomly shuffled.
+    """
+    Get the alpha-nDCG for the input query, the input document list are randomly shuffled.
     :param test_tuple: the features of the test query qid, test_turple = {}
     :param div_q: the div_query object of the test query qid
     :param qid: the id for the test query
     :return: the alpha-nDCG for the test query
-    '''
+    """
+
     metric = 0
     end = Max_doc_num = len(div_q.best_docs_rank)
     current_docs_rank = []
@@ -63,6 +64,17 @@ def evaluate_test_qids_DESA(model, test_tuple, div_q, mode='metric'):
 
 
 def evaluate_test_qids_DALETOR(model, test_tuple, div_q, mode='metric'):
+    """
+    Evaluates the model on a set of test queries and returns the evaluation metric.
+    
+    :param model: The trained model to be evaluated.
+    :param test_tuple: A tuple containing two elements - 
+                       the first element is the input features (X),
+                       and the second element is the relevance features (rel_feat).
+    :param div_q: A `div_query` object that contains information about documents and subtopics.
+    :param mode: The evaluation mode. It can be 'metric' (return only metric) or 'both' (return metric and ranked documents).
+    :return: The evaluation metric (alpha-nDCG) or a tuple of the metric and the ranked documents, depending on the mode.
+    """
     metric = 0
     end = Max_doc_num = len(div_q.best_docs_rank)
     current_docs_rank = []
@@ -105,11 +117,11 @@ def evaluate_test_qids_DALETOR(model, test_tuple, div_q, mode='metric'):
 
 
 def get_global_fullset_metric(config):
-    '''
-    get the final metrics for the five fold best models.
+    """
+    Get the final metrics for the five fold best models.
     :param best_model_list: the best models for the five corresponding folds.
     :param test_qids_list: the corresponding test qids for five folds.
-    '''
+    """
     output_file = os.path.join(config['tmp_dir'], config['model'], 'run')
     if not os.path.exists(os.path.join(config['tmp_dir'], config['model'])):
         os.makedirs(os.path.join(config['tmp_dir'], config['model']))
@@ -159,6 +171,12 @@ def get_global_fullset_metric(config):
 
 
 def get_metrics_20(csv_file_path):
+    """
+    Retrieves evaluation metrics from a CSV file for the top 20 documents.
+
+    :param csv_file_path: The path to the CSV file containing evaluation results.
+    :return: A tuple containing the mean values of alpha-nDCG@20, NRBP@20, ERR-IA@20, and strec@20.
+    """
     all_qids=range(1,201)
     del_index=[94,99]
     all_qids=np.delete(all_qids,del_index)

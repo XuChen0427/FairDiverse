@@ -3,7 +3,7 @@ import json
 import pickle
 
 from ..utils.utils import pkl_load
-from ..evaluator import get_metrics_20
+from ..post_evaluator import get_metrics_20
 from .base import BasePostProcessUnsupervisedModel
 
 '''
@@ -18,9 +18,19 @@ from .base import BasePostProcessUnsupervisedModel
 
 class xQuAD(BasePostProcessUnsupervisedModel):
     def __init__(self, top_k=20):
+        """ 
+        Initializes the xQuAD for diversified document ranking.
+
+        :param top_k: The maximum number of documents to be ranked. Default is 20.
+        """
         super().__init__(top_k)
     
     def rerank(self, config):
+        """ 
+        Re-ranks documents using the xQuAD algorithm based on BM25 scores and query diversification.
+
+        :param config: A dictionary containing configuration parameters.
+        """
         qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
         bm25_dict = pkl_load(os.path.join(config['data_dir'], config['model'], 'bm25_scores.pkl'))
 
@@ -50,16 +60,14 @@ class xQuAD(BasePostProcessUnsupervisedModel):
 
 
     def calculate_xquad_score(self, qid, bm25_dict, _lambda=0.5):
-        """
-        Calculate expanded ranking score using original query and suggestions
-        Args:
-            qid: Query ID
-            bm25_dict: Dictionary containing BM25 scores for original and suggestion queries
-            _lambda: Weight parameter between original and expanded scores (default: 0.5)
-            top_k: Number of documents to return (default: 10)
-        
-        Returns:
-            List of selected document IDs in ranked order
+        """ 
+        Implements the xQuAD algorithm for diversified document ranking.
+
+        :param qid: Query ID for which documents are being ranked.
+        :param bm25_dict: Dictionary containing BM25 scores for both original and suggestion queries.
+        :param _lambda: A trade-off parameter (0 to 1) that balances relevance and diversity. 
+                        A higher value favors relevance, while a lower value emphasizes diversity.
+        :return: A list of selected document IDs in diversified ranking order.
         """
         original_scores = bm25_dict[qid][0]  # Original query scores
         suggestion_scores = bm25_dict[qid][1]  # Suggestion query scores (n_suggestions x n_docs)

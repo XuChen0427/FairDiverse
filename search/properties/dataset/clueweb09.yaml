@@ -1,6 +1,9 @@
 {
     ground_truth: "ground_truth/",
+    doc_content_dir: "clueweb09_doc_content_dir/",
     query_suggestion: "query_suggestion.xml",
     reprocess: False,
     embedding_dir: "embedding/",
+    embedding_type: "doc2vec",
+    embedding_length: 100,
 }

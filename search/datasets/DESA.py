@@ -8,10 +8,15 @@ from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils import clip_grad_norm_
 from ..postprocessing_model.DESA import DESA
 from ..utils.loss import list_pairwise_loss
-from ..evaluator import evaluate_test_qids_DESA
+from ..post_evaluator import evaluate_test_qids_DESA
 
 
 class DESADataset(Dataset):
+    """
+    A PyTorch Dataset class for handling training data, ensuring they are properly prepared for model training.
+
+    :param input_list: List of training samples containing input tensors and features
+    """
     def __init__(self,  input_list):
         self.data = input_list
 
@@ -48,6 +53,14 @@ class DESADataset(Dataset):
 
 
 def get_fold_loader(fold, train_data, BATCH_SIZE):
+    """
+    DataLoader for a specific cross-validation fold's training data.
+    
+    :param fold: Current fold number in cross-validation
+    :param train_data: Training data dictionary containing document and suggestion features
+    :param BATCH_SIZE: Number of samples per batch
+    :return: DataLoader object containing the processed training data
+    """
     input_list = []
     starttime = time.time()
     print('Begin loading fold {} training data'.format(fold))
@@ -79,7 +92,13 @@ def get_fold_loader(fold, train_data, BATCH_SIZE):
 
 
 def DESA_run(config):
-    ''' load randomly shuffled queries '''
+    """
+    Executes the complete training and evaluation pipeline for the DESA model.
+    
+    :param config: Dictionary containing model configuration parameters
+    """
+
+    # load randomly shuffled queries
     if not os.path.exists(os.path.join(config['model_save_dir'], config['model'])):
         os.makedirs(os.path.join(config['model_save_dir'], config['model']))
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))

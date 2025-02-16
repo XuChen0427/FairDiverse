@@ -1,0 +1,4 @@
+.. automodule:: search.postprocesing_model.DALETOR
+   :members:
+   :undoc-members:
+   :show-inheritance:

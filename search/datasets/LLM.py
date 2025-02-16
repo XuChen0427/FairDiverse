@@ -8,9 +8,9 @@ import json_repair
 
 from tqdm import tqdm
 
-from ..llm_model.api_llm import OpenAILMAgent
+from ..llm_model.api_llm import LMAgent
 from ..utils.utils import restore_doc_ids, remove_duplicate
-from ..evaluator import get_metrics_20
+from ..post_evaluator import get_metrics_20
 
 
 MAXDOC = 50
@@ -25,6 +25,13 @@ adhoc_rerank_prompt_input = """## Input Data
 
 
 def llm_run(config):
+    """
+    Executes a large language model-based document reranking pipeline for search result diversification.
+    This function processes queries and their candidate documents through a language model to generate diversified document rankings. 
+    
+    :param config: Dictionary containing configuration parameters
+    """
+
     best_rank_dir = os.path.join(config['data_dir'], 'best_rank/')
     data_content_dir = os.path.join(config['data_dir'], config['data_content_dir'])
 
@@ -51,7 +58,7 @@ def llm_run(config):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    llm = OpenAILMAgent(config)
+    llm = LMAgent(config)
 
     for file_name in tqdm(qid_need_process):
         

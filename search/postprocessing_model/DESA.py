@@ -20,18 +20,45 @@ MAXDOC = 50
 
 class SelfAttnEnc(nn.Module):
     def __init__(self, d_model, nhead, nlayers, dropout):
+        """
+        Initialization
+        
+        :param d_model: The dimension of the model.
+        :param nhead: The number of attention heads.
+        :param nlayers: The number of transformer encoder layers.
+        :param dropout: Dropout probability.
+        """
         super(SelfAttnEnc, self).__init__()
         self.enc_layer = nn.TransformerEncoderLayer(d_model=d_model, nhead=nhead, dim_feedforward=400, dropout=dropout,
                                                     batch_first=True)
         self.enc = nn.TransformerEncoder(self.enc_layer, num_layers=nlayers)
 
     def forward(self, input, mask):
+        """
+        Forward pass of the Self-Attention Encoder.
+
+        :param input: Input tensor of shape (batch_size, sequence_length, d_model).
+        :param mask: Mask tensor indicating padded positions.
+        :return: Encoded output tensor of shape (batch_size, sequence_length, d_model).
+        """
         enc_out = self.enc(input, src_key_padding_mask=mask) # input [bs , seq_len , d_model]
         return enc_out # enc_out [bs , seq_len , d_model]
 
 
 class DESA(BasePostProcessModel):
     def __init__(self, doc_d_model, doc_nhead, doc_nlayers, sub_d_model, sub_nhead, sub_nlayers, nhead, dropout):
+        """
+        Initialization
+
+        :param doc_d_model: Document embedding dimension.
+        :param doc_nhead: Number of attention heads for document encoder.
+        :param doc_nlayers: Number of transformer layers for document encoder.
+        :param sub_d_model: Sub-document embedding dimension.
+        :param sub_nhead: Number of attention heads for sub-document encoder.
+        :param sub_nlayers: Number of transformer layers for sub-document encoder.
+        :param nhead: Number of attention heads for multi-head attention.
+        :param dropout: Dropout probability.
+        """
         super().__init__(dropout)
         
         Linear_out = 128
@@ -45,6 +72,23 @@ class DESA(BasePostProcessModel):
 
     def fit(self, doc_emb, sub_emb, doc_mask, sub_mask, pos_qrel_feat, pos_subrel_feat, index_i=None, index_j=None,
                 neg_qrel_feat=None, neg_subrel_feat=None, subrel_mask=None, mode='Train'):
+        """
+        Model training.
+
+        :param doc_emb: Document embeddings of shape (batch_size, sequence_length, embedding_dim).
+        :param sub_emb: Sub-document embeddings of shape (batch_size, sequence_length, embedding_dim).
+        :param doc_mask: Mask tensor for document sequences.
+        :param sub_mask: Mask tensor for sub-document sequences.
+        :param pos_qrel_feat: Positive query relevance features.
+        :param pos_subrel_feat: Positive sub-document relevance features.
+        :param index_i: Index tensor for selecting positive samples.
+        :param index_j: Index tensor for selecting negative samples.
+        :param neg_qrel_feat: Negative query relevance features (optional).
+        :param neg_subrel_feat: Negative sub-document relevance features (optional).
+        :param subrel_mask: Mask tensor for sub-document relevance (optional).
+        :param mode: Mode of operation ('Train' or 'Eval').
+        :return: Positive and negative ranking scores in training mode, or final scores in evaluation mode.
+        """
         doc_mask, sub_mask = doc_mask.bool(), sub_mask.bool()
         doc_rep = self.doc_attn(self.linear1(doc_emb), doc_mask)  # [bs, sq(50), d_model]
         sub_rep = self.sub_attn(self.linear2(sub_emb), sub_mask)  # [bs, sq(10), d_model]
@@ -81,7 +125,17 @@ class DESA(BasePostProcessModel):
 
 
 class MLP(nn.Module):
+    """
+    Multi-Layer Perceptron (MLP).
+    """
     def __init__(self, input_size, hid_size, output_size):
+        """
+        Initialization
+
+        :param input_size: The size of the input feature vector.
+        :param hid_size: The number of hidden units.
+        :param output_size: The number of output units.
+        """
         super(MLP, self).__init__()
         self.mlp = nn.Sequential(
             nn.Linear(input_size, hid_size),
@@ -90,5 +144,11 @@ class MLP(nn.Module):
         )
 
     def forward(self, input):
+        """
+        Forward of the MLP.
+
+        :param input: Input feature vector.
+        :return: Output tensor.
+        """
         output = self.mlp(input)
         return output

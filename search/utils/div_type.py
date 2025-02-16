@@ -10,20 +10,26 @@ pd.set_option('display.max_rows', 2000)
 
 class subtopic:
     def __init__(self, subtopic_id, subtopic):
+        """
+        Represents a subtopic of a query.
+
+        :param subtopic_id: Unique identifier for the subtopic.
+        :param subtopic: Text representation of the subtopic.
+        """
         self.subtopic_id = subtopic_id
         self.subtopic = subtopic
 
 
 class div_query:
     def __init__(self, qid, query, subtopic_id_list, subtopic_list):
-        '''
-        object for diversity query
-        alpha = 0.5 by default
-        doc_list: the inital document ranking derived from indri
-        doc_score_list: the normalized relevance score list of documents
-        best_metric: the best metric of the query
-        stand_alpha_DCG: stand alpha-DCG (from DSSA) used for normalization
-        '''
+        """
+        Represents a diversity query for re-ranking search results.
+        
+        :param qid: Unique query identifier.
+        :param query: Text of the query.
+        :param subtopic_id_list: List of subtopic IDs associated with the query.
+        :param subtopic_list: List of subtopic texts corresponding to the subtopic IDs.
+        """
         self.qid = qid
         self.query = query
         self.subtopic_id_list = subtopic_id_list
@@ -38,24 +44,47 @@ class div_query:
             self.subtopic_list.append(t)
 
     def set_std_metric(self, m):
+        """
+        Sets the standard alpha-DCG metric for normalization.
+        
+        :param m: Standard alpha-DCG metric value.
+        """
         self.stand_alpha_DCG = m
 
     def add_docs(self, doc_list):
+        """
+        Adds a list of documents to the query and initializes subtopic relevance tracking.
+        
+        :param doc_list: List of document identifiers.
+        """
         self.doc_list = doc_list
         self.DOC_NUM = len(self.doc_list)
         init_data = np.zeros((len(doc_list), len(self.subtopic_list)), dtype=int)
         self.subtopic_df = pd.DataFrame(init_data, columns=self.subtopic_id_list, index=doc_list)
 
     def add_query_suggestion(self, query_suggestion):
+        """
+        Adds query suggestions related to the main query.
+        
+        :param query_suggestion: Suggested query string.
+        """
         self.query_suggestion = query_suggestion
 
     def add_docs_rel_score(self, doc_score_list):
+        """
+        Adds relevance scores for the documents associated with the query.
+        
+        :param doc_score_list: List of relevance scores for documents.
+        """
         self.doc_score_list = doc_score_list
 
     def get_test_alpha_nDCG(self, docs_rank):
-        '''
-        get the alpha_nDCG@20 for the input document list (for testing).
-        '''
+        """
+        Get the alpha_nDCG@20 for the input document list (for testing).
+        
+        :param docs_rank: Ordered list of document identifiers.
+        :return: Alpha-nDCG score for the given ranking.
+        """
         temp_data = np.zeros((len(docs_rank), len(self.subtopic_list)), dtype=int)
         temp_array = np.array(self.best_subtopic_df)
         metrics = []
@@ -87,9 +116,14 @@ class div_query:
     
 
     def get_alpha_DCG(self, docs_rank, print_flag=False):
-        '''
-        get the alpha-DCG for the input document list (for generating training samples)
-        '''
+        """
+        Computes the alpha-DCG for the input document list (for generating training samples)
+        
+        :param docs_rank: A list of document IDs representing the ranking order.
+        :param print_flag: A boolean flag indicating whether to print intermediate computation results.
+        :return: The computed alpha-DCG score for the given document ranking.
+        """
+
         temp_data = np.zeros((len(docs_rank), len(self.subtopic_list)), dtype=int)
         temp_array = np.array(self.best_subtopic_df)
         metrics = []
@@ -114,9 +148,14 @@ class div_query:
         return alpha_nDCG
 
     def get_best_rank(self, top_n=None, alpha=0.5):
-        '''
-        get the best diversity document ranking based on greedy strategy
-        '''
+        """
+        Generates the best document ranking using a greedy selection strategy.
+        
+        :param top_n: The number of top documents to be selected (default: all available documents).
+        :param alpha: A parameter controlling redundancy reduction (default: 0.5).
+        :return: Updates class attributes with the best document ranking and associated gains.
+        """
+
         p = 1.0 - alpha
         if top_n == None:
             top_n = self.DOC_NUM
@@ -171,15 +210,26 @@ class div_query:
 
 class div_dataset:
     def __init__(self, config):
+        """
+        Initializes the dataset object with file paths and configuration. 
+
+        :param config: A dictionary containing configuration settings.
+        """
         self.Best_File = os.path.join(config['data_dir'], 'div_query.data')
         self.Train_File = os.path.join(config['data_dir'], config['model'], 'listpair_train.data')
         if not os.path.exists(os.path.join(config['data_dir'], config['model'])):
             os.makedirs(os.path.join(config['data_dir'], config['model']))
         self.config = config
 
-    ''' generate list-pair training samples '''
-
     def get_listpairs(self, div_query, context, top_n):
+        """
+        Generates list-pair samples
+        
+        :param div_query: The query object that contains the list of ranked documents.
+        :param context: A list of previously considered documents in the context.
+        :param top_n: The number of top-ranked documents to consider.
+        :return: A list of generated samples, each containing metrics, positive/negative masks, and weights. 
+        """
         best_rank = div_query.best_docs_rank
         metrics = []
         samples = []
@@ -225,12 +275,15 @@ class div_dataset:
         return samples
 
     def get_listpair_train_data(self, top_n=50):
-        '''
-        generate list-pair trianing samples using top 50 relevant documents
-        save as a data file: listpair_train.data
+        """
+        Generates list-pair training samples using the top N relevant documents. 
+        This function processes the best document ranks for each query, generates list-pair samples, and saves them to a file: listpair_train.data. 
         data_dict[qid] = [(metrics, positive_mask, negative_mask, weight),...]
         metrics, positive_mask and negative_mask are padding as tensors with length of top_n
-        '''
+
+        :param top_n: The number of top-ranked documents to use for generating the list-pairs.
+        :return: Saves the generated list-pair training data into a file. 
+        """
         qd = pickle.load(open(self.Best_File, 'rb'))
         train_dict = {}
         for qid in tqdm(qd, desc="Gen Train Data"):

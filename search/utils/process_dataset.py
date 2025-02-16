@@ -12,6 +12,11 @@ REL_LEN = 18
 
 
 def get_query_dict(config):
+    """
+    Generates a dictionary of queries and their subtopics.
+    :param config: A dictionary containing configuration settings.
+    :return: A dictionary mapping query IDs (qid) to `div_query` objects containing the query and subtopics.
+    """
     dq_dict = {}
     topics_list = []
     for year in ['2009','2010','2011','2012']:
@@ -40,6 +45,13 @@ def get_query_dict(config):
 
 
 def get_query_suggestion(dq, config):
+    """
+    Adds query suggestions to the query dictionary (dq) for each query.
+    
+    :param dq: A dictionary of `div_query` objects.
+    :param config: A dictionary containing configuration settings.
+    :return: A dictionary of `div_query` objects with added query suggestions.
+    """
     dq_dict = {}
     filename = os.path.join(config['data_dir'], 'query_suggestion.xml')
     DOMTree = xml.dom.minidom.parse(filename)
@@ -64,11 +76,13 @@ def get_query_suggestion(dq, config):
 
 
 def get_docs_dict(config):
-    ''' 
-    get the relevance score of the documents 
+    """ Loads the document IDs and their relevance scores for each query.
     docs_dict[qid] = [doc_id, ...]
     docs_rel_score_dict[qid] = [score, ...]
-    '''
+
+    :param config: A dictionary containing configuration settings.
+    :return: Two dictionaries: docs_dict (query ID to document IDs) and docs_rel_score_dict (query ID to relevance scores).
+    """
     docs_dict = {}
     docs_rel_score_dict = {}
     for year in ['2009','2010','2011','2012']:
@@ -91,12 +105,14 @@ def get_docs_dict(config):
 
 
 def get_doc_judge(qd, dd, ds, config):
-    ''' 
-    load document list and relevance socre list for the corresponding query 
-    qd : query dictionary
-    dd : document dictionary
-    ds : document relevance score dictionary
-    '''
+    """ Loads the document lists and relevance score lists for the corresponding queries.
+    
+    :param qd: A dictionary of `div_query` objects.
+    :param dd: A dictionary of document IDs for each query.
+    :param ds: A dictionary of relevance scores for documents for each query.
+    :param config: A dictionary containing configuration settings.
+    :return: The updated `qd` dictionary with documents and relevance scores added, and judged for relevance.
+    """
     get_query_suggestion(qd, config)
     for key in qd:
         qd[key].add_docs(dd[key])
@@ -114,6 +130,12 @@ def get_doc_judge(qd, dd, ds, config):
 
 
 def data_process_worker(task, data_dir):
+    """
+    Processes a list of queries and saves them as data files.
+    
+    :param task: A list of query ID and `div_query` objects to process.
+    :param data_dir: The directory where processed query data will be saved.
+    """
     for item in task:
         qid = item[0]
         dq = item[1]
@@ -123,6 +145,12 @@ def data_process_worker(task, data_dir):
 
 
 def calculate_best_rank(qd, config):
+    """
+    Calculates the best ranking of documents for each query.
+    
+    :param qd: A dictionary of `div_query` objects.
+    :param config: A dictionary containing configuration settings.
+    """
     data_dir = os.path.join(config['data_dir'], 'best_rank/')
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
@@ -141,7 +169,12 @@ def calculate_best_rank(qd, config):
 
 
 def get_stand_best_metric(qd, config):
-    ''' load best alpha-nDCG from DSSA '''
+    """
+    Loads the best alpha-nDCG metric from the DSSA.
+    
+    :param qd: A dictionary of `div_query` objects.
+    :param config: A dictionary containing configuration settings.
+    """
     std_dict = pickle.load(open(os.path.join(config['data_dir'], 'stand_metrics.data'), 'rb'))
     for qid in std_dict:
         m = std_dict[qid]
@@ -150,7 +183,12 @@ def get_stand_best_metric(qd, config):
 
 
 def generate_qd(config):
-    ''' generate diversity_query file from data_dir '''
+    """
+    Generates a `div_query` file from the data directory.
+    
+    :param config: A dictionary containing configuration settings.
+    :return: A dictionary of `div_query` objects.
+    """
     data_dir = os.path.join(config['data_dir'], 'best_rank/')
     files = os.listdir(data_dir)
     files.sort(key = lambda x:int(x[:-5]))
@@ -164,6 +202,9 @@ def generate_qd(config):
     
 
 def data_process(config):
+    """ Main function for processing query, document, and relevance data.
+    :param config: A dictionary containing configuration settings.
+    """
     ''' get subtopics for each query '''
     qd = get_query_dict(config)
     ''' get documents dictionary '''

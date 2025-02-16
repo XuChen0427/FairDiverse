@@ -1,21 +1,34 @@
-import backoff
 import json
-from typing import Any, Dict, List, Mapping, Optional, Sequence, Union
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
-import random
 import time
 import re
 
 
-class OpenAIApiException(Exception):
+class ApiException(Exception):
+    """
+    Custom exception class for handling API-specific errors.
+    
+    :param msg: Error message describing the API failure
+    :param error_code: HTTP status code from the API response
+    """
+
     def __init__(self, msg, error_code):
         self.msg = msg
         self.error_code = error_code
 
 
-class OpenAIApiProxy():
+class ApiProxy():
+    """
+    A proxy class for handling HTTP communications with LLM API endpoints.
+    This class manages API request sessions, implements retry logic, and handles
+    various HTTP status codes with exponential backoff for rate limits and server errors.
+    
+    :param url: The API endpoint URL
+    :param api_key: Optional API key for authentication with LLM services
+    """
+
     def __init__(self, url, api_key=None):
         retry_strategy = Retry(
             total=1,
@@ -52,13 +65,18 @@ class OpenAIApiProxy():
                 if response.status_code not in (429, 404, 500, 502, 503, 504, 104):
                     break
         if response.status_code != 200:
-            err_msg = f"access openai error, status code: {response.status_code}, errmsg: {response.text}"
-            raise OpenAIApiException(err_msg, response.status_code)
+            err_msg = f"access error, status code: {response.status_code}, errmsg: {response.text}"
+            raise ApiException(err_msg, response.status_code)
         data = json.loads(response.text)
         return data
 
 
-class OpenAILMAgent():
+class LMAgent():
+    """
+    A high-level interface for interacting with large language models.
+    
+    :param config: Dictionary containing model configuration parameters
+    """
 
     def __init__(self, config):
         self.model = config["model_name"]
@@ -66,7 +84,7 @@ class OpenAILMAgent():
         self.temperature = config["temperature"]
         self.max_new_tokens = config["max_new_tokens"]
         self.top_p = config["top_p"]
-        self._proxy = OpenAIApiProxy(url=config['api_url']+'/v1/chat/completions', api_key=self.apikey)
+        self._proxy = ApiProxy(url=config['api_url']+'/v1/chat/completions', api_key=self.apikey)
 
     def __call__(self, system_prompt, input_prompt, max_new_tokens):
         if isinstance(input_prompt, list):

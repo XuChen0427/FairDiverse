@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 
 from ..utils.utils import pkl_load
-from ..evaluator import get_metrics_20
+from ..post_evaluator import get_metrics_20
 from .base import BasePostProcessUnsupervisedModel
 
 '''
@@ -19,9 +19,20 @@ from .base import BasePostProcessUnsupervisedModel
 
 class PM2(BasePostProcessUnsupervisedModel):
     def __init__(self, top_k=20):
+        """ 
+        Initializes the PM2 for diversified document ranking.
+
+        :param top_k: The maximum number of documents to be ranked. Default is 20.
+        """
         super().__init__(top_k)
     
     def rerank(self, config):
+        """ 
+        Re-ranks documents using the PM-2 algorithm based on BM25 scores and query diversification.
+
+        :param config: A dictionary containing configuration parameters.
+        """
+
         qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
         bm25_dict = pkl_load(os.path.join(config['data_dir'], config['model'], 'bm25_scores.pkl'))
 
@@ -53,16 +64,14 @@ class PM2(BasePostProcessUnsupervisedModel):
 
 
     def calculate_pm2_score(self, qid, bm25_dict, _lambda=0.5):
-        """
-        Implements PM-2 algorithm for diversified document ranking
-        
-        Args:
-            qid: Query ID
-            bm25_dict: Dictionary containing BM25 scores for original and suggestion queries
-            _lambda: Trade-off parameter between relevance and diversity
-        
-        Returns:
-            List of selected document IDs in diversified order
+        """ 
+        Implements the PM-2 algorithm for diversified document ranking.
+
+        :param qid: Query ID for which documents are being ranked.
+        :param bm25_dict: Dictionary containing BM25 scores for both original and suggestion queries.
+        :param _lambda: A trade-off parameter (0 to 1) that balances relevance and diversity. 
+                        A higher value favors relevance, while a lower value emphasizes diversity.
+        :return: A list of selected document IDs in diversified ranking order.
         """
         # Initialize variables
         doc_list = list(bm25_dict[qid][0].keys())  # Available documents

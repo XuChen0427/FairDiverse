@@ -1,0 +1,13 @@
+{
+   ####search result diversification model settings
+   model: "pm2",
+
+   log_name: "ClueWeb09-PM2",
+   model_save_dir: "model/",
+   tmp_dir: "tmp/",
+
+   mode: "train",
+   best_model_list: [],
+
+   device: "cpu",
+}
