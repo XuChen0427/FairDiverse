@@ -133,7 +133,7 @@ reranker.train()
 
 For the post-processing methods, you can begin with:
 ```
-python main.py --task search --stage post-processing --dataset clueweb09 --train_config_file train.yaml
+python main.py --task search --stage post-processing --dataset clueweb09 --train_config_file Post-processing.yaml
 ```
 
 ## Datasets
