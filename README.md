@@ -203,7 +203,7 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Unsupervised | [xQuAD](https://dl.acm.org/doi/10.1145/1772690.1772780)        | utilizes sub-queries representing pseudo user intents and diversifies document rankings by directly estimating the relevance of the retrieved documents to each sub-queries.|
 | Supervised | [DESA](https://dl.acm.org/doi/10.1145/3340531.3411914) | employs the attention mechanism to model the novelty of documents and the explicit subtopics. |
 | Supervised | [DALETOR](https://dl.acm.org/doi/10.1145/3442381.3449831)            | proposes diversification-aware losses to approach the optimal ranking. |
-| LLMs-based | [LLMs-based Ranker] |a diversity ranking model based on large language models.|
+| LLMs-based | Self-Implemented |a diversity ranking model based on large language models.|
 
 ## Develop your own fairness- and diversity- aware models based on our toolkit
 
