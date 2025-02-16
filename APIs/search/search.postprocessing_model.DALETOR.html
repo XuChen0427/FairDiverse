@@ -97,10 +97,21 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="search.trainer_preprocessing_ranker.html"><code class="docutils literal notranslate"><span class="pre">RankerTrainer</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.postprocessing_model.base.html"><code class="docutils literal notranslate"><span class="pre">BasePostProcessModel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessUnsupervisedModel"><code class="docutils literal notranslate"><span class="pre">BasePostProcessUnsupervisedModel</span></code></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html"><code class="docutils literal notranslate"><span class="pre">compute_cumulative_exposer()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html#search.fairness_evaluator.compute_igf_ratio"><code class="docutils literal notranslate"><span class="pre">compute_igf_ratio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html#search.fairness_evaluator.compute_individual_fairness"><code class="docutils literal notranslate"><span class="pre">compute_individual_fairness()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html#search.fairness_evaluator.evaluate"><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html#search.fairness_evaluator.evaluate_qid"><code class="docutils literal notranslate"><span class="pre">evaluate_qid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html#search.fairness_evaluator.evaluate_runs"><code class="docutils literal notranslate"><span class="pre">evaluate_runs()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html#search.fairness_evaluator.get_quotas_count"><code class="docutils literal notranslate"><span class="pre">get_quotas_count()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html#search.fairness_evaluator.get_sort_df"><code class="docutils literal notranslate"><span class="pre">get_sort_df()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
@@ -126,6 +137,9 @@
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.remove_duplicate"><code class="docutils literal notranslate"><span class="pre">remove_duplicate()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.restore_doc_ids"><code class="docutils literal notranslate"><span class="pre">restore_doc_ids()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html#search.utils.utils.split_list"><code class="docutils literal notranslate"><span class="pre">split_list()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.llm_model.api_llm.html"><code class="docutils literal notranslate"><span class="pre">ApiException</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.llm_model.api_llm.html#search.llm_model.api_llm.ApiProxy"><code class="docutils literal notranslate"><span class="pre">ApiProxy</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.llm_model.api_llm.html#search.llm_model.api_llm.LMAgent"><code class="docutils literal notranslate"><span class="pre">LMAgent</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html"><code class="docutils literal notranslate"><span class="pre">div_dataset</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html#search.utils.div_type.div_query"><code class="docutils literal notranslate"><span class="pre">div_query</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html#search.utils.div_type.subtopic"><code class="docutils literal notranslate"><span class="pre">subtopic</span></code></a></li>
@@ -155,7 +169,99 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <dl class="py class" id="module-search.postprocessing_model.DALETOR">
+<dt class="sig sig-object py" id="search.postprocessing_model.DALETOR.DALETOR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">search.postprocessing_model.DALETOR.</span></span><span class="sig-name descname"><span class="pre">DALETOR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/search/postprocessing_model/DALETOR.html#DALETOR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#search.postprocessing_model.DALETOR.DALETOR" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessModel" title="search.postprocessing_model.base.BasePostProcessModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasePostProcessModel</span></code></a></p>
+<p>DALETOR model implementation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dropout</strong> – Dropout rate for regularization. Default is 0.1.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="search.postprocessing_model.DALETOR.DALETOR.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_feat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/search/postprocessing_model/DALETOR.html#DALETOR.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#search.postprocessing_model.DALETOR.DALETOR.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Training stage</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Input tensor of shape (batch_size, sequence_length, feature_dim).</p></li>
+<li><p><strong>rel_feat</strong> – Relevance feature tensor of shape (batch_size, num_docs, 18).</p></li>
+<li><p><strong>train_flag</strong> – Boolean flag indicating whether the model is in training mode.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ranking scores for documents.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="search.postprocessing_model.DALETOR.MAXDOC">
+<span class="sig-prename descclassname"><span class="pre">search.postprocessing_model.DALETOR.</span></span><span class="sig-name descname"><span class="pre">MAXDOC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#search.postprocessing_model.DALETOR.MAXDOC" title="Link to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>&#64;inproceedings{yan2021diversification,</dt><dd><p>title={Diversification-aware learning to rank using distributed representation},
+author={Yan, Le and Qin, Zhen and Pasumarthi, Rama Kumar and Wang, Xuanhui and Bendersky, Michael},
+booktitle={Proceedings of the Web Conference 2021},
+pages={127–136},
+year={2021}</p>
+</dd>
+</dl>
+<p>}</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="search.postprocessing_model.DALETOR.MHSA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">search.postprocessing_model.DALETOR.</span></span><span class="sig-name descname"><span class="pre">MHSA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/search/postprocessing_model/DALETOR.html#MHSA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#search.postprocessing_model.DALETOR.MHSA" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Multi-Head Self-Attention (MHSA) module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>H</strong> – The number of attention heads. Default is 2.</p></li>
+<li><p><strong>input_dim</strong> – The input feature dimension. Default is 100.</p></li>
+<li><p><strong>output_dim</strong> – The output feature dimension. Default is 256.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="search.postprocessing_model.DALETOR.MHSA.attention">
+<span class="sig-name descname"><span class="pre">attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/search/postprocessing_model/DALETOR.html#MHSA.attention"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#search.postprocessing_model.DALETOR.MHSA.attention" title="Link to this definition">¶</a></dt>
+<dd><p>Computes scaled dot-product attention.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Q</strong> – Query matrix.</p></li>
+<li><p><strong>K</strong> – Key matrix.</p></li>
+<li><p><strong>V</strong> – Value matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Attention-weighted output.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="search.postprocessing_model.DALETOR.MHSA.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/search/postprocessing_model/DALETOR.html#MHSA.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#search.postprocessing_model.DALETOR.MHSA.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Forward pass for the MHSA module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>D</strong> – Input tensor of shape (batch_size, sequence_length, input_dim).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Output tensor after multi-head self-attention and normalization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+
 
            </div>
           </div>

@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>search.datasets.DALETOR &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.reranker.html"><code class="docutils literal notranslate"><span class="pre">RecReRanker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.trainer.html"><code class="docutils literal notranslate"><span class="pre">RecTrainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.llm_rec.html"><code class="docutils literal notranslate"><span class="pre">LLMRecommender</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html"><code class="docutils literal notranslate"><span class="pre">AUC_score()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Entropy"><code class="docutils literal notranslate"><span class="pre">Entropy()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Gini"><code class="docutils literal notranslate"><span class="pre">Gini()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.HR"><code class="docutils literal notranslate"><span class="pre">HR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF"><code class="docutils literal notranslate"><span class="pre">MMF()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MRR"><code class="docutils literal notranslate"><span class="pre">MRR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio"><code class="docutils literal notranslate"><span class="pre">MinMaxRatio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.NDCG"><code class="docutils literal notranslate"><span class="pre">NDCG()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg"><code class="docutils literal notranslate"><span class="pre">dcg()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility"><code class="docutils literal notranslate"><span class="pre">mask_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.reconstruct_utility"><code class="docutils literal notranslate"><span class="pre">reconstruct_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html"><code class="docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PairWiseDataset"><code class="docutils literal notranslate"><span class="pre">PairWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PointWiseDataset"><code class="docutils literal notranslate"><span class="pre">PointWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.RankingTestDataset"><code class="docutils literal notranslate"><span class="pre">RankingTestDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.SequentialDataset"><code class="docutils literal notranslate"><span class="pre">SequentialDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html"><code class="docutils literal notranslate"><span class="pre">Build_Adjecent_Matrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Init_Group_AdjcentMatrix"><code class="docutils literal notranslate"><span class="pre">Init_Group_AdjcentMatrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int"><code class="docutils literal notranslate"><span class="pre">convert_keys_values_to_int()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch"><code class="docutils literal notranslate"><span class="pre">get_cos_similar_torch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text"><code class="docutils literal notranslate"><span class="pre">get_iid2text()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.trainer_preprocessing_ranker.html"><code class="docutils literal notranslate"><span class="pre">RankerTrainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.postprocessing_model.base.html"><code class="docutils literal notranslate"><span class="pre">BasePostProcessModel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessUnsupervisedModel"><code class="docutils literal notranslate"><span class="pre">BasePostProcessUnsupervisedModel</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html"><code class="docutils literal notranslate"><span class="pre">compute_cumulative_exposer()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_igf_ratio"><code class="docutils literal notranslate"><span class="pre">compute_igf_ratio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_individual_fairness"><code class="docutils literal notranslate"><span class="pre">compute_individual_fairness()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate"><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_qid"><code class="docutils literal notranslate"><span class="pre">evaluate_qid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_runs"><code class="docutils literal notranslate"><span class="pre">evaluate_runs()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_quotas_count"><code class="docutils literal notranslate"><span class="pre">get_quotas_count()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_sort_df"><code class="docutils literal notranslate"><span class="pre">get_sort_df()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.loss.html"><code class="docutils literal notranslate"><span class="pre">list_pairwise_loss()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.loss.html#search.utils.loss.ndcg_loss"><code class="docutils literal notranslate"><span class="pre">ndcg_loss()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html"><code class="docutils literal notranslate"><span class="pre">calculate_best_rank()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.data_process"><code class="docutils literal notranslate"><span class="pre">data_process()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.data_process_worker"><code class="docutils literal notranslate"><span class="pre">data_process_worker()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.generate_qd"><code class="docutils literal notranslate"><span class="pre">generate_qd()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_doc_judge"><code class="docutils literal notranslate"><span class="pre">get_doc_judge()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_docs_dict"><code class="docutils literal notranslate"><span class="pre">get_docs_dict()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_query_dict"><code class="docutils literal notranslate"><span class="pre">get_query_dict()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_query_suggestion"><code class="docutils literal notranslate"><span class="pre">get_query_suggestion()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_stand_best_metric"><code class="docutils literal notranslate"><span class="pre">get_stand_best_metric()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html"><code class="docutils literal notranslate"><span class="pre">get_rel_feat()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.load_embedding"><code class="docutils literal notranslate"><span class="pre">load_embedding()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.pkl_load"><code class="docutils literal notranslate"><span class="pre">pkl_load()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.pkl_save"><code class="docutils literal notranslate"><span class="pre">pkl_save()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.read_rel_feat"><code class="docutils literal notranslate"><span class="pre">read_rel_feat()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.remove_duplicate"><code class="docutils literal notranslate"><span class="pre">remove_duplicate()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.restore_doc_ids"><code class="docutils literal notranslate"><span class="pre">restore_doc_ids()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.split_list"><code class="docutils literal notranslate"><span class="pre">split_list()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html"><code class="docutils literal notranslate"><span class="pre">ApiException</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.ApiProxy"><code class="docutils literal notranslate"><span class="pre">ApiProxy</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.LMAgent"><code class="docutils literal notranslate"><span class="pre">LMAgent</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html"><code class="docutils literal notranslate"><span class="pre">div_dataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html#search.utils.div_type.div_query"><code class="docutils literal notranslate"><span class="pre">div_query</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html#search.utils.div_type.subtopic"><code class="docutils literal notranslate"><span class="pre">subtopic</span></code></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">search.datasets.DALETOR</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for search.datasets.DALETOR</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">torch.nn.utils</span> <span class="kn">import</span> <span class="n">clip_grad_norm_</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+
+<span class="kn">from</span> <span class="nn">..postprocessing_model.DALETOR</span> <span class="kn">import</span> <span class="n">DALETOR</span>
+<span class="kn">from</span> <span class="nn">..utils.loss</span> <span class="kn">import</span> <span class="n">ndcg_loss</span>
+<span class="kn">from</span> <span class="nn">..post_evaluator</span> <span class="kn">import</span> <span class="n">evaluate_test_qids_DALETOR</span>
+
+
+<div class="viewcode-block" id="TrainDataset">
+<a class="viewcode-back" href="../../../APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.TrainDataset">[docs]</a>
+<span class="k">class</span> <span class="nc">TrainDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A PyTorch Dataset class for handling training data, ensuring they are properly prepared for model training.</span>
+
+<span class="sd">        :param train_list: List of training samples containing input tensors and features</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">train_list</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">rel_feat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">div_feat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">rel_feat</span><span class="o">.</span><span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">div_feat</span><span class="o">.</span><span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">rel_feat</span><span class="p">,</span> <span class="n">div_feat</span></div>
+
+
+
+<div class="viewcode-block" id="get_train_loader">
+<a class="viewcode-back" href="../../../APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.get_train_loader">[docs]</a>
+<span class="k">def</span> <span class="nf">get_train_loader</span><span class="p">(</span><span class="n">fold</span><span class="p">,</span> <span class="n">train_ids</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DataLoader for training data loading and processing.</span>
+
+<span class="sd">    :param fold: Current fold number in cross-validation</span>
+<span class="sd">    :param train_ids: List of training query IDs to load</span>
+<span class="sd">    :param config: Dictionary containing configuration parameters</span>
+<span class="sd">    :return: DataLoader object containing the processed training data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data_dir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="s1">&#39;train/&#39;</span><span class="p">)</span>
+    <span class="n">doc_tensor_dict</span><span class="o">=</span><span class="p">{}</span>
+    <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">train_ids</span><span class="p">,</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;load train data&#39;</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">80</span><span class="p">):</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.pkl.gz&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sample_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">data_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sample_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)])</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">TrainDataset</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+    <span class="n">loader</span><span class="o">=</span><span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;batch_size&#39;</span><span class="p">],</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">loader</span></div>
+
+
+
+<div class="viewcode-block" id="get_test_dataset">
+<a class="viewcode-back" href="../../../APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.get_test_dataset">[docs]</a>
+<span class="k">def</span> <span class="nf">get_test_dataset</span><span class="p">(</span><span class="n">fold</span><span class="p">,</span> <span class="n">test_qids</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads and processes test data for model evaluation.</span>
+
+<span class="sd">    :param fold: Current fold number in cross-validation</span>
+<span class="sd">    :param test_qids: List of test query IDs to load</span>
+<span class="sd">    :param config: Dictionary containing configuration parameters</span>
+<span class="sd">    :return: Dictionary containing processed test data organized by query ID</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="s1">&#39;test/&#39;</span><span class="p">)</span>
+    <span class="n">test_dataset</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">test_qids</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;load test data&quot;</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">80</span><span class="p">):</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.pkl.gz&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">temp_test_dict</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">test_dataset</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)]</span><span class="o">=</span><span class="n">temp_test_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">test_dataset</span></div>
+
+
+
+<div class="viewcode-block" id="DALETOR_run">
+<a class="viewcode-back" href="../../../APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.DALETOR_run">[docs]</a>
+<span class="k">def</span> <span class="nf">DALETOR_run</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Executes the complete training and evaluation pipeline for the DALETOR model.</span>
+<span class="sd">    This function performs 5-fold cross-validation training, including model initialization,</span>
+<span class="sd">    training loop execution, periodic evaluation, learning rate adjustment, and model checkpointing.</span>
+<span class="sd">    It tracks the best performing model for each fold and saves relevant metrics and model states.</span>
+
+<span class="sd">    :param config: Dictionary containing model configuration parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model_save_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">])):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model_save_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]))</span>
+    <span class="n">all_qids</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="s1">&#39;all_qids.npy&#39;</span><span class="p">))</span>
+    <span class="n">qd</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="s1">&#39;div_query.data&#39;</span><span class="p">),</span><span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+    
+    <span class="n">final_metrics</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">best_model_list</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">fold_time</span><span class="o">=</span><span class="mi">0</span>
+    
+    <span class="n">test_qids_list</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">train_ids</span><span class="p">,</span> <span class="n">test_ids</span> <span class="ow">in</span> <span class="n">KFold</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">all_qids</span><span class="p">):</span>
+        <span class="n">fold_time</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">max_metric</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">train_ids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">test_ids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">train_qids</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">all_qids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_ids</span><span class="p">]</span>
+        <span class="n">test_qids</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">all_qids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_ids</span><span class="p">]</span>
+        <span class="n">test_qids_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_qids</span><span class="p">)</span>
+
+        <span class="n">train_data_loader</span> <span class="o">=</span> <span class="n">get_train_loader</span><span class="p">(</span><span class="n">fold_time</span><span class="p">,</span> <span class="n">train_qids</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="n">test_dataset_dict</span> <span class="o">=</span> <span class="n">get_test_dataset</span><span class="p">(</span><span class="n">fold_time</span><span class="p">,</span> <span class="n">test_qids</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">DALETOR</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;dropout&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+        <span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adagrad</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">])</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">fold_time</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;model=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;len params=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+            <span class="n">n_params</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;* number of parameters: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">n_params</span><span class="p">)</span>
+
+        <span class="n">all_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data_loader</span><span class="p">)</span>
+        <span class="n">patience</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Start Training...&#39;</span><span class="p">)</span>
+            <span class="n">epoch_step</span><span class="o">=</span><span class="mi">0</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            
+            <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">train_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">train_data_loader</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;BATCH&#39;</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">80</span><span class="p">)):</span>
+                <span class="n">X</span><span class="p">,</span> <span class="n">rel_feat</span><span class="p">,</span> <span class="n">div_feat</span> <span class="o">=</span> <span class="n">train_data</span>
+                <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+                    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+                    <span class="n">rel_feat</span> <span class="o">=</span> <span class="n">rel_feat</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+                    <span class="n">div_feat</span> <span class="o">=</span> <span class="n">div_feat</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+                    
+                <span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">rel_feat</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="n">loss</span> <span class="o">=</span> <span class="n">ndcg_loss</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">div_feat</span><span class="p">)</span>
+
+                <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+                <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+                <span class="n">clip_grad_norm_</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">max_norm</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+                <span class="n">epoch_step</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;eval_steps&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+                    <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">test_qids</span><span class="p">:</span>
+                        <span class="n">metric</span> <span class="o">=</span> <span class="n">evaluate_test_qids_DALETOR</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_dataset_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)],</span> <span class="n">qd</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)],</span> <span class="s1">&#39;metric&#39;</span><span class="p">)</span>
+                        <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+                    <span class="n">avg_alpha_NDCG</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">max_metric</span> <span class="o">&lt;</span> <span class="n">avg_alpha_NDCG</span><span class="p">:</span>
+                        <span class="n">max_metric</span> <span class="o">=</span> <span class="n">avg_alpha_NDCG</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;max avg_alpha_NDCG updated: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">max_metric</span><span class="p">))</span>
+                        <span class="n">model_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model_save_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="s1">&#39;TOTAL_EPOCH_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_FOLD_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fold_time</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_EPOCH_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_LR_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_BATCHSIZE_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;batch_size&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_DROPOUT_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;dropout&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;embedding_type&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.pickle&#39;</span><span class="p">)</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span><span class="n">model_filename</span><span class="p">)</span>
+                        <span class="n">best_model</span> <span class="o">=</span> <span class="n">model_filename</span>
+                        <span class="n">patience</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">else</span><span class="p">:</span> 
+                        <span class="n">patience</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="n">epoch</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">patience</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">new_lr</span> <span class="o">=</span> <span class="mf">0.0</span>
+                        <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">opt</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+                            <span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span>
+                            <span class="n">new_lr</span> <span class="o">=</span> <span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span>
+                        <span class="n">patience</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">test_qids</span><span class="p">:</span>
+                <span class="n">metric</span> <span class="o">=</span> <span class="n">evaluate_test_qids_DALETOR</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_dataset_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)],</span> <span class="n">qd</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)],</span> <span class="s1">&#39;metric&#39;</span><span class="p">)</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+            <span class="n">avg_alpha_NDCG</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">max_metric</span> <span class="o">&lt;</span> <span class="n">avg_alpha_NDCG</span><span class="p">:</span>
+                <span class="n">max_metric</span> <span class="o">=</span> <span class="n">avg_alpha_NDCG</span>
+                <span class="n">model_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model_save_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="s1">&#39;TOTAL_EPOCH_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_FOLD_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fold_time</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_EPOCH_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_LR_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_BATCHSIZE_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;batch_size&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_DROPOUT_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;dropout&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;embedding_type&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.pickle&#39;</span><span class="p">)</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span><span class="n">model_filename</span><span class="p">)</span>
+                <span class="n">best_model</span> <span class="o">=</span> <span class="n">model_filename</span>
+            <span class="k">if</span> <span class="n">epoch</span> <span class="o">==</span> <span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">final_metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_metric</span><span class="p">)</span>
+                <span class="n">best_model_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">best_model</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model_save_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="s1">&#39;fold_qid.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">test_qids_list</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;alpha-nDCG = </span><span class="si">{}</span><span class="s1">, best model = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">final_metrics</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">final_metrics</span><span class="p">),</span> <span class="n">best_model_list</span><span class="p">))</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

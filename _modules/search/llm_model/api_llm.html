@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>search.llm_model.api_llm &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.reranker.html"><code class="docutils literal notranslate"><span class="pre">RecReRanker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.trainer.html"><code class="docutils literal notranslate"><span class="pre">RecTrainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.llm_rec.html"><code class="docutils literal notranslate"><span class="pre">LLMRecommender</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html"><code class="docutils literal notranslate"><span class="pre">AUC_score()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Entropy"><code class="docutils literal notranslate"><span class="pre">Entropy()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.Gini"><code class="docutils literal notranslate"><span class="pre">Gini()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.HR"><code class="docutils literal notranslate"><span class="pre">HR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF"><code class="docutils literal notranslate"><span class="pre">MMF()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MRR"><code class="docutils literal notranslate"><span class="pre">MRR()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio"><code class="docutils literal notranslate"><span class="pre">MinMaxRatio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.NDCG"><code class="docutils literal notranslate"><span class="pre">NDCG()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg"><code class="docutils literal notranslate"><span class="pre">dcg()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility"><code class="docutils literal notranslate"><span class="pre">mask_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html#recommendation.metric.reconstruct_utility"><code class="docutils literal notranslate"><span class="pre">reconstruct_utility()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html"><code class="docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PairWiseDataset"><code class="docutils literal notranslate"><span class="pre">PairWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PointWiseDataset"><code class="docutils literal notranslate"><span class="pre">PointWiseDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.RankingTestDataset"><code class="docutils literal notranslate"><span class="pre">RankingTestDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html#recommendation.sampler.SequentialDataset"><code class="docutils literal notranslate"><span class="pre">SequentialDataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html"><code class="docutils literal notranslate"><span class="pre">Build_Adjecent_Matrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Init_Group_AdjcentMatrix"><code class="docutils literal notranslate"><span class="pre">Init_Group_AdjcentMatrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int"><code class="docutils literal notranslate"><span class="pre">convert_keys_values_to_int()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_cos_similar_torch"><code class="docutils literal notranslate"><span class="pre">get_cos_similar_torch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text"><code class="docutils literal notranslate"><span class="pre">get_iid2text()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.trainer_preprocessing_ranker.html"><code class="docutils literal notranslate"><span class="pre">RankerTrainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.postprocessing_model.base.html"><code class="docutils literal notranslate"><span class="pre">BasePostProcessModel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessUnsupervisedModel"><code class="docutils literal notranslate"><span class="pre">BasePostProcessUnsupervisedModel</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html"><code class="docutils literal notranslate"><span class="pre">compute_cumulative_exposer()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_igf_ratio"><code class="docutils literal notranslate"><span class="pre">compute_igf_ratio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_individual_fairness"><code class="docutils literal notranslate"><span class="pre">compute_individual_fairness()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate"><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_qid"><code class="docutils literal notranslate"><span class="pre">evaluate_qid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_runs"><code class="docutils literal notranslate"><span class="pre">evaluate_runs()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_quotas_count"><code class="docutils literal notranslate"><span class="pre">get_quotas_count()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_sort_df"><code class="docutils literal notranslate"><span class="pre">get_sort_df()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_output"><code class="docutils literal notranslate"><span class="pre">process_data_output()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data"><code class="docutils literal notranslate"><span class="pre">save_model_data()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.ranker_model.ranker.html"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.loss.html"><code class="docutils literal notranslate"><span class="pre">list_pairwise_loss()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.loss.html#search.utils.loss.ndcg_loss"><code class="docutils literal notranslate"><span class="pre">ndcg_loss()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html"><code class="docutils literal notranslate"><span class="pre">calculate_best_rank()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.data_process"><code class="docutils literal notranslate"><span class="pre">data_process()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.data_process_worker"><code class="docutils literal notranslate"><span class="pre">data_process_worker()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.generate_qd"><code class="docutils literal notranslate"><span class="pre">generate_qd()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_doc_judge"><code class="docutils literal notranslate"><span class="pre">get_doc_judge()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_docs_dict"><code class="docutils literal notranslate"><span class="pre">get_docs_dict()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_query_dict"><code class="docutils literal notranslate"><span class="pre">get_query_dict()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_query_suggestion"><code class="docutils literal notranslate"><span class="pre">get_query_suggestion()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_stand_best_metric"><code class="docutils literal notranslate"><span class="pre">get_stand_best_metric()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html"><code class="docutils literal notranslate"><span class="pre">get_rel_feat()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.load_embedding"><code class="docutils literal notranslate"><span class="pre">load_embedding()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.pkl_load"><code class="docutils literal notranslate"><span class="pre">pkl_load()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.pkl_save"><code class="docutils literal notranslate"><span class="pre">pkl_save()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.read_rel_feat"><code class="docutils literal notranslate"><span class="pre">read_rel_feat()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.remove_duplicate"><code class="docutils literal notranslate"><span class="pre">remove_duplicate()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.restore_doc_ids"><code class="docutils literal notranslate"><span class="pre">restore_doc_ids()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html#search.utils.utils.split_list"><code class="docutils literal notranslate"><span class="pre">split_list()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html"><code class="docutils literal notranslate"><span class="pre">ApiException</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.ApiProxy"><code class="docutils literal notranslate"><span class="pre">ApiProxy</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.LMAgent"><code class="docutils literal notranslate"><span class="pre">LMAgent</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html"><code class="docutils literal notranslate"><span class="pre">div_dataset</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html#search.utils.div_type.div_query"><code class="docutils literal notranslate"><span class="pre">div_query</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html#search.utils.div_type.subtopic"><code class="docutils literal notranslate"><span class="pre">subtopic</span></code></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">search.llm_model.api_llm</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for search.llm_model.api_llm</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">requests.adapters</span> <span class="kn">import</span> <span class="n">HTTPAdapter</span>
+<span class="kn">from</span> <span class="nn">urllib3.util</span> <span class="kn">import</span> <span class="n">Retry</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<div class="viewcode-block" id="ApiException">
+<a class="viewcode-back" href="../../../APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.ApiException">[docs]</a>
+<span class="k">class</span> <span class="nc">ApiException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom exception class for handling API-specific errors.</span>
+<span class="sd">    </span>
+<span class="sd">    :param msg: Error message describing the API failure</span>
+<span class="sd">    :param error_code: HTTP status code from the API response</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">error_code</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_code</span> <span class="o">=</span> <span class="n">error_code</span></div>
+
+
+
+<div class="viewcode-block" id="ApiProxy">
+<a class="viewcode-back" href="../../../APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.ApiProxy">[docs]</a>
+<span class="k">class</span> <span class="nc">ApiProxy</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A proxy class for handling HTTP communications with LLM API endpoints.</span>
+<span class="sd">    This class manages API request sessions, implements retry logic, and handles</span>
+<span class="sd">    various HTTP status codes with exponential backoff for rate limits and server errors.</span>
+<span class="sd">    </span>
+<span class="sd">    :param url: The API endpoint URL</span>
+<span class="sd">    :param api_key: Optional API key for authentication with LLM services</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">retry_strategy</span> <span class="o">=</span> <span class="n">Retry</span><span class="p">(</span>
+            <span class="n">total</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">backoff_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">status_forcelist</span><span class="o">=</span><span class="p">[</span><span class="mi">429</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">],</span>
+            <span class="n">allowed_methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="n">HTTPAdapter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;https://&quot;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="n">adapter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">api_key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_gpt</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;Content-Type&#39;</span> <span class="ow">in</span> <span class="n">headers</span> <span class="k">else</span> <span class="s1">&#39;application/json&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">:</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">params_gpt</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">params_gpt</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">429</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">,</span> <span class="mi">104</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000000000000000</span><span class="p">):</span>
+                <span class="n">interval</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="o">+</span><span class="n">idx</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;meet error 429 or 404, code: </span><span class="si">{}</span><span class="s2">, msg: </span><span class="si">{}</span><span class="s2">,run </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">idx</span>
+                    <span class="p">),</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">params_gpt</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">429</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">,</span> <span class="mi">104</span><span class="p">):</span>
+                    <span class="k">break</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">err_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;access error, status code: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">, errmsg: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="n">ApiException</span><span class="p">(</span><span class="n">err_msg</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<div class="viewcode-block" id="LMAgent">
+<a class="viewcode-back" href="../../../APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.LMAgent">[docs]</a>
+<span class="k">class</span> <span class="nc">LMAgent</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A high-level interface for interacting with large language models.</span>
+<span class="sd">    </span>
+<span class="sd">    :param config: Dictionary containing model configuration parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;model_name&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apikey</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;api_key&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_new_tokens</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;max_new_tokens&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_p</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;top_p&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span> <span class="o">=</span> <span class="n">ApiProxy</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;api_url&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/v1/chat/completions&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">,</span> <span class="n">input_prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_prompt</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">system_message</span><span class="p">,</span> <span class="n">input_message</span> <span class="o">=</span> <span class="n">input_prompt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;## Input Data&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">system_message</span><span class="p">,</span> <span class="n">input_message</span> <span class="o">=</span> <span class="n">input_prompt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;## Input Data&quot;</span><span class="p">)</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_message</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;## Input Data&quot;</span><span class="o">+</span><span class="n">input_message</span><span class="p">}</span>
+        <span class="p">]</span>
+
+        <span class="n">prompt_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">,</span>
+            <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+            <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_new_tokens</span><span class="p">,</span>
+            <span class="s2">&quot;top_p&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_p</span><span class="p">,</span>
+            <span class="s2">&quot;frequency_penalty&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;presence_penalty&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="p">(</span><span class="n">prompt_dict</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">]</span>
+
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\{&quot;rerank_list&quot;: &quot;[^&quot;]+&quot;\}&#39;</span>
+
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="c1"># Convert the string to a dictionary</span>
+            <span class="n">result_dict</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">result_dict</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_prompt</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">result_dict</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">content</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_prompt</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">content</span></div>
+
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

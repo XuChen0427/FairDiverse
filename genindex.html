@@ -96,10 +96,21 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.trainer_preprocessing_ranker.html"><code class="docutils literal notranslate"><span class="pre">RankerTrainer</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.fair_model.html"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.postprocessing_model.base.html"><code class="docutils literal notranslate"><span class="pre">BasePostProcessModel</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessUnsupervisedModel"><code class="docutils literal notranslate"><span class="pre">BasePostProcessUnsupervisedModel</span></code></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html"><code class="docutils literal notranslate"><span class="pre">compute_cumulative_exposer()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_igf_ratio"><code class="docutils literal notranslate"><span class="pre">compute_igf_ratio()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_individual_fairness"><code class="docutils literal notranslate"><span class="pre">compute_individual_fairness()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate"><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_qid"><code class="docutils literal notranslate"><span class="pre">evaluate_qid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_runs"><code class="docutils literal notranslate"><span class="pre">evaluate_runs()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_quotas_count"><code class="docutils literal notranslate"><span class="pre">get_quotas_count()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_sort_df"><code class="docutils literal notranslate"><span class="pre">get_sort_df()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html"><code class="docutils literal notranslate"><span class="pre">compute_dynamic_values_to_code()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.load_model_data"><code class="docutils literal notranslate"><span class="pre">load_model_data()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.process_data_input"><code class="docutils literal notranslate"><span class="pre">process_data_input()</span></code></a></li>
@@ -125,6 +136,9 @@
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.utils.utils.html#search.utils.utils.remove_duplicate"><code class="docutils literal notranslate"><span class="pre">remove_duplicate()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.utils.utils.html#search.utils.utils.restore_doc_ids"><code class="docutils literal notranslate"><span class="pre">restore_doc_ids()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.utils.utils.html#search.utils.utils.split_list"><code class="docutils literal notranslate"><span class="pre">split_list()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.llm_model.api_llm.html"><code class="docutils literal notranslate"><span class="pre">ApiException</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.ApiProxy"><code class="docutils literal notranslate"><span class="pre">ApiProxy</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.LMAgent"><code class="docutils literal notranslate"><span class="pre">LMAgent</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.utils.div_type.html"><code class="docutils literal notranslate"><span class="pre">div_dataset</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_query"><code class="docutils literal notranslate"><span class="pre">div_query</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIs/search/search.utils.div_type.html#search.utils.div_type.subtopic"><code class="docutils literal notranslate"><span class="pre">subtopic</span></code></a></li>
@@ -173,6 +187,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#X"><strong>X</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -188,17 +203,23 @@
 </li>
       <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Sampler">Abstract_Sampler (class in recommendation.rank_model.Abstract_Ranker)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.AbstractDataset">AbstractDataset (class in recommendation.sampler)</a>
 </li>
       <li><a href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_query.add_docs">add_docs() (search.utils.div_type.div_query method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_query.add_docs_rel_score">add_docs_rel_score() (search.utils.div_type.div_query method)</a>
 </li>
       <li><a href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_query.add_query_suggestion">add_query_suggestion() (search.utils.div_type.div_query method)</a>
 </li>
+      <li><a href="APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.ApiException">ApiException</a>
+</li>
+      <li><a href="APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.ApiProxy">ApiProxy (class in search.llm_model.api_llm)</a>
+</li>
       <li><a href="APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.assign_judgement">assign_judgement() (search.ranker_model.ranklib_ranker.RankLib method)</a>
+</li>
+      <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#search.postprocessing_model.DALETOR.MHSA.attention">attention() (search.postprocessing_model.DALETOR.MHSA method)</a>
 </li>
       <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.AUC_score">AUC_score() (in module recommendation.metric)</a>
 </li>
@@ -208,12 +229,16 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Build_Adjecent_Matrix">Build_Adjecent_Matrix() (in module recommendation.utils.group_utils)</a>
+      <li><a href="APIs/search/search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessModel">BasePostProcessModel (class in search.postprocessing_model.base)</a>
 </li>
-      <li><a href="APIs/search/search.utils.process_daletor.html#search.utils.process_daletor.build_each_train_dataset">build_each_train_dataset() (in module search.utils.process_daletor)</a>
+      <li><a href="APIs/search/search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessUnsupervisedModel">BasePostProcessUnsupervisedModel (class in search.postprocessing_model.base)</a>
+</li>
+      <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.Build_Adjecent_Matrix">Build_Adjecent_Matrix() (in module recommendation.utils.group_utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/search/search.utils.process_daletor.html#search.utils.process_daletor.build_each_train_dataset">build_each_train_dataset() (in module search.utils.process_daletor)</a>
+</li>
       <li><a href="APIs/search/search.utils.process_daletor.html#search.utils.process_daletor.build_test_dataset">build_test_dataset() (in module search.utils.process_daletor)</a>
 </li>
       <li><a href="APIs/search/search.utils.process_daletor.html#search.utils.process_daletor.build_train_dataset">build_train_dataset() (in module search.utils.process_daletor)</a>
@@ -232,13 +257,23 @@
 </li>
       <li><a href="APIs/search/search.utils.process_bm25.html#search.utils.process_bm25.calculate_bm25">calculate_bm25() (in module search.utils.process_bm25)</a>
 </li>
+      <li><a href="APIs/search/search.postprocessing_model.PM2.html#search.postprocessing_model.PM2.PM2.calculate_pm2_score">calculate_pm2_score() (search.postprocessing_model.PM2.PM2 method)</a>
+</li>
+      <li><a href="APIs/search/search.postprocessing_model.xQuAD.html#search.postprocessing_model.xQuAD.xQuAD.calculate_xquad_score">calculate_xquad_score() (search.postprocessing_model.xQuAD.xQuAD method)</a>
+</li>
       <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.check_model_stage">check_model_stage() (recommendation.trainer.RecTrainer method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.preprocessing_model.CIFRank.html#search.preprocessing_model.CIFRank.CIFRank">CIFRank (class in search.preprocessing_model.CIFRank)</a>
 </li>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_cumulative_exposer">compute_cumulative_exposer() (in module search.fairness_evaluator)</a>
+</li>
       <li><a href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.compute_dynamic_values_to_code">compute_dynamic_values_to_code() (in module search.preprocessing_model.utils)</a>
+</li>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_igf_ratio">compute_igf_ratio() (in module search.fairness_evaluator)</a>
+</li>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.compute_individual_fairness">compute_individual_fairness() (in module search.fairness_evaluator)</a>
 </li>
       <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.convert_keys_values_to_int">convert_keys_values_to_int() (in module recommendation.utils.group_utils)</a>
 </li>
@@ -252,13 +287,23 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#search.postprocessing_model.DALETOR.DALETOR">DALETOR (class in search.postprocessing_model.DALETOR)</a>
+</li>
+      <li><a href="APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.DALETOR_run">DALETOR_run() (in module search.datasets.DALETOR)</a>
+</li>
       <li><a href="APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.data_process">data_process() (in module search.utils.process_dataset)</a>
 </li>
       <li><a href="APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.data_process_worker">data_process_worker() (in module search.utils.process_dataset)</a>
 </li>
+      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg">dcg() (in module recommendation.metric)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.dcg">dcg() (in module recommendation.metric)</a>
+      <li><a href="APIs/search/search.postprocessing_model.DESA.html#search.postprocessing_model.DESA.DESA">DESA (class in search.postprocessing_model.DESA)</a>
+</li>
+      <li><a href="APIs/search/search.datasets.DESA.html#search.datasets.DESA.DESA_run">DESA_run() (in module search.datasets.DESA)</a>
+</li>
+      <li><a href="APIs/search/search.datasets.DESA.html#search.datasets.DESA.DESADataset">DESADataset (class in search.datasets.DESA)</a>
 </li>
       <li><a href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_dataset">div_dataset (class in search.utils.div_type)</a>
 </li>
@@ -282,9 +327,17 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate">evaluate() (search.ranker_model.ranker.Ranker method)</a>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate">evaluate() (in module search.fairness_evaluator)</a>
+
+      <ul>
+        <li><a href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate">(search.ranker_model.ranker.Ranker method)</a>
+</li>
+      </ul></li>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_qid">evaluate_qid() (in module search.fairness_evaluator)</a>
 </li>
       <li><a href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.evaluate_run">evaluate_run() (search.ranker_model.ranker.Ranker method)</a>
+</li>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.evaluate_runs">evaluate_runs() (in module search.fairness_evaluator)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -294,9 +347,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer.fairness_loss">fairness_loss() (recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer method)</a>
 </li>
-      <li><a href="APIs/search/search.preprocessing_model.CIFRank.html#search.preprocessing_model.CIFRank.CIFRank.fit">fit() (search.preprocessing_model.CIFRank.CIFRank method)</a>
+      <li><a href="APIs/search/search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessModel.fit">fit() (search.postprocessing_model.base.BasePostProcessModel method)</a>
 
       <ul>
+        <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#search.postprocessing_model.DALETOR.DALETOR.fit">(search.postprocessing_model.DALETOR.DALETOR method)</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.DESA.html#search.postprocessing_model.DESA.DESA.fit">(search.postprocessing_model.DESA.DESA method)</a>
+</li>
+        <li><a href="APIs/search/search.preprocessing_model.CIFRank.html#search.preprocessing_model.CIFRank.CIFRank.fit">(search.preprocessing_model.CIFRank.CIFRank method)</a>
+</li>
         <li><a href="APIs/search/search.preprocessing_model.fair_model.html#search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit">(search.preprocessing_model.fair_model.PreprocessingFairnessIntervention method)</a>
 </li>
         <li><a href="APIs/search/search.preprocessing_model.gFair.html#search.preprocessing_model.gFair.gFair.fit">(search.preprocessing_model.gFair.gFair method)</a>
@@ -310,6 +369,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.preprocessing_model.fair_model.html#search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit_transform">fit_transform() (search.preprocessing_model.fair_model.PreprocessingFairnessIntervention method)</a>
 </li>
+      <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#search.postprocessing_model.DALETOR.MHSA.forward">forward() (search.postprocessing_model.DALETOR.MHSA method)</a>
+
+      <ul>
+        <li><a href="APIs/search/search.postprocessing_model.DESA.html#search.postprocessing_model.DESA.MLP.forward">(search.postprocessing_model.DESA.MLP method)</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.DESA.html#search.postprocessing_model.DESA.SelfAttnEnc.forward">(search.postprocessing_model.DESA.SelfAttnEnc method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -340,12 +407,14 @@
 </li>
       <li><a href="APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_doc_judge">get_doc_judge() (in module search.utils.process_dataset)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_docs_dict">get_docs_dict() (in module search.utils.process_dataset)</a>
+</li>
+      <li><a href="APIs/search/search.datasets.DESA.html#search.datasets.DESA.get_fold_loader">get_fold_loader() (in module search.datasets.DESA)</a>
 </li>
       <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#recommendation.utils.group_utils.get_iid2text">get_iid2text() (in module recommendation.utils.group_utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_dataset.get_listpair_train_data">get_listpair_train_data() (search.utils.div_type.div_dataset method)</a>
 </li>
       <li><a href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_dataset.get_listpairs">get_listpairs() (search.utils.div_type.div_dataset method)</a>
@@ -358,11 +427,19 @@
 </li>
       <li><a href="APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_query_suggestion">get_query_suggestion() (in module search.utils.process_dataset)</a>
 </li>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_quotas_count">get_quotas_count() (in module search.fairness_evaluator)</a>
+</li>
       <li><a href="APIs/search/search.utils.utils.html#search.utils.utils.get_rel_feat">get_rel_feat() (in module search.utils.utils)</a>
+</li>
+      <li><a href="APIs/search/search.fairness_evaluator.html#search.fairness_evaluator.get_sort_df">get_sort_df() (in module search.fairness_evaluator)</a>
 </li>
       <li><a href="APIs/search/search.utils.process_dataset.html#search.utils.process_dataset.get_stand_best_metric">get_stand_best_metric() (in module search.utils.process_dataset)</a>
 </li>
       <li><a href="APIs/search/search.utils.div_type.html#search.utils.div_type.div_query.get_test_alpha_nDCG">get_test_alpha_nDCG() (search.utils.div_type.div_query method)</a>
+</li>
+      <li><a href="APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.get_test_dataset">get_test_dataset() (in module search.datasets.DALETOR)</a>
+</li>
+      <li><a href="APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.get_train_loader">get_train_loader() (in module search.datasets.DALETOR)</a>
 </li>
       <li><a href="APIs/search/search.preprocessing_model.gFair.html#search.preprocessing_model.gFair.gFair">gFair (class in search.preprocessing_model.gFair)</a>
 </li>
@@ -404,6 +481,8 @@
 </li>
       <li><a href="APIs/recommendation/recommendation.llm_rec.html#recommendation.llm_rec.LLMRecommender">LLMRecommender (class in recommendation.llm_rec)</a>
 </li>
+      <li><a href="APIs/search/search.llm_model.api_llm.html#search.llm_model.api_llm.LMAgent">LMAgent (class in search.llm_model.api_llm)</a>
+</li>
       <li><a href="APIs/recommendation/recommendation.llm_rec.html#recommendation.llm_rec.LLMRecommender.load_configs">load_configs() (recommendation.llm_rec.LLMRecommender method)</a>
 
       <ul>
@@ -412,6 +491,8 @@
         <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.load_configs">(recommendation.trainer.RecTrainer method)</a>
 </li>
         <li><a href="APIs/search/search.trainer.html#search.trainer.SRDTrainer.load_configs">(search.trainer.SRDTrainer method)</a>
+</li>
+        <li><a href="APIs/search/search.trainer_preprocessing_ranker.html#search.trainer_preprocessing_ranker.RankerTrainer.load_configs">(search.trainer_preprocessing_ranker.RankerTrainer method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -430,7 +511,17 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.mask_utility">mask_utility() (in module recommendation.metric)</a>
 </li>
+      <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#search.postprocessing_model.DALETOR.MAXDOC">MAXDOC (in module search.postprocessing_model.DALETOR)</a>
+
+      <ul>
+        <li><a href="APIs/search/search.postprocessing_model.DESA.html#search.postprocessing_model.DESA.MAXDOC">(in module search.postprocessing_model.DESA)</a>
+</li>
+      </ul></li>
+      <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#search.postprocessing_model.DALETOR.MHSA">MHSA (class in search.postprocessing_model.DALETOR)</a>
+</li>
       <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MinMaxRatio">MinMaxRatio() (in module recommendation.metric)</a>
+</li>
+      <li><a href="APIs/search/search.postprocessing_model.DESA.html#search.postprocessing_model.DESA.MLP">MLP (class in search.postprocessing_model.DESA)</a>
 </li>
       <li><a href="APIs/recommendation/recommendation.metric.html#recommendation.metric.MMF">MMF() (in module recommendation.metric)</a>
 </li>
@@ -456,6 +547,24 @@
 </li>
         <li><a href="APIs/recommendation/recommendation.utils.group_utils.html#module-recommendation.utils.group_utils">recommendation.utils.group_utils</a>
 </li>
+        <li><a href="APIs/search/search.datasets.DALETOR.html#module-search.datasets.DALETOR">search.datasets.DALETOR</a>
+</li>
+        <li><a href="APIs/search/search.datasets.DESA.html#module-search.datasets.DESA">search.datasets.DESA</a>
+</li>
+        <li><a href="APIs/search/search.fairness_evaluator.html#module-search.fairness_evaluator">search.fairness_evaluator</a>
+</li>
+        <li><a href="APIs/search/search.llm_model.api_llm.html#module-search.llm_model.api_llm">search.llm_model.api_llm</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.base.html#module-search.postprocessing_model.base">search.postprocessing_model.base</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#module-search.postprocessing_model.DALETOR">search.postprocessing_model.DALETOR</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.DESA.html#module-search.postprocessing_model.DESA">search.postprocessing_model.DESA</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.PM2.html#module-search.postprocessing_model.PM2">search.postprocessing_model.PM2</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.xQuAD.html#module-search.postprocessing_model.xQuAD">search.postprocessing_model.xQuAD</a>
+</li>
         <li><a href="APIs/search/search.preprocessing_model.CIFRank.html#module-search.preprocessing_model.CIFRank">search.preprocessing_model.CIFRank</a>
 </li>
         <li><a href="APIs/search/search.preprocessing_model.fair_model.html#module-search.preprocessing_model.fair_model">search.preprocessing_model.fair_model</a>
@@ -473,6 +582,8 @@
         <li><a href="APIs/search/search.ranker_model.ranklib_ranker.html#module-search.ranker_model.ranklib_ranker">search.ranker_model.ranklib_ranker</a>
 </li>
         <li><a href="APIs/search/search.trainer.html#module-search.trainer">search.trainer</a>
+</li>
+        <li><a href="APIs/search/search.trainer_preprocessing_ranker.html#module-search.trainer_preprocessing_ranker">search.trainer_preprocessing_ranker</a>
 </li>
         <li><a href="APIs/search/search.utils.div_type.html#module-search.utils.div_type">search.utils.div_type</a>
 </li>
@@ -515,16 +626,18 @@
 </li>
       <li><a href="APIs/search/search.utils.utils.html#search.utils.utils.pkl_save">pkl_save() (in module search.utils.utils)</a>
 </li>
+      <li><a href="APIs/search/search.postprocessing_model.PM2.html#search.postprocessing_model.PM2.PM2">PM2 (class in search.postprocessing_model.PM2)</a>
+</li>
       <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.PointWiseDataset">PointWiseDataset (class in recommendation.sampler)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker.predict">predict() (search.ranker_model.ranker.Ranker method)</a>
 
       <ul>
         <li><a href="APIs/search/search.ranker_model.ranklib_ranker.html#search.ranker_model.ranklib_ranker.RankLib.predict">(search.ranker_model.ranklib_ranker.RankLib method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.preprocessing_model.fair_model.html#search.preprocessing_model.fair_model.PreprocessingFairnessIntervention">PreprocessingFairnessIntervention (class in search.preprocessing_model.fair_model)</a>
 </li>
       <li><a href="APIs/search/search.utils.process_daletor.html#search.utils.process_daletor.Process">Process() (in module search.utils.process_daletor)</a>
@@ -540,6 +653,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="APIs/search/search.ranker_model.ranker.html#search.ranker_model.ranker.Ranker">Ranker (class in search.ranker_model.ranker)</a>
+</li>
+      <li><a href="APIs/search/search.trainer_preprocessing_ranker.html#search.trainer_preprocessing_ranker.RankerTrainer">RankerTrainer (class in search.trainer_preprocessing_ranker)</a>
 </li>
       <li><a href="APIs/recommendation/recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator">Ranking_Evaluator (class in recommendation.evaluator)</a>
 </li>
@@ -588,8 +703,6 @@
         <li><a href="APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html#module-recommendation.rerank_model.Abstract_Reranker">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     recommendation.reranker
 
@@ -597,6 +710,8 @@
         <li><a href="APIs/recommendation/recommendation.reranker.html#module-recommendation.reranker">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     recommendation.sampler
 
@@ -631,6 +746,12 @@
       <ul>
         <li><a href="APIs/recommendation/recommendation.reranker.html#recommendation.reranker.RecReRanker.rerank">(recommendation.reranker.RecReRanker method)</a>
 </li>
+        <li><a href="APIs/search/search.postprocessing_model.base.html#search.postprocessing_model.base.BasePostProcessUnsupervisedModel.rerank">(search.postprocessing_model.base.BasePostProcessUnsupervisedModel method)</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.PM2.html#search.postprocessing_model.PM2.PM2.rerank">(search.postprocessing_model.PM2.PM2 method)</a>
+</li>
+        <li><a href="APIs/search/search.postprocessing_model.xQuAD.html#search.postprocessing_model.xQuAD.xQuAD.rerank">(search.postprocessing_model.xQuAD.xQuAD method)</a>
+</li>
       </ul></li>
       <li><a href="APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html#recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reset_parameters">reset_parameters() (recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher method)</a>
 
@@ -652,6 +773,69 @@
 </li>
       <li><a href="APIs/search/search.preprocessing_model.utils.html#search.preprocessing_model.utils.save_model_data">save_model_data() (in module search.preprocessing_model.utils)</a>
 </li>
+      <li>
+    search.datasets.DALETOR
+
+      <ul>
+        <li><a href="APIs/search/search.datasets.DALETOR.html#module-search.datasets.DALETOR">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.datasets.DESA
+
+      <ul>
+        <li><a href="APIs/search/search.datasets.DESA.html#module-search.datasets.DESA">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.fairness_evaluator
+
+      <ul>
+        <li><a href="APIs/search/search.fairness_evaluator.html#module-search.fairness_evaluator">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.llm_model.api_llm
+
+      <ul>
+        <li><a href="APIs/search/search.llm_model.api_llm.html#module-search.llm_model.api_llm">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.postprocessing_model.base
+
+      <ul>
+        <li><a href="APIs/search/search.postprocessing_model.base.html#module-search.postprocessing_model.base">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.postprocessing_model.DALETOR
+
+      <ul>
+        <li><a href="APIs/search/search.postprocessing_model.DALETOR.html#module-search.postprocessing_model.DALETOR">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.postprocessing_model.DESA
+
+      <ul>
+        <li><a href="APIs/search/search.postprocessing_model.DESA.html#module-search.postprocessing_model.DESA">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.postprocessing_model.PM2
+
+      <ul>
+        <li><a href="APIs/search/search.postprocessing_model.PM2.html#module-search.postprocessing_model.PM2">module</a>
+</li>
+      </ul></li>
+      <li>
+    search.postprocessing_model.xQuAD
+
+      <ul>
+        <li><a href="APIs/search/search.postprocessing_model.xQuAD.html#module-search.postprocessing_model.xQuAD">module</a>
+</li>
+      </ul></li>
       <li>
     search.preprocessing_model.CIFRank
 
@@ -687,6 +871,8 @@
         <li><a href="APIs/search/search.preprocessing_model.LFR.html#module-search.preprocessing_model.LFR">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     search.preprocessing_model.utils
 
@@ -715,8 +901,13 @@
         <li><a href="APIs/search/search.trainer.html#module-search.trainer">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    search.trainer_preprocessing_ranker
+
+      <ul>
+        <li><a href="APIs/search/search.trainer_preprocessing_ranker.html#module-search.trainer_preprocessing_ranker">module</a>
+</li>
+      </ul></li>
       <li>
     search.utils.div_type
 
@@ -759,6 +950,8 @@
         <li><a href="APIs/search/search.utils.utils.html#module-search.utils.utils">module</a>
 </li>
       </ul></li>
+      <li><a href="APIs/search/search.postprocessing_model.DESA.html#search.postprocessing_model.DESA.SelfAttnEnc">SelfAttnEnc (class in search.postprocessing_model.DESA)</a>
+</li>
       <li><a href="APIs/recommendation/recommendation.sampler.html#recommendation.sampler.SequentialDataset">SequentialDataset (class in recommendation.sampler)</a>
 </li>
       <li><a href="APIs/recommendation/recommendation.trainer.html#recommendation.trainer.RecTrainer.Set_Dataset">Set_Dataset() (recommendation.trainer.RecTrainer method)</a>
@@ -786,9 +979,13 @@
 </li>
         <li><a href="APIs/search/search.trainer.html#search.trainer.SRDTrainer.train">(search.trainer.SRDTrainer method)</a>
 </li>
+        <li><a href="APIs/search/search.trainer_preprocessing_ranker.html#search.trainer_preprocessing_ranker.RankerTrainer.train">(search.trainer_preprocessing_ranker.RankerTrainer method)</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/search/search.datasets.DALETOR.html#search.datasets.DALETOR.TrainDataset">TrainDataset (class in search.datasets.DALETOR)</a>
+</li>
       <li><a href="APIs/search/search.preprocessing_model.CIFRank.html#search.preprocessing_model.CIFRank.CIFRank.transform">transform() (search.preprocessing_model.CIFRank.CIFRank method)</a>
 
       <ul>
@@ -801,6 +998,14 @@
         <li><a href="APIs/search/search.preprocessing_model.LFR.html#search.preprocessing_model.LFR.LFR.transform">(search.preprocessing_model.LFR.LFR method)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="APIs/search/search.postprocessing_model.xQuAD.html#search.postprocessing_model.xQuAD.xQuAD">xQuAD (class in search.postprocessing_model.xQuAD)</a>
+</li>
   </ul></td>
 </tr></table>
 
