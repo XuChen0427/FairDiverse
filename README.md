@@ -219,7 +219,10 @@ You just needs few steps and some lines of codes to develop and evaluate your ow
 Then you can run the shell command to evaluate your own models.
 
 #### Examples.
-Here, we provide an example code demonstrating how to design a custom in-processing model. The implementation for other base models and post-processing models follows a similar approach.
+
+1. Recommendation
+
+Here, we provide an example code demonstrating how to design a custom in-processing model.
 ```
 #/recommendation/rank_model/YourModel.py
 class YourModel(Abstract_Regularizer):
@@ -245,6 +248,42 @@ config = {'model': 'BPR', 'data_type': 'pair', 'fair-rank': True, 'rank_model': 
 trainer = RecTrainer(train_config=config)
 trainer.train()
 ```
+
+
+Here, we provide an example code demonstrating how to design a custom post-processing model.
+```
+#/recommendation/rerank_model/YourModel.py
+class YourModel(Abstract_Reranker):
+    def __init__(self, config, weights = None):
+        super().__init__(config, weights)
+       
+    def rerank(self, ranking_score, k):
+        rerank_list = []
+    
+        for u in trange(user_size):
+            result_item = np.argsort(ranking_score[u,:])[::-1]
+            result_item = result_item[:k]
+            rerank_list.append(result_item)
+
+        return rerank_list
+
+#/recommendation/rerank_model/__init__.py
+from .YourModel import YourModel
+
+#/recommendation/reranker.py
+elif config['model'] == 'YourModel':
+    Reranker = YourModel(config)
+
+#test.py
+from recommendation.reranker import RecReRanker
+
+config = {'ranking_store_path': 'steam-base-mf', 'model': 'YourModel', 'fair-rank': True, 'log_name': 'test', 'fairness_metrics': ["GINI"], 'dataset': 'steam'}
+
+reranker = RecReRanker(train_config=config)
+reranker.rerank()
+```
+
+2. Search
 
 Here, we provide an example code demonstrating how to design a custom pre-processing model. 
 ```

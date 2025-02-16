@@ -93,6 +93,8 @@ For the develop your own recommendation model, you can use following steps:
 
    APIs/search/search.trainer_preprocessing_ranker
    APIs/search/search.preprocessing_model.fair_model
+   APIs/search/search.postprocessing_model.base
+   APIs/search/search.trainer.base
 
 
 .. toctree::
@@ -103,6 +105,11 @@ For the develop your own recommendation model, you can use following steps:
    APIs/search/search.preprocessing_model.utils
    APIs/search/search.ranker_model.ranker
    APIs/search/search.ranklib_ranker
+   APIs/search/search.utils.loss
+   APIs/search/search.utils.process_dataset
+   APIs/search/search.utils.utils
+   APIs/search/search.llm_model.api_llm
+   APIs/search/search.utils.div_type
 
 
 
