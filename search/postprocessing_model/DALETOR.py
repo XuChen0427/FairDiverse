@@ -4,10 +4,11 @@ import math
 import torch.nn.init as init
 from torch import nn
 from torch.nn import functional as F
-from torch.autograd import Function
-from torch.autograd import Variable
 from torch.nn import LayerNorm
 import numpy as np
+
+from .base import BasePostProcessModel
+
 MAXDOC=50
 
 '''
@@ -65,10 +66,10 @@ class MHSA(nn.Module):
         return res
 
 
-
-class DALETOR(nn.Module):
+class DALETOR(BasePostProcessModel):
     def __init__(self, dropout = 0.1):
-        super(DALETOR, self).__init__()
+        super().__init__(dropout)
+
         self.activation = "relu"
         self.batch_norm = True
         self.normalization = False
@@ -101,7 +102,7 @@ class DALETOR(nn.Module):
         init.xavier_normal_(self.nfc3.weight)
 
 
-    def forward(self, x, rel_feat, train_flag = False):
+    def fit(self, x, rel_feat, train_flag = False):
         bs = x.shape[0]
         seq_len = x.shape[1]
         df = x.shape[2]

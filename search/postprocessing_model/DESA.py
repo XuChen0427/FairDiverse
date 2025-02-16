@@ -3,6 +3,8 @@ import torch
 import torch.nn.init as init
 from torch import nn
 
+from .base import BasePostProcessModel
+
 MAXDOC = 50
 
 '''
@@ -28,9 +30,10 @@ class SelfAttnEnc(nn.Module):
         return enc_out # enc_out [bs , seq_len , d_model]
 
 
-class DESA(nn.Module):
+class DESA(BasePostProcessModel):
     def __init__(self, doc_d_model, doc_nhead, doc_nlayers, sub_d_model, sub_nhead, sub_nlayers, nhead, dropout):
-        super(DESA, self).__init__()
+        super().__init__(dropout)
+        
         Linear_out = 128
         self.linear1 = nn.Linear(doc_d_model, Linear_out)
         self.linear2 = nn.Linear(sub_d_model, Linear_out)
@@ -40,7 +43,7 @@ class DESA(nn.Module):
         self.sub_attn = SelfAttnEnc(Linear_out, sub_nhead, sub_nlayers, dropout) # [bs , seq_len , d_model]
         self.dec_attn = nn.MultiheadAttention(Linear_out, nhead, dropout=dropout, batch_first=True)
 
-    def forward(self, doc_emb, sub_emb, doc_mask, sub_mask, pos_qrel_feat, pos_subrel_feat, index_i=None, index_j=None,
+    def fit(self, doc_emb, sub_emb, doc_mask, sub_mask, pos_qrel_feat, pos_subrel_feat, index_i=None, index_j=None,
                 neg_qrel_feat=None, neg_subrel_feat=None, subrel_mask=None, mode='Train'):
         doc_mask, sub_mask = doc_mask.bool(), sub_mask.bool()
         doc_rep = self.doc_attn(self.linear1(doc_emb), doc_mask)  # [bs, sq(50), d_model]

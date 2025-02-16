@@ -12,6 +12,15 @@ MAXDOC = 50
 
 
 def generate_bm25_scores_for_query(config):
+    """
+    Generates BM25 relevance scores for queries and their suggested variations against documents.
+    This function processes each query and its suggested alternatives, calculating BM25 scores 
+    against a collection of documents. The scores are computed for both the original query and 
+    its suggestions, then saved to a pickle file.
+
+    :param config: A dictionary containing configuration parameters including data directories
+                  and model settings.
+    """
     qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
     
     data_content_dir = config['data_content_dir']
@@ -43,6 +52,18 @@ def generate_bm25_scores_for_query(config):
 
 
 def calculate_bm25(query, documents, k1=1.5, b=0.75):
+    """
+    Calculates BM25 relevance scores between a query and a list of documents.
+    This function implements the BM25 ranking algorithm, which combines term frequency,
+    inverse document frequency, and document length normalization to score document
+    relevance to a query.
+
+    :param query: A string containing the search query
+    :param documents: A list of strings, where each string is a document's text
+    :param k1: Float parameter controlling term frequency scaling (default: 1.5)
+    :param b: Float parameter controlling document length normalization (default: 0.75)
+    :return: A list of float values representing BM25 scores for each document
+    """
     N = len(documents)
     avgdl = sum(len(doc.split()) for doc in documents) / N
 

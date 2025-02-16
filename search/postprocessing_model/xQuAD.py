@@ -4,6 +4,7 @@ import pickle
 
 from ..utils.utils import pkl_load
 from ..evaluator import get_metrics_20
+from .base import BasePostProcessUnsupervisedModel
 
 '''
 @inproceedings{santos2010exploiting,
@@ -15,11 +16,11 @@ from ..evaluator import get_metrics_20
 }
 '''
 
-class xQuAD:
+class xQuAD(BasePostProcessUnsupervisedModel):
     def __init__(self, top_k=20):
-        self.top_k = top_k
+        super().__init__(top_k)
     
-    def run(self, config):
+    def rerank(self, config):
         qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
         bm25_dict = pkl_load(os.path.join(config['data_dir'], config['model'], 'bm25_scores.pkl'))
 

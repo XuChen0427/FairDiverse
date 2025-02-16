@@ -1,12 +1,13 @@
 import os
 import re
+import json
 import numpy as np
 import pandas as pd
 import torch as th
 import pickle
 import torch
-from .rerank_model.DESA import DESA
-from .rerank_model.DALETOR import DALETOR
+from .postprocessing_model.DESA import DESA
+from .postprocessing_model.DALETOR import DALETOR
 
 MAXDOC = 50
 REL_LEN = 18
@@ -47,7 +48,7 @@ def evaluate_test_qids_DESA(model, test_tuple, div_q, mode='metric'):
                 doc_mask.cuda(), sub_mask.cuda(), doc_emb.cuda(), sub_emb.cuda(), pos_qrel_feat.cuda(), \
                 subrel_feat_mask.cuda(), pos_subrel_feat.cuda()
         #print(doc_emb.shape, sub_emb.shape, doc_mask.shape, sub_mask.shape, pos_qrel_feat.shape, pos_subrel_feat.shape)
-        score = model(doc_emb, sub_emb, doc_mask, sub_mask, pos_qrel_feat, pos_subrel_feat, mode='Test')
+        score = model.fit(doc_emb, sub_emb, doc_mask, sub_mask, pos_qrel_feat, pos_subrel_feat, mode='Test')
         result = list(np.argsort(score[:len(test_tuple['doclist'])].cpu().detach().numpy()))
         if len(result) > 0:
             new_docs_rank = []
@@ -82,7 +83,7 @@ def evaluate_test_qids_DALETOR(model, test_tuple, div_q, mode='metric'):
             X = X.cuda()
             rel_feat = rel_feat.cuda()
         
-        outputs = model(X, rel_feat, False)
+        outputs = model.fit(X, rel_feat, False)
         out = outputs.cpu().detach().numpy().reshape(MAXDOC)
         # print('out.shape = ',out.shape)
         # print('out = ', out)
@@ -129,6 +130,7 @@ def get_global_fullset_metric(config):
             model = DESA(config['embedding_length'], 8, 2,config['embedding_length'], 8, 2, 8, config['dropout'])
             eval_func = evaluate_test_qids_DESA
         elif config['model'] == 'DALETOR':
+            from .datasets.DALETOR import get_test_dataset
             test_qids=test_qids_list[fold_times-1]
             test_dataset_dict = get_test_dataset(i+1, test_qids)
             model = DALETOR(0.0)

@@ -6,13 +6,14 @@ import pickle
 import argparse
 import numpy as np
 import sys
+import json
 
 from torch.nn.utils import clip_grad_norm_
 from tqdm import tqdm
 from sklearn.model_selection import KFold
 from torch.utils.data import Dataset, DataLoader
 
-from ..rerank_model.DALETOR import DALETOR
+from ..postprocessing_model.DALETOR import DALETOR
 from ..utils.loss import ndcg_loss
 from ..evaluator import evaluate_test_qids_DALETOR
 
@@ -122,7 +123,7 @@ def DALETOR_run(config):
                     rel_feat = rel_feat.cuda()
                     div_feat = div_feat.cuda()
                     
-                score = model(X, rel_feat, True)
+                score = model.fit(X, rel_feat, True)
                 loss = ndcg_loss(score, div_feat)
 
                 opt.zero_grad()

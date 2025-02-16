@@ -5,6 +5,7 @@ import numpy as np
 
 from ..utils.utils import pkl_load
 from ..evaluator import get_metrics_20
+from .base import BasePostProcessUnsupervisedModel
 
 '''
 @inproceedings{dang2012diversity,
@@ -16,11 +17,11 @@ from ..evaluator import get_metrics_20
 }
 '''
 
-class PM2:
+class PM2(BasePostProcessUnsupervisedModel):
     def __init__(self, top_k=20):
-        self.top_k = top_k
+        super().__init__(top_k)
     
-    def run(self, config):
+    def rerank(self, config):
         qd = pickle.load(open(os.path.join(config['data_dir'], 'div_query.data'), 'rb'))
         bm25_dict = pkl_load(os.path.join(config['data_dir'], config['model'], 'bm25_scores.pkl'))
 

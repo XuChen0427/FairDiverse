@@ -8,7 +8,7 @@ import json_repair
 
 from tqdm import tqdm
 
-from .api_llm import OpenAILMAgent
+from ..llm_model.api_llm import OpenAILMAgent
 from ..utils.utils import restore_doc_ids, remove_duplicate
 from ..evaluator import get_metrics_20
 
