@@ -195,6 +195,16 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Probabilisitc Mapping | [iFair](https://ieeexplore.ieee.org/abstract/document/8731591) | optimizes for individual fairness by making sure that the distance between similar individuals is maintained in the new space                         |
 | Probabilisitc Mapping | [gFair]()            | optimizes for group fairness by making sure that the distance between similar individuals from a group are close, in the new space, to similar individuals from the other group. Moreover, it constraints the optimization to maintain the relative distance between individuals belonging to the same group.                                                                                      |
 
+#### Post-processing models
+
+| Types                 | Models                                               | Descriptions                                                                                                                                          |
+|-----------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Unsupervised                | [PM2](https://dl.acm.org/doi/10.1145/2348283.2348296) | optimizes proportionality by iteratively determining the topic that best maintained the overall proportionality.|
+| Unsupervised | [xQuAD](https://dl.acm.org/doi/10.1145/1772690.1772780)        | utilizes sub-queries representing pseudo user intents and diversifies document rankings by directly estimating the relevance of the retrieved documents to each sub-queries.|
+| Supervised | [DESA](https://dl.acm.org/doi/10.1145/3340531.3411914) | employs the attention mechanism to model the novelty of documents and the explicit subtopics. |
+| Supervised | [DALETOR](https://dl.acm.org/doi/10.1145/3442381.3449831)            | proposes diversification-aware losses to approach the optimal ranking. |
+| LLMs-based | [LLMs-based Ranker] |a diversity ranking model based on large language models.|
+
 ## Develop your own fairness- and diversity- aware models based on our toolkit
 
 You just needs few steps and some lines of codes to develop and evaluate your own models based on our toolkit!
