@@ -135,6 +135,14 @@ For the post-processing methods, you can begin with:
 ```
 python main.py --task search --stage post-processing --dataset clueweb09 --train_config_file Post-processing.yaml
 ```
+You can set "postprocessing_model" to one of the supported methods [DESA, DALETOR, LLM, xQuAD, PM2].
+```
+config={'model':'xQuAD', 'dataset':'clueweb09', 'log_name': 'test', 'model_save_dir': "model/", 'tmp_dir': "tmp/", 'mode': "train",}
+ 
+trainer = SRDTrainer(train_config=config)
+trainer.train()
+```
+
 
 ## Datasets
 For the recommendation dataset, we utilize the dataset format in [Recbole Datasets](https://recbole.io/dataset_list.html).
