@@ -1,8 +1,8 @@
 {
    ####search result diversification model settings
-   model: "pm2",
+   model: "xQuAD",
 
-   log_name: "ClueWeb09-PM2",
+   log_name: "ClueWeb09-xQuAD",
    model_save_dir: "model/",
    tmp_dir: "tmp/",
 
