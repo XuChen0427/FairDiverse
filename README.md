@@ -137,6 +137,8 @@ python main.py --task search --stage post-processing --dataset clueweb09 --train
 ```
 You can set "postprocessing_model" to one of the supported methods [DESA, DALETOR, LLM, xQuAD, PM2].
 ```
+from search.trainer import SRDTrainer
+   
 config={'model':'xQuAD', 'dataset':'clueweb09', 'log_name': 'test', 'model_save_dir': "model/", 'tmp_dir': "tmp/", 'mode': "train",}
  
 trainer = SRDTrainer(train_config=config)
