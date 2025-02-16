@@ -21,22 +21,22 @@ We welcome the contributors to join our toolkit implementation! Any information,
 python>=3.7.0
 numpy>=1.20.3
 torch>=1.11.0
+PyYAML>=6.0
+pandas>=1.2.0
+scipy>=1.15.1
+cvxpy>=1.6.0
+tqdm>=4.65.0
+scikit_learn>=1.3.0
 ```
 
 #### For LLMs-based ranking models
 Require Linux system
 ```
 backoff==2.2.1
-cvxpy==1.6.0
 json_repair==0.35.0
 networkx==3.1
 openai==1.61.1
-pandas==1.2.0
-PyYAML==6.0
 Requests==2.32.3
-scikit_learn==1.3.0
-scipy==1.15.1
-tqdm==4.65.0
 transformers==4.32.1
 urllib3==1.26.16
 vllm>=0.6.0
