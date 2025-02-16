@@ -52,7 +52,9 @@ Parameter Descriptions
    :caption: Search Parameters
 
    parameters/search/new_dataset
+   parameters/search/data_preprocessing
    parameters/search/Pre-processing
+   parameters/search/Post-processing
 
 Custom Your Models (APIs)
 ----------------------------
@@ -88,7 +90,7 @@ For the develop your own recommendation model, you can use following steps:
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
    :caption: Search develop APIs
 
    APIs/search/search.trainer_preprocessing_ranker
@@ -98,7 +100,7 @@ For the develop your own recommendation model, you can use following steps:
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
    :caption: Search other APIs
 
    APIs/search/search.fairness_evaluator

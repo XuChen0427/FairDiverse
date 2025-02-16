@@ -7,11 +7,14 @@ import os
 from setuptools import setup, find_packages
 
 install_requires = [
-    "torch>=1.10.0",
-    "numpy>=1.17.2",
-    "scipy>=1.6.0",
-    "pandas>=1.3.0",
-    "pyyaml>=5.1.0",
+    "numpy>=1.20.3",
+    "torch>=1.11.0",
+    "PyYAML>=6.0",
+    "pandas>=1.2.0",
+    "scipy",
+    "cvxpy",
+    "tqdm>=4.65.0",
+    "scikit_learn",
 ]
 
 setup_requires = []
@@ -36,16 +39,16 @@ if on_rtd:
     install_requires.extend(setup_requires)
 
 setup(
-    name="FairDiverse",
-    version="0.1.1",  # please remember to edit recbole/__init__.py in response, once updating the version
+    name="fairdiverse",
+    version="0.1.4",  # please remember to edit recbole/__init__.py in response, once updating the version
     description="A unified, comprehensive fairness- and diversity-aware IR library",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/XuChen0427/FairDiverse",
     author="Chen Xu",
     author_email="chenxu0427ruc@gmail.com",
-    packages=[package for package in find_packages() if package.startswith("recommendation")]
-             + [package for package in find_packages() if package.startswith("search")],
+    #packages=find_packages(),
+    packages=[package for package in find_packages() if package.startswith("fairdiverse")],
     include_package_data=True,
     install_requires=install_requires,
     setup_requires=setup_requires,

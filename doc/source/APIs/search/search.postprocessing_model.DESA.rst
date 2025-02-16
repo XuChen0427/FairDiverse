@@ -1,4 +1,4 @@
-.. automodule:: search.postprocesing_model.DESA
+.. automodule:: search.postprocessing_model.DESA
    :members:
    :undoc-members:
    :show-inheritance:
