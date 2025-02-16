@@ -274,6 +274,32 @@ reranker = RankerTrainer(train_config=config)
 reranker.train()
 ```
 
+Here, we provide an example code demonstrating how to design a custom post-processing model. 
+```
+#/search/postprocessing_model/YourModel.py
+class YourModel(BasePostProcessModel):
+    def __init__(self, dropout):
+        super().__init__(dropout)
+
+    def fit(self):
+        # design your own model.
+
+#/search/properties/models/YourModel.yaml.
+# Define your config file for "YourModel".
+
+#/search/postprocessing_model/__init__.py
+from .YourModel import YourModel
+diversity_method_mapping['YourModel'] = YourModel
+
+#test.py
+from search.trainer import SRDTrainer
+   
+config={'model':'xQuAD', 'dataset':'clueweb09', 'log_name': 'test', 'model_save_dir': "model/", 'tmp_dir': "tmp/", 'mode': "train",}
+ 
+trainer = SRDTrainer(train_config=config)
+trainer.train()
+```
+
 
 ## License
 FairDiverse uses [MIT License](./LICENSE). All data and code in this project can only be used for academic purposes.
