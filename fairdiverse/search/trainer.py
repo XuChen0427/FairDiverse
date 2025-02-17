@@ -36,7 +36,7 @@ class SRDTrainer(object):
 
         config.update(model_config)
 
-        with open(os.path.join("recommendation", "properties", "evaluation.yaml"), 'r') as f:
+        with open(os.path.join("search", "properties", "evaluation.yaml"), 'r') as f:
             config.update(yaml.safe_load(f))
 
         config.update(self.train_config)  ###train_config has highest rights

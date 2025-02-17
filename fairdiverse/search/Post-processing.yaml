@@ -1,6 +1,6 @@
 {
    ####search result diversification model settings
-   model: "xQuAD",
+   model: "xquad",
 
    log_name: "ClueWeb09-xQuAD",
    model_save_dir: "model/",
