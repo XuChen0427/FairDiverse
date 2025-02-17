@@ -1,6 +1,6 @@
 ## FairDiverse
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) | [![API documents](https://img.shields.io/badge/API-Document-green)](https://xuchen0427.github.io/FairDiverse/) | [![Pypi](https://img.shields.io/badge/Pypi-v.0.1.4-red)](https://pypi.org/project/fairdiverse/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) | [![API documents](https://img.shields.io/badge/API-Document-green)](https://xuchen0427.github.io/FairDiverse/) | [![Pypi](https://img.shields.io/badge/Pypi-v.0.0.1-red)](https://pypi.org/project/fairdiverse/)
 
 __FairDiverse__ is a toolkit for reproducing and developing fairness- and diversity-aware Information Retrieval (IR) tasks.
 
