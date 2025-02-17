@@ -165,21 +165,22 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Non-LLMs | [SASRec](https://arxiv.org/abs/1808.09781)     | leverages self-attention mechanisms to model sequential user behavior.                                                           |
 | LLMs     | [LLama3](https://arxiv.org/abs/2407.21783)     | utilizing rank-specific prompts to conduct ranking tasks under LLMs                                                           |
 | LLMs     | [Qwen2](https://arxiv.org/abs/2309.16609)      | utilizing rank-specific prompts to conduct ranking tasks under LLMs                                                           |
-
+| LLMs     | [Mistral](https://arxiv.org/abs/2310.06825)      | utilizing rank-specific prompts to conduct ranking tasks under LLMs                                                           |
 
 #### In-processing models
 
-| Types    | Models                                                | Descriptions                                                                                                                   |
-|----------|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Re-weight | [APR](https://ieeexplore.ieee.org/document/10191757) | an adaptive reweighing method that dynamically prioritizes samples near the decision boundary to mitigate distribution shifts. |
-| Re-weight | [FairDual](https://github.com/XuChen0427/FairDual)    | applies dual-mirror gradient descent to dynamically compute the weight for each sample to support the worst-off groups.        |
-| Re-weight | [IPS](https://dl.acm.org/doi/10.1145/3589334.3648158)               | employs the reciprocal of the sum popularity of items within the group as the weight assigned to that group.                   |
-| Re-weight | [Minmax-SGD](https://arxiv.org/abs/1808.09781)        | applies optimizing techniques to dynamically sample groups.                                                                    |
-| Re-weight     | [SDRO](https://arxiv.org/abs/2407.21783)              | Improves DRO with the distributional shift to optimize group MMF.                                                              |
-| Re-sample     | [FairNeg](https://proceedings.mlr.press/v162/abernethy22a.html)           | adjusts the group-level negative sampling distribution in the training process.                                                |
-| Regularizer     | [FOCF](https://dl.acm.org/doi/10.5555/3294996.3295052)           | applies a fair-aware regularization loss of different groups.                                                                  |
-| Regularizer     | [Reg](https://pdfs.semanticscholar.org/8706/509307269103496904d595f611f7c189ffab.pdf)           | imposes a penalty on the squared difference between the average scores of two groups across all positive user-item pairs.      |
-| Prompt-based     | [FairPrompts](https://aclanthology.org/2024.findings-emnlp.467.pdf)           | Manually designe fair-aware prompts                                                                                            |
+| Types    | Models                                                                                | Descriptions                                                                                                                   |
+|----------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Re-weight | [APR](https://ieeexplore.ieee.org/document/10191757)                                  | an adaptive reweighing method that dynamically prioritizes samples near the decision boundary to mitigate distribution shifts. |
+| Re-weight | [FairDual](https://github.com/XuChen0427/FairDual)                                    | applies dual-mirror gradient descent to dynamically compute the weight for each sample to support the worst-off groups.        |
+| Re-weight | [IPS](https://dl.acm.org/doi/10.1145/3589334.3648158)                                 | employs the reciprocal of the sum popularity of items within the group as the weight assigned to that group.                   |
+| Re-weight | [Minmax-SGD](https://arxiv.org/abs/1808.09781)                                        | applies optimizing techniques to dynamically sample groups.                                                                    |
+| Re-weight     | [SDRO](https://arxiv.org/abs/2407.21783)                                              | Improves DRO with the distributional shift to optimize group MMF.                                                              |
+| Re-sample     | [FairNeg](https://proceedings.mlr.press/v162/abernethy22a.html)                       | adjusts the group-level negative sampling distribution in the training process.                                                |
+| Regularizer     | [FOCF](https://dl.acm.org/doi/10.5555/3294996.3295052)                                | applies a fair-aware regularization loss of different groups.                                                                  |
+| Regularizer     | [DPR](https://dl.acm.org/doi/10.1145/3397271.3401177)                                 | applies a fair-aware adversarial loss based on statistical parity and equal opportunity.                                         |
+| Regularizer     | [Reg](https://pdfs.semanticscholar.org/8706/509307269103496904d595f611f7c189ffab.pdf) | imposes a penalty on the squared difference between the average scores of two groups across all positive user-item pairs.      |
+| Prompt-based     | [FairPrompts](https://aclanthology.org/2024.findings-emnlp.467.pdf)                   | Manually designe fair-aware prompts                                                                                            |
 
 #### Post-processing models
 
@@ -196,6 +197,21 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Learning-based     | [Welf](https://arxiv.org/abs/2110.15781)                   | use the Frank-Wolfe algorithm to maximize the Welfare functions of worst-off items.      |
 
 ### Search tasks
+
+
+#### Base models
+
+| Types      | Models                                                                                        | Descriptions                                                                                 |
+|------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| Pointwise  | [MART](https://www.jstor.org/stable/2699986)                                                  | a gradient boosting decision tree model that optimizes ranking by iteratively refining regression trees to minimize loss.            |
+| Pairwise   | [RankNet](https://dl.acm.org/doi/10.1145/1102351.1102363)                                     | A neural network-based model that minimizes the number of incorrectly ranked pairs.        |
+| Pairwise   | [RankBoost](https://dl.acm.org/doi/10.5555/945365.964285)                                     | An ensemble-based boosting algorithm that optimizes pairwise ranking orders.               |
+| Pairwise   | [AdaRank](https://dl.acm.org/doi/10.1145/1277741.1277809)                                     | A functional gradient boosting approach for ranking.                                       |
+| Listwise   | [ListNet](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-2007-40.pdf) | Uses a probabilistic model to directly optimize listwise ranking performance.              |
+| Listwise   | [Random Forests](https://link.springer.com/article/10.1023/A:1010933404324)                   | A tree-based model for learning-to-rank.                              |
+| Listwise   | [Coordinate Ascent](https://arxiv.org/abs/1502.04759)                                         | Optimizes ranking functions by iteratively adjusting parameters to maximize a ranking-based objective. |
+| Listwise   | [LambdaMART](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/MSR-TR-2010-82.pdf)                                                                                | A gradient boosting tree-based model that uses LambdaRank to optimize ranking metrics like NDCG. |
+
 #### Pre-processing models
 
 | Types                 | Models                                               | Descriptions                                                                                                                                          |
@@ -205,15 +221,18 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Probabilisitc Mapping | [iFair](https://ieeexplore.ieee.org/abstract/document/8731591) | optimizes for individual fairness by making sure that the distance between similar individuals is maintained in the new space                         |
 | Probabilisitc Mapping | [gFair]()            | optimizes for group fairness by making sure that the distance between similar individuals from a group are close, in the new space, to similar individuals from the other group. Moreover, it constraints the optimization to maintain the relative distance between individuals belonging to the same group.                                                                                      |
 
+
 #### Post-processing models
 
-| Types                 | Models                                               | Descriptions                                                                                                                                          |
-|-----------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Unsupervised                | [PM2](https://dl.acm.org/doi/10.1145/2348283.2348296) | optimizes proportionality by iteratively determining the topic that best maintained the overall proportionality.|
-| Unsupervised | [xQuAD](https://dl.acm.org/doi/10.1145/1772690.1772780)        | utilizes sub-queries representing pseudo user intents and diversifies document rankings by directly estimating the relevance of the retrieved documents to each sub-queries.|
-| Supervised | [DESA](https://dl.acm.org/doi/10.1145/3340531.3411914) | employs the attention mechanism to model the novelty of documents and the explicit subtopics. |
-| Supervised | [DALETOR](https://dl.acm.org/doi/10.1145/3442381.3449831)            | proposes diversification-aware losses to approach the optimal ranking. |
-| LLMs-based | [LLMs Ranker](https://github.com/XuChen0427/FairDiverse/blob/master/search/llm_model/api_llm.py) |a diversity ranking model based on large language models.|
+| Types                 | Models                                                                                      | Descriptions                                                                                                                                                                 |
+|-----------------------|---------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Unsupervised                | [PM2](https://dl.acm.org/doi/10.1145/2348283.2348296)                                       | optimizes proportionality by iteratively determining the topic that best maintained the overall proportionality.                                                             |
+| Unsupervised | [xQuAD](https://dl.acm.org/doi/10.1145/1772690.1772780)                                     | utilizes sub-queries representing pseudo user intents and diversifies document rankings by directly estimating the relevance of the retrieved documents to each sub-queries. |
+| Supervised | [DESA](https://dl.acm.org/doi/10.1145/3340531.3411914)                                      | employs the attention mechanism to model the novelty of documents and the explicit subtopics.                                                                                |
+| Supervised | [DALETOR](https://dl.acm.org/doi/10.1145/3442381.3449831)                                   | proposes diversification-aware losses to approach the optimal ranking.                                                                                                       |
+| DiversePrompts | [GPT-4o](https://chatbotapp.ai/) | a diversity ranking model based on large language models.                                                                                                                    |
+| DiversePrompts | [Claude 3.5](https://claude.ai/) | a diversity ranking model based on large language models.                                                                                                                    |
+
 
 ## Develop your own fairness- and diversity- aware models based on our toolkit
 
