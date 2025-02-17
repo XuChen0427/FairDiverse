@@ -1,5 +1,5 @@
 .. FairDiverse documentation master file.
-.. title:: FairDiverse v0.1.1
+.. title:: FairDiverse v0.0.1
 
 =========================================================
 
@@ -127,7 +127,7 @@ Here is the list of our lead developers in each development phase.
 ======================   ===============   =============================================
 Time                     Version 	        Lead Developers
 ======================   ===============   =============================================
-Nov. 2024 ~ Feb. 2025    v0.1.1            `Chen Xu <https://github.com/XuChen0427>`_, `Zhirui Deng <https://github.com/DengZhirui>`_, `Clara Rus <https://github.com/ClaraRus>`_
+Nov. 2024 ~ Feb. 2025    v0.0.1            `Chen Xu <https://github.com/XuChen0427>`_, `Zhirui Deng <https://github.com/DengZhirui>`_, `Clara Rus <https://github.com/ClaraRus>`_
 ======================   ===============   =============================================
 
 License

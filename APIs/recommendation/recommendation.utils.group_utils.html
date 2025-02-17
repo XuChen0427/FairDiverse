@@ -19,7 +19,9 @@
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="../search/search.trainer_preprocessing_ranker.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="recommendation.sampler.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +43,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Recommendation Settings</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
@@ -49,12 +51,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Recommendation APIs</span></p>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html"><code class="docutils literal notranslate"><span class="pre">Abstract_Evaluator</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html#recommendation.evaluator.CTR_Evaluator"><code class="docutils literal notranslate"><span class="pre">CTR_Evaluator</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html#recommendation.evaluator.LLM_Evaluator"><code class="docutils literal notranslate"><span class="pre">LLM_Evaluator</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html#recommendation.evaluator.Ranking_Evaluator"><code class="docutils literal notranslate"><span class="pre">Ranking_Evaluator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
 </ul>
 
         </div>
@@ -81,114 +83,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <dl class="py function" id="module-recommendation.utils.group_utils">
-<dt class="sig sig-object py" id="recommendation.utils.group_utils.Build_Adjecent_Matrix">
-<span class="sig-prename descclassname"><span class="pre">recommendation.utils.group_utils.</span></span><span class="sig-name descname"><span class="pre">Build_Adjecent_Matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/utils/group_utils.html#Build_Adjecent_Matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.utils.group_utils.Build_Adjecent_Matrix" title="Link to this definition">¶</a></dt>
-<dd><p>Builds an adjacency matrix based on the group-item mapping, initializing it with ones,
-and adjusting rows with no connections.</p>
-<p>This function uses the <cite>Init_Group_AdjcentMatrix</cite> to retrieve a mapping of item IDs (iid) to product IDs (pid),
-constructs an adjacency matrix, and ensures that rows with no connections are assigned a default value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> – A configuration dictionary containing dataset information and matrix dimensions.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing:
-- A 2D NumPy array representing the adjacency matrix.
-- A dictionary mapping item IDs (iid) to product IDs (pid).</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="recommendation.utils.group_utils.Init_Group_AdjcentMatrix">
-<span class="sig-prename descclassname"><span class="pre">recommendation.utils.group_utils.</span></span><span class="sig-name descname"><span class="pre">Init_Group_AdjcentMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/utils/group_utils.html#Init_Group_AdjcentMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.utils.group_utils.Init_Group_AdjcentMatrix" title="Link to this definition">¶</a></dt>
-<dd><p>Initializes the group adjacency matrix by loading the processed dataset corresponding to the given dataset name.</p>
-<p>This function checks if the processed dataset exists for the provided dataset name, and if not, raises an error.
-It then loads the <cite>iid2pid.json</cite> file, converts the keys and values to integers, and returns the result.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dataset_name</strong> – The name of the dataset to load.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary mapping item IDs (iid) to product IDs (pid).</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="recommendation.utils.group_utils.convert_keys_values_to_int">
-<span class="sig-prename descclassname"><span class="pre">recommendation.utils.group_utils.</span></span><span class="sig-name descname"><span class="pre">convert_keys_values_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/utils/group_utils.html#convert_keys_values_to_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.utils.group_utils.convert_keys_values_to_int" title="Link to this definition">¶</a></dt>
-<dd><p>Recursively converts dictionary keys and values, as well as string digits, into integers.</p>
-<p>This function will process a dictionary or list and convert all keys and values to integers where applicable.
-If the data is a string that represents a digit, it will be converted to an integer.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> – The input data to be processed, which can be a dictionary, list, or string.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The input data with keys and values converted to integers if applicable.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="recommendation.utils.group_utils.get_cos_similar_torch">
-<span class="sig-prename descclassname"><span class="pre">recommendation.utils.group_utils.</span></span><span class="sig-name descname"><span class="pre">get_cos_similar_torch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/utils/group_utils.html#get_cos_similar_torch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.utils.group_utils.get_cos_similar_torch" title="Link to this definition">¶</a></dt>
-<dd><p>Computes the cosine similarity between two vectors using PyTorch.</p>
-<p>This function calculates the cosine similarity between two input vectors, <cite>v1</cite> and <cite>v2</cite>, using the specified device
-(either <cite>cuda</cite> for GPU or <cite>cpu</cite>). The function utilizes PyTorch’s <cite>cosine_similarity</cite> function and returns the result as a NumPy array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>v1</strong> – The first vector for cosine similarity calculation.</p></li>
-<li><p><strong>v2</strong> – The second vector for cosine similarity calculation.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The cosine similarity between <cite>v1</cite> and <cite>v2</cite>.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="recommendation.utils.group_utils.get_iid2text">
-<span class="sig-prename descclassname"><span class="pre">recommendation.utils.group_utils.</span></span><span class="sig-name descname"><span class="pre">get_iid2text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/utils/group_utils.html#get_iid2text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.utils.group_utils.get_iid2text" title="Link to this definition">¶</a></dt>
-<dd><p>Loads and returns the mapping of item IDs (iid) to text descriptions from the processed dataset.</p>
-<p>This function checks if the processed dataset exists for the given dataset name, and if not, raises an error.
-It then loads the <cite>iid2text.json</cite> file, converts the keys and values to integers, and returns the result.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dataset_name</strong> – The name of the dataset to load.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary mapping item IDs (iid) to their corresponding text descriptions.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="recommendation.utils.group_utils.load_json">
-<span class="sig-prename descclassname"><span class="pre">recommendation.utils.group_utils.</span></span><span class="sig-name descname"><span class="pre">load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/recommendation/utils/group_utils.html#load_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#recommendation.utils.group_utils.load_json" title="Link to this definition">¶</a></dt>
-<dd><p>Loads a JSON file from the specified file path.</p>
-<p>This function attempts to open and parse a JSON file. If successful, it returns the parsed data.
-If the file is not found, or the file content is not valid JSON, an error message is printed,
-and <cite>None</cite> is returned.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>file_path</strong> – The path to the JSON file to be loaded.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The parsed data from the JSON file if successful, otherwise <cite>None</cite>.</p>
-</dd>
-</dl>
-</dd></dl>
-
-
+  
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="recommendation.sampler.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../search/search.trainer_preprocessing_ranker.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
