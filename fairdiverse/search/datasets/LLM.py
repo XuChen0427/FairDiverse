@@ -9,8 +9,7 @@ import json_repair
 from tqdm import tqdm
 
 from ..llm_model.api_llm import LMAgent
-from ..utils.utils import restore_doc_ids, remove_duplicate
-from ..post_evaluator import get_metrics_20
+from ..utils.utils import restore_doc_ids, remove_duplicate, get_metrics_20
 
 
 MAXDOC = 50

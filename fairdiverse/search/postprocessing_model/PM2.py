@@ -3,8 +3,7 @@ import json
 import pickle
 import numpy as np
 
-from ..utils.utils import pkl_load
-from ..post_evaluator import get_metrics_20
+from ..utils.utils import pkl_load, get_metrics_20
 from .base import BasePostProcessUnsupervisedModel
 
 '''
