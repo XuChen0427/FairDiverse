@@ -59,7 +59,7 @@ llm_path_dict:
 ```
 
 #### For post-processing method RAIF
-Require Gurobi license 
+Require [Gurobi](https://www.gurobi.com/) license 
 ```
 mip>=1.15.0
 gurobipy>=12.0.1
