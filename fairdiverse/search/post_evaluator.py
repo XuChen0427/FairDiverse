@@ -137,15 +137,15 @@ def get_global_fullset_metric(config):
     for i in range(len(all_models)):
         model_file = all_models[i]
         fold_times = int(fold_time_pattern.search(all_models[i]).group(1))
-        if config['model'] == 'DESA':
+        if config['model'].upper() == 'DESA':
             fold_p = os.path.join(config['data_dir'], config['model'], 'fold/')
             test_qids = test_dataset_dict = torch.load(os.path.join(fold_p, 'fold'+str(fold_times), 'test_data.pkl'))
             model = DESA(config['embedding_length'], 8, 2,config['embedding_length'], 8, 2, 8, config['dropout'])
             eval_func = evaluate_test_qids_DESA
-        elif config['model'] == 'DALETOR':
+        elif config['model'].upper() == 'DALETOR':
             from .datasets.DALETOR import get_test_dataset
             test_qids=test_qids_list[fold_times-1]
-            test_dataset_dict = get_test_dataset(i+1, test_qids)
+            test_dataset_dict = get_test_dataset(i+1, test_qids, config)
             model = DALETOR(0.0)
             eval_func = evaluate_test_qids_DALETOR
         
