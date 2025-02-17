@@ -8,6 +8,7 @@ import pickle
 import torch
 from .postprocessing_model.DESA import DESA
 from .postprocessing_model.DALETOR import DALETOR
+from .utils.utils import get_metrics_20
 
 MAXDOC = 50
 REL_LEN = 18
@@ -136,15 +137,15 @@ def get_global_fullset_metric(config):
     for i in range(len(all_models)):
         model_file = all_models[i]
         fold_times = int(fold_time_pattern.search(all_models[i]).group(1))
-        if config['model'] == 'DESA':
+        if config['model'].upper() == 'DESA':
             fold_p = os.path.join(config['data_dir'], config['model'], 'fold/')
             test_qids = test_dataset_dict = torch.load(os.path.join(fold_p, 'fold'+str(fold_times), 'test_data.pkl'))
             model = DESA(config['embedding_length'], 8, 2,config['embedding_length'], 8, 2, 8, config['dropout'])
             eval_func = evaluate_test_qids_DESA
-        elif config['model'] == 'DALETOR':
+        elif config['model'].upper() == 'DALETOR':
             from .datasets.DALETOR import get_test_dataset
             test_qids=test_qids_list[fold_times-1]
-            test_dataset_dict = get_test_dataset(i+1, test_qids)
+            test_dataset_dict = get_test_dataset(i+1, test_qids, config)
             model = DALETOR(0.0)
             eval_func = evaluate_test_qids_DALETOR
         
@@ -169,26 +170,3 @@ def get_global_fullset_metric(config):
     alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20 = get_metrics_20(csv_path)
     print('alpha_nDCG@20_std = {}, NRBP_20 = {}, ERR_IA_20 = {}, S_rec_20 = {}'.format(alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20))
 
-
-def get_metrics_20(csv_file_path):
-    """
-    Retrieves evaluation metrics from a CSV file for the top 20 documents.
-
-    :param csv_file_path: The path to the CSV file containing evaluation results.
-    :return: A tuple containing the mean values of alpha-nDCG@20, NRBP@20, ERR-IA@20, and strec@20.
-    """
-    all_qids=range(1,201)
-    del_index=[94,99]
-    all_qids=np.delete(all_qids,del_index)
-    qids=[str(i) for i in all_qids]
-
-    df=pd.read_csv(csv_file_path)
-
-    alpha_nDCG_20=df.loc[df['topic'].isin(qids)]['alpha-nDCG@20'].mean()
-    NRBP_20=df.loc[df['topic'].isin(qids)]['NRBP'].mean()
-    ERR_IA_20=df.loc[df['topic'].isin(qids)]['ERR-IA@20'].mean()
-    # Pre_IA_20=df.loc[df['topic'].isin(qids)]['P-IA@20'].mean()
-    S_rec_20=df.loc[df['topic'].isin(qids)]['strec@20'].mean()
-    
-    
-    return alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20

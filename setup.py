@@ -27,7 +27,7 @@ long_description = (
     "reproducing and developing fairness- and diversity-aware "
     "IR algorithms in a unified, comprehensive framework for "
     "research purpose. In the first version, our library "
-    "includes 37 IR algorithms, covering "
+    "includes 28 fairness- and diversity algorithms and 16 base models, covering "
     "pre-processing, in-processing and post-processing"
     "for more information: https://github.com/XuChen0427/FairDiverse"
 )
@@ -40,7 +40,7 @@ if on_rtd:
 
 setup(
     name="fairdiverse",
-    version="0.1.4",  # please remember to edit recbole/__init__.py in response, once updating the version
+    version="0.0.1",  # please remember to edit recbole/__init__.py in response, once updating the version
     description="A unified, comprehensive fairness- and diversity-aware IR library",
     long_description=long_description,
     long_description_content_type="text/markdown",

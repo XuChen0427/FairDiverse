@@ -151,3 +151,26 @@ def restore_doc_ids(order_str, id_dict):
     return [reversed_dict[num] for num in order if num in reversed_dict]
 
 
+def get_metrics_20(csv_file_path):
+    """
+    Retrieves evaluation metrics from a CSV file for the top 20 documents.
+
+    :param csv_file_path: The path to the CSV file containing evaluation results.
+    :return: A tuple containing the mean values of alpha-nDCG@20, NRBP@20, ERR-IA@20, and strec@20.
+    """
+    all_qids=range(1,201)
+    del_index=[94,99]
+    all_qids=np.delete(all_qids,del_index)
+    qids=[str(i) for i in all_qids]
+
+    df=pd.read_csv(csv_file_path)
+
+    alpha_nDCG_20=df.loc[df['topic'].isin(qids)]['alpha-nDCG@20'].mean()
+    NRBP_20=df.loc[df['topic'].isin(qids)]['NRBP'].mean()
+    ERR_IA_20=df.loc[df['topic'].isin(qids)]['ERR-IA@20'].mean()
+    # Pre_IA_20=df.loc[df['topic'].isin(qids)]['P-IA@20'].mean()
+    S_rec_20=df.loc[df['topic'].isin(qids)]['strec@20'].mean()
+    
+    
+    return alpha_nDCG_20, NRBP_20, ERR_IA_20, S_rec_20
+
