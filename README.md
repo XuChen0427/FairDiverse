@@ -142,7 +142,7 @@ You can set "postprocessing_model" to one of the supported methods [DESA, DALETO
 ```
 from search.trainer import SRDTrainer
    
-config={'model':'xquad', 'dataset':'clueweb09', 'log_name': 'test', 'model_save_dir': "model/", 'tmp_dir': "tmp/", 'mode': "train"}
+config = {'model': 'xquad', 'dataset': 'clueweb09', 'task': 'search', 'mode': 'train', "log_name": "test", "model_save_dir": "model/", "tmp_dir": "tmp/", "best_model_list": [], "device": "cpu"}
  
 trainer = SRDTrainer(train_config=config)
 trainer.train()
@@ -365,7 +365,7 @@ diversity_method_mapping['YourModel'] = YourModel
 #test.py
 from search.trainer import SRDTrainer
    
-config={'model':'xquad', 'dataset':'clueweb09', 'log_name': 'test', 'model_save_dir': "model/", 'tmp_dir': "tmp/", 'mode': "train",}
+config = {'model': 'xquad', 'dataset': 'clueweb09', 'task': 'search', 'mode': 'train', "log_name": "test", "model_save_dir": "model/", "tmp_dir": "tmp/", "best_model_list": [], "device": "cpu"}
  
 trainer = SRDTrainer(train_config=config)
 trainer.train()

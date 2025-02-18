@@ -14,6 +14,6 @@
 
 from search.trainer import SRDTrainer
 
-config = {'model': 'xquad', 'train_config_file': 'Post-processing.yaml', 'dataset': 'clueweb09', 'task': 'search', 'mode': 'train', "log_name": "ClueWeb09-xQuAD", "model_save_dir": "model/", "tmp_dir": "tmp/", "best_model_list": [], "device": "cpu",}
+config = {'model': 'xquad', 'dataset': 'clueweb09', 'task': 'search', 'mode': 'train', "log_name": "test", "model_save_dir": "model/", "tmp_dir": "tmp/", "best_model_list": [], "device": "cpu"}
 trainer = SRDTrainer(train_config=config)
 trainer.train()
