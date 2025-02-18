@@ -15,6 +15,9 @@ install_requires = [
     "cvxpy",
     "tqdm>=4.65.0",
     "scikit_learn",
+    "pot",
+    "mip>=1.15.0",
+    "gurobipy>=12.0.1"
 ]
 
 setup_requires = []
@@ -40,7 +43,7 @@ if on_rtd:
 
 setup(
     name="fairdiverse",
-    version="0.0.1",  # please remember to edit recbole/__init__.py in response, once updating the version
+    version="0.0.2",  # please remember to edit recbole/__init__.py in response, once updating the version
     description="A unified, comprehensive fairness- and diversity-aware IR library",
     long_description=long_description,
     long_description_content_type="text/markdown",
