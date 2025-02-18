@@ -4,10 +4,12 @@
 # trainer = RecTrainer(train_config=config)
 # trainer.train()
 
-from recommendation.reranker import RecReRanker
+# from recommendation.reranker import RecReRanker
 
-config = {'ranking_store_path': 'steam-base-mf', 'model': 'CPFair', 'fair-rank': True, 'log_name': 'test',
-          'fairness_metrics': ["MMF", "GINI"], 'dataset': 'steam'}
+# config = {'ranking_store_path': 'steam-base-mf', 'model': 'CPFair', 'fair-rank': True, 'log_name': 'test',
+#           'fairness_metrics': ["MMF", "GINI"], 'dataset': 'steam'}
 
-reranker = RecReRanker(train_config=config)
-reranker.rerank()
+# reranker = RecReRanker(train_config=config)
+# reranker.rerank()
+
+from search.trainer import SRDTrainer
