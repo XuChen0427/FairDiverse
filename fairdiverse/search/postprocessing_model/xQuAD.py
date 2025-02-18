@@ -51,6 +51,8 @@ class xQuAD(BasePostProcessUnsupervisedModel):
 
         command = 'cat '+output_dir+'/* > '+output_txt
         os.system(command)
+        command = 'chmod -R 777 ./search/eval/clueweb09/ndeval'
+        os.system(command)
         command = './search/eval/clueweb09/ndeval ./search/eval/clueweb09/2009-2012.diversity.ndeval.qrels '+output_txt+' >' + str(csv_path)
         os.system(command)
 
