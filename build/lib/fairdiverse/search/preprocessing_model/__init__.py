@@ -1,7 +1,7 @@
-from search.preprocessing_model.CIFRank import CIFRank
-from search.preprocessing_model.gFair import gFair
-from search.preprocessing_model.iFair import iFair
-from search.preprocessing_model.LFR import LFR
+from .CIFRank import CIFRank
+from .gFair import gFair
+from .iFair import iFair
+from .LFR import LFR
 
 fairness_method_mapping = {
     'CIFRank': CIFRank,

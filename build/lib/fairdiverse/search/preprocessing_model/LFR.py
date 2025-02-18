@@ -12,10 +12,11 @@ import numpy as np
 import pandas as pd
 import scipy.optimize as optim
 import os
-from search.preprocessing_model.modules.LFR.loss import LFR_optimisation as LFR_func
-from search.preprocessing_model.modules.probabilistic_mapping_helpers import compute_X_hat
-from search.preprocessing_model.utils import process_data_input, process_data_output, save_model_data, load_model_data
-from search.preprocessing_model.fair_model import PreprocessingFairnessIntervention
+from .modules.LFR.loss import LFR_optimisation as LFR_func
+from .modules.probabilistic_mapping_helpers import compute_X_hat
+from .utils import process_data_input, process_data_output, save_model_data, load_model_data
+from .fair_model import PreprocessingFairnessIntervention
+
 class LFR(PreprocessingFairnessIntervention):
     """
         Learning Fair Representations (LFR) fairness intervention.

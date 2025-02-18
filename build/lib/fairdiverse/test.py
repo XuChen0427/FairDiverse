@@ -4,10 +4,16 @@
 # trainer = RecTrainer(train_config=config)
 # trainer.train()
 
-from recommendation.reranker import RecReRanker
+# from recommendation.reranker import RecReRanker
 
-config = {'ranking_store_path': 'steam-base-mf', 'model': 'CPFair', 'fair-rank': True, 'log_name': 'test',
-          'fairness_metrics': ["MMF", "GINI"], 'dataset': 'steam'}
+# config = {'ranking_store_path': 'steam-base-mf', 'model': 'CPFair', 'fair-rank': True, 'log_name': 'test',
+#           'fairness_metrics': ["MMF", "GINI"], 'dataset': 'steam'}
 
-reranker = RecReRanker(train_config=config)
-reranker.rerank()
+# reranker = RecReRanker(train_config=config)
+# reranker.rerank()
+
+from search.trainer import SRDTrainer
+
+config = {'model': 'xquad', 'train_config_file': 'Post-processing.yaml', 'dataset': 'clueweb09', 'task': 'search', 'mode': 'train', "log_name": "ClueWeb09-xQuAD", "model_save_dir": "model/", "tmp_dir": "tmp/", "best_model_list": [], "device": "cpu",}
+trainer = SRDTrainer(train_config=config)
+trainer.train()
