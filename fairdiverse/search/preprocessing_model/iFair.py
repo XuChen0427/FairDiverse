@@ -31,10 +31,12 @@ import os
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
-from modules.iFair.loss import iFair_optimisation as ifair_func
-from modules.probabilistic_mapping_helpers import compute_X_hat, compute_euclidean_distances
-from utils import process_data_input, process_data_output, save_model_data,load_model_data
-from fair_model import PreprocessingFairnessIntervention
+from .modules.iFair.loss import iFair_optimisation as ifair_func
+from .modules.probabilistic_mapping_helpers import compute_X_hat, compute_euclidean_distances
+from .utils import process_data_input, process_data_output, save_model_data,load_model_data
+from .fair_model import PreprocessingFairnessIntervention
+
+
 class iFair(PreprocessingFairnessIntervention):
     """
         iFair is a fairness intervention method based on optimization techniques.

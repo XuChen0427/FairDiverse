@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 import pandas as pd
 
-from ranker import Ranker
+from .ranker import Ranker
 from ..utils.process_tabular_data import norm_features, check_nan, writeToTXT
 
 

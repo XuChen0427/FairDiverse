@@ -3,9 +3,9 @@ import os
 import pandas as pd
 import yaml
 
-from datasets.COMPAS import Compas
-from preprocessing_model import fairness_method_mapping
-from ranker_model import ranker_mapping
+from .datasets.COMPAS import Compas
+from .preprocessing_model import fairness_method_mapping
+from .ranker_model import ranker_mapping
 
 
 class RankerTrainer(object):

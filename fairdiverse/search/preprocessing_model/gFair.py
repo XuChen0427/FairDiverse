@@ -2,10 +2,10 @@ import numpy as np
 import os
 import pandas as pd
 from scipy.optimize import minimize
-from modules.gFair.loss import gFair_optimisation as gfair_func
-from modules.probabilistic_mapping_helpers import compute_X_hat, compute_euclidean_distances
-from utils import process_data_input, process_data_output, save_model_data, load_model_data
-from fair_model import PreprocessingFairnessIntervention
+from .modules.gFair.loss import gFair_optimisation as gfair_func
+from .modules.probabilistic_mapping_helpers import compute_X_hat, compute_euclidean_distances
+from .utils import process_data_input, process_data_output, save_model_data, load_model_data
+from .fair_model import PreprocessingFairnessIntervention
 
 
 class gFair(PreprocessingFairnessIntervention):

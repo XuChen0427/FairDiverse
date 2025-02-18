@@ -21,9 +21,9 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 import os
-from modules.CIFRank.run_causal_model import run_causal_model
-from modules.CIFRank.generate_counterfactual_data import get_counterfactual_data_real
-from fair_model import PreprocessingFairnessIntervention
+from .modules.CIFRank.run_causal_model import run_causal_model
+from .modules.CIFRank.generate_counterfactual_data import get_counterfactual_data_real
+from .fair_model import PreprocessingFairnessIntervention
 
 class CIFRank(PreprocessingFairnessIntervention):
     """
