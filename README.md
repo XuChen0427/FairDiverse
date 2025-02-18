@@ -27,6 +27,9 @@ scipy>=1.15.1
 cvxpy>=1.6.0
 tqdm>=4.65.0
 scikit_learn>=1.3.0
+pot
+mip>=1.15.0
+gurobipy>=12.0.1
 ```
 
 #### For LLMs-based ranking models
