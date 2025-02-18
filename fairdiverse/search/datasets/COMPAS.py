@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import ast
-from search.utils.process_tabular_data import create_train_split
+from ..utils.process_tabular_data import create_train_split
 
 
 class Compas:

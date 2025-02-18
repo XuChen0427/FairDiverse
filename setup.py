@@ -43,7 +43,7 @@ if on_rtd:
 
 setup(
     name="fairdiverse",
-    version="0.0.2",  # please remember to edit recbole/__init__.py in response, once updating the version
+    version="1.0.0",  # please remember to edit recbole/__init__.py in response, once updating the version
     description="A unified, comprehensive fairness- and diversity-aware IR library",
     long_description=long_description,
     long_description_content_type="text/markdown",
