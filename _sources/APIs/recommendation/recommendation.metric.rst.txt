@@ -1,3 +1,6 @@
+recommendation.metric
+=======================
+
 .. automodule:: recommendation.metric
    :members:
    :undoc-members:

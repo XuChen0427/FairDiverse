@@ -1,3 +1,6 @@
+trainer
+=========
+
 .. automodule:: recommendation.trainer
    :members:
    :undoc-members:

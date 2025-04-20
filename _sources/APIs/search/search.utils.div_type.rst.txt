@@ -1,3 +1,6 @@
+div_type
+==========
+
 .. automodule:: search.utils.div_type
    :members:
    :undoc-members:

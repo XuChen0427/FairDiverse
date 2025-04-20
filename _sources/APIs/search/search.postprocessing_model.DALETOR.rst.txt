@@ -1,3 +1,6 @@
+DALETOR
+===========
+
 .. automodule:: search.postprocessing_model.DALETOR
    :members:
    :undoc-members:

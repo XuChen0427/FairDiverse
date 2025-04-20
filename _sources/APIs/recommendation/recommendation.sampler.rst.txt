@@ -1,3 +1,6 @@
+sampler
+=========
+
 .. automodule:: recommendation.sampler
    :members:
    :undoc-members:

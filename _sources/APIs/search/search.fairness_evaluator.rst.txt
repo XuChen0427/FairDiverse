@@ -1,3 +1,6 @@
+fairness_evaluator
+===================
+
 .. automodule:: search.fairness_evaluator
    :members:
    :undoc-members:

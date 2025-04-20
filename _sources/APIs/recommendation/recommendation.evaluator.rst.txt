@@ -1,3 +1,6 @@
+recommendation.evaluator
+=========================
+
 .. automodule:: recommendation.evaluator
    :members:
    :undoc-members:

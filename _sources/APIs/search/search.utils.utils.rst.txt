@@ -1,3 +1,6 @@
+utils.utils
+==============
+
 .. automodule:: search.utils.utils
    :members:
    :undoc-members:

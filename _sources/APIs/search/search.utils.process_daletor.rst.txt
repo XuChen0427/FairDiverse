@@ -1,3 +1,6 @@
+process_daletor
+=================
+
 .. automodule:: search.utils.process_daletor
    :members:
    :undoc-members:
