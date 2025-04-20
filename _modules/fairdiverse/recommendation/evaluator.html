@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fairdiverse.recommendation.evaluator &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.reranker.html">reranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.trainer.html">trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html">Abstract_Ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html">Abstract_Reranker</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html">recommendation.evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.llm_rec.html">recommendation.llm_rec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html">recommendation.metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.process_data.html">recommendation.process_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html">sampler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html">group_utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.trainer_preprocessing_ranker.html">trainer_preprocessing_ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.fair_model.html">fair_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.postprocessing_model.base.html">postprocessing_model.base</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html">fairness_evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.ranker_model.ranker.html">ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.loss.html">loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html">process_dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html">utils.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html">api_llm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html">div_type</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fairdiverse.recommendation.evaluator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fairdiverse.recommendation.evaluator</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span><span class="p">,</span> <span class="n">trange</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">coo_matrix</span><span class="p">,</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span> <span class="nn">.metric</span> <span class="kn">import</span> <span class="n">NDCG</span><span class="p">,</span> <span class="n">HR</span><span class="p">,</span> <span class="n">MRR</span><span class="p">,</span> <span class="n">AUC_score</span><span class="p">,</span> <span class="n">MMF</span><span class="p">,</span> <span class="n">Gini</span><span class="p">,</span> <span class="n">Entropy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">Build_Adjecent_Matrix</span>
+<span class="kn">from</span> <span class="nn">.metric</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+
+
+<div class="viewcode-block" id="Abstract_Evaluator">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.Abstract_Evaluator">[docs]</a>
+<span class="k">class</span> <span class="nc">Abstract_Evaluator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iid2pid</span> <span class="o">=</span> <span class="n">Build_Adjecent_Matrix</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Abstract_Evaluator.eval">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.Abstract_Evaluator.eval">[docs]</a>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">store_scores</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Evaluates the model on the provided dataloader and calculates performance metrics.</span>
+
+
+<span class="sd">            :param dataloader: The data loader that provides batches of user-item interactions and corresponding labels.</span>
+<span class="sd">            :param model: The model to evaluate.</span>
+<span class="sd">            :param store_scores: Whether to return the predicted scores as a sparse matrix. Defaults to `False`.</span>
+<span class="sd">            :return: A dictionary containing the evaluation metric(s) (e.g., AUC score).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CTR_Evaluator">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.CTR_Evaluator">[docs]</a>
+<span class="k">class</span> <span class="nc">CTR_Evaluator</span><span class="p">(</span><span class="n">Abstract_Evaluator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CTR_Evaluator.eval">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.CTR_Evaluator.eval">[docs]</a>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">store_scores</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Evaluates the model on the provided dataloader and calculates performance metrics.</span>
+
+<span class="sd">            This function runs the evaluation on a dataset using the provided model. It calculates the AUC score based on</span>
+<span class="sd">            the predicted scores and ground truth labels. If `store_scores` is set to `True`, it also returns the evaluation</span>
+<span class="sd">            results as a sparse matrix of predicted scores.</span>
+
+<span class="sd">            :param dataloader: The data loader that provides batches of user-item interactions and corresponding labels.</span>
+<span class="sd">            :param model: The model to evaluate.</span>
+<span class="sd">            :param store_scores: Whether to return the predicted scores as a sparse matrix. Defaults to `False`.</span>
+<span class="sd">            :return: A dictionary containing the evaluation metric(s) (e.g., AUC score), and optionally, a sparse matrix</span>
+<span class="sd">                     of predicted scores.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="n">y_scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">user_ids</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">group_ids</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">user_ids</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="n">col</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">item_ids</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="n">user_ids</span><span class="p">,</span> <span class="n">item_ids</span> <span class="o">=</span> <span class="n">user_ids</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]),</span> <span class="n">item_ids</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+
+                <span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">user_ids</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="n">y_scores</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+                <span class="n">y_true</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+        <span class="n">auc_score</span> <span class="o">=</span> <span class="n">AUC_score</span><span class="p">(</span><span class="n">y_scores</span><span class="o">=</span><span class="n">y_scores</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">)</span>
+        <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;auc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">auc_score</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;decimals&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">store_scores</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result_dict</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coo</span> <span class="o">=</span> <span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;user_num&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;item_num&#39;</span><span class="p">]))</span>
+            <span class="n">csr</span> <span class="o">=</span> <span class="n">coo</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span> <span class="c1">#to remove the zero rows</span>
+            <span class="n">csr_eliminated</span> <span class="o">=</span> <span class="n">csr</span><span class="p">[</span><span class="n">csr</span><span class="o">.</span><span class="n">getnnz</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">coo</span> <span class="o">=</span> <span class="n">csr_eliminated</span><span class="o">.</span><span class="n">tocoo</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">result_dict</span><span class="p">,</span> <span class="n">coo</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Ranking_Evaluator">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.Ranking_Evaluator">[docs]</a>
+<span class="k">class</span> <span class="nc">Ranking_Evaluator</span><span class="p">(</span><span class="n">Abstract_Evaluator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">config</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Ranking_Evaluator.eval">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.Ranking_Evaluator.eval">[docs]</a>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">store_scores</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Evaluates the model on the provided dataloader and calculates performance metrics.</span>
+
+<span class="sd">            This function runs the evaluation on a dataset using the provided model. It calculates the Ranking metrics based on</span>
+<span class="sd">            the predicted scores and ground truth labels. If `store_scores` is set to `True`, it also returns the evaluation</span>
+<span class="sd">            results as a sparse matrix of predicted scores.</span>
+
+<span class="sd">            :param dataloader: The data loader that provides batches of user-item interactions and corresponding labels.</span>
+<span class="sd">            :param model: The model to evaluate.</span>
+<span class="sd">            :param store_scores: Whether to return the predicted scores as a sparse matrix. Defaults to `False`.</span>
+<span class="sd">            :return: A dictionary containing the evaluation metric(s), and optionally, a sparse matrix</span>
+<span class="sd">                     of predicted scores.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="n">y_scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;ndcg@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span><span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]}</span>
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;mrr@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span><span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]})</span>
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;hr@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span><span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]})</span>
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;mmf@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]})</span>
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;gini@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]})</span>
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;entropy@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]})</span>
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;maxminratio@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]})</span>
+        <span class="n">exposure_dict</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;group_num&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]}</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1">#UI_matrix = np.zeros((self.config[&#39;user_num&#39;], self.config[&#39;item_num&#39;]))</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+
+            <span class="c1">#for user_ids, history_behavior, items, pos_length in tqdm(dataloader):</span>
+            <span class="k">for</span> <span class="n">eval_data</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+                <span class="n">user_ids</span><span class="p">,</span> <span class="n">history_behavior</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">pos_length</span> <span class="o">=</span> <span class="n">eval_data</span>
+                <span class="n">batch_size</span><span class="p">,</span> <span class="n">sample_size</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">shape</span> <span class="c1">#item</span>
+                <span class="c1">#print(items.shape)</span>
+                <span class="c1">#exit(0)</span>
+                <span class="n">pos_length</span> <span class="o">=</span> <span class="n">pos_length</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">index</span><span class="p">]</span><span class="o">*</span><span class="n">sample_size</span><span class="p">)</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">real_item_ids</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                    <span class="n">col</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">real_item_ids</span><span class="p">)</span>
+                    <span class="c1">#print(model.IR_type)</span>
+                    <span class="k">if</span> <span class="s1">&#39;retrieval&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">IR_type</span><span class="p">:</span>
+                        <span class="c1">#if self.config[&#39;data_type&#39;] == &#39;point&#39; or self.config[&#39;data_type&#39;] == &#39;pair&#39;:</span>
+                        <span class="n">repeat_user_tensor</span> <span class="o">=</span> <span class="n">user_ids</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+                        <span class="c1">#else:</span>
+                        <span class="n">repeat_history_tensor</span> <span class="o">=</span> <span class="n">history_behavior</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">sample_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+
+                        <span class="n">user_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user_ids&quot;</span><span class="p">:</span> <span class="n">repeat_user_tensor</span><span class="p">,</span>
+                                     <span class="s2">&quot;history_ids&quot;</span><span class="p">:</span> <span class="n">repeat_history_tensor</span><span class="p">}</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+                        <span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">user_dict</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">user_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user_ids&quot;</span><span class="p">:</span><span class="n">user_ids</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]),</span>
+                                     <span class="s2">&quot;history_ids&quot;</span><span class="p">:</span><span class="n">history_behavior</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])}</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+
+                        <span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">full_predict</span><span class="p">(</span><span class="n">user_dict</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+                    <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">score</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                    <span class="c1">#ranked_score = np.sort(score)[::-1]</span>
+                    <span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">pos_length</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">sample_size</span> <span class="o">-</span> <span class="n">pos_length</span><span class="p">[</span><span class="n">b</span><span class="p">])</span>
+                    <span class="n">label_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">label_list</span><span class="p">)</span>
+                    <span class="n">ranked_args</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">score</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">rank_list</span> <span class="o">=</span> <span class="n">label_list</span><span class="p">[</span><span class="n">ranked_args</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]:</span>
+                        <span class="n">result_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ndcg@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">NDCG</span><span class="p">(</span><span class="n">rank_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                        <span class="n">result_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mrr@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">MRR</span><span class="p">(</span><span class="n">rank_list</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                        <span class="n">result_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;hr@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">HR</span><span class="p">(</span><span class="n">rank_list</span><span class="p">,</span> <span class="n">label_list</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+                        <span class="c1">######count the exposures for the computing fairness degree#############</span>
+                        <span class="n">ids</span> <span class="o">=</span> <span class="n">ranked_args</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span>
+                        <span class="n">rank_items</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">real_item_ids</span><span class="p">)[</span><span class="n">ids</span><span class="p">]</span>
+                        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">iid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rank_items</span><span class="p">):</span>
+                            <span class="n">group_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iid2pid</span><span class="p">[</span><span class="n">iid</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;fairness_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Exposure&quot;</span><span class="p">:</span>
+                                <span class="n">exposure_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">][</span><span class="n">group_id</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">exposure_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">][</span><span class="n">group_id</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">score</span><span class="p">[</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;decimals&#39;</span><span class="p">])</span>
+                            <span class="c1">#exposure_dict[f&quot;top@{k}&quot;][group_id] += 1</span>
+
+
+
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]:</span>
+            <span class="c1">#print(exposure_dict[f&quot;top@{k}&quot;])</span>
+            <span class="n">result_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mmf@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MMF</span><span class="p">(</span><span class="n">exposure_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">ratio</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;mmf_eval_ratio&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">index</span>
+            <span class="n">result_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;gini@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Gini</span><span class="p">(</span><span class="n">exposure_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">index</span>
+            <span class="n">result_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;entropy@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Entropy</span><span class="p">(</span><span class="n">exposure_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">index</span>
+            <span class="n">result_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;maxminratio@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MinMaxRatio</span><span class="p">(</span><span class="n">exposure_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top@</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">index</span>
+
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">result_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">result_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">result_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">/</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;decimals&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">store_scores</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result_dict</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result_dict</span><span class="p">,</span> <span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;item_num&#39;</span><span class="p">]))</span></div>
+</div>
+
+
+
+
+<div class="viewcode-block" id="LLM_Evaluator">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.LLM_Evaluator">[docs]</a>
+<span class="k">class</span> <span class="nc">LLM_Evaluator</span><span class="p">(</span><span class="n">Abstract_Evaluator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topk_list</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;topk&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="LLM_Evaluator.get_data">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.LLM_Evaluator.get_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method processes the input data to extract prediction lists, label lists, and score lists for each user.</span>
+
+<span class="sd">        :param &#39;predict_list&#39;: A list of predicted items.</span>
+<span class="sd">        :param &#39;positive_items&#39;: A list of items that are considered positive (e.g., liked or preferred by the user).</span>
+<span class="sd">        :param &#39;scores&#39;: A list of scores corresponding to the predicted items, indicating the confidence of the prediction.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        - `predict_lists`: A list of predict lists for all users.</span>
+<span class="sd">        - `label_lists`: For each user, a list of binary labels indicating whether each predicted item is positive (1) or not (0).</span>
+<span class="sd">        - `score_lists`: A list of score lists corresponding to the predicted items for all users.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># ground_truths = [i[&#39;positive_items&#39;] for i in data]</span>
+        <span class="c1"># sens_feat = [i[&#39;sensitiveAttribute&#39;] for i in data]</span>
+        <span class="n">label_lists</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># ranking_lists = []</span>
+        <span class="n">score_lists</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">predict_lists</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;predict_list&#39;</span><span class="p">]</span>
+            <span class="n">predict_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">label_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;positive_items&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">p</span><span class="p">]</span>
+            <span class="c1"># label_list = [1 if m in user[&#39;positive_items&#39;] else 0 for m in user[&#39;item_candidates&#39;]]</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span>
+            <span class="n">score_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+            <span class="n">label_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label_list</span><span class="p">)</span>
+            <span class="c1"># ranking_lists.append(ranking_list)</span>
+
+        <span class="k">return</span> <span class="n">predict_lists</span><span class="p">,</span> <span class="n">label_lists</span><span class="p">,</span> <span class="n">score_lists</span></div>
+
+
+<div class="viewcode-block" id="LLM_Evaluator.get_cates_value">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.LLM_Evaluator.get_cates_value">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_cates_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid2pid</span><span class="p">,</span> <span class="n">predict</span><span class="p">,</span> <span class="n">topk</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the category values based on predicted indices and their corresponding categories.</span>
+
+<span class="sd">        This method processes the predicted indices along with their mapping to category IDs</span>
+<span class="sd">        and returns a list of counts for each category, representing the frequency of occurrence</span>
+<span class="sd">        in the top-k predictions.</span>
+
+<span class="sd">        :param iid2pid : dict</span>
+<span class="sd">            A dictionary mapping item indices (int) to their respective category IDs (int).</span>
+<span class="sd">            If an item index is not found in the dictionary, it defaults to -1.</span>
+
+<span class="sd">        :param predict : List[List[int]]</span>
+<span class="sd">            A 2D list where each sublist contains the predicted indices (top-k predictions)</span>
+<span class="sd">            for corresponding input data points.</span>
+
+<span class="sd">        :param topk : int</span>
+<span class="sd">            The number of top predictions considered for each data point. This determines</span>
+<span class="sd">            how many elements from the beginning of each sublist in `predict` are processed.</span>
+
+<span class="sd">        :return: List[int]</span>
+<span class="sd">            A list of integers where each value corresponds to the count of occurrences for</span>
+<span class="sd">            a specific category across all top-k predictions. The order of these counts matches</span>
+<span class="sd">            the sorted order of category IDs as returned by `get_categories(iid2pid)`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cates_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_categories</span><span class="p">(</span><span class="n">iid2pid</span><span class="p">)</span>
+        <span class="n">predict</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[:</span><span class="n">topk</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">predict</span><span class="p">]</span>
+        <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+        <span class="n">cates_count</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">predict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">p</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">iid2pid</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">cates_count</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># not score-based scores[idx][k]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">cates_count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cates_name</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">values</span></div>
+
+
+<div class="viewcode-block" id="LLM_Evaluator.cal_acc_score">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.LLM_Evaluator.cal_acc_score">[docs]</a>
+    <span class="k">def</span> <span class="nf">cal_acc_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_lists</span><span class="p">,</span> <span class="n">score_lists</span><span class="p">,</span> <span class="n">topk</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate accuracy scores for recommendation system evaluation.</span>
+
+<span class="sd">        This method computes the average NDCG (Normalized Discounted Cumulative Gain), HR (Hit Ratio), and MRR (Mean Reciprocal Rank)</span>
+<span class="sd">        at a specified `topk` cutoff for a list of ground-truth labels and corresponding prediction scores.</span>
+
+<span class="sd">        :param label_lists : List[List[int]]</span>
+<span class="sd">            A list of lists containing ground-truth labels. Each sublist represents the relevant items for a user or query.</span>
+<span class="sd">        :param score_lists : List[List[float]]</span>
+<span class="sd">            A list of lists containing predicted scores. Each sublist corresponds to the relevance scores for items</span>
+<span class="sd">            matching the order in `label_lists`.</span>
+<span class="sd">        :param topk : int</span>
+<span class="sd">            The number of top predictions to consider when calculating the metrics.</span>
+
+<span class="sd">        :return: Dict[str, float]</span>
+<span class="sd">            A dictionary containing the average NDCG, HR, and MRR scores at the given `topk`, with keys formatted as &#39;NDCG@{topk}&#39;,</span>
+<span class="sd">            &#39;HR@{topk}&#39;, and &#39;MRR@{topk}&#39; respectively. Scores are rounded to 4 decimal places.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ndcgs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">hrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">mrrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">lab</span><span class="p">,</span> <span class="n">sco</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">label_lists</span><span class="p">,</span> <span class="n">score_lists</span><span class="p">):</span>
+            <span class="n">ndcg</span> <span class="o">=</span> <span class="n">NDCG</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+            <span class="n">hr</span> <span class="o">=</span> <span class="n">HR</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+            <span class="n">mrr</span> <span class="o">=</span> <span class="n">MRR</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+            <span class="n">ndcgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ndcg</span><span class="p">)</span>
+            <span class="n">hrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hr</span><span class="p">)</span>
+            <span class="n">mrrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mrr</span><span class="p">)</span>
+
+        <span class="c1"># compute metrics</span>
+        <span class="n">score</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;NDCG@</span><span class="si">{</span><span class="n">topk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ndcgs</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">score</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;HR@</span><span class="si">{</span><span class="n">topk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">hrs</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">score</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;MRR@</span><span class="si">{</span><span class="n">topk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mrrs</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">score</span></div>
+
+
+<div class="viewcode-block" id="LLM_Evaluator.get_categories">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.LLM_Evaluator.get_categories">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid2pid</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">iid2pid</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span></div>
+
+
+<div class="viewcode-block" id="LLM_Evaluator.cal_fair_score">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.LLM_Evaluator.cal_fair_score">[docs]</a>
+    <span class="k">def</span> <span class="nf">cal_fair_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid2pid</span><span class="p">,</span> <span class="n">predict</span><span class="p">,</span> <span class="n">topk</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate fairness scores for a recommendation system&#39;s evaluation.</span>
+
+<span class="sd">        This method computes various fairness metrics at a specified top-k cutoff to evaluate</span>
+<span class="sd">        the diversity and inclusiveness of the predicted items. It utilizes different fairness</span>
+<span class="sd">        measures like MMF (Max-Min Fairness), Gini coefficient, Min-Max Ratio, and Entropy to</span>
+<span class="sd">        quantify the balance across different categories or groups within the predictions.</span>
+
+<span class="sd">        :param iid2pid (Dict[int, int]): A mapping where keys are item IDs and values are their respective group/category IDs.</span>
+<span class="sd">        :param predict (List[Tuple[int, float]]): A list of tuples, each containing an item ID and its predicted score/score.</span>
+<span class="sd">        :param topk (int): The top-k count used to consider the highest scored items for fairness evaluation.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        A dictionary with keys as the metric names prefixed with the top-k cutoff (e.g., &#39;MMF@5&#39;) and values as the</span>
+<span class="sd">        corresponding calculated scores, rounded to 4 decimal places.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">cates_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cates_value</span><span class="p">(</span><span class="n">iid2pid</span><span class="p">,</span> <span class="n">predict</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+        <span class="c1"># print(cates_value)</span>
+        <span class="n">mmf</span> <span class="o">=</span> <span class="n">MMF</span><span class="p">(</span><span class="n">cates_value</span><span class="p">)</span>
+        <span class="n">cate_gini</span> <span class="o">=</span> <span class="n">Gini</span><span class="p">(</span><span class="n">cates_value</span><span class="p">)</span>
+        <span class="n">maxmin_ratio</span> <span class="o">=</span> <span class="n">MinMaxRatio</span><span class="p">(</span><span class="n">cates_value</span><span class="p">)</span>
+        <span class="c1"># cv = (cates_value)</span>
+        <span class="n">entropy</span> <span class="o">=</span> <span class="n">Entropy</span><span class="p">(</span><span class="n">cates_value</span><span class="p">)</span>
+        <span class="n">score</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;MMF@</span><span class="si">{</span><span class="n">topk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">mmf</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">score</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Gini@</span><span class="si">{</span><span class="n">topk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">cate_gini</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">score</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;MMR@</span><span class="si">{</span><span class="n">topk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">maxmin_ratio</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="c1"># score[f&#39;cv@{topk}&#39;] = np.round(cv, 4)</span>
+        <span class="n">score</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Entropy@</span><span class="si">{</span><span class="n">topk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">entropy</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">score</span></div>
+
+
+<div class="viewcode-block" id="LLM_Evaluator.llm_eval">
+<a class="viewcode-back" href="../../../APIs/recommendation/recommendation.evaluator.html#fairdiverse.recommendation.evaluator.LLM_Evaluator.llm_eval">[docs]</a>
+    <span class="k">def</span> <span class="nf">llm_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grounding_result</span><span class="p">,</span> <span class="n">iid2pid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate the performance of a language model based on grounding results and item-pid mappings.</span>
+
+<span class="sd">        This method assesses the accuracy and fairness of the model&#39;s predictions at different top-K thresholds.</span>
+<span class="sd">        It computes both accuracy scores and fairness scores,汇总 these into a comprehensive evaluation result.</span>
+
+<span class="sd">        :param grounding_result (Dict[str, Any]): The output from the model grounding process, containing necessary information for evaluation.</span>
+<span class="sd">        :param iid2pid (Dict[str, str]): A mapping from item IDs to product IDs, used in calculating fairness metrics.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        - eval_result (Dict[str, float]): A dictionary summarizing the evaluation outcomes, including accuracy and fairness scores for each specified top-K value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">predict_lists</span><span class="p">,</span> <span class="n">label_lists</span><span class="p">,</span> <span class="n">score_lists</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">grounding_result</span><span class="p">)</span>
+        <span class="n">eval_result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">topk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">topk_list</span><span class="p">:</span>
+            <span class="n">acc_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cal_acc_score</span><span class="p">(</span><span class="n">label_lists</span><span class="p">,</span> <span class="n">score_lists</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+            <span class="n">fair_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cal_fair_score</span><span class="p">(</span><span class="n">iid2pid</span><span class="p">,</span> <span class="n">predict_lists</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+            <span class="n">eval_result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">acc_score</span><span class="p">)</span>
+            <span class="n">eval_result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fair_score</span><span class="p">)</span>
+            <span class="c1"># eval_result.update({f&#39;Top{topk}&#39;: acc_score})</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Evaluate_result:</span><span class="si">{</span><span class="n">eval_result</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">eval_result</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

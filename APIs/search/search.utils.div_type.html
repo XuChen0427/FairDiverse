@@ -88,7 +88,25 @@
 <li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html">process_dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html">utils.utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.llm_model.api_llm.html">api_llm</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">div_type</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">div_type</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_dataset"><code class="docutils literal notranslate"><span class="pre">div_dataset</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_dataset.get_listpair_train_data"><code class="docutils literal notranslate"><span class="pre">div_dataset.get_listpair_train_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_dataset.get_listpairs"><code class="docutils literal notranslate"><span class="pre">div_dataset.get_listpairs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query"><code class="docutils literal notranslate"><span class="pre">div_query</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query.add_docs"><code class="docutils literal notranslate"><span class="pre">div_query.add_docs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query.add_docs_rel_score"><code class="docutils literal notranslate"><span class="pre">div_query.add_docs_rel_score()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query.add_query_suggestion"><code class="docutils literal notranslate"><span class="pre">div_query.add_query_suggestion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query.get_alpha_DCG"><code class="docutils literal notranslate"><span class="pre">div_query.get_alpha_DCG()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query.get_best_rank"><code class="docutils literal notranslate"><span class="pre">div_query.get_best_rank()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query.get_test_alpha_nDCG"><code class="docutils literal notranslate"><span class="pre">div_query.get_test_alpha_nDCG()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.utils.div_type.div_query.set_std_metric"><code class="docutils literal notranslate"><span class="pre">div_query.set_std_metric()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.div_type.subtopic"><code class="docutils literal notranslate"><span class="pre">subtopic</span></code></a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -115,8 +133,153 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="div-type">
-<h1>div_type<a class="headerlink" href="#div-type" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.utils.div_type">
+<span id="div-type"></span><h1>div_type<a class="headerlink" href="#module-fairdiverse.search.utils.div_type" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_dataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.div_type.</span></span><span class="sig-name descname"><span class="pre">div_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_dataset.get_listpair_train_data">
+<span class="sig-name descname"><span class="pre">get_listpair_train_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_dataset.get_listpair_train_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_dataset.get_listpair_train_data" title="Link to this definition">¶</a></dt>
+<dd><p>Generates list-pair training samples using the top N relevant documents.
+This function processes the best document ranks for each query, generates list-pair samples, and saves them to a file: listpair_train.data.
+data_dict[qid] = [(metrics, positive_mask, negative_mask, weight),…]
+metrics, positive_mask and negative_mask are padding as tensors with length of top_n</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>top_n</strong> – The number of top-ranked documents to use for generating the list-pairs.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Saves the generated list-pair training data into a file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_dataset.get_listpairs">
+<span class="sig-name descname"><span class="pre">get_listpairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">div_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_dataset.get_listpairs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_dataset.get_listpairs" title="Link to this definition">¶</a></dt>
+<dd><p>Generates list-pair samples</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>div_query</strong> – The query object that contains the list of ranked documents.</p></li>
+<li><p><strong>context</strong> – A list of previously considered documents in the context.</p></li>
+<li><p><strong>top_n</strong> – The number of top-ranked documents to consider.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of generated samples, each containing metrics, positive/negative masks, and weights.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.div_type.</span></span><span class="sig-name descname"><span class="pre">div_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtopic_id_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtopic_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query.add_docs">
+<span class="sig-name descname"><span class="pre">add_docs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query.add_docs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query.add_docs" title="Link to this definition">¶</a></dt>
+<dd><p>Adds a list of documents to the query and initializes subtopic relevance tracking.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>doc_list</strong> – List of document identifiers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query.add_docs_rel_score">
+<span class="sig-name descname"><span class="pre">add_docs_rel_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_score_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query.add_docs_rel_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query.add_docs_rel_score" title="Link to this definition">¶</a></dt>
+<dd><p>Adds relevance scores for the documents associated with the query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>doc_score_list</strong> – List of relevance scores for documents.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query.add_query_suggestion">
+<span class="sig-name descname"><span class="pre">add_query_suggestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_suggestion</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query.add_query_suggestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query.add_query_suggestion" title="Link to this definition">¶</a></dt>
+<dd><p>Adds query suggestions related to the main query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query_suggestion</strong> – Suggested query string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query.get_alpha_DCG">
+<span class="sig-name descname"><span class="pre">get_alpha_DCG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query.get_alpha_DCG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query.get_alpha_DCG" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the alpha-DCG for the input document list (for generating training samples)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>docs_rank</strong> – A list of document IDs representing the ranking order.</p></li>
+<li><p><strong>print_flag</strong> – A boolean flag indicating whether to print intermediate computation results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed alpha-DCG score for the given document ranking.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query.get_best_rank">
+<span class="sig-name descname"><span class="pre">get_best_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query.get_best_rank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query.get_best_rank" title="Link to this definition">¶</a></dt>
+<dd><p>Generates the best document ranking using a greedy selection strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>top_n</strong> – The number of top documents to be selected (default: all available documents).</p></li>
+<li><p><strong>alpha</strong> – A parameter controlling redundancy reduction (default: 0.5).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updates class attributes with the best document ranking and associated gains.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query.get_test_alpha_nDCG">
+<span class="sig-name descname"><span class="pre">get_test_alpha_nDCG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_rank</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query.get_test_alpha_nDCG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query.get_test_alpha_nDCG" title="Link to this definition">¶</a></dt>
+<dd><p>Get the <a class="reference external" href="mailto:alpha_nDCG&#37;&#52;&#48;20">alpha_nDCG<span>&#64;</span>20</a> for the input document list (for testing).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>docs_rank</strong> – Ordered list of document identifiers.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Alpha-nDCG score for the given ranking.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.div_query.set_std_metric">
+<span class="sig-name descname"><span class="pre">set_std_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#div_query.set_std_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.div_query.set_std_metric" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the standard alpha-DCG metric for normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – Standard alpha-DCG metric value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.div_type.subtopic">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.div_type.</span></span><span class="sig-name descname"><span class="pre">subtopic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subtopic_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtopic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/div_type.html#subtopic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.div_type.subtopic" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
 </section>
 
 

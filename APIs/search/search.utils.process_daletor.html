@@ -114,8 +114,93 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="process-daletor">
-<h1>process_daletor<a class="headerlink" href="#process-daletor" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.utils.process_daletor">
+<span id="process-daletor"></span><h1>process_daletor<a class="headerlink" href="#module-fairdiverse.search.utils.process_daletor" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_daletor.Process">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_daletor.</span></span><span class="sig-name descname"><span class="pre">Process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_daletor.html#Process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_daletor.Process" title="Link to this definition">¶</a></dt>
+<dd><p>Main function for DALETOR data processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – A dictionary containing configuration settings.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generates and saves the training and test datasets, as well as list training samples.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_daletor.build_each_train_dataset">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_daletor.</span></span><span class="sig-name descname"><span class="pre">build_each_train_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qid_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_feat_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_emb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_emb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_daletor.html#build_each_train_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_daletor.build_each_train_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Generates and saves the training dataset for each query in qid_list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qid_list</strong> – A list of query IDs to process.</p></li>
+<li><p><strong>qd</strong> – A dictionary containing the query data (query, document list, subtopic info).</p></li>
+<li><p><strong>train_dict</strong> – A dictionary of pre-generated training samples.</p></li>
+<li><p><strong>rel_feat_dict</strong> – A dictionary of relevance features for query-document pairs.</p></li>
+<li><p><strong>res_dir</strong> – The directory where the processed data will be saved.</p></li>
+<li><p><strong>query_emb</strong> – A dictionary of query embeddings.</p></li>
+<li><p><strong>doc_emb</strong> – A dictionary of document embeddings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Saves the processed data for each query in a .pkl.gz file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_daletor.build_test_dataset">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_daletor.</span></span><span class="sig-name descname"><span class="pre">build_test_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_daletor.html#build_test_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_daletor.build_test_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Builds the test dataset for evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – A dictionary containing configuration settings.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generates the test dataset and saves it in the result directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_daletor.build_train_dataset">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_daletor.</span></span><span class="sig-name descname"><span class="pre">build_train_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_daletor.html#build_train_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_daletor.build_train_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Builds the training dataset by distributing the workload across multiple workers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – A dictionary containing configuration settings.</p></li>
+<li><p><strong>worker_num</strong> – The number of workers to use for parallel processing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generates the training dataset and saves it in the result directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_daletor.gen_list_training_sample">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_daletor.</span></span><span class="sig-name descname"><span class="pre">gen_list_training_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_daletor.html#gen_list_training_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_daletor.gen_list_training_sample" title="Link to this definition">¶</a></dt>
+<dd><p>Generates list training samples by selecting top-ranked documents for each query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – A dictionary containing configuration settings.</p></li>
+<li><p><strong>top_n</strong> – The number of top-ranked documents to consider for each sample.</p></li>
+<li><p><strong>sample_num</strong> – The number of samples to generate for each query.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Saves the generated training samples in a file for later use.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

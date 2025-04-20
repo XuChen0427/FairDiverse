@@ -87,7 +87,18 @@
 <li class="toctree-l1"><a class="reference internal" href="search.ranker_model.ranker.html">ranker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.loss.html">loss</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html">process_dataset</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">utils.utils</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">utils.utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.get_metrics_20"><code class="docutils literal notranslate"><span class="pre">get_metrics_20()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.get_rel_feat"><code class="docutils literal notranslate"><span class="pre">get_rel_feat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.load_embedding"><code class="docutils literal notranslate"><span class="pre">load_embedding()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.pkl_load"><code class="docutils literal notranslate"><span class="pre">pkl_load()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.pkl_save"><code class="docutils literal notranslate"><span class="pre">pkl_save()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.read_rel_feat"><code class="docutils literal notranslate"><span class="pre">read_rel_feat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.remove_duplicate"><code class="docutils literal notranslate"><span class="pre">remove_duplicate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.restore_doc_ids"><code class="docutils literal notranslate"><span class="pre">restore_doc_ids()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.utils.split_list"><code class="docutils literal notranslate"><span class="pre">split_list()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="search.llm_model.api_llm.html">api_llm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html">div_type</a></li>
 </ul>
@@ -116,8 +127,135 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="utils-utils">
-<h1>utils.utils<a class="headerlink" href="#utils-utils" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.utils.utils">
+<span id="utils-utils"></span><h1>utils.utils<a class="headerlink" href="#module-fairdiverse.search.utils.utils" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.get_metrics_20">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">get_metrics_20</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#get_metrics_20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.get_metrics_20" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves evaluation metrics from a CSV file for the top 20 documents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>csv_file_path</strong> – The path to the CSV file containing evaluation results.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the mean values of <a class="reference external" href="mailto:alpha-nDCG&#37;&#52;&#48;20">alpha-nDCG<span>&#64;</span>20</a>, <a class="reference external" href="mailto:NRBP&#37;&#52;&#48;20">NRBP<span>&#64;</span>20</a>, <a class="reference external" href="mailto:ERR-IA&#37;&#52;&#48;20">ERR-IA<span>&#64;</span>20</a>, and <a class="reference external" href="mailto:strec&#37;&#52;&#48;20">strec<span>&#64;</span>20</a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.get_rel_feat">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">get_rel_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#get_rel_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.get_rel_feat" title="Link to this definition">¶</a></dt>
+<dd><p>Loads and scales the relevance features from a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to the CSV file containing the relevance features.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary where the key is a tuple (query, doc) and the value is a list of features.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.load_embedding">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">load_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#load_embedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.load_embedding" title="Link to this definition">¶</a></dt>
+<dd><p>Load embedding from file
+:param filename: embedding file name
+:param sep: the char used as separation symbol
+:return: a dict with item name as key and embedding vector as value</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.pkl_load">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">pkl_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#pkl_load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.pkl_load" title="Link to this definition">¶</a></dt>
+<dd><p>Loads a pickle file and returns the data inside it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> – Path to the pickle file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded data from the pickle file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.pkl_save">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">pkl_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#pkl_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.pkl_save" title="Link to this definition">¶</a></dt>
+<dd><p>Saves a dictionary to a compressed pickle file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_dict</strong> – The dictionary to be saved.</p></li>
+<li><p><strong>filename</strong> – The path where the pickle file should be saved.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.read_rel_feat">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">read_rel_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#read_rel_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.read_rel_feat" title="Link to this definition">¶</a></dt>
+<dd><p>Reads relevance features from a CSV file and returns them in a nested dictionary format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to the CSV file containing the relevance features.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A nested dictionary where the key is a query and the value is another dictionary of documents and features.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.remove_duplicate">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">remove_duplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#remove_duplicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.remove_duplicate" title="Link to this definition">¶</a></dt>
+<dd><p>Removes duplicate documents in the ranking list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_path</strong> – The path to the input file containing the ranking list.</p></li>
+<li><p><strong>output_path</strong> – The path where the cleaned ranking list will be saved.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.restore_doc_ids">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">restore_doc_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#restore_doc_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.restore_doc_ids" title="Link to this definition">¶</a></dt>
+<dd><p>Restores document IDs based on an ordered list of indices and a dictionary of document IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>order_str</strong> – A string representing the order of document indices.</p></li>
+<li><p><strong>id_dict</strong> – A dictionary mapping indices to document IDs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of document IDs in the restored order.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.utils.split_list">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.utils.</span></span><span class="sig-name descname"><span class="pre">split_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/utils.html#split_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.utils.split_list" title="Link to this definition">¶</a></dt>
+<dd><p>Splits the input list into smaller sublists of size n (or close to n).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>origin_list</strong> – The original list to be split.</p></li>
+<li><p><strong>n</strong> – The number of sublists to split into.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of sublists.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

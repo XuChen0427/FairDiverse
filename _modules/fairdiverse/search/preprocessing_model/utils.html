@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fairdiverse.search.preprocessing_model.utils &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.reranker.html">reranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.trainer.html">trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html">Abstract_Ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html">Abstract_Reranker</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.evaluator.html">recommendation.evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.llm_rec.html">recommendation.llm_rec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.metric.html">recommendation.metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.process_data.html">recommendation.process_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.sampler.html">sampler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.utils.group_utils.html">group_utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.trainer_preprocessing_ranker.html">trainer_preprocessing_ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.preprocessing_model.fair_model.html">fair_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.postprocessing_model.base.html">postprocessing_model.base</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.fairness_evaluator.html">fairness_evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.preprocessing_model.utils.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.ranker_model.ranker.html">ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.loss.html">loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.process_dataset.html">process_dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.utils.html">utils.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.llm_model.api_llm.html">api_llm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.div_type.html">div_type</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fairdiverse.search.preprocessing_model.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fairdiverse.search.preprocessing_model.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<div class="viewcode-block" id="compute_dynamic_values_to_code">
+<a class="viewcode-back" href="../../../../APIs/search/search.preprocessing_model.utils.html#fairdiverse.search.preprocessing_model.utils.compute_dynamic_values_to_code">[docs]</a>
+<span class="k">def</span> <span class="nf">compute_dynamic_values_to_code</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sensitive_attributes</span><span class="p">):</span>
+    <span class="n">value_to_code</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">current_code</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># For each sensitive attribute</span>
+    <span class="k">for</span> <span class="n">s_attribute</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sensitive_attributes</span><span class="p">):</span>
+        <span class="n">unique_groups</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+
+        <span class="c1"># Assign code to independent groups</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">unique_groups</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">value_to_code</span><span class="p">:</span>
+                <span class="n">value_to_code</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_code</span>
+                <span class="n">current_code</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">value_to_code</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="process_data_input">
+<a class="viewcode-back" href="../../../../APIs/search/search.preprocessing_model.utils.html#fairdiverse.search.preprocessing_model.utils.process_data_input">[docs]</a>
+<span class="k">def</span> <span class="nf">process_data_input</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">configs</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+    <span class="n">features_col</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">feature_cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">dataset</span><span class="o">.</span><span class="n">score_col</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="s2">&quot;unprivileged_groups&quot;</span> <span class="ow">in</span> <span class="n">configs</span><span class="p">:</span>
+        <span class="n">sensitive_attributes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;unprivileged_groups&quot;</span><span class="p">])</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">configs</span><span class="p">[</span><span class="s2">&quot;privileged_groups&quot;</span><span class="p">])</span>
+        <span class="n">value_to_code</span> <span class="o">=</span> <span class="n">compute_dynamic_values_to_code</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sensitive_attributes</span><span class="p">)</span>
+
+        <span class="n">unprivileged_groups</span><span class="p">,</span> <span class="n">privileged_groups</span><span class="p">,</span> <span class="n">group_weights</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{},</span> <span class="p">{}</span>
+        <span class="c1"># Encode sensitive attributes</span>
+        <span class="k">for</span> <span class="n">s_attribute</span> <span class="ow">in</span> <span class="n">sensitive_attributes</span><span class="p">:</span>
+            <span class="n">coded_attribute</span> <span class="o">=</span> <span class="n">s_attribute</span> <span class="o">+</span> <span class="s1">&#39;_coded&#39;</span>
+            <span class="n">features_col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coded_attribute</span><span class="p">)</span>
+
+            <span class="n">data</span><span class="p">[</span><span class="n">coded_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">value_to_code</span><span class="p">)</span>
+
+            <span class="n">unprivileged_groups</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value_to_code</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span>
+                                                <span class="n">configs</span><span class="p">[</span><span class="s2">&quot;unprivileged_groups&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s_attribute</span><span class="p">,</span> <span class="p">[])]</span>
+            <span class="n">privileged_groups</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value_to_code</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span>
+                                              <span class="n">configs</span><span class="p">[</span><span class="s2">&quot;privileged_groups&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s_attribute</span><span class="p">,</span> <span class="p">[])]</span>
+
+            <span class="c1"># Update group weights</span>
+            <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">value_to_code</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="ow">and</span> <span class="n">value_to_code</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">group_weights</span><span class="p">:</span>
+                    <span class="n">group_weights</span><span class="p">[</span><span class="n">value_to_code</span><span class="p">[</span><span class="n">group</span><span class="p">]]</span> <span class="o">=</span> <span class="n">configs</span><span class="p">[</span><span class="s1">&#39;group_weights&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Store sensitive groups</span>
+        <span class="n">sensitive_groups</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;unprivileged_groups&quot;</span><span class="p">:</span> <span class="n">unprivileged_groups</span><span class="p">,</span> <span class="s2">&quot;privileged_groups&quot;</span><span class="p">:</span> <span class="n">privileged_groups</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sensitive_attributes</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">sensitive_cols</span>
+        <span class="n">value_to_code</span> <span class="o">=</span> <span class="n">compute_dynamic_values_to_code</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sensitive_attributes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s_attribute</span> <span class="ow">in</span> <span class="n">sensitive_attributes</span><span class="p">:</span>
+            <span class="n">coded_attribute</span> <span class="o">=</span> <span class="n">s_attribute</span> <span class="o">+</span> <span class="s1">&#39;_coded&#39;</span>
+            <span class="n">features_col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coded_attribute</span><span class="p">)</span>
+
+            <span class="n">data</span><span class="p">[</span><span class="n">coded_attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">value_to_code</span><span class="p">)</span>
+
+        <span class="n">group_weights</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">sensitive_groups</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Identify indices of sensitive columns</span>
+    <span class="n">sensitive_column_indices</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">features_col</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">s_attribute</span> <span class="o">+</span> <span class="s2">&quot;_coded&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s_attribute</span> <span class="ow">in</span> <span class="n">sensitive_attributes</span>
+    <span class="p">]</span>
+
+    <span class="n">nonsensitive_column_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_col</span><span class="p">))</span> <span class="k">if</span>
+                                   <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sensitive_column_indices</span><span class="p">]</span>
+    <span class="n">data_processed</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">features_col</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data_processed</span><span class="p">,</span> <span class="n">group_weights</span><span class="p">,</span> <span class="n">sensitive_groups</span><span class="p">,</span> <span class="n">sensitive_column_indices</span><span class="p">,</span> <span class="n">nonsensitive_column_indices</span></div>
+
+
+
+<div class="viewcode-block" id="process_data_output">
+<a class="viewcode-back" href="../../../../APIs/search/search.preprocessing_model.utils.html#fairdiverse.search.preprocessing_model.utils.process_data_output">[docs]</a>
+<span class="k">def</span> <span class="nf">process_data_output</span><span class="p">(</span><span class="n">data_orig</span><span class="p">,</span> <span class="n">data_fair</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">nonsensitive_column_indices</span><span class="p">,</span> <span class="n">fair_data_path</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Combine relevant columns from configs</span>
+    <span class="n">features_col</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">feature_cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">dataset</span><span class="o">.</span><span class="n">score_col</span><span class="p">]</span>
+
+    <span class="c1"># Convert data_fair to a numpy array and select relevant columns</span>
+    <span class="n">data_fair</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">data_fair</span><span class="p">)</span>
+    <span class="n">fair_features_col</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">_fair&#39;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">features_col</span><span class="p">]</span>
+    <span class="n">selected_fair_features_col</span> <span class="o">=</span> <span class="p">[</span><span class="n">fair_features_col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nonsensitive_column_indices</span><span class="p">]</span>
+
+    <span class="c1"># Create DataFrame for fair data with selected columns</span>
+    <span class="n">data_fair</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_fair</span><span class="p">[:,</span> <span class="n">nonsensitive_column_indices</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">selected_fair_features_col</span><span class="p">)</span>
+
+    <span class="c1"># Add original data columns to the fair data</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data_orig</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">data_fair</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_orig</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">data_fair</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_orig</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">if</span> <span class="n">file_name</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">fair_data_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">data_fair</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fair_data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;fair_</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s1">_data.csv&#39;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">data_fair</span></div>
+
+
+
+<div class="viewcode-block" id="save_model_data">
+<a class="viewcode-back" href="../../../../APIs/search/search.preprocessing_model.utils.html#fairdiverse.search.preprocessing_model.utils.save_model_data">[docs]</a>
+<span class="k">def</span> <span class="nf">save_model_data</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;model_parmas.npy&#39;</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">opt_params</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_model_data">
+<a class="viewcode-back" href="../../../../APIs/search/search.preprocessing_model.utils.html#fairdiverse.search.preprocessing_model.utils.load_model_data">[docs]</a>
+<span class="k">def</span> <span class="nf">load_model_data</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;model_parmas.npy&#39;</span><span class="p">),</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+       <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

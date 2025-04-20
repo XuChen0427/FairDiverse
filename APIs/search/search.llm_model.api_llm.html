@@ -88,7 +88,12 @@
 <li class="toctree-l1"><a class="reference internal" href="search.utils.loss.html">loss</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html">process_dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html">utils.utils</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">api_llm</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">api_llm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.llm_model.api_llm.ApiException"><code class="docutils literal notranslate"><span class="pre">ApiException</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.llm_model.api_llm.ApiProxy"><code class="docutils literal notranslate"><span class="pre">ApiProxy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.llm_model.api_llm.LMAgent"><code class="docutils literal notranslate"><span class="pre">LMAgent</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html">div_type</a></li>
 </ul>
 
@@ -116,8 +121,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="api-llm">
-<h1>api_llm<a class="headerlink" href="#api-llm" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.llm_model.api_llm">
+<span id="api-llm"></span><h1>api_llm<a class="headerlink" href="#module-fairdiverse.search.llm_model.api_llm" title="Link to this heading">¶</a></h1>
+<dl class="py exception">
+<dt class="sig sig-object py" id="fairdiverse.search.llm_model.api_llm.ApiException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.llm_model.api_llm.</span></span><span class="sig-name descname"><span class="pre">ApiException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/llm_model/api_llm.html#ApiException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.llm_model.api_llm.ApiException" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Custom exception class for handling API-specific errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> – Error message describing the API failure</p></li>
+<li><p><strong>error_code</strong> – HTTP status code from the API response</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.llm_model.api_llm.ApiProxy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.llm_model.api_llm.</span></span><span class="sig-name descname"><span class="pre">ApiProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/llm_model/api_llm.html#ApiProxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.llm_model.api_llm.ApiProxy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A proxy class for handling HTTP communications with LLM API endpoints.
+This class manages API request sessions, implements retry logic, and handles
+various HTTP status codes with exponential backoff for rate limits and server errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – The API endpoint URL</p></li>
+<li><p><strong>api_key</strong> – Optional API key for authentication with LLM services</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.llm_model.api_llm.LMAgent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.llm_model.api_llm.</span></span><span class="sig-name descname"><span class="pre">LMAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/llm_model/api_llm.html#LMAgent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.llm_model.api_llm.LMAgent" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A high-level interface for interacting with large language models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Dictionary containing model configuration parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

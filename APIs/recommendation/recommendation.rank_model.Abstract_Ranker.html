@@ -62,7 +62,23 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="recommendation.reranker.html">reranker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.trainer.html">trainer</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract_Ranker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract_Ranker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer.fairness_loss"><code class="docutils literal notranslate"><span class="pre">Abstract_Regularizer.fairness_loss()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reset_parameters"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher.reset_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reweight"><code class="docutils literal notranslate"><span class="pre">Abstract_Reweigher.reweight()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.reset_parameters"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler.reset_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.sample"><code class="docutils literal notranslate"><span class="pre">Abstract_Sampler.sample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.rerank_model.Abstract_Reranker.html">Abstract_Reranker</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
@@ -116,8 +132,91 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="abstract-ranker">
-<h1>Abstract_Ranker<a class="headerlink" href="#abstract-ranker" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.recommendation.rank_model.Abstract_Ranker">
+<span id="abstract-ranker"></span><h1>Abstract_Ranker<a class="headerlink" href="#module-fairdiverse.recommendation.rank_model.Abstract_Ranker" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.rank_model.Abstract_Ranker.</span></span><span class="sig-name descname"><span class="pre">Abstract_Regularizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Regularizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer.fairness_loss">
+<span class="sig-name descname"><span class="pre">fairness_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Regularizer.fairness_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Regularizer.fairness_loss" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the fairness loss as the variance of the input scores.</p>
+<p>This function calculates the fairness loss by computing the variance of the provided scores. The loss aims to capture
+the variation in the scores, which can be used as a measure of fairness in the model’s predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>any.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fairness loss.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.rank_model.Abstract_Ranker.</span></span><span class="sig-name descname"><span class="pre">Abstract_Reweigher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Reweigher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reset_parameters">
+<span class="sig-name descname"><span class="pre">reset_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Reweigher.reset_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reset_parameters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reweight">
+<span class="sig-name descname"><span class="pre">reweight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Reweigher.reweight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Reweigher.reweight" title="Link to this definition">¶</a></dt>
+<dd><p>Recalculates the batch weights based on the loss and the group adjacency matrix.</p>
+<p>This function computes new weights for each group in the batch based on the loss associated with each item and
+the group adjacency matrix. The batch weights are recalculated by considering the loss for each group and adjusting
+them based on predefined parameters in the configuration (e.g., <cite>beta</cite>, <cite>alpha</cite>, <cite>eta</cite>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Any</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A normalized vector of batch weights for each group in the batch.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.rank_model.Abstract_Ranker.</span></span><span class="sig-name descname"><span class="pre">Abstract_Sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user2pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Sampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.reset_parameters">
+<span class="sig-name descname"><span class="pre">reset_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Sampler.reset_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.reset_parameters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rank_model/Abstract_Ranker.html#Abstract_Sampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rank_model.Abstract_Ranker.Abstract_Sampler.sample" title="Link to this definition">¶</a></dt>
+<dd><p>Samples negative items for each user in the interaction, based on group fairness and model predictions.</p>
+<p>This function selects negative items for users in the interaction based on two factors:
+group fairness (weighted by <cite>group_fair</cite>) and the model’s predicted scores (scaled by a temperature parameter).
+The negative item selection combines these factors and returns the selected items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interaction</strong> – A dictionary containing interaction data. It should include:
+- ‘user_ids’: A tensor of user IDs.
+- ‘item_ids’: A tensor of item IDs.</p></li>
+<li><p><strong>Model</strong> – The model object that provides the method <cite>full_scores</cite> to get predicted scores for negative items.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tensor of sampled negative item IDs for each user, and the positive item embeddings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

@@ -1,7 +1,7 @@
 utils.utils
 ==============
 
-.. automodule:: search.utils.utils
+.. automodule:: fairdiverse.search.utils.utils
    :members:
    :undoc-members:
    :show-inheritance:

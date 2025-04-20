@@ -114,8 +114,76 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ifair">
-<h1>iFair<a class="headerlink" href="#ifair" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.preprocessing_model.iFair">
+<span id="ifair"></span><h1>iFair<a class="headerlink" href="#module-fairdiverse.search.preprocessing_model.iFair" title="Link to this heading">¶</a></h1>
+<p>Implementation of the ICDE 2019 paper
+iFair_module: Learning Individually Fair Data Representations for Algorithmic Decision Making
+url: <a class="reference external" href="https://ieeexplore.ieee.org/document/8731591">https://ieeexplore.ieee.org/document/8731591</a>
+citation:
+&#64;inproceedings{DBLP:conf/icde/LahotiGW19,</p>
+<blockquote>
+<div><dl class="simple">
+<dt>author    = {Preethi Lahoti and</dt><dd><p>Krishna P. Gummadi and
+Gerhard Weikum},</p>
+</dd>
+<dt>title     = {iFair_module: Learning Individually Fair Data Representations for Algorithmic</dt><dd><p>Decision Making},</p>
+</dd>
+<dt>booktitle = {35th {IEEE} International Conference on Data Engineering, {ICDE} 2019,</dt><dd><p>Macao, China, April 8-11, 2019},</p>
+</dd>
+</dl>
+<p>pages     = {1334–1345},
+publisher = {{IEEE}},
+year      = {2019},
+url       = {<a class="reference external" href="https://doi.org/10.1109/ICDE.2019.00121">https://doi.org/10.1109/ICDE.2019.00121</a>},
+doi       = {10.1109/ICDE.2019.00121},
+timestamp = {Wed, 16 Oct 2019 14:14:56 +0200},
+biburl    = {<a class="reference external" href="https://dblp.org/rec/conf/icde/LahotiGW19.bib">https://dblp.org/rec/conf/icde/LahotiGW19.bib</a>},
+bibsource = {dblp computer science bibliography, <a class="reference external" href="https://dblp.org">https://dblp.org</a>}</p>
+</div></blockquote>
+<p>}</p>
+<p>__author__: Preethi Lahoti
+__email__: <a class="reference external" href="mailto:plahoti&#37;&#52;&#48;mpi-inf&#46;mpg&#46;de">plahoti<span>&#64;</span>mpi-inf<span>&#46;</span>mpg<span>&#46;</span>de</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.iFair.iFair">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.preprocessing_model.iFair.</span></span><span class="sig-name descname"><span class="pre">iFair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/iFair.html#iFair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.iFair.iFair" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="search.preprocessing_model.fair_model.html#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention" title="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention"><code class="xref py py-class docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></p>
+<p>iFair is a fairness intervention method based on optimization techniques.</p>
+<p>This class extends PreprocessingFairnessIntervention and applies individual fairness constraints to data
+using probabilistic mapping and distance-based optimization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.iFair.iFair.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/iFair.html#iFair.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.iFair.iFair.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Train the iFair fairness model using the given training dataset.</p>
+<p>This method applies optimization to learn individual fairness constraints and stores the results
+for later use.</p>
+<dl class="simple">
+<dt>:param X_train<span class="classifier">pandas.DataFrame</span></dt><dd><p>The training dataset. The last column is expected to be the protected attribute.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the training run.</p>
+</dd>
+</dl>
+<p>:return : None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.iFair.iFair.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/iFair.html#iFair.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.iFair.iFair.transform" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the fairness transformation to the dataset using the learned model.</p>
+<p>This method ensures fairness by adjusting feature distributions while maintaining data utility.</p>
+<dl class="simple">
+<dt>:param X<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset to which the fairness transformation is applied.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the transformation run.</p>
+</dd>
+<dt>:param file_name<span class="classifier">str, optional</span></dt><dd><p>Name of the file to save the transformed dataset.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset with transformed fair columns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

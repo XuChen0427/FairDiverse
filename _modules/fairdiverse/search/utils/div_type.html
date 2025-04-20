@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fairdiverse.search.utils.div_type &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.reranker.html">reranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.trainer.html">trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html">Abstract_Ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html">Abstract_Reranker</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.evaluator.html">recommendation.evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.llm_rec.html">recommendation.llm_rec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.metric.html">recommendation.metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.process_data.html">recommendation.process_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.sampler.html">sampler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.utils.group_utils.html">group_utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.trainer_preprocessing_ranker.html">trainer_preprocessing_ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.preprocessing_model.fair_model.html">fair_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.postprocessing_model.base.html">postprocessing_model.base</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.fairness_evaluator.html">fairness_evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.preprocessing_model.utils.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.ranker_model.ranker.html">ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.loss.html">loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.process_dataset.html">process_dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.utils.html">utils.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.llm_model.api_llm.html">api_llm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.div_type.html">div_type</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fairdiverse.search.utils.div_type</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fairdiverse.search.utils.div_type</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="subtopic">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.subtopic">[docs]</a>
+<span class="k">class</span> <span class="nc">subtopic</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtopic_id</span><span class="p">,</span> <span class="n">subtopic</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a subtopic of a query.</span>
+
+<span class="sd">        :param subtopic_id: Unique identifier for the subtopic.</span>
+<span class="sd">        :param subtopic: Text representation of the subtopic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtopic_id</span> <span class="o">=</span> <span class="n">subtopic_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtopic</span> <span class="o">=</span> <span class="n">subtopic</span></div>
+
+
+
+<div class="viewcode-block" id="div_query">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query">[docs]</a>
+<span class="k">class</span> <span class="nc">div_query</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qid</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">subtopic_id_list</span><span class="p">,</span> <span class="n">subtopic_list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a diversity query for re-ranking search results.</span>
+<span class="sd">        </span>
+<span class="sd">        :param qid: Unique query identifier.</span>
+<span class="sd">        :param query: Text of the query.</span>
+<span class="sd">        :param subtopic_id_list: List of subtopic IDs associated with the query.</span>
+<span class="sd">        :param subtopic_list: List of subtopic texts corresponding to the subtopic IDs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qid</span> <span class="o">=</span> <span class="n">qid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtopic_id_list</span> <span class="o">=</span> <span class="n">subtopic_id_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtopic_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc_score_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_metric</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stand_alpha_DCG</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subtopic_id_list</span><span class="p">)):</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">subtopic</span><span class="p">(</span><span class="n">subtopic_id_list</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">subtopic_list</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subtopic_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<div class="viewcode-block" id="div_query.set_std_metric">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query.set_std_metric">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_std_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the standard alpha-DCG metric for normalization.</span>
+<span class="sd">        </span>
+<span class="sd">        :param m: Standard alpha-DCG metric value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stand_alpha_DCG</span> <span class="o">=</span> <span class="n">m</span></div>
+
+
+<div class="viewcode-block" id="div_query.add_docs">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query.add_docs">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a list of documents to the query and initializes subtopic relevance tracking.</span>
+<span class="sd">        </span>
+<span class="sd">        :param doc_list: List of document identifiers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc_list</span> <span class="o">=</span> <span class="n">doc_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DOC_NUM</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_list</span><span class="p">)</span>
+        <span class="n">init_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">doc_list</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subtopic_list</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtopic_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">init_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">subtopic_id_list</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">doc_list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="div_query.add_query_suggestion">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query.add_query_suggestion">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_query_suggestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_suggestion</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds query suggestions related to the main query.</span>
+<span class="sd">        </span>
+<span class="sd">        :param query_suggestion: Suggested query string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_suggestion</span> <span class="o">=</span> <span class="n">query_suggestion</span></div>
+
+
+<div class="viewcode-block" id="div_query.add_docs_rel_score">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query.add_docs_rel_score">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_docs_rel_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_score_list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds relevance scores for the documents associated with the query.</span>
+<span class="sd">        </span>
+<span class="sd">        :param doc_score_list: List of relevance scores for documents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc_score_list</span> <span class="o">=</span> <span class="n">doc_score_list</span></div>
+
+
+<div class="viewcode-block" id="div_query.get_test_alpha_nDCG">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query.get_test_alpha_nDCG">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_test_alpha_nDCG</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs_rank</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the alpha_nDCG@20 for the input document list (for testing).</span>
+<span class="sd">        </span>
+<span class="sd">        :param docs_rank: Ordered list of document identifiers.</span>
+<span class="sd">        :return: Alpha-nDCG score for the given ranking.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">docs_rank</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subtopic_list</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">temp_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_subtopic_df</span><span class="p">)</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="n">real_num</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs_rank</span><span class="p">))</span>
+        <span class="n">best_docs_index</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">real_num</span><span class="p">):</span>
+            <span class="n">result_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_docs_rank</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">docs_rank</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="n">best_docs_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_index</span><span class="p">)</span>
+            <span class="n">temp_data</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">temp_array</span><span class="p">[</span><span class="n">result_index</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp_data</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r_ik</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp_data</span><span class="p">[:</span><span class="n">index</span><span class="p">,</span> <span class="n">s</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">temp_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">r_ik</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">temp_data</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:],</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">index</span><span class="p">)</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39; normalized by the stand alpha DCG &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;stand_alpha_DCG&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">stand_alpha_DCG</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">alpha_nDCG</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">stand_alpha_DCG</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;except np.sum =&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">metrics</span><span class="p">),</span> <span class="s1">&#39;self.global_best_metric = &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_best_metric</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error! qid =&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qid</span><span class="p">)</span>
+            <span class="n">alpha_nDCG</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">alpha_nDCG</span></div>
+
+    
+
+<div class="viewcode-block" id="div_query.get_alpha_DCG">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query.get_alpha_DCG">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_alpha_DCG</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs_rank</span><span class="p">,</span> <span class="n">print_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the alpha-DCG for the input document list (for generating training samples)</span>
+<span class="sd">        </span>
+<span class="sd">        :param docs_rank: A list of document IDs representing the ranking order.</span>
+<span class="sd">        :param print_flag: A boolean flag indicating whether to print intermediate computation results.</span>
+<span class="sd">        :return: The computed alpha-DCG score for the given document ranking.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">docs_rank</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subtopic_list</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">temp_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_subtopic_df</span><span class="p">)</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">docs_rank</span><span class="p">)):</span>
+            <span class="n">result_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_docs_rank</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">docs_rank</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="n">temp_data</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">temp_array</span><span class="p">[</span><span class="n">result_index</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp_data</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r_ik</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp_data</span><span class="p">[:</span><span class="n">index</span><span class="p">,</span> <span class="n">s</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">temp_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">r_ik</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">temp_data</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:],</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">index</span><span class="p">)</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">print_flag</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;self.best_gain = &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_gain</span><span class="p">,</span> <span class="s1">&#39;sum(best_gain) = &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_gain</span><span class="p">),</span> <span class="s1">&#39;best_metric = &#39;</span><span class="p">,</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">best_metric</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test metrics = &#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="s1">&#39;sum(metrics) = &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">metrics</span><span class="p">))</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;get the total gain for the input document list&#39;&#39;&#39;</span>
+        <span class="n">alpha_nDCG</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">alpha_nDCG</span></div>
+
+
+<div class="viewcode-block" id="div_query.get_best_rank">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_query.get_best_rank">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_best_rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the best document ranking using a greedy selection strategy.</span>
+<span class="sd">        </span>
+<span class="sd">        :param top_n: The number of top documents to be selected (default: all available documents).</span>
+<span class="sd">        :param alpha: A parameter controlling redundancy reduction (default: 0.5).</span>
+<span class="sd">        :return: Updates class attributes with the best document ranking and associated gains.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">alpha</span>
+        <span class="k">if</span> <span class="n">top_n</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">top_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DOC_NUM</span>
+        <span class="n">real_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">top_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DOC_NUM</span><span class="p">))</span>
+        <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">real_num</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subtopic_list</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">temp_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subtopic_df</span><span class="p">)</span>
+        <span class="n">best_docs_rank</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">best_docs_rank_rel_score</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">best_gain</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39; greedy document selection &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">real_num</span><span class="p">):</span>
+            <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">real_num</span><span class="p">):</span>
+                    <span class="n">temp_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp_array</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
+                    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_score</span><span class="p">)</span>
+                <span class="n">result_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">scores</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">gain</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">result_index</span><span class="p">]</span>
+                <span class="n">docid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_list</span><span class="p">[</span><span class="n">result_index</span><span class="p">]</span>
+                <span class="n">doc_rel_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_score_list</span><span class="p">[</span><span class="n">result_index</span><span class="p">]</span>
+                <span class="n">best_docs_rank</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">docid</span><span class="p">)</span>
+                <span class="n">best_docs_rank_rel_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc_rel_score</span><span class="p">)</span>
+                <span class="n">best_gain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="n">result_index</span><span class="p">])</span>
+                <span class="n">temp_data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">temp_array</span><span class="p">[</span><span class="n">result_index</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">real_num</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">best_docs_rank</span><span class="p">:</span>
+                        <span class="n">r_ik</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp_data</span><span class="p">[:</span><span class="n">step</span><span class="p">,</span> <span class="n">s</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">temp_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])],</span>
+                                        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+                        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">r_ik</span><span class="p">)</span>
+                        <span class="n">temp_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">temp_array</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:],</span> <span class="n">t</span><span class="p">)</span>
+                        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_score</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+                <span class="n">result_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">scores</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">gain</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">result_index</span><span class="p">]</span>
+                <span class="n">docid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_list</span><span class="p">[</span><span class="n">result_index</span><span class="p">]</span>
+                <span class="n">doc_rel_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_score_list</span><span class="p">[</span><span class="n">result_index</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">docid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">best_docs_rank</span><span class="p">:</span>
+                    <span class="n">best_docs_rank</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">docid</span><span class="p">)</span>
+                    <span class="n">best_docs_rank_rel_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc_rel_score</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;document already added!&#39;</span><span class="p">)</span>
+                <span class="n">best_gain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="n">result_index</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">step</span><span class="p">))</span>
+                <span class="n">temp_data</span><span class="p">[</span><span class="n">step</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">temp_array</span><span class="p">[</span><span class="n">result_index</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_docs_rank</span> <span class="o">=</span> <span class="n">best_docs_rank</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_docs_rank_rel_score</span> <span class="o">=</span> <span class="n">best_docs_rank_rel_score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_gain</span> <span class="o">=</span> <span class="n">best_gain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_subtopic_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">temp_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">subtopic_id_list</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">best_docs_rank</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_metric</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_gain</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="div_dataset">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_dataset">[docs]</a>
+<span class="k">class</span> <span class="nc">div_dataset</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the dataset object with file paths and configuration. </span>
+
+<span class="sd">        :param config: A dictionary containing configuration settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Best_File</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="s1">&#39;div_query.data&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Train_File</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="s1">&#39;listpair_train.data&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">])):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;data_dir&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+
+<div class="viewcode-block" id="div_dataset.get_listpairs">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_dataset.get_listpairs">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_listpairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">div_query</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">top_n</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates list-pair samples</span>
+<span class="sd">        </span>
+<span class="sd">        :param div_query: The query object that contains the list of ranked documents.</span>
+<span class="sd">        :param context: A list of previously considered documents in the context.</span>
+<span class="sd">        :param top_n: The number of top-ranked documents to consider.</span>
+<span class="sd">        :return: A list of generated samples, each containing metrics, positive/negative masks, and weights. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">best_rank</span> <span class="o">=</span> <span class="n">div_query</span><span class="o">.</span><span class="n">best_docs_rank</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_rank</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">best_rank</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+                <span class="n">metric</span> <span class="o">=</span> <span class="n">div_query</span><span class="o">.</span><span class="n">get_alpha_DCG</span><span class="p">(</span><span class="n">context</span> <span class="o">+</span> <span class="p">[</span><span class="n">best_rank</span><span class="p">[</span><span class="n">index</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">metric</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39; padding the metrics &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">top_n</span><span class="p">:</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">top_n</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">metrics</span><span class="p">)))</span>
+        <span class="n">total_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_rank</span><span class="p">)):</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39; set a limit to the total sample number &#39;&#39;&#39;</span>
+            <span class="k">if</span> <span class="n">total_count</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_rank</span><span class="p">)):</span>
+<span class="w">                </span><span class="sd">&#39;&#39;&#39; set a limit to sample number on the same context&#39;&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">if</span> <span class="n">metrics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">metrics</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">metrics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">metrics</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="n">metrics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">metrics</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">total_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">positive_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">top_n</span><span class="p">)</span>
+                    <span class="n">negative_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">top_n</span><span class="p">)</span>
+                    <span class="n">weight</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">metrics</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                    <span class="n">positive_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">negative_mask</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">metrics</span><span class="p">,</span> <span class="n">positive_mask</span><span class="p">,</span> <span class="n">negative_mask</span><span class="p">,</span> <span class="n">weight</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">metrics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">metrics</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">total_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">positive_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">top_n</span><span class="p">)</span>
+                    <span class="n">negative_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">top_n</span><span class="p">)</span>
+                    <span class="n">weight</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">metrics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">positive_mask</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">negative_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">metrics</span><span class="p">,</span> <span class="n">positive_mask</span><span class="p">,</span> <span class="n">negative_mask</span><span class="p">,</span> <span class="n">weight</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">samples</span></div>
+
+
+<div class="viewcode-block" id="div_dataset.get_listpair_train_data">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.div_type.html#fairdiverse.search.utils.div_type.div_dataset.get_listpair_train_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_listpair_train_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates list-pair training samples using the top N relevant documents. </span>
+<span class="sd">        This function processes the best document ranks for each query, generates list-pair samples, and saves them to a file: listpair_train.data. </span>
+<span class="sd">        data_dict[qid] = [(metrics, positive_mask, negative_mask, weight),...]</span>
+<span class="sd">        metrics, positive_mask and negative_mask are padding as tensors with length of top_n</span>
+
+<span class="sd">        :param top_n: The number of top-ranked documents to use for generating the list-pairs.</span>
+<span class="sd">        :return: Saves the generated list-pair training data into a file. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">qd</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Best_File</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+        <span class="n">train_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">qd</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Gen Train Data&quot;</span><span class="p">):</span>
+            <span class="n">temp_q</span> <span class="o">=</span> <span class="n">qd</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span>
+            <span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">real_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">top_n</span><span class="p">,</span> <span class="n">temp_q</span><span class="o">.</span><span class="n">DOC_NUM</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">real_num</span><span class="p">):</span>
+                <span class="n">listpair_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_listpairs</span><span class="p">(</span><span class="n">temp_q</span><span class="p">,</span> <span class="n">temp_q</span><span class="o">.</span><span class="n">best_docs_rank</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">top_n</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">listpair_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">result_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">listpair_data</span><span class="p">)</span>
+            <span class="n">train_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)]</span> <span class="o">=</span> <span class="n">result_list</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">train_dict</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Train_File</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

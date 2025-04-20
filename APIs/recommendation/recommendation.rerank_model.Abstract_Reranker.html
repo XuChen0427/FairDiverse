@@ -63,7 +63,13 @@
 <li class="toctree-l1"><a class="reference internal" href="recommendation.reranker.html">reranker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.trainer.html">trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.rank_model.Abstract_Ranker.html">Abstract_Ranker</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract_Reranker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract_Reranker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker.rerank"><code class="docutils literal notranslate"><span class="pre">Abstract_Reranker.rerank()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
 <ul>
@@ -116,8 +122,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="abstract-reranker">
-<h1>Abstract_Reranker<a class="headerlink" href="#abstract-reranker" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.recommendation.rerank_model.Abstract_Reranker">
+<span id="abstract-reranker"></span><h1>Abstract_Reranker<a class="headerlink" href="#module-fairdiverse.recommendation.rerank_model.Abstract_Reranker" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.rerank_model.Abstract_Reranker.</span></span><span class="sig-name descname"><span class="pre">Abstract_Reranker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rerank_model/Abstract_Reranker.html#Abstract_Reranker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker.rerank">
+<span class="sig-name descname"><span class="pre">rerank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking_score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/rerank_model/Abstract_Reranker.html#Abstract_Reranker.rerank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.rerank_model.Abstract_Reranker.Abstract_Reranker.rerank" title="Link to this definition">¶</a></dt>
+<dd><p>Re-ranks the items based on the initial ranking scores and a fairness regularization term.</p>
+<p>This function performs re-ranking of items for each user by incorporating a fairness regularization term
+(<cite>minimax_reg</cite>) that adjusts the ranking scores to promote fairness across groups. The re-ranked list of
+items is returned for each user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ranking_score</strong> – A 2D array (or tensor) of ranking scores for all items, with shape (user_size, item_num).
+Each row corresponds to the scores for a user and each column corresponds to an item.</p></li>
+<li><p><strong>k</strong> – The number of top-ranked items to return for each user.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of re-ranked item indices for each user, with the top <cite>k</cite> items for each user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

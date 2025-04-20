@@ -1,7 +1,7 @@
 DALETOR
 ===========
 
-.. automodule:: search.postprocessing_model.DALETOR
+.. automodule:: fairdiverse.search.postprocessing_model.DALETOR
    :members:
    :undoc-members:
    :show-inheritance:

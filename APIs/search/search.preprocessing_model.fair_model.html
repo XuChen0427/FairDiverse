@@ -77,7 +77,15 @@
 <p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="search.trainer_preprocessing_ranker.html">trainer_preprocessing_ranker</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">fair_model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">fair_model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention.fit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit_transform"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention.fit_transform()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.transform"><code class="docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention.transform()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="search.postprocessing_model.base.html">postprocessing_model.base</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
@@ -116,8 +124,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="fair-model">
-<h1>fair_model<a class="headerlink" href="#fair-model" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.preprocessing_model.fair_model">
+<span id="fair-model"></span><h1>fair_model<a class="headerlink" href="#module-fairdiverse.search.preprocessing_model.fair_model" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.preprocessing_model.fair_model.</span></span><span class="sig-name descname"><span class="pre">PreprocessingFairnessIntervention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/fair_model.html#PreprocessingFairnessIntervention"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for preprocessing fairness interventions.</p>
+<p>This class serves as a base for various fairness intervention methods that preprocess datasets
+to reduce biases while maintaining data utility.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/fair_model.html#PreprocessingFairnessIntervention.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Train the fairness model using the given training dataset.</p>
+<dl class="simple">
+<dt>:param X_train<span class="classifier">pandas.DataFrame</span></dt><dd><p>The training dataset.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the training run when using k-fold.</p>
+</dd>
+</dl>
+<p>:return : None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/fair_model.html#PreprocessingFairnessIntervention.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.fit_transform" title="Link to this definition">¶</a></dt>
+<dd><p>Learns the model from the training data and returns the data in the new space.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.transform">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/fair_model.html#PreprocessingFairnessIntervention.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention.transform" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the transformation to the dataset using the learned model.</p>
+<dl class="simple">
+<dt>:param X<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset to which the fairness transformation is applied.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the transformation run.</p>
+</dd>
+<dt>:param file_name<span class="classifier">str, optional</span></dt><dd><p>Name of the file to save the transformed dataset.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset with transformed fair columns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

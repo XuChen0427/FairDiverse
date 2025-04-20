@@ -17,6 +17,7 @@
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -69,7 +70,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html">recommendation.evaluator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.llm_rec.html">recommendation.llm_rec</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">recommendation.metric</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">recommendation.metric</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.AUC_score"><code class="docutils literal notranslate"><span class="pre">AUC_score()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.Entropy"><code class="docutils literal notranslate"><span class="pre">Entropy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.Gini"><code class="docutils literal notranslate"><span class="pre">Gini()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.HR"><code class="docutils literal notranslate"><span class="pre">HR()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.MMF"><code class="docutils literal notranslate"><span class="pre">MMF()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.MRR"><code class="docutils literal notranslate"><span class="pre">MRR()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.MinMaxRatio"><code class="docutils literal notranslate"><span class="pre">MinMaxRatio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.NDCG"><code class="docutils literal notranslate"><span class="pre">NDCG()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.dcg"><code class="docutils literal notranslate"><span class="pre">dcg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.mask_utility"><code class="docutils literal notranslate"><span class="pre">mask_utility()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.metric.reconstruct_utility"><code class="docutils literal notranslate"><span class="pre">reconstruct_utility()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.process_data.html">recommendation.process_data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.sampler.html">sampler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html">group_utils</a></li>
@@ -116,8 +130,209 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="recommendation-metric">
-<h1>recommendation.metric<a class="headerlink" href="#recommendation-metric" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.recommendation.metric">
+<span id="recommendation-metric"></span><h1>recommendation.metric<a class="headerlink" href="#module-fairdiverse.recommendation.metric" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.AUC_score">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">AUC_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#AUC_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.AUC_score" title="Link to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve">AUC</a> (also known as Area Under Curve) is used to evaluate the two-class model, referring to
+the area under the ROC curve.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This metric does not calculate group-based AUC which considers the AUC scores
+averaged across users. It is also not limited to k. Instead, it calculates the
+scores on the entire prediction results regardless the users. We call the interface
+in <cite>scikit-learn</cite>, and code calculates the metric using the variation of following formula.</p>
+</div>
+<div class="math notranslate nohighlight">
+\[\mathrm {AUC} = \frac {{{M} \times {(N+1)} - \frac{M \times (M+1)}{2}} -
+\sum\limits_{i=1}^{M} rank_{i}} {{M} \times {(N - M)}}\]</div>
+<p><span class="math notranslate nohighlight">\(M\)</span> denotes the number of positive items.
+<span class="math notranslate nohighlight">\(N\)</span> denotes the total number of user-item interactions.
+<span class="math notranslate nohighlight">\(rank_i\)</span> denotes the descending rank of the i-th positive item.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.Entropy">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">Entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utility_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#Entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.Entropy" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the entropy of a distribution given by <cite>utility_list</cite>, optionally
+weighted by <cite>weights</cite> and filtered by <cite>group_mask</cite>. Entropy measures the
+disorder or uncertainty in the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>utility_list</strong> – list or array-like
+A list or array representing utility values for each item.</p></li>
+<li><p><strong>weights</strong> – list or array-like, optional
+A list or array of weights corresponding to each utility value. If not provided,
+all utilities are considered equally weighted. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>:param group_mask<span class="classifier">list or array-like, optional</span></dt><dd><p>A boolean mask indicating which utilities to include in the calculation.
+If not provided, all utilities are included. Defaults to None.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float: The calculated entropy of the (potentially weighted and masked) distribution.</p>
+</dd>
+</dl>
+<p>Notes
+- Entropy is calculated as H = -sum(p * log2(p)), where p is the probability of each event.
+- Probabilities are normalized to ensure their sum equals 1.
+- To avoid taking the log of zero, a small constant (1e-9) is added to each probability before calculating the entropy.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.Gini">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">Gini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utility_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#Gini"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.Gini" title="Link to this definition">¶</a></dt>
+<dd><p>This function computes the Gini coefficient, a measure of statistical dispersion intended to represent income inequality within a nation or social group.
+The Gini coefficient is calculated based on the cumulative distribution of values in <cite>utility_list</cite>, which can optionally be weighted and masked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>utility_list</strong> – array_like
+A 1D array representing individual utilities. The utilities are used to compute the Gini coefficient.</p></li>
+<li><p><strong>weights</strong> – array_like, optional
+A 1D array of weights corresponding to <cite>utility_list</cite>. If provided, each utility value is multiplied by its respective weight before calculating the Gini coefficient. Defaults to None, implying equal weighting.</p></li>
+<li><p><strong>group_mask</strong> – array_like, optional
+A 1D boolean array used to selectively include elements from <cite>utility_list</cite>. If provided, only the elements where the mask is True are considered in the calculation. Defaults to None, meaning all elements are included.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>float: The computed Gini coefficient, ranging from 0 (perfect equality) to 1 (maximal inequality).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.HR">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">HR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#HR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.HR" title="Link to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://medium.com/&#64;rishabhbhatia315/recommendation-system-evaluation-metrics-3f6739288870">HR</a> (also known as truncated Hit-Ratio) is a way of calculating how many ‘hits’
+you have in an n-sized list of ranked items. If there is at least one item that falls in the ground-truth set,
+we call it a hit.</p>
+<div class="math notranslate nohighlight">
+\[\mathrm {HR&#64;K} = \frac{1}{|U|}\sum_{u \in U} \delta(\hat{R}(u) \cap R(u) \neq \emptyset),\]</div>
+<p><span class="math notranslate nohighlight">\(\delta(·)\)</span> is an indicator function. <span class="math notranslate nohighlight">\(\delta(b)\)</span> = 1 if <span class="math notranslate nohighlight">\(b\)</span> is true and 0 otherwise.
+<span class="math notranslate nohighlight">\(\emptyset\)</span> denotes the empty set.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.MMF">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">MMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utility_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#MMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.MMF" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the Max-min Fairness (MMF) index based on a given utility list.</p>
+<p>Parameters
+:param utility: array-like</p>
+<blockquote>
+<div><p>A list or array representing the utilities of resources or users.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ratio</strong> – float, optional
+The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.</p></li>
+<li><p><strong>ratio</strong> – float, optional
+The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.</p></li>
+<li><p><strong>ratio</strong> – float, optional
+The fraction of the minimum utilities to consider for the MMF calculation. Defaults to 0.5.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>:param weights<span class="classifier">array-like, optional</span></dt><dd><p>An optional list or array of weights corresponding to each utility in <cite>utility_list</cite>.
+If provided, utilities are multiplied by their respective weights before sorting.
+Defaults to None, implying equal weighting.</p>
+</dd>
+<dt>:param group_mask<span class="classifier">array-like, optional</span></dt><dd><p>An optional list or array used to selectively apply weights. If provided, it must have the same length as
+<cite>utility_list</cite> and <cite>weights</cite>. Defaults to None, indicating no group-based weighting.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The computed MMF index, representing the fairness of the allocation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.MRR">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">MRR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#MRR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.MRR" title="Link to this definition">¶</a></dt>
+<dd><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Mean_reciprocal_rank">MRR</a> (also known as Mean Reciprocal Rank) computes the reciprocal rank
+of the first relevant item found by an algorithm.</p>
+<div class="math notranslate nohighlight">
+\[\mathrm {MRR&#64;K} = \frac{1}{|U|}\sum_{u \in U} \frac{1}{\operatorname{rank}_{u}^{*}}\]</div>
+<p><span class="math notranslate nohighlight">\({rank}_{u}^{*}\)</span> is the rank position of the first relevant item found by an algorithm for a user <span class="math notranslate nohighlight">\(u\)</span>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.MinMaxRatio">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">MinMaxRatio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utility_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#MinMaxRatio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.MinMaxRatio" title="Link to this definition">¶</a></dt>
+<dd><p>This function computes the minimum-to-maximum ratio of a list of utilities, optionally weighted and grouped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>float</strong><strong>)</strong> (<em>utility_list</em><em> (</em><em>list of</em>) – A list containing numerical utility values.</p></li>
+<li><p><strong>optional</strong><strong>)</strong> (<em>group_mask</em><em> (</em><em>list</em><em> of </em><em>int</em><em> or </em><em>bool</em><em>,</em>) – A list of weights corresponding to the utilities in utility_list. If provided,
+each utility is multiplied by its respective weight. If None, all utilities are considered with equal weight.</p></li>
+<li><p><strong>optional</strong><strong>)</strong> – A mask indicating groups within the utility_list. If provided, it must
+be of the same length as utility_list. Groups are defined by consecutive True or 1 values. If None, no grouping is applied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>float: The computed minimum-to-maximum ratio of the (weighted) utilities.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.NDCG">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">NDCG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#NDCG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.NDCG" title="Link to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Discounted_cumulative_gain#Normalized_DCG">NDCG</a> (also known as normalized discounted cumulative gain) is a measure of ranking quality,
+where positions are discounted logarithmically. It accounts for the position of the hit by assigning
+higher scores to hits at top ranks.</p>
+<div class="math notranslate nohighlight">
+\[\mathrm {NDCG&#64;K} = \frac{1}{|U|}\sum_{u \in U} (\frac{1}{\sum_{i=1}^{\min (|R(u)|, K)}
+\frac{1}{\log _{2}(i+1)}} \sum_{i=1}^{K} \delta(i \in R(u)) \frac{1}{\log _{2}(i+1)})\]</div>
+<p><span class="math notranslate nohighlight">\(\delta(·)\)</span> is an indicator function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.dcg">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">dcg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#dcg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.dcg" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the Discounted Cumulative Gain (DCG) at rank k.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.mask_utility">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">mask_utility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#mask_utility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.mask_utility" title="Link to this definition">¶</a></dt>
+<dd><p>Mask the utility values based on the provided group mask.</p>
+<p>This function filters out the utility values where the corresponding
+group mask element is zero, effectively removing them from the output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>utility</strong> – array for item/user utilities</p></li>
+<li><p><strong>group_mask</strong> – bool array for whether computed the group utilityes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>masked utility array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.metric.reconstruct_utility">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.metric.</span></span><span class="sig-name descname"><span class="pre">reconstruct_utility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utility_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/metric.html#reconstruct_utility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.metric.reconstruct_utility" title="Link to this definition">¶</a></dt>
+<dd><p>Reconstruct utility by re-weighting them and masking the utility of certain unused groups.
+:param utility_list: array for item/user utilities
+:param weights: array for item/user utilities weights
+:param group_mask: bool array for whether computed the group utilityes
+:return: re-constructed utility array</p>
+</dd></dl>
+
 </section>
 
 

@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fairdiverse.search.fairness_evaluator &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.reranker.html">reranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.trainer.html">trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html">Abstract_Ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html">Abstract_Reranker</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.evaluator.html">recommendation.evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.llm_rec.html">recommendation.llm_rec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.metric.html">recommendation.metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.process_data.html">recommendation.process_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.sampler.html">sampler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/recommendation/recommendation.utils.group_utils.html">group_utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.trainer_preprocessing_ranker.html">trainer_preprocessing_ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.fair_model.html">fair_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.postprocessing_model.base.html">postprocessing_model.base</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.fairness_evaluator.html">fairness_evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.preprocessing_model.utils.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.ranker_model.ranker.html">ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.loss.html">loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.process_dataset.html">process_dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.utils.html">utils.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.llm_model.api_llm.html">api_llm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../APIs/search/search.utils.div_type.html">div_type</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fairdiverse.search.fairness_evaluator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fairdiverse.search.fairness_evaluator</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise</span>
+
+
+<div class="viewcode-block" id="evaluate_runs">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.evaluate_runs">[docs]</a>
+<span class="k">def</span> <span class="nf">evaluate_runs</span><span class="p">(</span><span class="n">args_eval</span><span class="p">,</span> <span class="n">qids</span><span class="p">,</span> <span class="n">eval_path</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="n">split</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate the runs by calculating metrics and saving the results in CSV files.</span>
+
+<span class="sd">    :param args_eval : dict</span>
+<span class="sd">        A dictionary containing evaluation configurations, including metrics and other settings.</span>
+<span class="sd">    :param qids : list</span>
+<span class="sd">        A list of unique query identifiers (QIDs) to evaluate.</span>
+<span class="sd">    :param eval_path : str</span>
+<span class="sd">        Path where evaluation results will be saved.</span>
+<span class="sd">    :param runs : int</span>
+<span class="sd">        Number of runs to evaluate.</span>
+<span class="sd">    :param split : str</span>
+<span class="sd">        The data split to evaluate (e.g., &quot;train&quot;, &quot;test&quot;).</span>
+
+<span class="sd">    :return : None</span>
+<span class="sd">        This function saves the evaluation results as CSV files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">qids</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">eval_measure</span> <span class="ow">in</span> <span class="n">args_eval</span><span class="p">[</span><span class="s1">&#39;metrics&#39;</span><span class="p">]:</span>
+            <span class="n">output_f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eval_path</span><span class="p">,</span> <span class="s2">&quot;Eval_QID_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">eval_measure</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_f</span><span class="p">):</span>
+                <span class="n">res_all</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">runs</span><span class="p">):</span>
+                    <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;Eval_QID_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">eval_measure</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eval_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">split</span><span class="p">,</span> <span class="n">eval_measure</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                        <span class="n">res_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+                <span class="n">res_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">res_all</span><span class="p">)</span>
+                <span class="n">res_all</span> <span class="o">=</span> <span class="n">res_all</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                <span class="n">res_all</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_f</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Save eval file in &quot;</span><span class="p">,</span> <span class="n">output_f</span><span class="p">,</span> <span class="s2">&quot; --- </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="evaluate">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.evaluate">[docs]</a>
+<span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">query_col</span><span class="p">,</span> <span class="n">s_attribute</span><span class="p">,</span> <span class="n">eval_path</span><span class="p">,</span> <span class="n">args_eval</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate the given data by calculating metrics for each query and sensitive attribute.</span>
+
+<span class="sd">    :param data : pandas.DataFrame</span>
+<span class="sd">        The data containing the query identifiers and sensitive attribute.</span>
+<span class="sd">    :param query_col : str</span>
+<span class="sd">        The column name for the query identifiers in the data.</span>
+<span class="sd">    :param s_attribute : str</span>
+<span class="sd">        The sensitive attribute column name.</span>
+<span class="sd">    :param eval_path : str</span>
+<span class="sd">        Path where evaluation results will be saved.</span>
+<span class="sd">    :param args_eval : dict</span>
+<span class="sd">        A dictionary containing evaluation configurations, including metrics and other settings.</span>
+
+<span class="sd">    :return : None</span>
+<span class="sd">        This function saves the evaluation results as CSV files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">eval_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">eval_path</span><span class="p">)</span>
+
+    <span class="n">qids</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">query_col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+    <span class="n">groups</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">eval_measure</span> <span class="ow">in</span> <span class="n">args_eval</span><span class="p">[</span><span class="s1">&#39;metrics&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eval_path</span><span class="p">,</span> <span class="n">eval_measure</span><span class="p">)):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eval_path</span><span class="p">,</span> <span class="n">eval_measure</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">qid</span> <span class="ow">in</span> <span class="n">qids</span><span class="p">:</span>
+                <span class="n">data_qid</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">query_col</span><span class="p">]</span> <span class="o">==</span> <span class="n">qid</span><span class="p">]</span>
+                <span class="n">res_qid</span> <span class="o">=</span> <span class="n">evaluate_qid</span><span class="p">(</span><span class="n">data_qid</span><span class="p">,</span> <span class="n">eval_measure</span><span class="p">,</span> <span class="n">s_attribute</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">args_eval</span><span class="p">)</span>
+
+                <span class="n">output_f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eval_path</span><span class="p">,</span> <span class="n">eval_measure</span><span class="p">,</span> <span class="s2">&quot;Eval_QID_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">qid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">eval_measure</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+                <span class="n">res_qid</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_f</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Save eval file in &quot;</span><span class="p">,</span> <span class="n">output_f</span><span class="p">,</span> <span class="s2">&quot; --- </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="evaluate_qid">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.evaluate_qid">[docs]</a>
+<span class="k">def</span> <span class="nf">evaluate_qid</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">eval_measure</span><span class="p">,</span> <span class="n">s_attribute</span><span class="p">,</span> <span class="n">sensitive_groups</span><span class="p">,</span> <span class="n">args_eval</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate the data for a single query ID, calculating the specified metrics.</span>
+
+<span class="sd">    :param df : pandas.DataFrame</span>
+<span class="sd">        The data for a single query ID.</span>
+<span class="sd">    :param eval_measure : str</span>
+<span class="sd">        The evaluation metric to calculate.</span>
+<span class="sd">    :param s_attribute : str</span>
+<span class="sd">        The sensitive attribute column name.</span>
+<span class="sd">    :param sensitive_groups : list</span>
+<span class="sd">        A list of sensitive attribute groups.</span>
+<span class="sd">    :param args_eval : dict</span>
+<span class="sd">        A dictionary containing evaluation configurations, including rankings and k list.</span>
+
+<span class="sd">    :return : pandas.DataFrame</span>
+<span class="sd">        A DataFrame containing the evaluation results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">EVAL_RANKINGS</span> <span class="o">=</span> <span class="n">args_eval</span><span class="p">[</span><span class="s1">&#39;rankings&#39;</span><span class="p">]</span>
+
+    <span class="n">seti_quotas</span> <span class="o">=</span> <span class="n">get_quotas_count</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">s_attribute</span><span class="p">,</span> <span class="n">sensitive_groups</span><span class="o">=</span><span class="n">sensitive_groups</span><span class="p">)</span>
+
+    <span class="n">res_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">eval_measure</span><span class="p">])</span>
+    <span class="n">k_list</span> <span class="o">=</span> <span class="n">args_eval</span><span class="p">[</span><span class="s1">&#39;k_list&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">ranking</span> <span class="ow">in</span> <span class="n">EVAL_RANKINGS</span><span class="p">:</span>
+        <span class="c1"># data sorted by ranking</span>
+        <span class="n">ranking_df</span> <span class="o">=</span> <span class="n">get_sort_df</span><span class="p">(</span><span class="n">ranking</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">ki</span> <span class="ow">in</span> <span class="n">k_list</span><span class="p">:</span>
+            <span class="n">ki</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ki</span><span class="p">)</span>
+            <span class="n">res_row</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">ranking</span><span class="p">,</span> <span class="n">ki</span><span class="p">]</span>
+            <span class="n">all_row</span> <span class="o">=</span> <span class="n">res_row</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span>
+
+            <span class="c1"># data sorted by ranking value at top-k</span>
+            <span class="n">top_ranking</span> <span class="o">=</span> <span class="n">ranking_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">ki</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s1">&#39;individual&#39;</span> <span class="ow">in</span> <span class="n">eval_measure</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">ranking</span><span class="p">:</span>
+                    <span class="n">yNN</span> <span class="o">=</span> <span class="n">compute_individual_fairness</span><span class="p">(</span><span class="n">ranking_df</span><span class="p">,</span> <span class="n">ranking</span><span class="p">)</span>
+                    <span class="n">all_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yNN</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># not applicable on the output of an LTR model</span>
+                    <span class="n">all_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;select_rate&quot;</span><span class="p">:</span>
+                <span class="c1"># applicable per group</span>
+                <span class="n">all_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;diversity&quot;</span><span class="p">:</span>
+                <span class="c1"># applicable per group</span>
+                <span class="n">all_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;exposure&quot;</span><span class="p">:</span>
+                <span class="c1"># applicable per group</span>
+                <span class="n">all_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;igf&quot;</span><span class="p">:</span>
+                <span class="c1"># applicable per group</span>
+                <span class="n">all_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">res_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">all_row</span>
+
+            <span class="c1"># group-level evaluation</span>
+            <span class="n">cur_quotas</span> <span class="o">=</span> <span class="n">get_quotas_count</span><span class="p">(</span><span class="n">top_ranking</span><span class="p">,</span> <span class="n">s_attribute</span><span class="p">,</span> <span class="n">sensitive_groups</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">gi</span> <span class="ow">in</span> <span class="n">sensitive_groups</span><span class="p">:</span>
+                <span class="n">gi_row</span> <span class="o">=</span> <span class="n">res_row</span> <span class="o">+</span> <span class="p">[</span><span class="n">gi</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;select_rate&quot;</span><span class="p">:</span>
+                    <span class="c1"># selection rate to rank inside top-k</span>
+                    <span class="k">if</span> <span class="n">gi</span> <span class="ow">in</span> <span class="n">cur_quotas</span> <span class="ow">and</span> <span class="n">seti_quotas</span><span class="p">[</span><span class="n">gi</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">seti_quotas</span><span class="p">[</span><span class="n">gi</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ki</span><span class="p">:</span>  <span class="c1"># at least one candidate in top-k</span>
+                            <span class="n">seti_quotas</span><span class="p">[</span><span class="n">gi</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ki</span>
+                        <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_quotas</span><span class="p">[</span><span class="n">gi</span><span class="p">]</span> <span class="o">/</span> <span class="n">seti_quotas</span><span class="p">[</span><span class="n">gi</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;diversity&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">gi</span> <span class="ow">in</span> <span class="n">cur_quotas</span><span class="p">:</span>
+                        <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_quotas</span><span class="p">[</span><span class="n">gi</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+                <span class="n">gi_top_ranking</span> <span class="o">=</span> <span class="n">top_ranking</span><span class="p">[</span><span class="n">top_ranking</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span> <span class="o">==</span> <span class="n">gi</span><span class="p">]</span>
+                <span class="n">gi_ranking_df</span> <span class="o">=</span> <span class="n">ranking_df</span><span class="p">[</span><span class="n">ranking_df</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span> <span class="o">==</span> <span class="n">gi</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;exposure&quot;</span><span class="p">:</span>
+                    <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">compute_cumulative_exposer</span><span class="p">(</span><span class="n">gi_top_ranking</span><span class="p">,</span> <span class="n">ki</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">eval_measure</span> <span class="o">==</span> <span class="s2">&quot;igf&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">gi_ranking_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">gi_top_ranking</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                            <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">compute_igf_ratio</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">gi_top_ranking</span><span class="p">[</span><span class="s2">&quot;UID&quot;</span><span class="p">]),</span> <span class="n">gi_ranking_df</span><span class="p">,</span> <span class="n">ranking</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="s1">&#39;individual&#39;</span> <span class="ow">in</span> <span class="n">eval_measure</span><span class="p">:</span>
+                    <span class="c1"># not applicable to group</span>
+                    <span class="n">gi_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">res_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">gi_row</span>
+
+    <span class="k">return</span> <span class="n">res_df</span></div>
+
+
+
+<div class="viewcode-block" id="compute_individual_fairness">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.compute_individual_fairness">[docs]</a>
+<span class="k">def</span> <span class="nf">compute_individual_fairness</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ranking</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the individual fairness score for the ranking.</span>
+
+<span class="sd">    :param data : pandas.DataFrame</span>
+<span class="sd">        The data to evaluate fairness.</span>
+<span class="sd">    :param ranking : str</span>
+<span class="sd">        The ranking column to use for evaluation.</span>
+
+<span class="sd">    :return : float</span>
+<span class="sd">        The individual fairness score between 0 and 1.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">if</span> <span class="s1">&#39;X&#39;</span> <span class="ow">in</span> <span class="n">col</span> <span class="ow">and</span> <span class="s1">&#39;_&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
+    <span class="n">distances_data</span> <span class="o">=</span> <span class="n">pairwise</span><span class="o">.</span><span class="n">euclidean_distances</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+                                                  <span class="n">data</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+
+    <span class="n">exposers</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ranking</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">distances_exposer</span> <span class="o">=</span> <span class="n">pairwise</span><span class="o">.</span><span class="n">euclidean_distances</span><span class="p">(</span><span class="n">exposers</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                                     <span class="n">exposers</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">yNN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">distances_data</span> <span class="o">-</span> <span class="n">distances_exposer</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">yNN</span></div>
+
+
+
+<div class="viewcode-block" id="compute_cumulative_exposer">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.compute_cumulative_exposer">[docs]</a>
+<span class="k">def</span> <span class="nf">compute_cumulative_exposer</span><span class="p">(</span><span class="n">df_top</span><span class="p">,</span> <span class="n">ki</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the cumulative exposure for the top-k items in the ranking.</span>
+
+<span class="sd">    :param df_top : pandas.DataFrame</span>
+<span class="sd">        The top-k items in the ranking.</span>
+<span class="sd">    :param ki : int</span>
+<span class="sd">        The number of top-k items.</span>
+
+<span class="sd">    :return : float</span>
+<span class="sd">        The cumulative exposure score.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_top</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ki</span><span class="p">:</span>
+        <span class="n">df_top</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_top</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_top</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ki</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_top</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">exposer_top_k</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df_top</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">exposer_top_k</span></div>
+
+
+
+<div class="viewcode-block" id="compute_igf_ratio">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.compute_igf_ratio">[docs]</a>
+<span class="k">def</span> <span class="nf">compute_igf_ratio</span><span class="p">(</span><span class="n">top_k_IDS</span><span class="p">,</span> <span class="n">_orig_df</span><span class="p">,</span> <span class="n">_orig_sort_col</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the IGF (Item Group Fairness) ratio for the top-k items.</span>
+
+<span class="sd">    :param top_k_IDS : list</span>
+<span class="sd">        A list of IDs representing the top-k items.</span>
+<span class="sd">    :param _orig_df : pandas.DataFrame</span>
+<span class="sd">        The original DataFrame containing all items.</span>
+<span class="sd">    :param _orig_sort_col : str</span>
+<span class="sd">        The column name to sort the original DataFrame by.</span>
+
+<span class="sd">    :return : float</span>
+<span class="sd">        The IGF ratio.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">accepted_candidates</span> <span class="o">=</span> <span class="n">_orig_df</span><span class="p">[</span><span class="s2">&quot;UID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">top_k_IDS</span><span class="p">)</span>
+    <span class="n">_lowest_accepted_score</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">_orig_df</span><span class="p">[</span><span class="n">accepted_candidates</span><span class="p">][</span><span class="n">_orig_sort_col</span><span class="p">])</span>
+
+    <span class="n">rejected_candidates</span> <span class="o">=</span> <span class="o">~</span><span class="n">accepted_candidates</span>
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">rejected_candidates</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="n">_highest_rejected_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">_orig_df</span><span class="p">[</span><span class="n">rejected_candidates</span><span class="p">][</span><span class="n">_orig_sort_col</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">_highest_rejected_score</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="n">cur_res</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">_orig_df</span><span class="p">[</span><span class="n">_orig_df</span><span class="p">[</span><span class="s2">&quot;UID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">top_k_IDS</span><span class="p">)][</span><span class="n">_orig_sort_col</span><span class="p">])</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span>
+        <span class="n">_orig_df</span><span class="p">[</span><span class="o">~</span><span class="n">_orig_df</span><span class="p">[</span><span class="s2">&quot;UID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">top_k_IDS</span><span class="p">)][</span><span class="n">_orig_sort_col</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">cur_res</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cur_res</span></div>
+
+
+
+<div class="viewcode-block" id="get_quotas_count">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.get_quotas_count">[docs]</a>
+<span class="k">def</span> <span class="nf">get_quotas_count</span><span class="p">(</span><span class="n">_df</span><span class="p">,</span> <span class="n">s_attribute</span><span class="p">,</span> <span class="n">sensitive_groups</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the quota count for each sensitive group in the data.</span>
+
+<span class="sd">    :param _df : pandas.DataFrame</span>
+<span class="sd">        The data to calculate the quotas for.</span>
+<span class="sd">    :param s_attribute : str</span>
+<span class="sd">        The sensitive attribute column name.</span>
+<span class="sd">    :param sensitive_groups : list</span>
+<span class="sd">        A list of sensitive attribute groups.</span>
+
+<span class="sd">    :return : dict</span>
+<span class="sd">        A dictionary with the sensitive group names as keys and their corresponding quota counts as values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sensitive_groups</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="n">s_attribute</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span>
+        <span class="n">res_dict</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">_df</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">res_dict</span></div>
+
+
+
+<div class="viewcode-block" id="get_sort_df">
+<a class="viewcode-back" href="../../../APIs/search/search.fairness_evaluator.html#fairdiverse.search.fairness_evaluator.get_sort_df">[docs]</a>
+<span class="k">def</span> <span class="nf">get_sort_df</span><span class="p">(</span><span class="n">_sort_col</span><span class="p">,</span> <span class="n">_df</span><span class="p">,</span> <span class="n">_k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sort the DataFrame by the specified column and return the top-k rows.</span>
+
+<span class="sd">    :param _sort_col : str</span>
+<span class="sd">        The column to sort the data by.</span>
+<span class="sd">    :param _df : pandas.DataFrame</span>
+<span class="sd">        The DataFrame to be sorted.</span>
+<span class="sd">    :param _k : int</span>
+<span class="sd">        The number of top items to return.</span>
+
+<span class="sd">    :return : pandas.DataFrame</span>
+<span class="sd">        The top-k sorted rows from the DataFrame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_df</span><span class="p">[</span><span class="n">_sort_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="n">_sort_col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">_k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">_sort_col</span><span class="p">:</span>
+        <span class="n">sort_df</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">_sort_col</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">_k</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sort_df</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">_sort_col</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">_k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sort_df</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

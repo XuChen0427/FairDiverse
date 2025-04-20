@@ -114,8 +114,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="lfr">
-<h1>LFR<a class="headerlink" href="#lfr" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.preprocessing_model.LFR">
+<span id="lfr"></span><h1>LFR<a class="headerlink" href="#module-fairdiverse.search.preprocessing_model.LFR" title="Link to this heading">¶</a></h1>
+<p>Learning fair representations is a pre-processing technique that finds a
+latent representation which encodes the data well but obfuscates information
+about protected attributes <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.
+.. rubric:: References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">2</a><span class="fn-bracket">]</span></span>
+<p>R. Zemel, Y. Wu, K. Swersky, T. Pitassi, and C. Dwork,  “Learning
+Fair Representations.” International Conference on Machine Learning,
+2013.</p>
+</aside>
+</aside>
+<p>Based on code from <a class="reference external" href="https://github.com/zjelveh/learning-fair-representations">https://github.com/zjelveh/learning-fair-representations</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.LFR.LFR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.preprocessing_model.LFR.</span></span><span class="sig-name descname"><span class="pre">LFR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/LFR.html#LFR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.LFR.LFR" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="search.preprocessing_model.fair_model.html#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention" title="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention"><code class="xref py py-class docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></p>
+<p>Learning Fair Representations (LFR) fairness intervention.</p>
+<p>This class applies the LFR approach to modify the dataset such that fairness constraints
+are met while preserving as much utility as possible.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.LFR.LFR.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/LFR.html#LFR.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.LFR.LFR.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Train the LFR fairness model using the given training dataset.</p>
+<p>This method optimizes a fairness objective by learning fair representations
+of the data using constrained optimization.</p>
+<dl class="simple">
+<dt>:param X_train<span class="classifier">pandas.DataFrame or numpy.ndarray</span></dt><dd><p>The training dataset. It is assumed that the last non-sensitive column is the target variable.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the training run.</p>
+</dd>
+<dt>:return<span class="classifier">self</span></dt><dd><p>The trained LFR model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.LFR.LFR.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/LFR.html#LFR.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.LFR.LFR.transform" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the fairness transformation to the dataset using the learned model.</p>
+<p>This method ensures fairness by adjusting feature distributions while maintaining data utility.</p>
+<dl class="simple">
+<dt>:param X<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset to which the fairness transformation is applied.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the transformation run.</p>
+</dd>
+<dt>:param file_name<span class="classifier">str, optional</span></dt><dd><p>Name of the file to save the transformed dataset.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset with transformed fair columns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

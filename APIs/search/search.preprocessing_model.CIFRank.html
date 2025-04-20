@@ -114,8 +114,86 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="cifrank">
-<h1>CIFRank<a class="headerlink" href="#cifrank" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.preprocessing_model.CIFRank">
+<span id="cifrank"></span><h1>CIFRank<a class="headerlink" href="#module-fairdiverse.search.preprocessing_model.CIFRank" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>&#64;article{yang2020causal,</dt><dd><p>title={Causal intersectionality for fair ranking},
+author={Yang, Ke and Loftus, Joshua R and Stoyanovich, Julia},
+journal={arXiv preprint arXiv:2006.08688},
+year={2020}</p>
+</dd>
+</dl>
+<p>}</p>
+<p>License
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the “Software”), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.CIFRank.CIFRank">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.preprocessing_model.CIFRank.</span></span><span class="sig-name descname"><span class="pre">CIFRank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/CIFRank.html#CIFRank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.CIFRank.CIFRank" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="search.preprocessing_model.fair_model.html#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention" title="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention"><code class="xref py py-class docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></p>
+<p>CIFRank class implements a fairness intervention method using causal intersectionality.</p>
+<p>This class extends the PreprocessingFairnessIntervention class and applies a causal fairness
+ranking model to the given dataset.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.CIFRank.CIFRank.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/CIFRank.html#CIFRank.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.CIFRank.CIFRank.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Train the causal fairness ranking model on the given training dataset.</p>
+<p>This method ensures that the necessary model directory exists and then runs the causal model.
+The trained model is saved in <cite>self.model_path</cite>.</p>
+<dl class="simple">
+<dt>:param X_train<span class="classifier">pandas.DataFrame</span></dt><dd><p>The training dataset.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the training run.</p>
+</dd>
+</dl>
+<p>:return : None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.CIFRank.CIFRank.generate_counterfactual_data">
+<span class="sig-name descname"><span class="pre">generate_counterfactual_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/CIFRank.html#CIFRank.generate_counterfactual_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.CIFRank.CIFRank.generate_counterfactual_data" title="Link to this definition">¶</a></dt>
+<dd><p>Generates the fair data by using the causal estimates
+:param data: data on which to append the fair columns
+:type data: pandas.Dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data containing the appended fair columns which contain
+the counterfactual values computed based on the causal estimates</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data (pandas.Dataframe)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.CIFRank.CIFRank.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/CIFRank.html#CIFRank.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.CIFRank.CIFRank.transform" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the fairness transformation to the dataset by generating fair counterfactual columns.</p>
+<p>Fair columns are generated using a naming convention <cite>&lt;column_name&gt;_fair</cite> and saved to a CSV file
+if it does not already exist.</p>
+<dl class="simple">
+<dt>:param X<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset to which the fairness method should be applied.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the transformation run.</p>
+</dd>
+<dt>:param file_name<span class="classifier">str, optional</span></dt><dd><p>Name of the file to save the transformed dataset.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset with appended fair columns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

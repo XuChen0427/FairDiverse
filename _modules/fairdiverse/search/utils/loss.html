@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fairdiverse.search.utils.loss &mdash; FairDiverse 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../../_static/documentation_options.js?v=a58bc63e"></script>
+      <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            FairDiverse
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Recommendation Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/evaluation.html">Parameter settings for evaluations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/new_dataset.html">Parameter settings for your new dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/In-processing.html">Parameter settings for in-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/recommendation/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search Parameters</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/new_dataset.html">Parameter settings for dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/data_preprocessing.html">Parameter settings data pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/Pre-processing.html">Parameter settings for pre-processing models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../parameters/search/Post-processing.html">Parameter settings for post-processing models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.reranker.html">reranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.trainer.html">trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.rank_model.Abstract_Ranker.html">Abstract_Ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.rerank_model.Abstract_Reranker.html">Abstract_Reranker</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.evaluator.html">recommendation.evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.llm_rec.html">recommendation.llm_rec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.metric.html">recommendation.metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.process_data.html">recommendation.process_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.sampler.html">sampler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/recommendation/recommendation.utils.group_utils.html">group_utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.trainer_preprocessing_ranker.html">trainer_preprocessing_ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.preprocessing_model.fair_model.html">fair_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.postprocessing_model.base.html">postprocessing_model.base</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.fairness_evaluator.html">fairness_evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.preprocessing_model.utils.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.ranker_model.ranker.html">ranker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.loss.html">loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.process_dataset.html">process_dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.utils.html">utils.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.llm_model.api_llm.html">api_llm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../APIs/search/search.utils.div_type.html">div_type</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">FairDiverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">fairdiverse.search.utils.loss</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for fairdiverse.search.utils.loss</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">MAXDOC</span> <span class="o">=</span> <span class="mi">50</span>
+
+
+<div class="viewcode-block" id="list_pairwise_loss">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.loss.html#fairdiverse.search.utils.loss.list_pairwise_loss">[docs]</a>
+<span class="k">def</span> <span class="nf">list_pairwise_loss</span><span class="p">(</span><span class="n">score_1</span><span class="p">,</span> <span class="n">score_2</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the accuracy and list-pairwise loss based on the difference between two scores. </span>
+<span class="sd">    </span>
+<span class="sd">    :param score_1: A tensor containing the scores for the first set of items.</span>
+<span class="sd">    :param score_2: A tensor containing the scores for the second set of items.</span>
+<span class="sd">    :param delta: A tensor representing the weight for each pairwise comparison.</span>
+<span class="sd">    :return: The accuracy and the computed list-pairwise loss.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">score_1</span><span class="o">-</span><span class="n">score_2</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">score_1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">delta</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1e-8</span><span class="o">+</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">score_1</span> <span class="o">-</span> <span class="n">score_2</span><span class="p">)))</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">score_1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">acc</span><span class="p">,</span> <span class="n">loss</span></div>
+
+
+
+<div class="viewcode-block" id="ndcg_loss">
+<a class="viewcode-back" href="../../../../APIs/search/search.utils.loss.html#fairdiverse.search.utils.loss.ndcg_loss">[docs]</a>
+<span class="k">def</span> <span class="nf">ndcg_loss</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">div</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the NDCG (Normalized Discounted Cumulative Gain) loss for ranking tasks. </span>
+<span class="sd">    </span>
+<span class="sd">    :param score: A tensor containing the predicted scores for each document.</span>
+<span class="sd">    :param div: A tensor containing the relevance or diversity values for each document.</span>
+<span class="sd">    :return: The computed NDCG loss.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">temp_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">score</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">-</span> <span class="n">score</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">MAXDOC</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">T</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">score</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">temp_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+    <span class="n">sigmoid_temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+    <span class="n">C_li</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">sigmoid_temp</span><span class="p">,</span> <span class="n">div</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">div</span>
+    <span class="n">pw</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">C_li</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">div</span><span class="p">,</span> <span class="n">pw</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">R_i</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sigmoid_temp</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">R_i</span><span class="p">)</span>
+    <span class="c1">#loss = 1.0 / (1e-6 + torch.sum(top/bottom))</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">top</span><span class="o">/</span><span class="n">bottom</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loss = &#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span></div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, FairDiverse Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

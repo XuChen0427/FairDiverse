@@ -68,7 +68,14 @@
 <p class="caption" role="heading"><span class="caption-text">Recommendation other APIs</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="recommendation.evaluator.html">recommendation.evaluator</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">recommendation.llm_rec</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">recommendation.llm_rec</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.llm_rec.LLMRecommender"><code class="docutils literal notranslate"><span class="pre">LLMRecommender</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.llm_rec.LLMRecommender.load_configs"><code class="docutils literal notranslate"><span class="pre">LLMRecommender.load_configs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.recommendation.llm_rec.LLMRecommender.recommend"><code class="docutils literal notranslate"><span class="pre">LLMRecommender.recommend()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html">recommendation.metric</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.process_data.html">recommendation.process_data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.sampler.html">sampler</a></li>
@@ -116,8 +123,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="recommendation-llm-rec">
-<h1>recommendation.llm_rec<a class="headerlink" href="#recommendation-llm-rec" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.recommendation.llm_rec">
+<span id="recommendation-llm-rec"></span><h1>recommendation.llm_rec<a class="headerlink" href="#module-fairdiverse.recommendation.llm_rec" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.llm_rec.LLMRecommender">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.llm_rec.</span></span><span class="sig-name descname"><span class="pre">LLMRecommender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/llm_rec.html#LLMRecommender"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.llm_rec.LLMRecommender" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.llm_rec.LLMRecommender.load_configs">
+<span class="sig-name descname"><span class="pre">load_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/llm_rec.html#LLMRecommender.load_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.llm_rec.LLMRecommender.load_configs" title="Link to this definition">¶</a></dt>
+<dd><p>Loads and merges configuration files for the model, dataset, and evaluation.</p>
+<p>This function loads multiple YAML configuration files, including the process configuration,
+dataset-specific settings, model configurations, and evaluation parameters. All configurations
+are merged, with the highest priority given to the class’s own <cite>config</cite> attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dir</strong> – The directory where the main process configuration file is located.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the merged configuration from all files.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.llm_rec.LLMRecommender.recommend">
+<span class="sig-name descname"><span class="pre">recommend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/llm_rec.html#LLMRecommender.recommend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.llm_rec.LLMRecommender.recommend" title="Link to this definition">¶</a></dt>
+<dd><p>Training LLMs-based in-processing and base model main workflow.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

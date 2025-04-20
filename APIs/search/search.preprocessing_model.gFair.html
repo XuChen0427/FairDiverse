@@ -114,8 +114,49 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gfair">
-<h1>gFair<a class="headerlink" href="#gfair" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.preprocessing_model.gFair">
+<span id="gfair"></span><h1>gFair<a class="headerlink" href="#module-fairdiverse.search.preprocessing_model.gFair" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.gFair.gFair">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.preprocessing_model.gFair.</span></span><span class="sig-name descname"><span class="pre">gFair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/gFair.html#gFair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.gFair.gFair" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="search.preprocessing_model.fair_model.html#fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention" title="fairdiverse.search.preprocessing_model.fair_model.PreprocessingFairnessIntervention"><code class="xref py py-class docutils literal notranslate"><span class="pre">PreprocessingFairnessIntervention</span></code></a></p>
+<p>gFair is a fairness intervention method based on optimization techniques.</p>
+<p>This class extends PreprocessingFairnessIntervention and applies group fairness constraints to data
+using probabilistic mapping and distance-based optimization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.gFair.gFair.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/gFair.html#gFair.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.gFair.gFair.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Train the gFair fairness model using the given training dataset.</p>
+<p>This method applies optimization to learn group fairness constraints and stores the results
+for later use.</p>
+<dl class="simple">
+<dt>:param X_train<span class="classifier">pandas.DataFrame</span></dt><dd><p>The training dataset. The last column is expected to be the protected attribute.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the training run.</p>
+</dd>
+</dl>
+<p>:return : None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.preprocessing_model.gFair.gFair.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/preprocessing_model/gFair.html#gFair.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.preprocessing_model.gFair.gFair.transform" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the fairness transformation to the dataset using the learned model.</p>
+<p>This method ensures fairness by adjusting feature distributions while maintaining data utility.</p>
+<dl class="simple">
+<dt>:param X<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset to which the fairness transformation is applied.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the transformation run.</p>
+</dd>
+<dt>:param file_name<span class="classifier">str, optional</span></dt><dd><p>Name of the file to save the transformed dataset.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataset with transformed fair columns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

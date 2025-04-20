@@ -85,7 +85,11 @@
 <li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html">fairness_evaluator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html">utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.ranker_model.ranker.html">ranker</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">loss</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">loss</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.loss.list_pairwise_loss"><code class="docutils literal notranslate"><span class="pre">list_pairwise_loss()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.loss.ndcg_loss"><code class="docutils literal notranslate"><span class="pre">ndcg_loss()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html">process_dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html">utils.utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.llm_model.api_llm.html">api_llm</a></li>
@@ -116,8 +120,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="loss">
-<h1>loss<a class="headerlink" href="#loss" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.utils.loss">
+<span id="loss"></span><h1>loss<a class="headerlink" href="#module-fairdiverse.search.utils.loss" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.loss.list_pairwise_loss">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.loss.</span></span><span class="sig-name descname"><span class="pre">list_pairwise_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/loss.html#list_pairwise_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.loss.list_pairwise_loss" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the accuracy and list-pairwise loss based on the difference between two scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score_1</strong> – A tensor containing the scores for the first set of items.</p></li>
+<li><p><strong>score_2</strong> – A tensor containing the scores for the second set of items.</p></li>
+<li><p><strong>delta</strong> – A tensor representing the weight for each pairwise comparison.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The accuracy and the computed list-pairwise loss.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.loss.ndcg_loss">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.loss.</span></span><span class="sig-name descname"><span class="pre">ndcg_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/loss.html#ndcg_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.loss.ndcg_loss" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the NDCG (Normalized Discounted Cumulative Gain) loss for ranking tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score</strong> – A tensor containing the predicted scores for each document.</p></li>
+<li><p><strong>div</strong> – A tensor containing the relevance or diversity values for each document.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed NDCG loss.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

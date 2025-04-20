@@ -82,7 +82,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search other APIs</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">fairness_evaluator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">fairness_evaluator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.compute_cumulative_exposer"><code class="docutils literal notranslate"><span class="pre">compute_cumulative_exposer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.compute_igf_ratio"><code class="docutils literal notranslate"><span class="pre">compute_igf_ratio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.compute_individual_fairness"><code class="docutils literal notranslate"><span class="pre">compute_individual_fairness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.evaluate"><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.evaluate_qid"><code class="docutils literal notranslate"><span class="pre">evaluate_qid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.evaluate_runs"><code class="docutils literal notranslate"><span class="pre">evaluate_runs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.get_quotas_count"><code class="docutils literal notranslate"><span class="pre">get_quotas_count()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.fairness_evaluator.get_sort_df"><code class="docutils literal notranslate"><span class="pre">get_sort_df()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html">utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.ranker_model.ranker.html">ranker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.loss.html">loss</a></li>
@@ -116,8 +126,144 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="fairness-evaluator">
-<h1>fairness_evaluator<a class="headerlink" href="#fairness-evaluator" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.fairness_evaluator">
+<span id="fairness-evaluator"></span><h1>fairness_evaluator<a class="headerlink" href="#module-fairdiverse.search.fairness_evaluator" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.compute_cumulative_exposer">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">compute_cumulative_exposer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ki</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#compute_cumulative_exposer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.compute_cumulative_exposer" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the cumulative exposure for the top-k items in the ranking.</p>
+<dl class="simple">
+<dt>:param df_top<span class="classifier">pandas.DataFrame</span></dt><dd><p>The top-k items in the ranking.</p>
+</dd>
+<dt>:param ki<span class="classifier">int</span></dt><dd><p>The number of top-k items.</p>
+</dd>
+<dt>:return<span class="classifier">float</span></dt><dd><p>The cumulative exposure score.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.compute_igf_ratio">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">compute_igf_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top_k_IDS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_orig_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_orig_sort_col</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#compute_igf_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.compute_igf_ratio" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the IGF (Item Group Fairness) ratio for the top-k items.</p>
+<dl class="simple">
+<dt>:param top_k_IDS<span class="classifier">list</span></dt><dd><p>A list of IDs representing the top-k items.</p>
+</dd>
+<dt>:param _orig_df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The original DataFrame containing all items.</p>
+</dd>
+<dt>:param _orig_sort_col<span class="classifier">str</span></dt><dd><p>The column name to sort the original DataFrame by.</p>
+</dd>
+<dt>:return<span class="classifier">float</span></dt><dd><p>The IGF ratio.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.compute_individual_fairness">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">compute_individual_fairness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranking</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#compute_individual_fairness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.compute_individual_fairness" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the individual fairness score for the ranking.</p>
+<dl class="simple">
+<dt>:param data<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data to evaluate fairness.</p>
+</dd>
+<dt>:param ranking<span class="classifier">str</span></dt><dd><p>The ranking column to use for evaluation.</p>
+</dd>
+<dt>:return<span class="classifier">float</span></dt><dd><p>The individual fairness score between 0 and 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.evaluate">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_eval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.evaluate" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate the given data by calculating metrics for each query and sensitive attribute.</p>
+<dl class="simple">
+<dt>:param data<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data containing the query identifiers and sensitive attribute.</p>
+</dd>
+<dt>:param query_col<span class="classifier">str</span></dt><dd><p>The column name for the query identifiers in the data.</p>
+</dd>
+<dt>:param s_attribute<span class="classifier">str</span></dt><dd><p>The sensitive attribute column name.</p>
+</dd>
+<dt>:param eval_path<span class="classifier">str</span></dt><dd><p>Path where evaluation results will be saved.</p>
+</dd>
+<dt>:param args_eval<span class="classifier">dict</span></dt><dd><p>A dictionary containing evaluation configurations, including metrics and other settings.</p>
+</dd>
+<dt>:return<span class="classifier">None</span></dt><dd><p>This function saves the evaluation results as CSV files.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.evaluate_qid">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">evaluate_qid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_eval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#evaluate_qid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.evaluate_qid" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate the data for a single query ID, calculating the specified metrics.</p>
+<dl class="simple">
+<dt>:param df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data for a single query ID.</p>
+</dd>
+<dt>:param eval_measure<span class="classifier">str</span></dt><dd><p>The evaluation metric to calculate.</p>
+</dd>
+<dt>:param s_attribute<span class="classifier">str</span></dt><dd><p>The sensitive attribute column name.</p>
+</dd>
+<dt>:param sensitive_groups<span class="classifier">list</span></dt><dd><p>A list of sensitive attribute groups.</p>
+</dd>
+<dt>:param args_eval<span class="classifier">dict</span></dt><dd><p>A dictionary containing evaluation configurations, including rankings and k list.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>A DataFrame containing the evaluation results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.evaluate_runs">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">evaluate_runs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args_eval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#evaluate_runs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.evaluate_runs" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate the runs by calculating metrics and saving the results in CSV files.</p>
+<dl class="simple">
+<dt>:param args_eval<span class="classifier">dict</span></dt><dd><p>A dictionary containing evaluation configurations, including metrics and other settings.</p>
+</dd>
+<dt>:param qids<span class="classifier">list</span></dt><dd><p>A list of unique query identifiers (QIDs) to evaluate.</p>
+</dd>
+<dt>:param eval_path<span class="classifier">str</span></dt><dd><p>Path where evaluation results will be saved.</p>
+</dd>
+<dt>:param runs<span class="classifier">int</span></dt><dd><p>Number of runs to evaluate.</p>
+</dd>
+<dt>:param split<span class="classifier">str</span></dt><dd><p>The data split to evaluate (e.g., “train”, “test”).</p>
+</dd>
+<dt>:return<span class="classifier">None</span></dt><dd><p>This function saves the evaluation results as CSV files.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.get_quotas_count">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">get_quotas_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_groups</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#get_quotas_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.get_quotas_count" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the quota count for each sensitive group in the data.</p>
+<dl class="simple">
+<dt>:param _df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data to calculate the quotas for.</p>
+</dd>
+<dt>:param s_attribute<span class="classifier">str</span></dt><dd><p>The sensitive attribute column name.</p>
+</dd>
+<dt>:param sensitive_groups<span class="classifier">list</span></dt><dd><p>A list of sensitive attribute groups.</p>
+</dd>
+<dt>:return<span class="classifier">dict</span></dt><dd><p>A dictionary with the sensitive group names as keys and their corresponding quota counts as values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.fairness_evaluator.get_sort_df">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.fairness_evaluator.</span></span><span class="sig-name descname"><span class="pre">get_sort_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_sort_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/fairness_evaluator.html#get_sort_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.fairness_evaluator.get_sort_df" title="Link to this definition">¶</a></dt>
+<dd><p>Sort the DataFrame by the specified column and return the top-k rows.</p>
+<dl class="simple">
+<dt>:param _sort_col<span class="classifier">str</span></dt><dd><p>The column to sort the data by.</p>
+</dd>
+<dt>:param _df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The DataFrame to be sorted.</p>
+</dd>
+<dt>:param _k<span class="classifier">int</span></dt><dd><p>The number of top items to return.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>The top-k sorted rows from the DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

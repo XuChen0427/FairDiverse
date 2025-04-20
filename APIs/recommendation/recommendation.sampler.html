@@ -71,7 +71,14 @@
 <li class="toctree-l1"><a class="reference internal" href="recommendation.llm_rec.html">recommendation.llm_rec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.metric.html">recommendation.metric</a></li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.process_data.html">recommendation.process_data</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">sampler</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">sampler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.sampler.AbstractDataset"><code class="docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.sampler.PairWiseDataset"><code class="docutils literal notranslate"><span class="pre">PairWiseDataset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.sampler.PointWiseDataset"><code class="docutils literal notranslate"><span class="pre">PointWiseDataset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.sampler.RankingTestDataset"><code class="docutils literal notranslate"><span class="pre">RankingTestDataset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.recommendation.sampler.SequentialDataset"><code class="docutils literal notranslate"><span class="pre">SequentialDataset</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="recommendation.utils.group_utils.html">group_utils</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Search develop APIs</span></p>
@@ -116,8 +123,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sampler">
-<h1>sampler<a class="headerlink" href="#sampler" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.recommendation.sampler">
+<span id="sampler"></span><h1>sampler<a class="headerlink" href="#module-fairdiverse.recommendation.sampler" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.sampler.AbstractDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.sampler.</span></span><span class="sig-name descname"><span class="pre">AbstractDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/sampler.html#AbstractDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.sampler.AbstractDataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.sampler.PairWiseDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.sampler.</span></span><span class="sig-name descname"><span class="pre">PairWiseDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/sampler.html#PairWiseDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.sampler.PairWiseDataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#fairdiverse.recommendation.sampler.AbstractDataset" title="fairdiverse.recommendation.sampler.AbstractDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.sampler.PointWiseDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.sampler.</span></span><span class="sig-name descname"><span class="pre">PointWiseDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/sampler.html#PointWiseDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.sampler.PointWiseDataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#fairdiverse.recommendation.sampler.AbstractDataset" title="fairdiverse.recommendation.sampler.AbstractDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.sampler.RankingTestDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.sampler.</span></span><span class="sig-name descname"><span class="pre">RankingTestDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/sampler.html#RankingTestDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.sampler.RankingTestDataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.recommendation.sampler.SequentialDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.recommendation.sampler.</span></span><span class="sig-name descname"><span class="pre">SequentialDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/recommendation/sampler.html#SequentialDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.recommendation.sampler.SequentialDataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#fairdiverse.recommendation.sampler.AbstractDataset" title="fairdiverse.recommendation.sampler.AbstractDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractDataset</span></code></a></p>
+</dd></dl>
+
 </section>
 
 

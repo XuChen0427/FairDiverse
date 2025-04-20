@@ -84,7 +84,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="search.fairness_evaluator.html">fairness_evaluator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html">utils</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ranker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ranker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.ranker_model.ranker.Ranker"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.ranker_model.ranker.Ranker.evaluate"><code class="docutils literal notranslate"><span class="pre">Ranker.evaluate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.ranker_model.ranker.Ranker.evaluate_run"><code class="docutils literal notranslate"><span class="pre">Ranker.evaluate_run()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.ranker_model.ranker.Ranker.predict"><code class="docutils literal notranslate"><span class="pre">Ranker.predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fairdiverse.search.ranker_model.ranker.Ranker.train"><code class="docutils literal notranslate"><span class="pre">Ranker.train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.loss.html">loss</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.process_dataset.html">process_dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html">utils.utils</a></li>
@@ -116,8 +125,88 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ranker">
-<h1>ranker<a class="headerlink" href="#ranker" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.ranker_model.ranker">
+<span id="ranker"></span><h1>ranker<a class="headerlink" href="#module-fairdiverse.search.ranker_model.ranker" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairdiverse.search.ranker_model.ranker.Ranker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairdiverse.search.ranker_model.ranker.</span></span><span class="sig-name descname"><span class="pre">Ranker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/ranker_model/ranker.html#Ranker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.ranker_model.ranker.Ranker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Ranker class for training and evaluating ranking models.</p>
+<p>This abstract class provides methods for training ranking models and evaluating their fairness
+using the provided dataset and configuration settings.</p>
+<dl class="simple">
+<dt>:param configs<span class="classifier">dict</span></dt><dd><p>Configuration dictionary containing paths and settings for the model and evaluation.</p>
+</dd>
+<dt>:param dataset<span class="classifier">object</span></dt><dd><p>The dataset object containing data and metadata for training and evaluation.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.ranker_model.ranker.Ranker.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/ranker_model/ranker.html#Ranker.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.ranker_model.ranker.Ranker.evaluate" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate multiple runs of the ranking model using fairness metrics.</p>
+<p>This method evaluates the model for all runs using the specified fairness metrics from the configuration.</p>
+<dl class="simple">
+<dt>:param file_name<span class="classifier">str</span></dt><dd><p>The name of the file to evaluate.</p>
+</dd>
+<dt>:return<span class="classifier">None</span></dt><dd><p>This method does not return anything. It performs the evaluation and saves the results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.ranker_model.ranker.Ranker.evaluate_run">
+<span class="sig-name descname"><span class="pre">evaluate_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/ranker_model/ranker.html#Ranker.evaluate_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.ranker_model.ranker.Ranker.evaluate_run" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate the results of a specific run and compute fairness metrics.</p>
+<p>This method evaluates the predictions using fairness metrics for each sensitive attribute
+in the dataset and saves the evaluation results.</p>
+<dl class="simple">
+<dt>:param pred<span class="classifier">pandas.DataFrame</span></dt><dd><p>The predictions to be evaluated.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the specific run.</p>
+</dd>
+<dt>:param file_name<span class="classifier">str</span></dt><dd><p>The name of the file containing predictions to evaluate.</p>
+</dd>
+<dt>:return<span class="classifier">None</span></dt><dd><p>This method does not return anything. It saves the evaluation results to the file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.ranker_model.ranker.Ranker.predict">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/ranker_model/ranker.html#Ranker.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.ranker_model.ranker.Ranker.predict" title="Link to this definition">¶</a></dt>
+<dd><p>Predict ranking scores for the given data.</p>
+<p>This method is abstract and should be implemented in subclasses to predict ranking scores
+based on the trained model. It appends the predicted scores to the provided data.</p>
+<dl class="simple">
+<dt>:param data<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data to be used for prediction.</p>
+</dd>
+<dt>:param run<span class="classifier">str</span></dt><dd><p>The identifier for the specific run.</p>
+</dd>
+<dt>:param file_name<span class="classifier">str</span></dt><dd><p>The name of the file where predictions will be saved.</p>
+</dd>
+<dt>:return<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data with an added column containing predicted ranking scores.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairdiverse.search.ranker_model.ranker.Ranker.train">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/ranker_model/ranker.html#Ranker.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.ranker_model.ranker.Ranker.train" title="Link to this definition">¶</a></dt>
+<dd><p>Train the ranking model.</p>
+<p>This method is abstract and needs to be implemented in the subclasses to train a ranking model
+based on the provided training and testing data. The trained model is saved at a specific location.</p>
+<dl class="simple">
+<dt>:param data_train<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data to be used for training the ranking model.</p>
+</dd>
+<dt>:param data_test<span class="classifier">pandas.DataFrame</span></dt><dd><p>The data to be used for testing the ranking model.</p>
+</dd>
+<dt>:return<span class="classifier">None</span></dt><dd><p>This method does not return anything. It saves the trained model to a file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

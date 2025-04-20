@@ -86,7 +86,18 @@
 <li class="toctree-l1"><a class="reference internal" href="search.preprocessing_model.utils.html">utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.ranker_model.ranker.html">ranker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.loss.html">loss</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">process_dataset</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">process_dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.calculate_best_rank"><code class="docutils literal notranslate"><span class="pre">calculate_best_rank()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.data_process"><code class="docutils literal notranslate"><span class="pre">data_process()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.data_process_worker"><code class="docutils literal notranslate"><span class="pre">data_process_worker()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.generate_qd"><code class="docutils literal notranslate"><span class="pre">generate_qd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.get_doc_judge"><code class="docutils literal notranslate"><span class="pre">get_doc_judge()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.get_docs_dict"><code class="docutils literal notranslate"><span class="pre">get_docs_dict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.get_query_dict"><code class="docutils literal notranslate"><span class="pre">get_query_dict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.get_query_suggestion"><code class="docutils literal notranslate"><span class="pre">get_query_suggestion()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fairdiverse.search.utils.process_dataset.get_stand_best_metric"><code class="docutils literal notranslate"><span class="pre">get_stand_best_metric()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.utils.html">utils.utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.llm_model.api_llm.html">api_llm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search.utils.div_type.html">div_type</a></li>
@@ -116,8 +127,131 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="process-dataset">
-<h1>process_dataset<a class="headerlink" href="#process-dataset" title="Link to this heading">¶</a></h1>
+  <section id="module-fairdiverse.search.utils.process_dataset">
+<span id="process-dataset"></span><h1>process_dataset<a class="headerlink" href="#module-fairdiverse.search.utils.process_dataset" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.calculate_best_rank">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">calculate_best_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#calculate_best_rank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.calculate_best_rank" title="Link to this definition">¶</a></dt>
+<dd><p>Calculates the best ranking of documents for each query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qd</strong> – A dictionary of <cite>div_query</cite> objects.</p></li>
+<li><p><strong>config</strong> – A dictionary containing configuration settings.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.data_process">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">data_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#data_process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.data_process" title="Link to this definition">¶</a></dt>
+<dd><p>Main function for processing query, document, and relevance data.
+:param config: A dictionary containing configuration settings.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.data_process_worker">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">data_process_worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#data_process_worker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.data_process_worker" title="Link to this definition">¶</a></dt>
+<dd><p>Processes a list of queries and saves them as data files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – A list of query ID and <cite>div_query</cite> objects to process.</p></li>
+<li><p><strong>data_dir</strong> – The directory where processed query data will be saved.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.generate_qd">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">generate_qd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#generate_qd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.generate_qd" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a <cite>div_query</cite> file from the data directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – A dictionary containing configuration settings.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of <cite>div_query</cite> objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.get_doc_judge">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">get_doc_judge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#get_doc_judge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.get_doc_judge" title="Link to this definition">¶</a></dt>
+<dd><p>Loads the document lists and relevance score lists for the corresponding queries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qd</strong> – A dictionary of <cite>div_query</cite> objects.</p></li>
+<li><p><strong>dd</strong> – A dictionary of document IDs for each query.</p></li>
+<li><p><strong>ds</strong> – A dictionary of relevance scores for documents for each query.</p></li>
+<li><p><strong>config</strong> – A dictionary containing configuration settings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated <cite>qd</cite> dictionary with documents and relevance scores added, and judged for relevance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.get_docs_dict">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">get_docs_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#get_docs_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.get_docs_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Loads the document IDs and their relevance scores for each query.
+docs_dict[qid] = [doc_id, …]
+docs_rel_score_dict[qid] = [score, …]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – A dictionary containing configuration settings.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Two dictionaries: docs_dict (query ID to document IDs) and docs_rel_score_dict (query ID to relevance scores).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.get_query_dict">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">get_query_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#get_query_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.get_query_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a dictionary of queries and their subtopics.
+:param config: A dictionary containing configuration settings.
+:return: A dictionary mapping query IDs (qid) to <cite>div_query</cite> objects containing the query and subtopics.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.get_query_suggestion">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">get_query_suggestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#get_query_suggestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.get_query_suggestion" title="Link to this definition">¶</a></dt>
+<dd><p>Adds query suggestions to the query dictionary (dq) for each query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dq</strong> – A dictionary of <cite>div_query</cite> objects.</p></li>
+<li><p><strong>config</strong> – A dictionary containing configuration settings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of <cite>div_query</cite> objects with added query suggestions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairdiverse.search.utils.process_dataset.get_stand_best_metric">
+<span class="sig-prename descclassname"><span class="pre">fairdiverse.search.utils.process_dataset.</span></span><span class="sig-name descname"><span class="pre">get_stand_best_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fairdiverse/search/utils/process_dataset.html#get_stand_best_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairdiverse.search.utils.process_dataset.get_stand_best_metric" title="Link to this definition">¶</a></dt>
+<dd><p>Loads the best alpha-nDCG metric from the DSSA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qd</strong> – A dictionary of <cite>div_query</cite> objects.</p></li>
+<li><p><strong>config</strong> – A dictionary containing configuration settings.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
