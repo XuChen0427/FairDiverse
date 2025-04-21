@@ -1,4 +1,7 @@
-.. automodule:: search.postprocessing_model.DESA
+DESA
+======
+
+.. automodule:: fairdiverse.search.postprocessing_model.DESA
    :members:
    :undoc-members:
    :show-inheritance:

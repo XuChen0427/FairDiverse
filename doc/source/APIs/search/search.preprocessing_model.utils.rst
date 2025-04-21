@@ -1,4 +1,7 @@
-.. automodule:: search.preprocessing_model.utils
+utils
+=======
+
+.. automodule:: fairdiverse.search.preprocessing_model.utils
    :members:
    :undoc-members:
    :show-inheritance:

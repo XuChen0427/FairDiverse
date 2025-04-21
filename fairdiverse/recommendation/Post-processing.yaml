@@ -1,16 +1,16 @@
 {
    ###############the ranking score stored path for the post-processing##################
    ##########If you do not have it, please run the in-processing stage, firstly############
-   ranking_store_path: "steam-base_mf",
+   ranking_store_path: "steam-base-mf",
    #######################################################################################
 
    ##################Post-processing model and log path############################
-   model: "Welf",
+   model: "ElasticRank",
    log_name: "test",
 
    #########################Evaluation parameters#########################################
    topk: [5, 10, 20],
-   fairness_metrics: ['MinMaxRatio', "MMF", "GINI", "Entropy"],
+   fairness_metrics: ['MinMaxRatio', "MMF", "GINI", "Entropy", "EF"],
    fairness_type: "Utility", # ["Exposure", "Utility"], where Exposure only computes the exposure of item group while utility computes the ranking score of item groups
    #####################################################################################
 }

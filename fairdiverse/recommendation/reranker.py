@@ -2,8 +2,8 @@ import numpy as np
 import os
 import yaml
 from scipy.sparse import save_npz, load_npz
-from .rerank_model import CPFair, FairRec, FairRecPlus, k_neighbor, min_regularizer, PMMF, Welf, TaxRank, FairSync, RAIF
-from .metric import dcg, MMF, Gini, Entropy, MinMaxRatio
+from .rerank_model import CPFair, FairRec, FairRecPlus, k_neighbor, min_regularizer, PMMF, Welf, TaxRank, FairSync, RAIF, ElasticRank
+from .metric import dcg, MMF, Gini, Entropy, MinMaxRatio, EF
 from datetime import datetime
 import json
 
@@ -95,6 +95,8 @@ class RecReRanker(object):
             Reranker = FairSync(config)
         elif config['model'] == 'RAIF':
             Reranker = RAIF(config)
+        elif config['model'] == 'ElasticRank':
+            Reranker = ElasticRank(config)
         else:
             raise NotImplementedError(f"We do not support the model type {self.train_config['model']}")
 
@@ -138,6 +140,8 @@ class RecReRanker(object):
                     rerank_result[f"Entropy@{k}"] = Entropy(exposure_list)
                 elif fairness_metric == 'GINI':
                     rerank_result[f"GINI@{k}"] = Gini(exposure_list)
+                elif fairness_metric == 'EF':
+                    rerank_result[f"EF@{k}"] = EF(exposure_list)
 
             #rerank_result[f"mmf@{k}"] = MMF(exposure_list)
             #rerank_result[f"gini@{k}"] = Gini(exposure_list)

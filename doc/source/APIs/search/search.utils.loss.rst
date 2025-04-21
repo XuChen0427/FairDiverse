@@ -1,4 +1,7 @@
-.. automodule:: search.utils.loss
+loss
+=======
+
+.. automodule:: fairdiverse.search.utils.loss
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,4 +1,7 @@
-.. automodule:: search.datasets.LLM
+LLM
+======
+
+.. automodule:: fairdiverse.search.datasets.LLM
    :members:
    :undoc-members:
    :show-inheritance:

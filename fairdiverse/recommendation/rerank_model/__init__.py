@@ -8,3 +8,4 @@ from .Welf import Welf
 from .TaxRank import TaxRank
 from .FairSync import FairSync
 from .RAIF import RAIF
+from .ElasticRank import ElasticRank

@@ -243,5 +243,51 @@ def Entropy(utility_list, weights=None, group_mask = None):
     entropy_value = -np.sum(values * np.log2(values + 1e-9))
     return entropy_value
 
+def ElasticFair(utils,t):
+    """
+       Calculate the elasticfair metric from the paper of SIGIR 2025:
+       Understanding Accuracy-Fairness Trade-offs in Re-ranking through Elasticity in Economics
+
+
+       :param utils: list or array-like
+           A list or array representing utility values for each item.
+       :param t: taxation rate
+           different t will align with different fairness metric
+           for example t=0: Entropy, t=1: Nash fairness, t=\infty: max-min fairness
+
+       :return: float: The fairness metric value under specific t.
+    """
+
+    if t != 0:
+        sign = np.sign(1-t)
+        utils_g = np.sum(np.power(utils,1-t))
+        utils_g = np.power(utils_g, 1/t)
+        return sign * utils_g
+    else:
+        entropy = - np.sum(utils * np.log(utils))
+        return np.exp(entropy)
+
+def EF(utility_list, M = 50, weights=None, group_mask = None):
+    """
+       Calculate the EF metric from the paper of SIGIR 2025:
+       Understanding Accuracy-Fairness Trade-offs in Re-ranking through Elasticity in Economics
+
+
+       :param utils: list or array-like
+           A list or array representing utility values for each item.
+       :param M: bound of the integral
+
+       :return: float: The fairness metric EF value.
+    """
+
+    utility_list = reconstruct_utility(utility_list, weights, group_mask)
+    utility_list = utility_list / np.sum(utility_list)
+
+    t = np.linspace(1 - M, 1 + M, 200)
+    fair = []
+    for i in t:
+        fair.append(ElasticFair(utility_list, i))
+    integral = np.trapz(fair, t)
+    return integral/(2*M*len(utility_list))
 
 

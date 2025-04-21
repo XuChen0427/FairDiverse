@@ -1,6 +1,6 @@
 ## FairDiverse
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) | [![API documents](https://img.shields.io/badge/API-Document-green)](https://xuchen0427.github.io/FairDiverse/) | [![Pypi](https://img.shields.io/badge/Pypi-v.1.0.0-red)](https://pypi.org/project/fairdiverse/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) | [![API documents](https://img.shields.io/badge/API-Document-green)](https://xuchen0427.github.io/FairDiverse/) | [![Pypi](https://img.shields.io/badge/Pypi-v.1.0.0-red)](https://pypi.org/project/fairdiverse/) | [![Pypi](https://img.shields.io/badge/Paper-Pdf-yellow)](https://arxiv.org/abs/2502.11883/)
 
 __FairDiverse__ is a toolkit for reproducing and developing fairness- and diversity-aware Information Retrieval (IR) tasks.
 
@@ -374,3 +374,21 @@ trainer.train()
 
 ## License
 FairDiverse uses [MIT License](./LICENSE). All data and code in this project can only be used for academic purposes.
+
+## Citation
+If you use our toolkit in the paper, please reference the following bib:
+```
+@inproceedings{xu2025fairdiverse,
+  author       = {Chen Xu and Zhirui Deng and Clara Rus and Xiaopeng Ye and Yuanna Liu and Jun Xu and Zhicheng Dou and Ji-Rong Wen and Maarten de Rijke},
+  title        = {FairDiverse: A Comprehensive Toolkit for Fair and Diverse Information Retrieval Algorithms},
+  booktitle    = {Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '25)},
+  year         = {2025},
+  isbn         = {979-8-4007-1592-1},
+  publisher    = {Association for Computing Machinery},
+  address      = {Padua, Italy},
+  month        = {July},
+  doi          = {10.1145/3726302.3730280},
+  url          = {https://doi.org/10.1145/3726302.3730280}
+}
+```
+

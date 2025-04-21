@@ -1,4 +1,7 @@
-.. automodule:: recommendation.trainer
+trainer
+=========
+
+.. automodule:: fairdiverse.recommendation.trainer
    :members:
    :undoc-members:
    :show-inheritance:
