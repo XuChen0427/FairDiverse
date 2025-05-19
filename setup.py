@@ -14,7 +14,7 @@ install_requires = [
     "scipy",
     "cvxpy",
     "tqdm>=4.65.0",
-    "scikit_learn",
+    "scikit_learn>=1.3.0",
     "pot",
     "mip>=1.15.0",
     "gurobipy>=12.0.1"
@@ -23,7 +23,7 @@ install_requires = [
 setup_requires = []
 
 
-classifiers = ["License :: OSI Approved :: MIT License"]
+#classifiers = ["License :: OSI Approved :: MIT License"]
 
 long_description = (
     "FairDiverse is developed based on Python for "
@@ -57,6 +57,6 @@ setup(
     setup_requires=setup_requires,
     extras_require=None,
     zip_safe=False,
-    classifiers=classifiers,
+    #classifiers=classifiers,
     python_requires=">=3.6",
 )

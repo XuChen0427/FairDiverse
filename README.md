@@ -198,6 +198,7 @@ For the search dataset, we utilize the [ClueWeb dataset](https://lemurproject.or
 | Learning-based     | [FairSync](https://arxiv.org/abs/2402.10628)                                | proposes to guarantee the minimum group utility under distributed retrieval stages.          |
 | Learning-based     | [Tax-Rank](https://dl.acm.org/doi/10.1145/3626772.3657766) | applies the optimal transportation (OT) algorithm to trade-off fairness-accuracy.    |
 | Learning-based     | [Welf](https://arxiv.org/abs/2110.15781)                   | use the Frank-Wolfe algorithm to maximize the Welfare functions of worst-off items.      |
+| Learning-based     | [ElasticRank](https://arxiv.org/abs/2504.14991)                   | use the Elastic theory to optimize the fair re-ranking.      |
 
 ### Search tasks
 
