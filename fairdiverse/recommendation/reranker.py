@@ -108,7 +108,12 @@ class RecReRanker(object):
         for k in config['topk']:
             rerank_result.update({f"{m}@{k}":0 for m in metrics})
 
-            rerank_list = Reranker.rerank(ranking_scores, k)
+            if config['fair-rank'] == True:
+                rerank_list = Reranker.rerank(ranking_scores, k)
+            else:
+                result_item = np.argsort(ranking_scores,axis=-1)[:,::-1]
+                rerank_list = result_item[:,:k]
+
             exposure_list = np.zeros(config['group_num'])
             for u in range(len(rerank_list)):
                 sorted_result_score = np.sort(ranking_scores[u])[::-1]

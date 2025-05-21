@@ -4,7 +4,9 @@
    ranking_store_path: "steam-base-mf",
    #######################################################################################
 
+
    ##################Post-processing model and log path############################
+   fair-rank: False, ##if you want to run a fair-rank module on the base models, you should set the value as True
    model: "ElasticRank",
    log_name: "test",
 
