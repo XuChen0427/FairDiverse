@@ -363,6 +363,8 @@ def Process(dataset, config=None):
     val_ranking = construct_ranking_data(val)
     test_ranking = construct_ranking_data(test)
 
+    val_ranking["items"] = val_ranking["items"].apply(lambda lst: [int(x) for x in lst])
+    test_ranking["items"] = test_ranking["items"].apply(lambda lst: [int(x) for x in lst])
 
     val_ranking.to_csv(os.path.join(dir,dataset+".valid.ranking"), index=False,sep='\t')
     test_ranking.to_csv(os.path.join(dir,dataset+".test.ranking"), index=False,sep='\t')
