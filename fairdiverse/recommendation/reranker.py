@@ -7,6 +7,8 @@ from .metric import dcg, MMF, Gini, Entropy, MinMaxRatio, EF
 from datetime import datetime
 import json
 
+from .utils import Build_Adjecent_Matrix
+
 
 class RecReRanker(object):
     def __init__(self, train_config):
@@ -37,16 +39,17 @@ class RecReRanker(object):
             config = yaml.safe_load(f)
         # print(train_data_df.head())
 
-        print("start to load model...")
-        with open(os.path.join("recommendation", "properties", "models.yaml"), 'r') as f:
-            model_config = yaml.safe_load(f)
+        if self.train_config['fair-rank'] == True:
+            print("start to load model...")
+            with open(os.path.join("recommendation", "properties", "models.yaml"), 'r') as f:
+                model_config = yaml.safe_load(f)
 
-        model_path = os.path.join("recommendation", "properties", "models", self.train_config['model'] + ".yaml")
-        # if not os.path.exists(model_path):
-        #     raise NotImplementedError("we do not support such model type!")
-        with open(model_path, 'r') as f:
-            model_config.update(yaml.safe_load(f))
-        config.update(model_config)
+            model_path = os.path.join("recommendation", "properties", "models", self.train_config['model'] + ".yaml")
+            # if not os.path.exists(model_path):
+            #     raise NotImplementedError("we do not support such model type!")
+            with open(model_path, 'r') as f:
+                model_config.update(yaml.safe_load(f))
+            config.update(model_config)
 
         with open(os.path.join("recommendation", "properties", "evaluation.yaml"), 'r') as f:
             config.update(yaml.safe_load(f))
@@ -70,13 +73,13 @@ class RecReRanker(object):
             raise ValueError(f"do not exist the path {ranking_score_path}, please check the path or run the ranking phase to generate scores for re-ranking !")
         print("loading ranking scores....")
         file = os.path.join(ranking_score_path, "ranking_scores.npz")
-        ranking_scores = load_npz(file)
-        ranking_scores = ranking_scores.toarray() #[user_num, item_num]
-        #print(np.count_nonzero(ranking_scores))
-        #exit(0)
+        ranking_scores = load_npz(file).toarray() #[user_num, item_num]
         ranking_scores[ranking_scores == 0] = -1000.0
+
         ###we need to remove the group do not appear after the ranking phase, for evaluate full group, please evaluate in retrieval stage
 
+        if config['fair-rank'] == False:
+            config['model'] = None
 
 
         if config['model'] == "CPFair":
@@ -101,6 +104,8 @@ class RecReRanker(object):
             Reranker = RAIF(config)
         elif config['model'] == 'ElasticRank':
             Reranker = ElasticRank(config)
+        elif config['model'] == None:
+            print("No model loaded!")
         else:
             raise NotImplementedError(f"We do not support the model type {self.train_config['model']}")
 
@@ -125,10 +130,14 @@ class RecReRanker(object):
                 rerank_items = rerank_list[u]
 
                 for i in rerank_items:
-                    if i not in Reranker.iid2pid.keys():
+                    if config['fair-rank'] == False:
+                        _, iid2pid = Build_Adjecent_Matrix(config)
+                    else:
+                        iid2pid = Reranker.iid2pid
+                    if i not in iid2pid.keys():
                         gid = 0
                     else:
-                        gid = Reranker.iid2pid[i]
+                        gid = iid2pid[i]
                     if config['fairness_type'] == "Exposure":
                         exposure_list[gid] += 1
                     else:
