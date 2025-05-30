@@ -134,6 +134,11 @@ class Ranking_Evaluator(Abstract_Evaluator):
                     index = index + 1
                     real_item_ids = items[b].numpy().tolist()
                     col.extend(real_item_ids)
+                    # print(row)
+                    # print(col)
+                    # has_duplicates = len(col) != len(set(col))
+                    # print("是否有重复元素:", has_duplicates)
+                    # exit(0)
                     #print(model.IR_type)
                     if 'retrieval' not in model.IR_type:
                         #if self.config['data_type'] == 'point' or self.config['data_type'] == 'pair':
@@ -152,7 +157,9 @@ class Ranking_Evaluator(Abstract_Evaluator):
                         i = items[b].to(self.config['device'])
 
                         score = model.full_predict(user_dict, i.unsqueeze(0)).cpu().numpy()[0]
-
+                    score = score + 1.0
+                    # print(score)
+                    # print(score.shape)
                     data.extend(score.tolist())
                     #ranked_score = np.sort(score)[::-1]
                     label_list = [1] * pos_length[b] + [0] * (sample_size - pos_length[b])
@@ -167,6 +174,7 @@ class Ranking_Evaluator(Abstract_Evaluator):
                         ######count the exposures for the computing fairness degree#############
                         ids = ranked_args[:k]
                         rank_items = np.array(real_item_ids)[ids]
+                        #print(rank_items)
                         for i, iid in enumerate(rank_items):
                             group_id = self.iid2pid[iid]
                             if self.config['fairness_type'] == "Exposure":

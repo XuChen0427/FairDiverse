@@ -70,7 +70,11 @@ class RecReRanker(object):
             raise ValueError(f"do not exist the path {ranking_score_path}, please check the path or run the ranking phase to generate scores for re-ranking !")
         print("loading ranking scores....")
         file = os.path.join(ranking_score_path, "ranking_scores.npz")
-        ranking_scores = load_npz(file).toarray() #[user_num, item_num]
+        ranking_scores = load_npz(file)
+        ranking_scores = ranking_scores.toarray() #[user_num, item_num]
+        #print(np.count_nonzero(ranking_scores))
+        #exit(0)
+        ranking_scores[ranking_scores == 0] = -1000.0
         ###we need to remove the group do not appear after the ranking phase, for evaluate full group, please evaluate in retrieval stage
 
 

@@ -346,7 +346,7 @@ def Process(dataset, config=None):
 
             for r in range(process_config['sample_num']-pos_length):
                 neg_id = random.randint(0, item_num-1)
-                while neg_id in user2pos_itemset[u]:
+                while neg_id in user2pos_itemset[u] or neg_id in itemset:
                     neg_id = random.randint(0, item_num - 1)
                 itemset.append(neg_id)
 

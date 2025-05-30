@@ -5,11 +5,11 @@
    #############################################################
 
    ##Should the preprocessing be redone based on the new parameters instead of using the cached files in ~/recommendation/process_dataset######
-   reprocess: False,
+   reprocess: True,
    ###############################################
 
    ####fair-rank model settings
-   fair-rank: True, ##if you want to run a fair-rank module on the base models, you should set the value as True
+   fair-rank: False, ##if you want to run a fair-rank module on the base models, you should set the value as True
    rank_model: 'APR',
    #################
 
