@@ -253,7 +253,7 @@ def ElasticFair(utils,t):
            A list or array representing utility values for each item.
        :param t: taxation rate
            different t will align with different fairness metric
-           for example t=0: Entropy, t=1: Nash fairness, t=\infty: max-min fairness
+           for example t=0: Entropy, t=1: Nash fairness, t=\\infty: max-min fairness
 
        :return: float: The fairness metric value under specific t.
     """

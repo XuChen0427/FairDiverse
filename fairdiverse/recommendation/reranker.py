@@ -2,7 +2,7 @@ import numpy as np
 import os
 import yaml
 from scipy.sparse import save_npz, load_npz
-from .rerank_model import CPFair, FairRec, FairRecPlus, k_neighbor, min_regularizer, PMMF, Welf, TaxRank, FairSync, RAIF, ElasticRank
+from .rerank_model import CPFair, FairRec, FairRecPlus, k_neighbor, min_regularizer, PMMF, Welf, TaxRank, FairSync, RAIF, ElasticRank, ManifoldRank
 from .metric import dcg, MMF, Gini, Entropy, MinMaxRatio, EF
 from datetime import datetime
 import json
@@ -39,6 +39,9 @@ class RecReRanker(object):
             config = yaml.safe_load(f)
         # print(train_data_df.head())
 
+        with open(os.path.join("recommendation", "properties", "evaluation.yaml"), 'r') as f:
+            config.update(yaml.safe_load(f))
+
         if self.train_config['fair-rank'] == True:
             print("start to load model...")
             with open(os.path.join("recommendation", "properties", "models.yaml"), 'r') as f:
@@ -50,9 +53,6 @@ class RecReRanker(object):
             with open(model_path, 'r') as f:
                 model_config.update(yaml.safe_load(f))
             config.update(model_config)
-
-        with open(os.path.join("recommendation", "properties", "evaluation.yaml"), 'r') as f:
-            config.update(yaml.safe_load(f))
 
         config.update(self.train_config)  ###train_config has highest rights
         print("your loading config is:")
@@ -74,7 +74,6 @@ class RecReRanker(object):
         print("loading ranking scores....")
         file = os.path.join(ranking_score_path, "ranking_scores.npz")
         ranking_scores = load_npz(file).toarray() #[user_num, item_num]
-        ranking_scores[ranking_scores == 0] = -1000.0
 
         ###we need to remove the group do not appear after the ranking phase, for evaluate full group, please evaluate in retrieval stage
 
@@ -104,6 +103,8 @@ class RecReRanker(object):
             Reranker = RAIF(config)
         elif config['model'] == 'ElasticRank':
             Reranker = ElasticRank(config)
+        elif config['model'] == 'ManifoldRank':
+            Reranker = ManifoldRank(config)
         elif config['model'] == None:
             print("No model loaded!")
         else:

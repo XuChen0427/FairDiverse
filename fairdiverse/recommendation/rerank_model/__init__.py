@@ -9,3 +9,4 @@ from .TaxRank import TaxRank
 from .FairSync import FairSync
 from .RAIF import RAIF
 from .ElasticRank import ElasticRank
+from .ManifoldRank import ManifoldRank
